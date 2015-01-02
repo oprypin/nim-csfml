@@ -77,7 +77,7 @@ proc keyboard_isKeyPressed*(key: KeyCode): IntBool {.
 #--- SFML/Window/Mouse ---#
 
 type MouseButton* {.pure, size: sizeof(cint).} = enum
-  Left, Right, Middle, XButton1, XButton2, ButtonCount
+  Left, Right, Middle, XButton1, XButton2, Count
 
 proc mouse_isButtonPressed*(button: MouseButton): IntBool {.
   cdecl, dynlib: lib, importc: "sfMouse_isButtonPressed".}
@@ -159,13 +159,8 @@ proc valid*(mode: VideoMode): IntBool {.
 
 #--- SFML/Window/WindowHandle ---#
 
-const
-  None* = 0
-  Titlebar* = 1
-  Resize* = 2
-  Close* = 4
-  Fullscreen* = 8
-  DefaultStyle* = 7
+type WindowStyle* {.pure, size: sizeof(cint).} = enum
+  None = 0, Titlebar = 1, Resize = 2, Close = 4, Default = 7, Fullscreen = 8
 
 type ContextSettings* {.pure, final.} = object
   depthBits*: cint

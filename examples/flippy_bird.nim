@@ -3,7 +3,7 @@ import csfml
 let settings = context_settings(depth=32, antialiasing=8)
 let video_mode = video_mode(800, 600)
 
-var window = new_RenderWindow(video_mode, "pɹıq ʎddılɟ", DefaultStyle, settings)
+var window = new_RenderWindow(video_mode, "pɹıq ʎddılɟ", WindowStyle.Default, settings)
 window.vertical_sync_enabled = true
 
 let bird_texture = new_Texture("bird.png", rect(0, 0, 0, 0))
@@ -35,10 +35,9 @@ while window.open:
     
     speed += 0.3
     bird.move vec2(0.0, speed)
-    if speed*8.0 < 90.0:
-        bird.rotation = speed*8.0
-    else:
-        bird.rotation = 90.0
+    bird.rotation = 
+      if speed*8.0 < 90.0: speed*8.0
+      else: 90.0
      
     window.clear color(112, 197, 206)
     window.draw bird

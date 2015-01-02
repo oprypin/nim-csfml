@@ -149,7 +149,7 @@ proc renderStates*(blendMode: BlendMode = BlendMode.Alpha, transform: Transform 
 proc `title=`*(window: RenderWindow, title: string) =
   var t = utf8to32(title)
   window.unicodeTitle = addr(t[0])
-proc newRenderWindow*(mode: VideoMode, title: string, style: uint32 = DefaultStyle, settings: ContextSettings = contextSettings()): RenderWindow =
+proc newRenderWindow*(mode: VideoMode, title: string, style: uint32 = WindowStyle.Default, settings: ContextSettings = contextSettings()): RenderWindow =
   var t = utf8to32(title)
   return newRenderWindow(mode, addr(t[0]), style, settings)
 
@@ -172,3 +172,6 @@ defDraw VertexArray
 
 template draw*[T: RenderTexture|RenderWindow, O](renderTarget: T, obj: O, states: RenderStates = renderStates()): stmt =
     obj.draw(renderTarget, states)
+
+
+converter toUint32*(a: TextStyle): uint32 = uint32 a

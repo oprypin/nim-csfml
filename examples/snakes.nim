@@ -4,7 +4,7 @@ import csfml
 
 var window = new_RenderWindow(
     video_mode(800, 800), "Snakes",
-    DefaultStyle, context_settings(32, antialiasing=8)
+    WindowStyle.Default, context_settings(32, antialiasing=8)
 )
 window.framerate_limit = 10
 

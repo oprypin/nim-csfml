@@ -14,7 +14,9 @@ let paddleSize = vec2(25, 100)
 let ballRadius = 10.0
 
 # Create the window of the application
-var window = newRenderWindow(videoMode(gameWidth, gameHeight), "SFML Pong", Titlebar or Close)
+var window = newRenderWindow(
+  videoMode(gameWidth, gameHeight), "SFML Pong",
+  WindowStyle.Titlebar|WindowStyle.Close)
 window.verticalSyncEnabled = true
 
 # Load the sounds used in the game

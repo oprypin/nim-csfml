@@ -21,7 +21,7 @@
 {.deadCodeElim: on.}
 
 
-import unicode
+import unicode, unsigned
 
 proc utf8to32*(s: string): seq[uint32] =
   result = @[]
@@ -34,3 +34,5 @@ converter toBool*(x: IntBool): bool =
     cint(x) != 0
 converter toIntBool*(x: bool): IntBool =
     IntBool(if x: 1 else: 0)
+
+proc `|`*(a, b: uint32): uint32 = a or b

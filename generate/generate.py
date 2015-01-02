@@ -108,6 +108,8 @@ def handle_enum(name, items):
     nitems = list(zip(nitems, (value for name, value in items)))
 
     nname = rename_sf(name)
+    if all(value is not None for name, value in nitems):
+        nitems.sort(key=lambda kv: int(kv[1]))
     yield 'type {}* {{.pure, size: sizeof(cint).}} = enum'.format(nname)
     yield '\n'.join(textwrap.wrap(', '.join(
         ('{} = {}'.format(name, value) if value is not None else name)

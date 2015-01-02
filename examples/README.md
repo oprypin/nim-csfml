@@ -1,12 +1,12 @@
 Examples
 ========
 
-### simple
+### [simple](simple.nim)
 
 - Show a `Window`
 - React to close event
 
-### flippy_bird
+### [flippy_bird](flippy_bird.nim)
 
 - Show a `RenderWindow`
 - Setup antialiasing
@@ -15,7 +15,7 @@ Examples
 - Use a `Texture` and a `Sprite`
     - Move, scale, rotate, draw
 
-### pong
+### [pong](pong.nim)
 
 Pong example [from SFML](https://github.com/LaurentGomila/SFML/blob/master/examples/pong)
 
@@ -26,7 +26,7 @@ Pong example [from SFML](https://github.com/LaurentGomila/SFML/blob/master/examp
 - Keyboard querying
 - Math
 
-### snakes
+### [snakes](snakes.nim)
 
 - Object-oriented
 - Custom drawables

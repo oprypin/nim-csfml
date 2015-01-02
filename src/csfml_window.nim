@@ -62,9 +62,13 @@ proc contextSettings*(depth: cint = 0, stencil: cint = 0, antialiasing: cint = 0
   result.minorVersion = minor
 
 
+converter toUint32*(a: WindowStyle): uint32 = uint32 a
+
 proc `title=`*(window: Window, title: string) =
   var t = utf8to32(title)
   window.unicodeTitle = addr(t[0])
-proc newWindow*(mode: VideoMode, title: string, style: uint32 = DefaultStyle, settings: ContextSettings = contextSettings()): Window =
+proc newWindow*(mode: VideoMode, title: string, style: uint32 = WindowStyle.Default, settings: ContextSettings = contextSettings()): Window =
   var t = utf8to32(title)
   return newWindow(mode, addr(t[0]), style, settings)
+
+
