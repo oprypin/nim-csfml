@@ -200,7 +200,7 @@ transform.scale vec2(20, 20)
 
 let states = render_states(transform=transform)
 
-while window.is_open:
+while window.open:
     var event: Event
     while window.poll_event(event):
         if event.kind == EventType.Closed or

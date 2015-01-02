@@ -130,7 +130,7 @@ proc volume*(music: Music): cfloat {.
 proc position*(music: Music): Vector3f {.
   cdecl, dynlib: lib, importc: "sfMusic_getPosition".}
 
-proc isRelativeToListener*(music: Music): IntBool {.
+proc relativeToListener*(music: Music): IntBool {.
   cdecl, dynlib: lib, importc: "sfMusic_isRelativeToListener".}
 
 proc minDistance*(music: Music): cfloat {.
@@ -205,7 +205,7 @@ proc volume*(sound: Sound): cfloat {.
 proc position*(sound: Sound): Vector3f {.
   cdecl, dynlib: lib, importc: "sfSound_getPosition".}
 
-proc isRelativeToListener*(sound: Sound): IntBool {.
+proc relativeToListener*(sound: Sound): IntBool {.
   cdecl, dynlib: lib, importc: "sfSound_isRelativeToListener".}
 
 proc minDistance*(sound: Sound): cfloat {.

@@ -20,7 +20,7 @@ var speed = 0.0
 
 var event: Event
 
-while window.is_open:
+while window.open:
     while window.poll_event(event):
         case event.kind
           of EventType.Closed:

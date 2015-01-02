@@ -152,6 +152,8 @@ def handle_function(main, params):
     cimp = ' {{.\n  cdecl, dynlib: lib, importc: "{}".}}'.format(fname)
     if nfname.startswith('get') and nfname[3].isupper() and len(params)==1:
         nfname = nfname[3].lower()+nfname[4:]
+    elif nfname.startswith('is') and nfname[2].isupper() and len(params)==1:
+        nfname = nfname[2].lower()+nfname[3:]
     elif nfname.startswith('set') and nfname[3].isupper() and len(params)==2:
         main_sgn = 'proc `{nfname}=`*({sparams}): {nftype}'
         main_fn = '`{nfname}=`'
@@ -180,8 +182,6 @@ def handle_function(main, params):
             s = sgn.format(**locals())+' ='
             s += '\n  ('+'; '.join('var C{0} = {0}'.format(rname) for rname in replv)
             s += ')\n  '
-            if nftype!='void':
-                s += 'return '
             s += main_fn.format(**locals())
             s += '('+', '.join('C'+p if p in replv else p for p, _ in aparams)+')'
             r.add(s)

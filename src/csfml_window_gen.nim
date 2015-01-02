@@ -150,7 +150,7 @@ proc videoMode_getDesktopMode*(): VideoMode {.
 proc videoMode_getFullscreenModes*(count: ptr int): var VideoMode {.
   cdecl, dynlib: lib, importc: "sfVideoMode_getFullscreenModes".}
 
-proc isValid*(mode: VideoMode): IntBool {.
+proc valid*(mode: VideoMode): IntBool {.
   cdecl, dynlib: lib, importc: "sfVideoMode_isValid".}
 
 
@@ -178,19 +178,19 @@ proc newWindow*(mode: VideoMode, title: cstring, style: uint32, settings: (var C
   cdecl, dynlib: lib, importc: "sfWindow_create".}
 proc newWindow*(mode: VideoMode, title: cstring, style: uint32, settings: ContextSettings): Window =
   (var Csettings = settings)
-  return newWindow(mode, title, style, Csettings)
+  newWindow(mode, title, style, Csettings)
 
 proc newWindow*(mode: VideoMode, title: ptr uint32, style: uint32, settings: (var ContextSettings){lvalue}): Window {.
   cdecl, dynlib: lib, importc: "sfWindow_createUnicode".}
 proc newWindow*(mode: VideoMode, title: ptr uint32, style: uint32, settings: ContextSettings): Window =
   (var Csettings = settings)
-  return newWindow(mode, title, style, Csettings)
+  newWindow(mode, title, style, Csettings)
 
 proc newWindow*(handle: WindowHandle, settings: (var ContextSettings){lvalue}): Window {.
   cdecl, dynlib: lib, importc: "sfWindow_createFromHandle".}
 proc newWindow*(handle: WindowHandle, settings: ContextSettings): Window =
   (var Csettings = settings)
-  return newWindow(handle, Csettings)
+  newWindow(handle, Csettings)
 
 proc destroy*(window: Window) {.
   cdecl, dynlib: lib, importc: "sfWindow_destroy".}
@@ -198,7 +198,7 @@ proc destroy*(window: Window) {.
 proc close*(window: Window) {.
   cdecl, dynlib: lib, importc: "sfWindow_close".}
 
-proc isOpen*(window: Window): IntBool {.
+proc open*(window: Window): IntBool {.
   cdecl, dynlib: lib, importc: "sfWindow_isOpen".}
 
 proc settings*(window: Window): ContextSettings {.

@@ -50,37 +50,37 @@ proc contains*(rect: (var FloatRect){lvalue}, x: cfloat, y: cfloat): IntBool {.
   cdecl, dynlib: lib, importc: "sfFloatRect_contains".}
 proc contains*(rect: FloatRect, x: cfloat, y: cfloat): IntBool =
   (var Crect = rect)
-  return contains(Crect, x, y)
+  contains(Crect, x, y)
 
 proc contains*(rect: (var IntRect){lvalue}, x: cint, y: cint): IntBool {.
   cdecl, dynlib: lib, importc: "sfIntRect_contains".}
 proc contains*(rect: IntRect, x: cint, y: cint): IntBool =
   (var Crect = rect)
-  return contains(Crect, x, y)
+  contains(Crect, x, y)
 
 proc intersects*(rect1: (var FloatRect){lvalue}, rect2: (var FloatRect){lvalue}, intersection: var FloatRect): IntBool {.
   cdecl, dynlib: lib, importc: "sfFloatRect_intersects".}
 proc intersects*(rect1: (var FloatRect){lvalue}, rect2: FloatRect, intersection: var FloatRect): IntBool =
   (var Crect2 = rect2)
-  return intersects(rect1, Crect2, intersection)
+  intersects(rect1, Crect2, intersection)
 proc intersects*(rect1: FloatRect, rect2: (var FloatRect){lvalue}, intersection: var FloatRect): IntBool =
   (var Crect1 = rect1)
-  return intersects(Crect1, rect2, intersection)
+  intersects(Crect1, rect2, intersection)
 proc intersects*(rect1: FloatRect, rect2: FloatRect, intersection: var FloatRect): IntBool =
   (var Crect1 = rect1; var Crect2 = rect2)
-  return intersects(Crect1, Crect2, intersection)
+  intersects(Crect1, Crect2, intersection)
 
 proc intersects*(rect1: (var IntRect){lvalue}, rect2: (var IntRect){lvalue}, intersection: var IntRect): IntBool {.
   cdecl, dynlib: lib, importc: "sfIntRect_intersects".}
 proc intersects*(rect1: (var IntRect){lvalue}, rect2: IntRect, intersection: var IntRect): IntBool =
   (var Crect2 = rect2)
-  return intersects(rect1, Crect2, intersection)
+  intersects(rect1, Crect2, intersection)
 proc intersects*(rect1: IntRect, rect2: (var IntRect){lvalue}, intersection: var IntRect): IntBool =
   (var Crect1 = rect1)
-  return intersects(Crect1, rect2, intersection)
+  intersects(Crect1, rect2, intersection)
 proc intersects*(rect1: IntRect, rect2: IntRect, intersection: var IntRect): IntBool =
   (var Crect1 = rect1; var Crect2 = rect2)
-  return intersects(Crect1, Crect2, intersection)
+  intersects(Crect1, Crect2, intersection)
 
 
 #--- SFML/Graphics/Transform ---#
@@ -164,19 +164,19 @@ proc inverse*(transform: (var Transform){lvalue}): Transform {.
   cdecl, dynlib: lib, importc: "sfTransform_getInverse".}
 proc inverse*(transform: Transform): Transform =
   (var Ctransform = transform)
-  return inverse(Ctransform)
+  inverse(Ctransform)
 
 proc transformPoint*(transform: (var Transform){lvalue}, point: Vector2f): Vector2f {.
   cdecl, dynlib: lib, importc: "sfTransform_transformPoint".}
 proc transformPoint*(transform: Transform, point: Vector2f): Vector2f =
   (var Ctransform = transform)
-  return transformPoint(Ctransform, point)
+  transformPoint(Ctransform, point)
 
 proc transformRect*(transform: (var Transform){lvalue}, rectangle: FloatRect): FloatRect {.
   cdecl, dynlib: lib, importc: "sfTransform_transformRect".}
 proc transformRect*(transform: Transform, rectangle: FloatRect): FloatRect =
   (var Ctransform = transform)
-  return transformRect(Ctransform, rectangle)
+  transformRect(Ctransform, rectangle)
 
 proc combine*(transform: var Transform, other: (var Transform){lvalue}) {.
   cdecl, dynlib: lib, importc: "sfTransform_combine".}
@@ -618,19 +618,19 @@ proc newRenderWindow*(mode: VideoMode, title: cstring, style: uint32, settings: 
   cdecl, dynlib: lib, importc: "sfRenderWindow_create".}
 proc newRenderWindow*(mode: VideoMode, title: cstring, style: uint32, settings: ContextSettings): RenderWindow =
   (var Csettings = settings)
-  return newRenderWindow(mode, title, style, Csettings)
+  newRenderWindow(mode, title, style, Csettings)
 
 proc newRenderWindow*(mode: VideoMode, title: ptr uint32, style: uint32, settings: (var ContextSettings){lvalue}): RenderWindow {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_createUnicode".}
 proc newRenderWindow*(mode: VideoMode, title: ptr uint32, style: uint32, settings: ContextSettings): RenderWindow =
   (var Csettings = settings)
-  return newRenderWindow(mode, title, style, Csettings)
+  newRenderWindow(mode, title, style, Csettings)
 
 proc newRenderWindow*(handle: WindowHandle, settings: (var ContextSettings){lvalue}): RenderWindow {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_createFromHandle".}
 proc newRenderWindow*(handle: WindowHandle, settings: ContextSettings): RenderWindow =
   (var Csettings = settings)
-  return newRenderWindow(handle, Csettings)
+  newRenderWindow(handle, Csettings)
 
 proc destroy*(renderWindow: RenderWindow) {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_destroy".}
@@ -638,7 +638,7 @@ proc destroy*(renderWindow: RenderWindow) {.
 proc close*(renderWindow: RenderWindow) {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_close".}
 
-proc isOpen*(renderWindow: RenderWindow): IntBool {.
+proc open*(renderWindow: RenderWindow): IntBool {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_isOpen".}
 
 proc settings*(renderWindow: RenderWindow): ContextSettings {.
@@ -899,13 +899,13 @@ proc texture*(renderTexture: RenderTexture): Texture {.
 proc `smooth=`*(renderTexture: RenderTexture, smooth: IntBool) {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_setSmooth".}
 
-proc isSmooth*(renderTexture: RenderTexture): IntBool {.
+proc smooth*(renderTexture: RenderTexture): IntBool {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_isSmooth".}
 
 proc `repeated=`*(renderTexture: RenderTexture, repeated: IntBool) {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_setRepeated".}
 
-proc isRepeated*(renderTexture: RenderTexture): IntBool {.
+proc repeated*(renderTexture: RenderTexture): IntBool {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_isRepeated".}
 
 
@@ -1240,25 +1240,25 @@ proc newTexture*(filename: cstring, area: (var IntRect){lvalue}): Texture {.
   cdecl, dynlib: lib, importc: "sfTexture_createFromFile".}
 proc newTexture*(filename: cstring, area: IntRect): Texture =
   (var Carea = area)
-  return newTexture(filename, Carea)
+  newTexture(filename, Carea)
 
 proc newTexture*(data: pointer, sizeInBytes: int, area: (var IntRect){lvalue}): Texture {.
   cdecl, dynlib: lib, importc: "sfTexture_createFromMemory".}
 proc newTexture*(data: pointer, sizeInBytes: int, area: IntRect): Texture =
   (var Carea = area)
-  return newTexture(data, sizeInBytes, Carea)
+  newTexture(data, sizeInBytes, Carea)
 
 proc newTexture*(stream: var InputStream, area: (var IntRect){lvalue}): Texture {.
   cdecl, dynlib: lib, importc: "sfTexture_createFromStream".}
 proc newTexture*(stream: var InputStream, area: IntRect): Texture =
   (var Carea = area)
-  return newTexture(stream, Carea)
+  newTexture(stream, Carea)
 
 proc newTexture*(image: Image, area: (var IntRect){lvalue}): Texture {.
   cdecl, dynlib: lib, importc: "sfTexture_createFromImage".}
 proc newTexture*(image: Image, area: IntRect): Texture =
   (var Carea = area)
-  return newTexture(image, Carea)
+  newTexture(image, Carea)
 
 proc copy*(texture: Texture): Texture {.
   cdecl, dynlib: lib, importc: "sfTexture_copy".}
@@ -1287,13 +1287,13 @@ proc updateFromRenderWindow*(texture: Texture, renderWindow: RenderWindow, x: ci
 proc `smooth=`*(texture: Texture, smooth: IntBool) {.
   cdecl, dynlib: lib, importc: "sfTexture_setSmooth".}
 
-proc isSmooth*(texture: Texture): IntBool {.
+proc smooth*(texture: Texture): IntBool {.
   cdecl, dynlib: lib, importc: "sfTexture_isSmooth".}
 
 proc `repeated=`*(texture: Texture, repeated: IntBool) {.
   cdecl, dynlib: lib, importc: "sfTexture_setRepeated".}
 
-proc isRepeated*(texture: Texture): IntBool {.
+proc repeated*(texture: Texture): IntBool {.
   cdecl, dynlib: lib, importc: "sfTexture_isRepeated".}
 
 proc bindGL*(texture: Texture) {.

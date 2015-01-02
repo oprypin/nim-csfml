@@ -66,7 +66,7 @@ var ballAngle = 0.0 # to be changed later
 
 var clock = newClock()
 var isPlaying = false
-while window.isOpen:
+while window.open:
     # Handle events
     var event: Event
     while window.pollEvent(event):
