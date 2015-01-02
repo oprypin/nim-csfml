@@ -27,11 +27,14 @@ inc_path = '/usr/include'
 
 skip = 'Thread Mutex'.split()
 
+
 src = ['''
 typedef unsigned long sfWindowHandle;
 typedef int size_t;
 ''']
+doc = []
 
+doc_counter = 0
 visited = set()
 def visit_header(file_path):
     if file_path in visited:
@@ -40,10 +43,26 @@ def visit_header(file_path):
     for h in skip:
         if file_path.endswith(h+'.h'):
             return
+    write_doc = False
     with open(os.path.join(inc_path, file_path)) as src_file:
         src.append('\n\n;;;;enum {};;;;\n\n'.format(file_path[:-2].replace('/', '_')))
         for line in src_file:
-            if '//' in line:
+            if line.strip().startswith('//////'):
+                write_doc = False
+                continue
+            if line.strip().startswith('///') and '\\brief' in line:
+                write_doc = True
+                global doc_counter
+                doc_counter += 1
+                doc.append('--------')
+                src.append(';;;;enum doc{};;;;'.format(doc_counter))
+            if write_doc:
+                line = line.strip()
+                assert line.startswith('//')
+                doc.append(line.lstrip('/').strip())
+                continue
+            
+            if '//' in line and not line.startswith('//'):
                 line = line.split('//')[0]
             line = line.strip()
             if not line:
@@ -71,4 +90,8 @@ def visit_header(file_path):
 for m in ['system', 'window', 'graphics', 'audio']:
     visit_header('SFML/{}.h'.format(m.capitalize()))
 
-print('\n'.join(src))
+
+with open('headers_gen.h', 'w') as f:
+    f.write('\n'.join(src))
+with open('docs_gen.txt', 'w') as f:
+    f.write('\n'.join(doc[1:-1]))

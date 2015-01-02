@@ -28,6 +28,9 @@ from pycparser import parse_file, c_ast, c_generator
 
 
 
+with open('docs_gen.txt') as f:
+    docs = f.read().strip().split('\n--------\n')
+
 
 def rename_sf(name):
     if name is None:
@@ -93,6 +96,14 @@ def common_start(strings):
     return first
 
 
+def get_doc(indent=2):
+    global doc
+    if doc is None:
+        return None
+    r = '\n'.join(indent*' '+'## '+l for l in doc.splitlines())
+    doc = None
+    return r
+
 
 def handle_enum(name, items):
     if name is None:
@@ -110,7 +121,10 @@ def handle_enum(name, items):
     nname = rename_sf(name)
     if all(value is not None for name, value in nitems):
         nitems.sort(key=lambda kv: int(kv[1]))
-    yield 'type {}* {{.pure, size: sizeof(cint).}} = enum'.format(nname)
+    r = 'type {}* {{.pure, size: sizeof(cint).}} = enum'.format(nname)
+    d = get_doc()
+    if d: r += d
+    yield r
     yield '\n'.join(textwrap.wrap(', '.join(
         ('{} = {}'.format(name, value) if value is not None else name)
         for name, value in nitems
@@ -121,6 +135,8 @@ def handle_struct(name, items):
         return
     name = rename_type(name)
     yield 'type {}* {{.pure, final.}} = object'.format(name)
+    d = get_doc()
+    if d: yield d
 
     for typ, name in items:
         if typ in ['sfEventType']:
@@ -133,6 +149,8 @@ def handle_class(name):
     pname = rename_sf(name)
     classes.add(pname)
     yield 'type\n  {0}* = ptr T{0}\n  T{0} {{.pure, final.}} = object'.format(pname)
+    d = get_doc()
+    if d: yield d
 
 
 def handle_function(main, params):
@@ -189,7 +207,10 @@ def handle_function(main, params):
             r.add(s)
         else:
             r.add(sgn.format(**locals())+cimp)
-    yield '\n'.join(sorted(r))
+    r = sorted(r)
+    d = get_doc()
+    if d: r.append(d)
+    yield '\n'.join(r)
 
 
 def handle_functiondef(main, params):
@@ -296,9 +317,20 @@ class Visitor(c_ast.NodeVisitor):
             ]
             out(*handle_enum(name, items))
         else:
-            global cmodule
-            cmodule = name.split('_')[1].lower()
-            out('\n#--- {} ---#'.format(name.replace('_', '/')))
+            if name.startswith('doc'):
+                global doc
+                doc = docs[int(name[3:])-1].strip()
+                doc = re.sub(r'(Example:\s+)?\\code(.|\n)+?\\endcode\n', r'', doc)
+                doc = re.sub(r'\\brief ', r'', doc)
+                doc = re.sub(r'\\param', r'*Arguments*:\n\\param', doc, 1)
+                doc = re.sub(r'\\param ([a-zA-Z0-9_]+)', r'- ``\1``: ', doc)
+                doc = re.sub(r'\\li ', r'- ', doc)
+                doc = re.sub(r'\\a ([a-zA-Z0-9_]+)', r'``\1``', doc)
+                doc = re.sub(r'\\return ', r'*Returns:* ', doc)
+            else:
+                global cmodule
+                cmodule = name.split('_')[1].lower()
+                out('\n#--- {} ---#'.format(name.replace('_', '/')))
 
         self.generic_visit(node)
 
@@ -332,6 +364,5 @@ def out(*args):
         print(arg, file=f)
 
 
-filename, = sys.argv[1:]
-ast = parse_file(filename)
+ast = parse_file('headers_gen.h')
 Visitor().visit(ast)
