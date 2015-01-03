@@ -52,7 +52,7 @@ const
 type JoystickAxis* {.pure, size: sizeof(cint).} = enum  ## Axes supported by SFML joysticks
   X, Y, Z, R, U, V, PovX, PovY
 
-proc joystick_isConnected*(joystick: cint): IntBool {.
+proc joystick_isConnected*(joystick: cint): bool {.
   cdecl, dynlib: lib, importc: "sfJoystick_isConnected".}
   ## Check if a joystick is connected
   ## 
@@ -72,7 +72,7 @@ proc joystick_getButtonCount*(joystick: cint): cint {.
   ## 
   ## *Returns:* Number of buttons supported by the joystick
 
-proc joystick_hasAxis*(joystick: cint, axis: JoystickAxis): IntBool {.
+proc joystick_hasAxis*(joystick: cint, axis: JoystickAxis): bool {.
   cdecl, dynlib: lib, importc: "sfJoystick_hasAxis".}
   ## Check if a joystick supports a given axis
   ## 
@@ -84,7 +84,7 @@ proc joystick_hasAxis*(joystick: cint, axis: JoystickAxis): IntBool {.
   ## 
   ## *Returns:* sfTrue if the joystick supports the axis, sfFalse otherwise
 
-proc joystick_isButtonPressed*(joystick: cint, button: cint): IntBool {.
+proc joystick_isButtonPressed*(joystick: cint, button: cint): bool {.
   cdecl, dynlib: lib, importc: "sfJoystick_isButtonPressed".}
   ## Check if a joystick button is pressed
   ## 
@@ -131,7 +131,7 @@ type KeyCode* {.pure, size: sizeof(cint).} = enum  ## Key codes
   Numpad8, Numpad9, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, F13, F14,
   F15, Pause, Count
 
-proc keyboard_isKeyPressed*(key: KeyCode): IntBool {.
+proc keyboard_isKeyPressed*(key: KeyCode): bool {.
   cdecl, dynlib: lib, importc: "sfKeyboard_isKeyPressed".}
   ## Check if a key is pressed
   ## 
@@ -146,7 +146,7 @@ proc keyboard_isKeyPressed*(key: KeyCode): IntBool {.
 type MouseButton* {.pure, size: sizeof(cint).} = enum  ## Mouse buttons
   Left, Right, Middle, XButton1, XButton2, Count
 
-proc mouse_isButtonPressed*(button: MouseButton): IntBool {.
+proc mouse_isButtonPressed*(button: MouseButton): bool {.
   cdecl, dynlib: lib, importc: "sfMouse_isButtonPressed".}
   ## Check if a mouse button is pressed
   ## 
@@ -252,7 +252,7 @@ proc videoMode_getDesktopMode*(): VideoMode {.
   ## 
   ## *Returns:* Current desktop video mode
 
-proc videoMode_getFullscreenModes*(count: ptr int): var VideoMode {.
+proc videoMode_getFullscreenModes*(count: ptr int): ptr VideoMode {.
   cdecl, dynlib: lib, importc: "sfVideoMode_getFullscreenModes".}
   ## Retrieve all the video modes supported in fullscreen mode
   ## 
@@ -269,7 +269,7 @@ proc videoMode_getFullscreenModes*(count: ptr int): var VideoMode {.
   ## 
   ## *Returns:* Pointer to an array containing all the supported fullscreen modes
 
-proc valid*(mode: VideoMode): IntBool {.
+proc valid*(mode: VideoMode): bool {.
   cdecl, dynlib: lib, importc: "sfVideoMode_isValid".}
   ## Tell whether or not a video mode is valid
   ## 
@@ -389,7 +389,7 @@ proc close*(window: Window) {.
   ## *Arguments*:
   ## - ``window``:  Window object
 
-proc open*(window: Window): IntBool {.
+proc open*(window: Window): bool {.
   cdecl, dynlib: lib, importc: "sfWindow_isOpen".}
   ## Tell whether or not a window is opened
   ## 
@@ -416,7 +416,7 @@ proc settings*(window: Window): ContextSettings {.
   ## 
   ## *Returns:* Structure containing the OpenGL context settings
 
-proc pollEvent*(window: Window, event: var Event): IntBool {.
+proc pollEvent*(window: Window, event: var Event): bool {.
   cdecl, dynlib: lib, importc: "sfWindow_pollEvent".}
   ## Pop the event on top of event queue, if any, and return it
   ## 
@@ -432,7 +432,7 @@ proc pollEvent*(window: Window, event: var Event): IntBool {.
   ## 
   ## *Returns:* sfTrue if an event was returned, or sfFalse if the event queue was empty
 
-proc waitEvent*(window: Window, event: var Event): IntBool {.
+proc waitEvent*(window: Window, event: var Event): bool {.
   cdecl, dynlib: lib, importc: "sfWindow_waitEvent".}
   ## Wait for an event and return it
   ## 
@@ -563,7 +563,7 @@ proc `keyRepeatEnabled=`*(window: Window, enabled: IntBool) {.
   ## - ``window``:   Window object
   ## - ``enabled``:  sfTrue to enable, sfFalse to disable
 
-proc `active=`*(window: Window, active: IntBool): IntBool {.
+proc `active=`*(window: Window, active: IntBool): bool {.
   cdecl, dynlib: lib, importc: "sfWindow_setActive".}
   ## Activate or deactivate a window as the current target
   ## for OpenGL rendering

@@ -166,7 +166,9 @@ def handle_function(main, params):
         if nfname.startswith(p1):
             nfname = nfname[len(p1):]
     nfname = rename_identifier(nfname)
-    nftype = rename_type(ftype)
+    nftype = rename_type(ftype).replace('var ', 'ptr ')
+    if nftype=='IntBool':
+        nftype = 'bool'
     main_sgn = 'proc {nfname}*({sparams}): {nftype}'
     main_fn = '{nfname}'
     cimp = ' {{.\n  cdecl, dynlib: lib, importc: "{}".}}'.format(fname)

@@ -156,7 +156,7 @@ proc `loop=`*(music: Music, loop: IntBool) {.
   ## - ``music``:  Music object
   ## - ``loop``:   sfTrue to play in loop, sfFalse to play once
 
-proc loop*(music: Music): IntBool {.
+proc loop*(music: Music): bool {.
   cdecl, dynlib: lib, importc: "sfMusic_getLoop".}
   ## Tell whether or not a music is in loop mode
   ## 
@@ -370,7 +370,7 @@ proc position*(music: Music): Vector3f {.
   ## 
   ## *Returns:* Position of the music in the world
 
-proc relativeToListener*(music: Music): IntBool {.
+proc relativeToListener*(music: Music): bool {.
   cdecl, dynlib: lib, importc: "sfMusic_isRelativeToListener".}
   ## Tell whether a music's position is relative to the
   ## listener or is absolute
@@ -491,7 +491,7 @@ proc `loop=`*(sound: Sound, loop: IntBool) {.
   ## - ``sound``:  Sound object
   ## - ``loop``:   sfTrue to play in loop, sfFalse to play once
 
-proc loop*(sound: Sound): IntBool {.
+proc loop*(sound: Sound): bool {.
   cdecl, dynlib: lib, importc: "sfSound_getLoop".}
   ## Tell whether or not a sound is in loop mode
   ## 
@@ -630,7 +630,7 @@ proc position*(sound: Sound): Vector3f {.
   ## 
   ## *Returns:* Position of the sound in the world
 
-proc relativeToListener*(sound: Sound): IntBool {.
+proc relativeToListener*(sound: Sound): bool {.
   cdecl, dynlib: lib, importc: "sfSound_isRelativeToListener".}
   ## Tell whether a sound's position is relative to the
   ## listener or is absolute
@@ -741,7 +741,7 @@ proc destroy*(soundBuffer: SoundBuffer) {.
   ## *Arguments*:
   ## - ``soundBuffer``:  Sound buffer to destroy
 
-proc saveToFile*(soundBuffer: SoundBuffer, filename: cstring): IntBool {.
+proc saveToFile*(soundBuffer: SoundBuffer, filename: cstring): bool {.
   cdecl, dynlib: lib, importc: "sfSoundBuffer_saveToFile".}
   ## Save a sound buffer to an audio file
   ## 
@@ -942,7 +942,7 @@ proc sampleRate*(soundRecorder: SoundRecorder): cint {.
   ## 
   ## *Returns:* Sample rate, in samples per second
 
-proc soundRecorder_isAvailable*(): IntBool {.
+proc soundRecorder_isAvailable*(): bool {.
   cdecl, dynlib: lib, importc: "sfSoundRecorder_isAvailable".}
   ## Check if the system supports audio capture
   ## 

@@ -78,9 +78,9 @@ type IntRect* {.pure, final.} = object
   width*: cint
   height*: cint
 
-proc contains*(rect: (var FloatRect){lvalue}, x: cfloat, y: cfloat): IntBool {.
+proc contains*(rect: (var FloatRect){lvalue}, x: cfloat, y: cfloat): bool {.
   cdecl, dynlib: lib, importc: "sfFloatRect_contains".}
-proc contains*(rect: FloatRect, x: cfloat, y: cfloat): IntBool =
+proc contains*(rect: FloatRect, x: cfloat, y: cfloat): bool =
   ## Check if a point is inside a rectangle's area
   ## 
   ## *Arguments*:
@@ -92,21 +92,21 @@ proc contains*(rect: FloatRect, x: cfloat, y: cfloat): IntBool =
   (var Crect = rect)
   contains(Crect, x, y)
 
-proc contains*(rect: (var IntRect){lvalue}, x: cint, y: cint): IntBool {.
+proc contains*(rect: (var IntRect){lvalue}, x: cint, y: cint): bool {.
   cdecl, dynlib: lib, importc: "sfIntRect_contains".}
-proc contains*(rect: IntRect, x: cint, y: cint): IntBool =
+proc contains*(rect: IntRect, x: cint, y: cint): bool =
   (var Crect = rect)
   contains(Crect, x, y)
 
-proc intersects*(rect1: (var FloatRect){lvalue}, rect2: (var FloatRect){lvalue}, intersection: var FloatRect): IntBool {.
+proc intersects*(rect1: (var FloatRect){lvalue}, rect2: (var FloatRect){lvalue}, intersection: var FloatRect): bool {.
   cdecl, dynlib: lib, importc: "sfFloatRect_intersects".}
-proc intersects*(rect1: (var FloatRect){lvalue}, rect2: FloatRect, intersection: var FloatRect): IntBool =
+proc intersects*(rect1: (var FloatRect){lvalue}, rect2: FloatRect, intersection: var FloatRect): bool =
   (var Crect2 = rect2)
   intersects(rect1, Crect2, intersection)
-proc intersects*(rect1: FloatRect, rect2: (var FloatRect){lvalue}, intersection: var FloatRect): IntBool =
+proc intersects*(rect1: FloatRect, rect2: (var FloatRect){lvalue}, intersection: var FloatRect): bool =
   (var Crect1 = rect1)
   intersects(Crect1, rect2, intersection)
-proc intersects*(rect1: FloatRect, rect2: FloatRect, intersection: var FloatRect): IntBool =
+proc intersects*(rect1: FloatRect, rect2: FloatRect, intersection: var FloatRect): bool =
   ## Check intersection between two rectangles
   ## 
   ## *Arguments*:
@@ -118,15 +118,15 @@ proc intersects*(rect1: FloatRect, rect2: FloatRect, intersection: var FloatRect
   (var Crect1 = rect1; var Crect2 = rect2)
   intersects(Crect1, Crect2, intersection)
 
-proc intersects*(rect1: (var IntRect){lvalue}, rect2: (var IntRect){lvalue}, intersection: var IntRect): IntBool {.
+proc intersects*(rect1: (var IntRect){lvalue}, rect2: (var IntRect){lvalue}, intersection: var IntRect): bool {.
   cdecl, dynlib: lib, importc: "sfIntRect_intersects".}
-proc intersects*(rect1: (var IntRect){lvalue}, rect2: IntRect, intersection: var IntRect): IntBool =
+proc intersects*(rect1: (var IntRect){lvalue}, rect2: IntRect, intersection: var IntRect): bool =
   (var Crect2 = rect2)
   intersects(rect1, Crect2, intersection)
-proc intersects*(rect1: IntRect, rect2: (var IntRect){lvalue}, intersection: var IntRect): IntBool =
+proc intersects*(rect1: IntRect, rect2: (var IntRect){lvalue}, intersection: var IntRect): bool =
   (var Crect1 = rect1)
   intersects(Crect1, rect2, intersection)
-proc intersects*(rect1: IntRect, rect2: IntRect, intersection: var IntRect): IntBool =
+proc intersects*(rect1: IntRect, rect2: IntRect, intersection: var IntRect): bool =
   (var Crect1 = rect1; var Crect2 = rect2)
   intersects(Crect1, Crect2, intersection)
 
@@ -1269,7 +1269,7 @@ proc destroy*(image: Image) {.
   ## *Arguments*:
   ## - ``image``:  Image to delete
 
-proc saveToFile*(image: Image, filename: cstring): IntBool {.
+proc saveToFile*(image: Image, filename: cstring): bool {.
   cdecl, dynlib: lib, importc: "sfImage_saveToFile".}
   ## Save an image to a file on disk
   ## 
@@ -1821,7 +1821,7 @@ proc close*(renderWindow: RenderWindow) {.
   ## *Arguments*:
   ## - ``renderWindow``:  Render window to close
 
-proc open*(renderWindow: RenderWindow): IntBool {.
+proc open*(renderWindow: RenderWindow): bool {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_isOpen".}
   ## Tell whether or not a render window is opened
   ## 
@@ -1837,7 +1837,7 @@ proc settings*(renderWindow: RenderWindow): ContextSettings {.
   ## 
   ## *Returns:* Settings used to create the window
 
-proc pollEvent*(renderWindow: RenderWindow, event: var Event): IntBool {.
+proc pollEvent*(renderWindow: RenderWindow, event: var Event): bool {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_pollEvent".}
   ## Get the event on top of event queue of a render window, if any, and pop it
   ## 
@@ -1847,7 +1847,7 @@ proc pollEvent*(renderWindow: RenderWindow, event: var Event): IntBool {.
   ## 
   ## *Returns:* sfTrue if an event was returned, sfFalse if event queue was empty
 
-proc waitEvent*(renderWindow: RenderWindow, event: var Event): IntBool {.
+proc waitEvent*(renderWindow: RenderWindow, event: var Event): bool {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_waitEvent".}
   ## Wait for an event and return it
   ## 
@@ -1953,7 +1953,7 @@ proc `keyRepeatEnabled=`*(renderWindow: RenderWindow, enabled: IntBool) {.
   ## - ``renderWindow``:  Render window object
   ## - ``enabled``:       sfTrue to enable, sfFalse to disable
 
-proc `active=`*(renderWindow: RenderWindow, active: IntBool): IntBool {.
+proc `active=`*(renderWindow: RenderWindow, active: IntBool): bool {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_setActive".}
   ## Activate or deactivate a render window as the current target for rendering
   ## 
@@ -2276,7 +2276,7 @@ proc size*(renderTexture: RenderTexture): Vector2i {.
   ## 
   ## *Returns:* Size in pixels
 
-proc `active=`*(renderTexture: RenderTexture, active: IntBool): IntBool {.
+proc `active=`*(renderTexture: RenderTexture, active: IntBool): bool {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_setActive".}
   ## Activate or deactivate a render texture as the current target for rendering
   ## 
@@ -2518,7 +2518,7 @@ proc `smooth=`*(renderTexture: RenderTexture, smooth: IntBool) {.
   ## - ``renderTexture``:  Render texture object
   ## - ``smooth``:         sfTrue to enable smoothing, sfFalse to disable it
 
-proc smooth*(renderTexture: RenderTexture): IntBool {.
+proc smooth*(renderTexture: RenderTexture): bool {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_isSmooth".}
   ## Tell whether the smooth filter is enabled or not for a render texture
   ## 
@@ -2535,7 +2535,7 @@ proc `repeated=`*(renderTexture: RenderTexture, repeated: IntBool) {.
   ## - ``renderTexture``:  Render texture object
   ## - ``repeated``:       sfTrue to enable repeating, sfFalse to disable it
 
-proc repeated*(renderTexture: RenderTexture): IntBool {.
+proc repeated*(renderTexture: RenderTexture): bool {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_isRepeated".}
   ## Tell whether the texture is repeated or not
   ## 
@@ -2779,7 +2779,7 @@ proc bindGL*(shader: Shader) {.
   ## *Arguments*:
   ## - ``shader``:  Shader to bind, can be null to use no shader
 
-proc shader_isAvailable*(): IntBool {.
+proc shader_isAvailable*(): bool {.
   cdecl, dynlib: lib, importc: "sfShader_isAvailable".}
   ## Tell whether or not the system supports shaders
   ## 
@@ -3890,7 +3890,7 @@ proc `smooth=`*(texture: Texture, smooth: IntBool) {.
   ## - ``texture``:  The texture object
   ## - ``smooth``:   sfTrue to enable smoothing, sfFalse to disable it
 
-proc smooth*(texture: Texture): IntBool {.
+proc smooth*(texture: Texture): bool {.
   cdecl, dynlib: lib, importc: "sfTexture_isSmooth".}
   ## Tell whether the smooth filter is enabled or not for a texture
   ## 
@@ -3921,7 +3921,7 @@ proc `repeated=`*(texture: Texture, repeated: IntBool) {.
   ## - ``texture``:   The texture object
   ## - ``repeated``:  True to repeat the texture, false to disable repeating
 
-proc repeated*(texture: Texture): IntBool {.
+proc repeated*(texture: Texture): bool {.
   cdecl, dynlib: lib, importc: "sfTexture_isRepeated".}
   ## Tell whether a texture is repeated or not
   ## 
@@ -4147,7 +4147,7 @@ proc vertexCount*(vertexArray: VertexArray): cint {.
   ## 
   ## *Returns:* Number of vertices in the array
 
-proc getVertex*(vertexArray: VertexArray, index: cint): var Vertex {.
+proc getVertex*(vertexArray: VertexArray, index: cint): ptr Vertex {.
   cdecl, dynlib: lib, importc: "sfVertexArray_getVertex".}
   ## Get access to a vertex by its index
   ## 

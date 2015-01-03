@@ -31,8 +31,8 @@ proc utf8to32*(s: string): seq[uint32] =
 
 type IntBool* = distinct cint
 converter toBool*(x: IntBool): bool =
-    cint(x) != 0
+  cint(x) != 0
 converter toIntBool*(x: bool): IntBool =
-    IntBool(if x: 1 else: 0)
+  IntBool(if x: 1 else: 0)
 
 proc `|`*(a, b: uint32): uint32 = a or b
