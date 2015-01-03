@@ -180,8 +180,8 @@ def handle_function(main, params):
         nfname = nfname[3].lower()+nfname[4:]
     if nftype=='void':
         main_sgn = main_sgn[:-10]
-    r = set()
-    for repl in itertools.product((True, False), repeat=len(params)):
+    r = []
+    for repl in itertools.product((False, True), repeat=len(params)):
         aparams = []
         replv = []
         sgn = main_sgn
@@ -204,12 +204,18 @@ def handle_function(main, params):
             s += ')\n  '
             s += main_fn.format(**locals())
             s += '('+', '.join('C'+p if p in replv else p for p, _ in aparams)+')'
-            r.add(s)
+            if s not in r:
+                r.append(s)
         else:
-            r.add(sgn.format(**locals())+cimp)
-    r = sorted(r)
+            s = sgn.format(**locals())+cimp
+            if s not in r:
+                r.append(s)
     d = get_doc()
-    if d: r.append(d)
+    if d:
+        if r[-1].count('\n')<=1:
+            r[-1] += '\n'+d
+        else:
+            r[-1] = '\n'.join(r[-1].splitlines()[0:1]+[d]+r[-1].splitlines()[1:])
     yield '\n'.join(r)
 
 

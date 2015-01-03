@@ -302,8 +302,6 @@ type ContextSettings* {.pure, final.} = object
 proc newWindow*(mode: VideoMode, title: cstring, style: uint32, settings: (var ContextSettings){lvalue}): Window {.
   cdecl, dynlib: lib, importc: "sfWindow_create".}
 proc newWindow*(mode: VideoMode, title: cstring, style: uint32, settings: ContextSettings): Window =
-  (var Csettings = settings)
-  newWindow(mode, title, style, Csettings)
   ## Construct a new window
   ## 
   ## This function creates the window with the size and pixel
@@ -323,12 +321,12 @@ proc newWindow*(mode: VideoMode, title: cstring, style: uint32, settings: Contex
   ## - ``settings``:  Additional settings for the underlying OpenGL context
   ## 
   ## *Returns:* A new sfWindow object
+  (var Csettings = settings)
+  newWindow(mode, title, style, Csettings)
 
 proc newWindow*(mode: VideoMode, title: ptr uint32, style: uint32, settings: (var ContextSettings){lvalue}): Window {.
   cdecl, dynlib: lib, importc: "sfWindow_createUnicode".}
 proc newWindow*(mode: VideoMode, title: ptr uint32, style: uint32, settings: ContextSettings): Window =
-  (var Csettings = settings)
-  newWindow(mode, title, style, Csettings)
   ## Construct a new window (with a UTF-32 title)
   ## 
   ## This function creates the window with the size and pixel
@@ -348,12 +346,12 @@ proc newWindow*(mode: VideoMode, title: ptr uint32, style: uint32, settings: Con
   ## - ``settings``:  Additional settings for the underlying OpenGL context
   ## 
   ## *Returns:* A new sfWindow object
+  (var Csettings = settings)
+  newWindow(mode, title, style, Csettings)
 
 proc newWindow*(handle: WindowHandle, settings: (var ContextSettings){lvalue}): Window {.
   cdecl, dynlib: lib, importc: "sfWindow_createFromHandle".}
 proc newWindow*(handle: WindowHandle, settings: ContextSettings): Window =
-  (var Csettings = settings)
-  newWindow(handle, Csettings)
   ## Construct a window from an existing control
   ## 
   ## Use this constructor if you want to create an OpenGL
@@ -368,6 +366,8 @@ proc newWindow*(handle: WindowHandle, settings: ContextSettings): Window =
   ## - ``settings``:  Additional settings for the underlying OpenGL context
   ## 
   ## *Returns:* A new sfWindow object
+  (var Csettings = settings)
+  newWindow(handle, Csettings)
 
 proc destroy*(window: Window) {.
   cdecl, dynlib: lib, importc: "sfWindow_destroy".}

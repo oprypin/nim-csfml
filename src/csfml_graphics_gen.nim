@@ -81,8 +81,6 @@ type IntRect* {.pure, final.} = object
 proc contains*(rect: (var FloatRect){lvalue}, x: cfloat, y: cfloat): IntBool {.
   cdecl, dynlib: lib, importc: "sfFloatRect_contains".}
 proc contains*(rect: FloatRect, x: cfloat, y: cfloat): IntBool =
-  (var Crect = rect)
-  contains(Crect, x, y)
   ## Check if a point is inside a rectangle's area
   ## 
   ## *Arguments*:
@@ -91,6 +89,8 @@ proc contains*(rect: FloatRect, x: cfloat, y: cfloat): IntBool =
   ## - ``y``:     Y coordinate of the point to test
   ## 
   ## *Returns:* sfTrue if the point is inside
+  (var Crect = rect)
+  contains(Crect, x, y)
 
 proc contains*(rect: (var IntRect){lvalue}, x: cint, y: cint): IntBool {.
   cdecl, dynlib: lib, importc: "sfIntRect_contains".}
@@ -107,8 +107,6 @@ proc intersects*(rect1: FloatRect, rect2: (var FloatRect){lvalue}, intersection:
   (var Crect1 = rect1)
   intersects(Crect1, rect2, intersection)
 proc intersects*(rect1: FloatRect, rect2: FloatRect, intersection: var FloatRect): IntBool =
-  (var Crect1 = rect1; var Crect2 = rect2)
-  intersects(Crect1, Crect2, intersection)
   ## Check intersection between two rectangles
   ## 
   ## *Arguments*:
@@ -117,6 +115,8 @@ proc intersects*(rect1: FloatRect, rect2: FloatRect, intersection: var FloatRect
   ## - ``intersection``:  Rectangle to be filled with overlapping rect (can be NULL)
   ## 
   ## *Returns:* sfTrue if rectangles overlap
+  (var Crect1 = rect1; var Crect2 = rect2)
+  intersects(Crect1, Crect2, intersection)
 
 proc intersects*(rect1: (var IntRect){lvalue}, rect2: (var IntRect){lvalue}, intersection: var IntRect): IntBool {.
   cdecl, dynlib: lib, importc: "sfIntRect_intersects".}
@@ -220,8 +220,6 @@ proc transform*(a00: cfloat, a01: cfloat, a02: cfloat, a10: cfloat, a11: cfloat,
 proc getMatrix*(transform: (var Transform){lvalue}, matrix: ptr cfloat) {.
   cdecl, dynlib: lib, importc: "sfTransform_getMatrix".}
 proc getMatrix*(transform: Transform, matrix: ptr cfloat) =
-  (var Ctransform = transform)
-  getMatrix(Ctransform, matrix)
   ## Return the 4x4 matrix of a transform
   ## 
   ## This function fills an array of 16 floats with the transform
@@ -232,12 +230,12 @@ proc getMatrix*(transform: Transform, matrix: ptr cfloat) =
   ## *Arguments*:
   ## - ``transform``:  Transform object
   ## - ``matrix``:  Pointer to the 16-element array to fill with the matrix
+  (var Ctransform = transform)
+  getMatrix(Ctransform, matrix)
 
 proc inverse*(transform: (var Transform){lvalue}): Transform {.
   cdecl, dynlib: lib, importc: "sfTransform_getInverse".}
 proc inverse*(transform: Transform): Transform =
-  (var Ctransform = transform)
-  inverse(Ctransform)
   ## Return the inverse of a transform
   ## 
   ## If the inverse cannot be computed, a new identity transform
@@ -246,12 +244,12 @@ proc inverse*(transform: Transform): Transform =
   ## *Arguments*:
   ## - ``transform``:  Transform object
   ## *Returns:* The inverse matrix
+  (var Ctransform = transform)
+  inverse(Ctransform)
 
 proc transformPoint*(transform: (var Transform){lvalue}, point: Vector2f): Vector2f {.
   cdecl, dynlib: lib, importc: "sfTransform_transformPoint".}
 proc transformPoint*(transform: Transform, point: Vector2f): Vector2f =
-  (var Ctransform = transform)
-  transformPoint(Ctransform, point)
   ## Apply a transform to a 2D point
   ## 
   ## *Arguments*:
@@ -259,12 +257,12 @@ proc transformPoint*(transform: Transform, point: Vector2f): Vector2f =
   ## - ``point``:      Point to transform
   ## 
   ## *Returns:* Transformed point
+  (var Ctransform = transform)
+  transformPoint(Ctransform, point)
 
 proc transformRect*(transform: (var Transform){lvalue}, rectangle: FloatRect): FloatRect {.
   cdecl, dynlib: lib, importc: "sfTransform_transformRect".}
 proc transformRect*(transform: Transform, rectangle: FloatRect): FloatRect =
-  (var Ctransform = transform)
-  transformRect(Ctransform, rectangle)
   ## Apply a transform to a rectangle
   ## 
   ## Since SFML doesn't provide support for oriented rectangles,
@@ -278,12 +276,12 @@ proc transformRect*(transform: Transform, rectangle: FloatRect): FloatRect =
   ## - ``rectangle``:  Rectangle to transform
   ## 
   ## *Returns:* Transformed rectangle
+  (var Ctransform = transform)
+  transformRect(Ctransform, rectangle)
 
 proc combine*(transform: var Transform, other: (var Transform){lvalue}) {.
   cdecl, dynlib: lib, importc: "sfTransform_combine".}
 proc combine*(transform: var Transform, other: Transform) =
-  (var Cother = other)
-  combine(transform, Cother)
   ## Combine two transforms
   ## 
   ## The result is a transform that is equivalent to applying
@@ -293,6 +291,8 @@ proc combine*(transform: var Transform, other: Transform) =
   ## *Arguments*:
   ## - ``transform``:  Transform object
   ## - ``right``:      Transform to combine to ``transform``
+  (var Cother = other)
+  combine(transform, Cother)
 
 proc translate*(transform: var Transform, x: cfloat, y: cfloat) {.
   cdecl, dynlib: lib, importc: "sfTransform_translate".}
@@ -1773,8 +1773,6 @@ type Vertex* {.pure, final.} = object
 proc newRenderWindow*(mode: VideoMode, title: cstring, style: uint32, settings: (var ContextSettings){lvalue}): RenderWindow {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_create".}
 proc newRenderWindow*(mode: VideoMode, title: cstring, style: uint32, settings: ContextSettings): RenderWindow =
-  (var Csettings = settings)
-  newRenderWindow(mode, title, style, Csettings)
   ## Construct a new render window
   ## 
   ## *Arguments*:
@@ -1782,12 +1780,12 @@ proc newRenderWindow*(mode: VideoMode, title: cstring, style: uint32, settings: 
   ## - ``title``:     Title of the window
   ## - ``style``:     Window style
   ## - ``settings``:  Creation settings (pass NULL to use default values)
+  (var Csettings = settings)
+  newRenderWindow(mode, title, style, Csettings)
 
 proc newRenderWindow*(mode: VideoMode, title: ptr uint32, style: uint32, settings: (var ContextSettings){lvalue}): RenderWindow {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_createUnicode".}
 proc newRenderWindow*(mode: VideoMode, title: ptr uint32, style: uint32, settings: ContextSettings): RenderWindow =
-  (var Csettings = settings)
-  newRenderWindow(mode, title, style, Csettings)
   ## Construct a new render window (with a UTF-32 title)
   ## 
   ## *Arguments*:
@@ -1795,17 +1793,19 @@ proc newRenderWindow*(mode: VideoMode, title: ptr uint32, style: uint32, setting
   ## - ``title``:     Title of the window (UTF-32)
   ## - ``style``:     Window style
   ## - ``settings``:  Creation settings (pass NULL to use default values)
+  (var Csettings = settings)
+  newRenderWindow(mode, title, style, Csettings)
 
 proc newRenderWindow*(handle: WindowHandle, settings: (var ContextSettings){lvalue}): RenderWindow {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_createFromHandle".}
 proc newRenderWindow*(handle: WindowHandle, settings: ContextSettings): RenderWindow =
-  (var Csettings = settings)
-  newRenderWindow(handle, Csettings)
   ## Construct a render window from an existing control
   ## 
   ## *Arguments*:
   ## - ``handle``:    Platform-specific handle of the control
   ## - ``settings``:  Creation settings (pass NULL to use default values)
+  (var Csettings = settings)
+  newRenderWindow(handle, Csettings)
 
 proc destroy*(renderWindow: RenderWindow) {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_destroy".}
@@ -2096,14 +2096,14 @@ proc mapCoordsToPixel*(renderWindow: RenderWindow, point: Vector2f, view: View):
 proc drawSprite*(renderWindow: RenderWindow, obj: Sprite, states: (var RenderStates){lvalue}) {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_drawSprite".}
 proc drawSprite*(renderWindow: RenderWindow, obj: Sprite, states: RenderStates) =
-  (var Cstates = states)
-  drawSprite(renderWindow, obj, Cstates)
   ## Draw a drawable object to the render-target
   ## 
   ## *Arguments*:
   ## - ``renderWindow``:  render window object
   ## - ``object``:        Object to draw
   ## - ``states``:        Render states to use for drawing (NULL to use the default states)
+  (var Cstates = states)
+  drawSprite(renderWindow, obj, Cstates)
 
 proc drawText*(renderWindow: RenderWindow, obj: Text, states: (var RenderStates){lvalue}) {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_drawText".}
@@ -2150,8 +2150,6 @@ proc drawPrimitives*(renderWindow: RenderWindow, vertices: Vertex, vertexCount: 
   (var Cvertices = vertices)
   drawPrimitives(renderWindow, Cvertices, vertexCount, kind, states)
 proc drawPrimitives*(renderWindow: RenderWindow, vertices: Vertex, vertexCount: cint, kind: PrimitiveType, states: RenderStates) =
-  (var Cvertices = vertices; var Cstates = states)
-  drawPrimitives(renderWindow, Cvertices, vertexCount, kind, Cstates)
   ## Draw primitives defined by an array of vertices to a render window
   ## 
   ## *Arguments*:
@@ -2160,6 +2158,8 @@ proc drawPrimitives*(renderWindow: RenderWindow, vertices: Vertex, vertexCount: 
   ## - ``vertexCount``:   Number of vertices in the array
   ## - ``type``:          Type of primitives to draw
   ## - ``states``:        Render states to use for drawing (NULL to use the default states)
+  (var Cvertices = vertices; var Cstates = states)
+  drawPrimitives(renderWindow, Cvertices, vertexCount, kind, Cstates)
 
 proc pushGLStates*(renderWindow: RenderWindow) {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_pushGLStates".}
@@ -2391,14 +2391,14 @@ proc mapCoordsToPixel*(renderTexture: RenderTexture, point: Vector2f, view: View
 proc drawSprite*(renderTexture: RenderTexture, obj: Sprite, states: (var RenderStates){lvalue}) {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_drawSprite".}
 proc drawSprite*(renderTexture: RenderTexture, obj: Sprite, states: RenderStates) =
-  (var Cstates = states)
-  drawSprite(renderTexture, obj, Cstates)
   ## Draw a drawable object to the render-target
   ## 
   ## *Arguments*:
   ## - ``renderTexture``:  Render texture object
   ## - ``object``:         Object to draw
   ## - ``states``:         Render states to use for drawing (NULL to use the default states)
+  (var Cstates = states)
+  drawSprite(renderTexture, obj, Cstates)
 
 proc drawText*(renderTexture: RenderTexture, obj: Text, states: (var RenderStates){lvalue}) {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_drawText".}
@@ -2445,8 +2445,6 @@ proc drawPrimitives*(renderTexture: RenderTexture, vertices: Vertex, vertexCount
   (var Cvertices = vertices)
   drawPrimitives(renderTexture, Cvertices, vertexCount, kind, states)
 proc drawPrimitives*(renderTexture: RenderTexture, vertices: Vertex, vertexCount: cint, kind: PrimitiveType, states: RenderStates) =
-  (var Cvertices = vertices; var Cstates = states)
-  drawPrimitives(renderTexture, Cvertices, vertexCount, kind, Cstates)
   ## Draw primitives defined by an array of vertices to a render texture
   ## 
   ## *Arguments*:
@@ -2455,6 +2453,8 @@ proc drawPrimitives*(renderTexture: RenderTexture, vertices: Vertex, vertexCount
   ## - ``vertexCount``:    Number of vertices in the array
   ## - ``type``:           Type of primitives to draw
   ## - ``states``:         Render states to use for drawing (NULL to use the default states)
+  (var Cvertices = vertices; var Cstates = states)
+  drawPrimitives(renderTexture, Cvertices, vertexCount, kind, Cstates)
 
 proc pushGLStates*(renderTexture: RenderTexture) {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_pushGLStates".}
@@ -3756,8 +3756,6 @@ proc newTexture*(width: cint, height: cint): Texture {.
 proc newTexture*(filename: cstring, area: (var IntRect){lvalue}): Texture {.
   cdecl, dynlib: lib, importc: "sfTexture_createFromFile".}
 proc newTexture*(filename: cstring, area: IntRect): Texture =
-  (var Carea = area)
-  newTexture(filename, Carea)
   ## Create a new texture from a file
   ## 
   ## *Arguments*:
@@ -3765,12 +3763,12 @@ proc newTexture*(filename: cstring, area: IntRect): Texture =
   ## - ``area``:      Area of the source image to load (NULL to load the entire image)
   ## 
   ## *Returns:* A new sfTexture object, or NULL if it failed
+  (var Carea = area)
+  newTexture(filename, Carea)
 
 proc newTexture*(data: pointer, sizeInBytes: int, area: (var IntRect){lvalue}): Texture {.
   cdecl, dynlib: lib, importc: "sfTexture_createFromMemory".}
 proc newTexture*(data: pointer, sizeInBytes: int, area: IntRect): Texture =
-  (var Carea = area)
-  newTexture(data, sizeInBytes, Carea)
   ## Create a new texture from a file in memory
   ## 
   ## *Arguments*:
@@ -3779,12 +3777,12 @@ proc newTexture*(data: pointer, sizeInBytes: int, area: IntRect): Texture =
   ## - ``area``:         Area of the source image to load (NULL to load the entire image)
   ## 
   ## *Returns:* A new sfTexture object, or NULL if it failed
+  (var Carea = area)
+  newTexture(data, sizeInBytes, Carea)
 
 proc newTexture*(stream: var InputStream, area: (var IntRect){lvalue}): Texture {.
   cdecl, dynlib: lib, importc: "sfTexture_createFromStream".}
 proc newTexture*(stream: var InputStream, area: IntRect): Texture =
-  (var Carea = area)
-  newTexture(stream, Carea)
   ## Create a new texture from a custom stream
   ## 
   ## *Arguments*:
@@ -3792,12 +3790,12 @@ proc newTexture*(stream: var InputStream, area: IntRect): Texture =
   ## - ``area``:    Area of the source image to load (NULL to load the entire image)
   ## 
   ## *Returns:* A new sfTexture object, or NULL if it failed
+  (var Carea = area)
+  newTexture(stream, Carea)
 
 proc newTexture*(image: Image, area: (var IntRect){lvalue}): Texture {.
   cdecl, dynlib: lib, importc: "sfTexture_createFromImage".}
 proc newTexture*(image: Image, area: IntRect): Texture =
-  (var Carea = area)
-  newTexture(image, Carea)
   ## Create a new texture from an image
   ## 
   ## *Arguments*:
@@ -3805,6 +3803,8 @@ proc newTexture*(image: Image, area: IntRect): Texture =
   ## - ``area``:   Area of the source image to load (NULL to load the entire image)
   ## 
   ## *Returns:* A new sfTexture object, or NULL if it failed
+  (var Carea = area)
+  newTexture(image, Carea)
 
 proc copy*(texture: Texture): Texture {.
   cdecl, dynlib: lib, importc: "sfTexture_copy".}
