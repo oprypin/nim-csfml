@@ -1244,6 +1244,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="`*`(a: Vector2f; b: cfloat): Vector2f"><wbr />`*`</a></li>
   <li><a class="reference" href="#/,Vector2f,cfloat"
     title="`&#x2F;`(a: Vector2f; b: cfloat): Vector2f"><wbr />`/`</a></li>
+  <li><a class="reference" href="#-,Vector2f"
+    title="`-`(a: Vector2f): Vector2f"><wbr />`-`</a></li>
   <li><a class="reference" href="#==,Vector2f,Vector2f"
     title="`==`(a, b: Vector2f): bool"><wbr />`==`</a></li>
   <li><a class="reference" href="#+,Vector2i,Vector2i"
@@ -1254,6 +1256,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="`*`(a: Vector2i; b: cint): Vector2i"><wbr />`*`</a></li>
   <li><a class="reference" href="#/,Vector2i,cint"
     title="`&#x2F;`(a: Vector2i; b: cint): Vector2i"><wbr />`/`</a></li>
+  <li><a class="reference" href="#-,Vector2i"
+    title="`-`(a: Vector2i): Vector2i"><wbr />`-`</a></li>
   <li><a class="reference" href="#==,Vector2i,Vector2i"
     title="`==`(a, b: Vector2i): bool"><wbr />`==`</a></li>
   <li><a class="reference" href="#+,Vector3f,Vector3f"
@@ -1264,12 +1268,10 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="`*`(a: Vector3f; b: cfloat): Vector3f"><wbr />`*`</a></li>
   <li><a class="reference" href="#/,Vector3f,cfloat"
     title="`&#x2F;`(a: Vector3f; b: cfloat): Vector3f"><wbr />`/`</a></li>
+  <li><a class="reference" href="#-,Vector3f"
+    title="`-`(a: Vector3f): Vector3f"><wbr />`-`</a></li>
   <li><a class="reference" href="#==,Vector3f,Vector3f"
     title="`==`(a, b: Vector3f): bool"><wbr />`==`</a></li>
-  <li><a class="reference" href="#+,Time,Time"
-    title="`+`(a, b: Time): Time"><wbr />`+`</a></li>
-  <li><a class="reference" href="#-,Time,Time"
-    title="`-`(a, b: Time): Time"><wbr />`-`</a></li>
   <li><a class="reference" href="#==,Time,Time"
     title="`==`(a, b: Time): bool"><wbr />`==`</a></li>
   <li><a class="reference" href="#<=,Time,Time"
@@ -1512,22 +1514,22 @@ Set of callbacks that allow users to define custom file streams
 </dd>
 <dt id="vec2"><a name="vec2,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec2</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: Vector2i with these coordinates
 
 </dd>
 <dt id="vec2"><a name="vec2,int,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec2</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: Vector2i with these coordinates
 
 </dd>
 <dt id="vec2"><a name="vec2,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec2</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: Vector2f with these coordinates
 
 </dd>
 <dt id="vec2"><a name="vec2,float,float"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec2</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: Vector2f with these coordinates
 
 </dd>
 <dt id="vec3"><a name="vec3,cfloat,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec3</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
@@ -1537,27 +1539,32 @@ Set of callbacks that allow users to define custom file streams
 </dd>
 <dt id="vec3"><a name="vec3,float,float,float"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec3</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: Vector3f with these coordinates
 
 </dd>
 <dt id="+"><a name="+,Vector2f,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`+`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: Memberwise addition
 
 </dd>
 <dt id="-"><a name="-,Vector2f,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: Memberwise subtraction
 
 </dd>
 <dt id="*"><a name="*,Vector2f,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`*`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: Memberwise multiplication by <tt class="docutils literal"><span class="pre">b</span></tt>
 
 </dd>
 <dt id="/"><a name="/,Vector2f,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`/`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
+<em>Returns</em>: Memberwise division by <tt class="docutils literal"><span class="pre">b</span></tt>
 
+</dd>
+<dt id="-"><a name="-,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<em>Returns</em>: Memberwise opposite
 
 </dd>
 <dt id="=="><a name="==,Vector2f,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
@@ -1567,22 +1574,27 @@ Set of callbacks that allow users to define custom file streams
 </dd>
 <dt id="+"><a name="+,Vector2i,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`+`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: Memberwise addition
 
 </dd>
 <dt id="-"><a name="-,Vector2i,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: Memberwise subtraction
 
 </dd>
 <dt id="*"><a name="*,Vector2i,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`*`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: Memberwise multiplication by <tt class="docutils literal"><span class="pre">b</span></tt>
 
 </dd>
 <dt id="/"><a name="/,Vector2i,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`/`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
+<em>Returns</em>: Memberwise integer division by <tt class="docutils literal"><span class="pre">b</span></tt>
 
+</dd>
+<dt id="-"><a name="-,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<em>Returns</em>: Memberwise opposite
 
 </dd>
 <dt id="=="><a name="==,Vector2i,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
@@ -1592,35 +1604,30 @@ Set of callbacks that allow users to define custom file streams
 </dd>
 <dt id="+"><a name="+,Vector3f,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`+`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: Memberwise addition
 
 </dd>
 <dt id="-"><a name="-,Vector3f,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: Memberwise subtraction
 
 </dd>
 <dt id="*"><a name="*,Vector3f,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`*`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: Memberwise multiplication by <tt class="docutils literal"><span class="pre">b</span></tt>
 
 </dd>
 <dt id="/"><a name="/,Vector3f,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`/`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
+<em>Returns</em>: Memberwise division by <tt class="docutils literal"><span class="pre">b</span></tt>
 
+</dd>
+<dt id="-"><a name="-,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<em>Returns</em>: Memberwise opposite
 
 </dd>
 <dt id="=="><a name="==,Vector3f,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="+"><a name="+,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`+`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Time</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="-"><a name="-,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Time</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
@@ -1647,7 +1654,7 @@ Set of callbacks that allow users to define custom file streams
 <dl class="item">
 <dt id="vec2"><a name="vec2.c,Vector2i"></a><pre><span class="Keyword">converter</span> <span class="Identifier">vec2</span><span class="Other">(</span><span class="Identifier">v</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+Conversion from Vector2i to Vector2f
 
 </dd>
 
@@ -1660,7 +1667,7 @@ Set of callbacks that allow users to define custom file streams
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-03 11:26:30 UTC</small>
+        <small>Made with Nim. Generated: 2015-01-04 00:56:37 UTC</small>
       </div>
     </div>
   </div>

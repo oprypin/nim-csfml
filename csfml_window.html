@@ -1297,21 +1297,21 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#active=,Context,IntBool"
     title="active=(context: Context; active: IntBool)"><wbr />active=</a></li>
   <li><a class="reference" href="#joystick_isConnected,cint"
-    title="joystick_isConnected(joystick: cint): IntBool"><wbr />joystick_<wbr />is<wbr />Connected</a></li>
+    title="joystick_isConnected(joystick: cint): bool"><wbr />joystick_<wbr />is<wbr />Connected</a></li>
   <li><a class="reference" href="#joystick_getButtonCount,cint"
     title="joystick_getButtonCount(joystick: cint): cint"><wbr />joystick_<wbr />get<wbr />Button<wbr />Count</a></li>
   <li><a class="reference" href="#joystick_hasAxis,cint,JoystickAxis"
-    title="joystick_hasAxis(joystick: cint; axis: JoystickAxis): IntBool"><wbr />joystick_<wbr />has<wbr />Axis</a></li>
+    title="joystick_hasAxis(joystick: cint; axis: JoystickAxis): bool"><wbr />joystick_<wbr />has<wbr />Axis</a></li>
   <li><a class="reference" href="#joystick_isButtonPressed,cint,cint"
-    title="joystick_isButtonPressed(joystick: cint; button: cint): IntBool"><wbr />joystick_<wbr />is<wbr />Button<wbr />Pressed</a></li>
+    title="joystick_isButtonPressed(joystick: cint; button: cint): bool"><wbr />joystick_<wbr />is<wbr />Button<wbr />Pressed</a></li>
   <li><a class="reference" href="#joystick_getAxisPosition,cint,JoystickAxis"
     title="joystick_getAxisPosition(joystick: cint; axis: JoystickAxis): cfloat"><wbr />joystick_<wbr />get<wbr />Axis<wbr />Position</a></li>
   <li><a class="reference" href="#joystick_update,"
     title="joystick_update()"><wbr />joystick_<wbr />update</a></li>
   <li><a class="reference" href="#keyboard_isKeyPressed,KeyCode"
-    title="keyboard_isKeyPressed(key: KeyCode): IntBool"><wbr />keyboard_<wbr />is<wbr />Key<wbr />Pressed</a></li>
+    title="keyboard_isKeyPressed(key: KeyCode): bool"><wbr />keyboard_<wbr />is<wbr />Key<wbr />Pressed</a></li>
   <li><a class="reference" href="#mouse_isButtonPressed,MouseButton"
-    title="mouse_isButtonPressed(button: MouseButton): IntBool"><wbr />mouse_<wbr />is<wbr />Button<wbr />Pressed</a></li>
+    title="mouse_isButtonPressed(button: MouseButton): bool"><wbr />mouse_<wbr />is<wbr />Button<wbr />Pressed</a></li>
   <li><a class="reference" href="#mouse_getPosition,Window"
     title="mouse_getPosition(relativeTo: Window): Vector2i"><wbr />mouse_<wbr />get<wbr />Position</a></li>
   <li><a class="reference" href="#mouse_setPosition,Vector2i,Window"
@@ -1319,9 +1319,9 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#videoMode_getDesktopMode,"
     title="videoMode_getDesktopMode(): VideoMode"><wbr />video<wbr />Mode_<wbr />get<wbr />Desktop<wbr />Mode</a></li>
   <li><a class="reference" href="#videoMode_getFullscreenModes,ptr.int"
-    title="videoMode_getFullscreenModes(count: ptr int): var VideoMode"><wbr />video<wbr />Mode_<wbr />get<wbr />Fullscreen<wbr />Modes</a></li>
+    title="videoMode_getFullscreenModes(count: ptr int): ptr VideoMode"><wbr />video<wbr />Mode_<wbr />get<wbr />Fullscreen<wbr />Modes</a></li>
   <li><a class="reference" href="#valid,VideoMode"
-    title="valid(mode: VideoMode): IntBool"><wbr />valid</a></li>
+    title="valid(mode: VideoMode): bool"><wbr />valid</a></li>
   <li><a class="reference" href="#newWindow,VideoMode,cstring,uint32,"
     title="newWindow(mode: VideoMode; title: cstring; style: uint32; 
           settings: (var ContextSettings){lvalue}): Window"><wbr />new<wbr />Window</a></li>
@@ -1343,13 +1343,13 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#close,Window"
     title="close(window: Window)"><wbr />close</a></li>
   <li><a class="reference" href="#open,Window"
-    title="open(window: Window): IntBool"><wbr />open</a></li>
+    title="open(window: Window): bool"><wbr />open</a></li>
   <li><a class="reference" href="#settings,Window"
     title="settings(window: Window): ContextSettings"><wbr />settings</a></li>
   <li><a class="reference" href="#pollEvent,Window,Event"
-    title="pollEvent(window: Window; event: var Event): IntBool"><wbr />poll<wbr />Event</a></li>
+    title="pollEvent(window: Window; event: var Event): bool"><wbr />poll<wbr />Event</a></li>
   <li><a class="reference" href="#waitEvent,Window,Event"
-    title="waitEvent(window: Window; event: var Event): IntBool"><wbr />wait<wbr />Event</a></li>
+    title="waitEvent(window: Window; event: var Event): bool"><wbr />wait<wbr />Event</a></li>
   <li><a class="reference" href="#position,Window"
     title="position(window: Window): Vector2i"><wbr />position</a></li>
   <li><a class="reference" href="#position=,Window,Vector2i"
@@ -1373,7 +1373,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#keyRepeatEnabled=,Window,IntBool"
     title="keyRepeatEnabled=(window: Window; enabled: IntBool)"><wbr />key<wbr />Repeat<wbr />Enabled=</a></li>
   <li><a class="reference" href="#active=,Window,IntBool"
-    title="active=(window: Window; active: IntBool): IntBool"><wbr />active=</a></li>
+    title="active=(window: Window; active: IntBool): bool"><wbr />active=</a></li>
   <li><a class="reference" href="#display,Window"
     title="display(window: Window)"><wbr />display</a></li>
   <li><a class="reference" href="#framerateLimit=,Window,cint"
@@ -1382,6 +1382,15 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="joystickThreshold=(window: Window; threshold: cfloat)"><wbr />joystick<wbr />Threshold=</a></li>
   <li><a class="reference" href="#systemHandle,Window"
     title="systemHandle(window: Window): WindowHandle"><wbr />system<wbr />Handle</a></li>
+  <li><a class="reference" href="#contextSettings,cint,cint,cint,cint,cint"
+    title="contextSettings(depth: cint = 0; stencil: cint = 0; antialiasing: cint = 0; 
+                major: cint = 2; minor: cint = 0): ContextSettings"><wbr />context<wbr />Settings</a></li>
+  <li><a class="reference" href="#mouse_getPosition,"
+    title="mouse_getPosition(): Vector2i"><wbr />mouse_<wbr />get<wbr />Position</a></li>
+  <li><a class="reference" href="#mouse_setPosition,Vector2i"
+    title="mouse_setPosition(position: Vector2i)"><wbr />mouse_<wbr />set<wbr />Position</a></li>
+  <li><a class="reference" href="#videoMode,"
+    title="videoMode(): VideoMode"><wbr />video<wbr />Mode</a></li>
   <li><a class="reference" href="#videoMode,cint,cint,cint"
     title="videoMode(modeWidth, modeHeight: cint; bitsPerPixel: cint = 32): VideoMode"><wbr />video<wbr />Mode</a></li>
   <li><a class="reference" href="#==,VideoMode,VideoMode"
@@ -1390,14 +1399,13 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="`&lt;`(a, b: VideoMode): bool"><wbr />`&lt;`</a></li>
   <li><a class="reference" href="#<=,VideoMode,VideoMode"
     title="`&lt;=`(a, b: VideoMode): bool"><wbr />`&lt;=`</a></li>
-  <li><a class="reference" href="#contextSettings,cint,cint,cint,cint,cint"
-    title="contextSettings(depth: cint = 0; stencil: cint = 0; antialiasing: cint = 0; 
-                major: cint = 2; minor: cint = 0): ContextSettings"><wbr />context<wbr />Settings</a></li>
+  <li><a class="reference" href="#videoMode_getFullscreenModes,"
+    title="videoMode_getFullscreenModes(): seq[VideoMode]"><wbr />video<wbr />Mode_<wbr />get<wbr />Fullscreen<wbr />Modes</a></li>
   <li><a class="reference" href="#title=,Window,string"
     title="title=(window: Window; title: string)"><wbr />title=</a></li>
-  <li><a class="reference" href="#newWindow,VideoMode,string,uint32,ContextSettings"
+  <li><a class="reference" href="#newWindow,VideoMode,string,uint32"
     title="newWindow(mode: VideoMode; title: string; style: uint32 = WindowStyle.Default; 
-          settings: ContextSettings = contextSettings()): Window"><wbr />new<wbr />Window</a></li>
+          settings = contextSettings()): Window"><wbr />new<wbr />Window</a></li>
 
   </ul>
 </li>
@@ -1664,7 +1672,7 @@ Structure defining the window's creation settings
 
 
 </dd>
-<dt id="joystick_isConnected"><a name="joystick_isConnected,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">joystick_isConnected</span><span class="Other">(</span><span class="Identifier">joystick</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="joystick_isConnected"><a name="joystick_isConnected,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">joystick_isConnected</span><span class="Other">(</span><span class="Identifier">joystick</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfJoystick_isConnected&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Check if a joystick is connected</p>
@@ -1687,7 +1695,7 @@ Structure defining the window's creation settings
 
 
 </dd>
-<dt id="joystick_hasAxis"><a name="joystick_hasAxis,cint,JoystickAxis"></a><pre><span class="Keyword">proc</span> <span class="Identifier">joystick_hasAxis</span><span class="Other">(</span><span class="Identifier">joystick</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">axis</span><span class="Other">:</span> <span class="Identifier">JoystickAxis</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="joystick_hasAxis"><a name="joystick_hasAxis,cint,JoystickAxis"></a><pre><span class="Keyword">proc</span> <span class="Identifier">joystick_hasAxis</span><span class="Other">(</span><span class="Identifier">joystick</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">axis</span><span class="Other">:</span> <span class="Identifier">JoystickAxis</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfJoystick_hasAxis&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Check if a joystick supports a given axis</p>
@@ -1700,7 +1708,7 @@ Structure defining the window's creation settings
 
 
 </dd>
-<dt id="joystick_isButtonPressed"><a name="joystick_isButtonPressed,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">joystick_isButtonPressed</span><span class="Other">(</span><span class="Identifier">joystick</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">button</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="joystick_isButtonPressed"><a name="joystick_isButtonPressed,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">joystick_isButtonPressed</span><span class="Other">(</span><span class="Identifier">joystick</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">button</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfJoystick_isButtonPressed&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Check if a joystick button is pressed</p>
@@ -1733,7 +1741,7 @@ Structure defining the window's creation settings
 
 
 </dd>
-<dt id="keyboard_isKeyPressed"><a name="keyboard_isKeyPressed,KeyCode"></a><pre><span class="Keyword">proc</span> <span class="Identifier">keyboard_isKeyPressed</span><span class="Other">(</span><span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">KeyCode</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="keyboard_isKeyPressed"><a name="keyboard_isKeyPressed,KeyCode"></a><pre><span class="Keyword">proc</span> <span class="Identifier">keyboard_isKeyPressed</span><span class="Other">(</span><span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">KeyCode</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfKeyboard_isKeyPressed&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Check if a key is pressed</p>
@@ -1744,7 +1752,7 @@ Structure defining the window's creation settings
 
 
 </dd>
-<dt id="mouse_isButtonPressed"><a name="mouse_isButtonPressed,MouseButton"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouse_isButtonPressed</span><span class="Other">(</span><span class="Identifier">button</span><span class="Other">:</span> <span class="Identifier">MouseButton</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="mouse_isButtonPressed"><a name="mouse_isButtonPressed,MouseButton"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouse_isButtonPressed</span><span class="Other">(</span><span class="Identifier">button</span><span class="Other">:</span> <span class="Identifier">MouseButton</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfMouse_isButtonPressed&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Check if a mouse button is pressed</p>
@@ -1787,7 +1795,7 @@ Structure defining the window's creation settings
 
 
 </dd>
-<dt id="videoMode_getFullscreenModes"><a name="videoMode_getFullscreenModes,ptr.int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">videoMode_getFullscreenModes</span><span class="Other">(</span><span class="Identifier">count</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">VideoMode</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="videoMode_getFullscreenModes"><a name="videoMode_getFullscreenModes,ptr.int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">videoMode_getFullscreenModes</span><span class="Other">(</span><span class="Identifier">count</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">VideoMode</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfVideoMode_getFullscreenModes&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Retrieve all the video modes supported in fullscreen mode</p>
@@ -1799,8 +1807,8 @@ Structure defining the window's creation settings
 
 
 </dd>
-<dt id="valid"><a name="valid,VideoMode"></a><pre><span class="Keyword">proc</span> <span class="Identifier">valid</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
-                                       <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfVideoMode_isValid&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="valid"><a name="valid,VideoMode"></a><pre><span class="Keyword">proc</span> <span class="Identifier">valid</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+                                    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfVideoMode_isValid&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Tell whether or not a video mode is valid</p>
 <p>The validity of video modes is only relevant when using fullscreen windows; otherwise any video mode can be used with no restriction.</p>
@@ -1868,8 +1876,7 @@ Structure defining the window's creation settings
 
 
 </dd>
-<dt id="open"><a name="open,Window"></a><pre><span class="Keyword">proc</span> <span class="Identifier">open</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">Window</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
-                                     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfWindow_isOpen&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="open"><a name="open,Window"></a><pre><span class="Keyword">proc</span> <span class="Identifier">open</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">Window</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfWindow_isOpen&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Tell whether or not a window is opened</p>
 <p>This function returns whether or not the window exists. Note that a hidden window (sfWindow_setVisible(sfFalse)) will return sfTrue.</p>
@@ -1892,7 +1899,7 @@ Structure defining the window's creation settings
 
 
 </dd>
-<dt id="pollEvent"><a name="pollEvent,Window,Event"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pollEvent</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">Window</span><span class="Other">;</span> <span class="Identifier">event</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Event</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="pollEvent"><a name="pollEvent,Window,Event"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pollEvent</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">Window</span><span class="Other">;</span> <span class="Identifier">event</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Event</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfWindow_pollEvent&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Pop the event on top of event queue, if any, and return it</p>
@@ -1905,7 +1912,7 @@ Structure defining the window's creation settings
 
 
 </dd>
-<dt id="waitEvent"><a name="waitEvent,Window,Event"></a><pre><span class="Keyword">proc</span> <span class="Identifier">waitEvent</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">Window</span><span class="Other">;</span> <span class="Identifier">event</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Event</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="waitEvent"><a name="waitEvent,Window,Event"></a><pre><span class="Keyword">proc</span> <span class="Identifier">waitEvent</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">Window</span><span class="Other">;</span> <span class="Identifier">event</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Event</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfWindow_waitEvent&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Wait for an event and return it</p>
@@ -2047,7 +2054,7 @@ Structure defining the window's creation settings
 
 
 </dd>
-<dt id="active="><a name="active=,Window,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">active=</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">Window</span><span class="Other">;</span> <span class="Identifier">active</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="active="><a name="active=,Window,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">active=</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">Window</span><span class="Other">;</span> <span class="Identifier">active</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfWindow_setActive&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Activate or deactivate a window as the current target for OpenGL rendering</p>
@@ -2106,9 +2113,42 @@ Structure defining the window's creation settings
 
 
 </dd>
+<dt id="contextSettings"><a name="contextSettings,cint,cint,cint,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">contextSettings</span><span class="Other">(</span><span class="Identifier">depth</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> <span class="Identifier">stencil</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> <span class="Identifier">antialiasing</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> 
+                     <span class="Identifier">major</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">2</span><span class="Other">;</span> <span class="Identifier">minor</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span> <span class="Other">{.</span>
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p><em>Arguments</em>: <tt class="docutils literal"><span class="pre">depth</span></tt>: Depth buffer bits <tt class="docutils literal"><span class="pre">stencil</span></tt>: Stencil buffer bits <tt class="docutils literal"><span class="pre">antialiasing</span></tt>: Antialiasing level <tt class="docutils literal"><span class="pre">major</span></tt>: Major number of the context version <tt class="docutils literal"><span class="pre">minor</span></tt>: Minor number of the context version</p>
+<p><em>Returns</em>: ContextSettings with these members</p>
+
+
+</dd>
+<dt id="mouse_getPosition"><a name="mouse_getPosition,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouse_getPosition</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="mouse_setPosition"><a name="mouse_setPosition,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouse_setPosition</span><span class="Other">(</span><span class="Identifier">position</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Set the current position of the mouse relative to desktop</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">position</span></tt>: New position of the mouse</li>
+</ul>
+
+
+</dd>
+<dt id="videoMode"><a name="videoMode,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">videoMode</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">VideoMode</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<em>Returns</em>: a VideoMode with all members set to 0
+
+</dd>
 <dt id="videoMode"><a name="videoMode,cint,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">videoMode</span><span class="Other">(</span><span class="Identifier">modeWidth</span><span class="Other">,</span> <span class="Identifier">modeHeight</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">bitsPerPixel</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">32</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">VideoMode</span> <span class="Other">{.</span>
     <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
+<em>Arguments</em>:<ul class="simple"><li><tt class="docutils literal"><span class="pre">modeWidth</span></tt>: Width in pixels</li>
+<li><tt class="docutils literal"><span class="pre">modeHeight</span></tt>: Height in pixels</li>
+<li><tt class="docutils literal"><span class="pre">modeBitsPerPixel</span></tt>: Pixel depths in bits per pixel</li>
+</ul>
+<p><em>Returns</em>: a VideoMode with these members</p>
 
 
 </dd>
@@ -2127,21 +2167,20 @@ Structure defining the window's creation settings
 
 
 </dd>
-<dt id="contextSettings"><a name="contextSettings,cint,cint,cint,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">contextSettings</span><span class="Other">(</span><span class="Identifier">depth</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> <span class="Identifier">stencil</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> <span class="Identifier">antialiasing</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> 
-                     <span class="Identifier">major</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">2</span><span class="Other">;</span> <span class="Identifier">minor</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span> <span class="Other">{.</span>
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="videoMode_getFullscreenModes"><a name="videoMode_getFullscreenModes,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">videoMode_getFullscreenModes</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">VideoMode</span><span class="Other">]</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
+<p>Overloaded proc that returns a seq instead of exposing pointers</p>
+<p><em>Returns:</em> seq containing all the supported fullscreen modes</p>
 
 
 </dd>
 <dt id="title="><a name="title=,Window,string"></a><pre><span class="Keyword">proc</span> <span class="Identifier">title=</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">Window</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+Overloaded proc that converts Nim's strings correctly
 
 </dd>
-<dt id="newWindow"><a name="newWindow,VideoMode,string,uint32,ContextSettings"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newWindow</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> 
-               <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">uint32</span> <span class="Other">=</span> <span class="Identifier">WindowStyle</span><span class="Other">.</span><span class="Identifier">Default</span><span class="Other">;</span> 
-               <span class="Identifier">settings</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span> <span class="Other">=</span> <span class="Identifier">contextSettings</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Window</span> <span class="Other">{.</span>
+<dt id="newWindow"><a name="newWindow,VideoMode,string,uint32"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newWindow</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> 
+               <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">uint32</span> <span class="Other">=</span> <span class="Identifier">WindowStyle</span><span class="Other">.</span><span class="Identifier">Default</span><span class="Other">;</span> <span class="Identifier">settings</span> <span class="Other">=</span> <span class="Identifier">contextSettings</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Window</span> <span class="Other">{.</span>
     <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
@@ -2167,7 +2206,7 @@ Structure defining the window's creation settings
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-03 11:26:30 UTC</small>
+        <small>Made with Nim. Generated: 2015-01-04 00:56:36 UTC</small>
       </div>
     </div>
   </div>

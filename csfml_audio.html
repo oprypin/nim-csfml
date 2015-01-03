@@ -1207,7 +1207,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#loop=,Music,IntBool"
     title="loop=(music: Music; loop: IntBool)"><wbr />loop=</a></li>
   <li><a class="reference" href="#loop,Music"
-    title="loop(music: Music): IntBool"><wbr />loop</a></li>
+    title="loop(music: Music): bool"><wbr />loop</a></li>
   <li><a class="reference" href="#duration,Music"
     title="duration(music: Music): Time"><wbr />duration</a></li>
   <li><a class="reference" href="#play,Music"
@@ -1245,7 +1245,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#position,Music"
     title="position(music: Music): Vector3f"><wbr />position</a></li>
   <li><a class="reference" href="#relativeToListener,Music"
-    title="relativeToListener(music: Music): IntBool"><wbr />relative<wbr />To<wbr />Listener</a></li>
+    title="relativeToListener(music: Music): bool"><wbr />relative<wbr />To<wbr />Listener</a></li>
   <li><a class="reference" href="#minDistance,Music"
     title="minDistance(music: Music): cfloat"><wbr />min<wbr />Distance</a></li>
   <li><a class="reference" href="#attenuation,Music"
@@ -1269,7 +1269,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#loop=,Sound,IntBool"
     title="loop=(sound: Sound; loop: IntBool)"><wbr />loop=</a></li>
   <li><a class="reference" href="#loop,Sound"
-    title="loop(sound: Sound): IntBool"><wbr />loop</a></li>
+    title="loop(sound: Sound): bool"><wbr />loop</a></li>
   <li><a class="reference" href="#status,Sound"
     title="status(sound: Sound): SoundStatus"><wbr />status</a></li>
   <li><a class="reference" href="#pitch=,Sound,cfloat"
@@ -1293,7 +1293,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#position,Sound"
     title="position(sound: Sound): Vector3f"><wbr />position</a></li>
   <li><a class="reference" href="#relativeToListener,Sound"
-    title="relativeToListener(sound: Sound): IntBool"><wbr />relative<wbr />To<wbr />Listener</a></li>
+    title="relativeToListener(sound: Sound): bool"><wbr />relative<wbr />To<wbr />Listener</a></li>
   <li><a class="reference" href="#minDistance,Sound"
     title="minDistance(sound: Sound): cfloat"><wbr />min<wbr />Distance</a></li>
   <li><a class="reference" href="#attenuation,Sound"
@@ -1314,7 +1314,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#destroy,SoundBuffer"
     title="destroy(soundBuffer: SoundBuffer)"><wbr />destroy</a></li>
   <li><a class="reference" href="#saveToFile,SoundBuffer,cstring"
-    title="saveToFile(soundBuffer: SoundBuffer; filename: cstring): IntBool"><wbr />save<wbr />To<wbr />File</a></li>
+    title="saveToFile(soundBuffer: SoundBuffer; filename: cstring): bool"><wbr />save<wbr />To<wbr />File</a></li>
   <li><a class="reference" href="#samples,SoundBuffer"
     title="samples(soundBuffer: SoundBuffer): ptr int16"><wbr />samples</a></li>
   <li><a class="reference" href="#sampleCount,SoundBuffer"
@@ -1350,7 +1350,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#sampleRate,SoundRecorder"
     title="sampleRate(soundRecorder: SoundRecorder): cint"><wbr />sample<wbr />Rate</a></li>
   <li><a class="reference" href="#soundRecorder_isAvailable,"
-    title="soundRecorder_isAvailable(): IntBool"><wbr />sound<wbr />Recorder_<wbr />is<wbr />Available</a></li>
+    title="soundRecorder_isAvailable(): bool"><wbr />sound<wbr />Recorder_<wbr />is<wbr />Available</a></li>
 
   </ul>
 </li>
@@ -1540,8 +1540,7 @@ Enumeration of statuses for sounds and musics
 
 
 </dd>
-<dt id="loop"><a name="loop,Music"></a><pre><span class="Keyword">proc</span> <span class="Identifier">loop</span><span class="Other">(</span><span class="Identifier">music</span><span class="Other">:</span> <span class="Identifier">Music</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
-                                   <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfMusic_getLoop&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="loop"><a name="loop,Music"></a><pre><span class="Keyword">proc</span> <span class="Identifier">loop</span><span class="Other">(</span><span class="Identifier">music</span><span class="Other">:</span> <span class="Identifier">Music</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfMusic_getLoop&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Tell whether or not a music is in loop mode</p>
 <p><em>Arguments</em>:</p>
@@ -1755,7 +1754,7 @@ Enumeration of statuses for sounds and musics
 
 
 </dd>
-<dt id="relativeToListener"><a name="relativeToListener,Music"></a><pre><span class="Keyword">proc</span> <span class="Identifier">relativeToListener</span><span class="Other">(</span><span class="Identifier">music</span><span class="Other">:</span> <span class="Identifier">Music</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="relativeToListener"><a name="relativeToListener,Music"></a><pre><span class="Keyword">proc</span> <span class="Identifier">relativeToListener</span><span class="Other">(</span><span class="Identifier">music</span><span class="Other">:</span> <span class="Identifier">Music</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfMusic_isRelativeToListener&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Tell whether a music's position is relative to the listener or is absolute</p>
@@ -1879,8 +1878,7 @@ Enumeration of statuses for sounds and musics
 
 
 </dd>
-<dt id="loop"><a name="loop,Sound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">loop</span><span class="Other">(</span><span class="Identifier">sound</span><span class="Other">:</span> <span class="Identifier">Sound</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
-                                   <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSound_getLoop&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="loop"><a name="loop,Sound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">loop</span><span class="Other">(</span><span class="Identifier">sound</span><span class="Other">:</span> <span class="Identifier">Sound</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSound_getLoop&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Tell whether or not a sound is in loop mode</p>
 <p><em>Arguments</em>:</p>
@@ -2018,7 +2016,7 @@ Enumeration of statuses for sounds and musics
 
 
 </dd>
-<dt id="relativeToListener"><a name="relativeToListener,Sound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">relativeToListener</span><span class="Other">(</span><span class="Identifier">sound</span><span class="Other">:</span> <span class="Identifier">Sound</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="relativeToListener"><a name="relativeToListener,Sound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">relativeToListener</span><span class="Other">(</span><span class="Identifier">sound</span><span class="Other">:</span> <span class="Identifier">Sound</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSound_isRelativeToListener&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Tell whether a sound's position is relative to the listener or is absolute</p>
@@ -2136,7 +2134,7 @@ Enumeration of statuses for sounds and musics
 
 
 </dd>
-<dt id="saveToFile"><a name="saveToFile,SoundBuffer,cstring"></a><pre><span class="Keyword">proc</span> <span class="Identifier">saveToFile</span><span class="Other">(</span><span class="Identifier">soundBuffer</span><span class="Other">:</span> <span class="Identifier">SoundBuffer</span><span class="Other">;</span> <span class="Identifier">filename</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="saveToFile"><a name="saveToFile,SoundBuffer,cstring"></a><pre><span class="Keyword">proc</span> <span class="Identifier">saveToFile</span><span class="Other">(</span><span class="Identifier">soundBuffer</span><span class="Other">:</span> <span class="Identifier">SoundBuffer</span><span class="Other">;</span> <span class="Identifier">filename</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundBuffer_saveToFile&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Save a sound buffer to an audio file</p>
@@ -2332,7 +2330,7 @@ Enumeration of statuses for sounds and musics
 
 
 </dd>
-<dt id="soundRecorder_isAvailable"><a name="soundRecorder_isAvailable,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">soundRecorder_isAvailable</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="soundRecorder_isAvailable"><a name="soundRecorder_isAvailable,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">soundRecorder_isAvailable</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundRecorder_isAvailable&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Check if the system supports audio capture</p>
@@ -2351,7 +2349,7 @@ Enumeration of statuses for sounds and musics
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-03 11:26:30 UTC</small>
+        <small>Made with Nim. Generated: 2015-01-04 00:56:37 UTC</small>
       </div>
     </div>
   </div>
