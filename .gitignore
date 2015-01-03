@@ -7,8 +7,6 @@
 !*.nimble
 !src
 !src/*.nim
-!doc
-!doc/*.html
 !examples
 !examples/*.nim
 !examples/*.png

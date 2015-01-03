@@ -1,7 +1,7 @@
 nim-csfml
 =========
 
-This is a work in progress. See [examples](examples).
+This is a work in progress. See [examples](examples), [documentation][].
 
 - The files <em>[src](src)/csfml\_\*\_gen.nim</em> are [automatically generated](generate) from CSFML's header files. They provide the base CSFML API.
 - The files <em>csfml_\*.nim</em> build upon them, adding some compatibility with SFML API.
@@ -28,7 +28,7 @@ This library uses and is based on [SFML][] and [CSFML][].
 [Nim][] and [Python][] programming languages are used.
 
 
-
+[documentation]: http://blaxpirit.github.io/nim-csfml/
 [sfml]: http://www.sfml-dev.org/ "Simple and Fast Multimedia Library"
 [csfml]: http://www.sfml-dev.org/download/csfml/
 [nim]: http://nim-lang.org/
