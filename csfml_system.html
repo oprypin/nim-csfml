@@ -1155,60 +1155,127 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   </ul>
 </li>
 <li>
+  <a class="reference reference-toplevel" href="#7" id="57">Types</a>
+  <ul class="simple simple-toc-section">
+      <li><a class="reference" href="#Time"
+    title="Time = object 
+  microseconds*: int64"><wbr />Time</a></li>
+  <li><a class="reference" href="#Clock"
+    title="Clock = ptr TClock"><wbr />Clock</a></li>
+  <li><a class="reference" href="#Mutex"
+    title="Mutex = ptr TMutex"><wbr />Mutex</a></li>
+  <li><a class="reference" href="#Thread"
+    title="Thread = ptr TThread"><wbr />Thread</a></li>
+  <li><a class="reference" href="#InputStreamReadFunc"
+    title="InputStreamReadFunc = proc (data: pointer; size: int64; userData: pointer): int64"><wbr />Input<wbr />Stream<wbr />Read<wbr />Func</a></li>
+  <li><a class="reference" href="#InputStreamSeekFunc"
+    title="InputStreamSeekFunc = proc (position: int64; userData: pointer): int64"><wbr />Input<wbr />Stream<wbr />Seek<wbr />Func</a></li>
+  <li><a class="reference" href="#InputStreamTellFunc"
+    title="InputStreamTellFunc = proc (userData: pointer): int64"><wbr />Input<wbr />Stream<wbr />Tell<wbr />Func</a></li>
+  <li><a class="reference" href="#InputStreamGetSizeFunc"
+    title="InputStreamGetSizeFunc = proc (userData: pointer): int64"><wbr />Input<wbr />Stream<wbr />Get<wbr />Size<wbr />Func</a></li>
+  <li><a class="reference" href="#InputStream"
+    title="InputStream = object 
+  read*: InputStreamReadFunc
+  seek*: InputStreamSeekFunc
+  tell*: InputStreamTellFunc
+  getSize*: InputStreamGetSizeFunc
+  userData*: pointer"><wbr />Input<wbr />Stream</a></li>
+  <li><a class="reference" href="#Vector2i"
+    title="Vector2i = object 
+  x*: cint
+  y*: cint"><wbr />Vector2i</a></li>
+  <li><a class="reference" href="#Vector2f"
+    title="Vector2f = object 
+  x*: cfloat
+  y*: cfloat"><wbr />Vector2f</a></li>
+  <li><a class="reference" href="#Vector3f"
+    title="Vector3f = object 
+  x*: cfloat
+  y*: cfloat
+  z*: cfloat"><wbr />Vector3f</a></li>
+
+  </ul>
+</li>
+<li>
   <a class="reference reference-toplevel" href="#12" id="62">Procs</a>
   <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#vec2,cint,cint"
-    title="vec2*(x, y: cint): Vector2i"><wbr />vec2</a></li>
+      <li><a class="reference" href="#asSeconds,Time"
+    title="asSeconds(time: Time): cfloat"><wbr />as<wbr />Seconds</a></li>
+  <li><a class="reference" href="#asMilliseconds,Time"
+    title="asMilliseconds(time: Time): int32"><wbr />as<wbr />Milliseconds</a></li>
+  <li><a class="reference" href="#asMicroseconds,Time"
+    title="asMicroseconds(time: Time): int64"><wbr />as<wbr />Microseconds</a></li>
+  <li><a class="reference" href="#seconds,cfloat"
+    title="seconds(amount: cfloat): Time"><wbr />seconds</a></li>
+  <li><a class="reference" href="#milliseconds,int32"
+    title="milliseconds(amount: int32): Time"><wbr />milliseconds</a></li>
+  <li><a class="reference" href="#microseconds,int64"
+    title="microseconds(amount: int64): Time"><wbr />microseconds</a></li>
+  <li><a class="reference" href="#newClock,"
+    title="newClock(): Clock"><wbr />new<wbr />Clock</a></li>
+  <li><a class="reference" href="#copy,Clock"
+    title="copy(clock: Clock): Clock"><wbr />copy</a></li>
+  <li><a class="reference" href="#destroy,Clock"
+    title="destroy(clock: Clock)"><wbr />destroy</a></li>
+  <li><a class="reference" href="#elapsedTime,Clock"
+    title="elapsedTime(clock: Clock): Time"><wbr />elapsed<wbr />Time</a></li>
+  <li><a class="reference" href="#restart,Clock"
+    title="restart(clock: Clock): Time"><wbr />restart</a></li>
+  <li><a class="reference" href="#sleep,Time"
+    title="sleep(duration: Time)"><wbr />sleep</a></li>
+  <li><a class="reference" href="#vec2,cint,cint"
+    title="vec2(x, y: cint): Vector2i"><wbr />vec2</a></li>
   <li><a class="reference" href="#vec2,int,int"
-    title="vec2*(x, y: int): Vector2i"><wbr />vec2</a></li>
+    title="vec2(x, y: int): Vector2i"><wbr />vec2</a></li>
   <li><a class="reference" href="#vec2,cfloat,cfloat"
-    title="vec2*(x, y: cfloat): Vector2f"><wbr />vec2</a></li>
+    title="vec2(x, y: cfloat): Vector2f"><wbr />vec2</a></li>
   <li><a class="reference" href="#vec2,float,float"
-    title="vec2*(x, y: float): Vector2f"><wbr />vec2</a></li>
+    title="vec2(x, y: float): Vector2f"><wbr />vec2</a></li>
   <li><a class="reference" href="#vec3,cfloat,cfloat,cfloat"
-    title="vec3*(x, y, z: cfloat): Vector3f"><wbr />vec3</a></li>
+    title="vec3(x, y, z: cfloat): Vector3f"><wbr />vec3</a></li>
   <li><a class="reference" href="#vec3,float,float,float"
-    title="vec3*(x, y, z: float): Vector3f"><wbr />vec3</a></li>
+    title="vec3(x, y, z: float): Vector3f"><wbr />vec3</a></li>
   <li><a class="reference" href="#+,Vector2f,Vector2f"
-    title="`+`*(a, b: Vector2f): Vector2f">`<wbr />+`</a></li>
+    title="`+`(a, b: Vector2f): Vector2f"><wbr />`+`</a></li>
   <li><a class="reference" href="#-,Vector2f,Vector2f"
-    title="`-`*(a, b: Vector2f): Vector2f">`<wbr />-`</a></li>
-  <li><a class="reference" href="#,Vector2f,cfloat"
-    title="`*`*(a: Vector2f; b: cfloat): Vector2f">`<wbr />*`</a></li>
+    title="`-`(a, b: Vector2f): Vector2f"><wbr />`-`</a></li>
+  <li><a class="reference" href="#*,Vector2f,cfloat"
+    title="`*`(a: Vector2f; b: cfloat): Vector2f"><wbr />`*`</a></li>
   <li><a class="reference" href="#/,Vector2f,cfloat"
-    title="`&#x2F;`*(a: Vector2f; b: cfloat): Vector2f">`<wbr />/`</a></li>
+    title="`&#x2F;`(a: Vector2f; b: cfloat): Vector2f"><wbr />`/`</a></li>
   <li><a class="reference" href="#==,Vector2f,Vector2f"
-    title="`==`*(a, b: Vector2f): bool">`<wbr />==`</a></li>
+    title="`==`(a, b: Vector2f): bool"><wbr />`==`</a></li>
   <li><a class="reference" href="#+,Vector2i,Vector2i"
-    title="`+`*(a, b: Vector2i): Vector2i">`<wbr />+`</a></li>
+    title="`+`(a, b: Vector2i): Vector2i"><wbr />`+`</a></li>
   <li><a class="reference" href="#-,Vector2i,Vector2i"
-    title="`-`*(a, b: Vector2i): Vector2i">`<wbr />-`</a></li>
-  <li><a class="reference" href="#,Vector2i,cint"
-    title="`*`*(a: Vector2i; b: cint): Vector2i">`<wbr />*`</a></li>
+    title="`-`(a, b: Vector2i): Vector2i"><wbr />`-`</a></li>
+  <li><a class="reference" href="#*,Vector2i,cint"
+    title="`*`(a: Vector2i; b: cint): Vector2i"><wbr />`*`</a></li>
   <li><a class="reference" href="#/,Vector2i,cint"
-    title="`&#x2F;`*(a: Vector2i; b: cint): Vector2i">`<wbr />/`</a></li>
+    title="`&#x2F;`(a: Vector2i; b: cint): Vector2i"><wbr />`/`</a></li>
   <li><a class="reference" href="#==,Vector2i,Vector2i"
-    title="`==`*(a, b: Vector2i): bool">`<wbr />==`</a></li>
+    title="`==`(a, b: Vector2i): bool"><wbr />`==`</a></li>
   <li><a class="reference" href="#+,Vector3f,Vector3f"
-    title="`+`*(a, b: Vector3f): Vector3f">`<wbr />+`</a></li>
+    title="`+`(a, b: Vector3f): Vector3f"><wbr />`+`</a></li>
   <li><a class="reference" href="#-,Vector3f,Vector3f"
-    title="`-`*(a, b: Vector3f): Vector3f">`<wbr />-`</a></li>
-  <li><a class="reference" href="#,Vector3f,cfloat"
-    title="`*`*(a: Vector3f; b: cfloat): Vector3f">`<wbr />*`</a></li>
+    title="`-`(a, b: Vector3f): Vector3f"><wbr />`-`</a></li>
+  <li><a class="reference" href="#*,Vector3f,cfloat"
+    title="`*`(a: Vector3f; b: cfloat): Vector3f"><wbr />`*`</a></li>
   <li><a class="reference" href="#/,Vector3f,cfloat"
-    title="`&#x2F;`*(a: Vector3f; b: cfloat): Vector3f">`<wbr />/`</a></li>
+    title="`&#x2F;`(a: Vector3f; b: cfloat): Vector3f"><wbr />`/`</a></li>
   <li><a class="reference" href="#==,Vector3f,Vector3f"
-    title="`==`*(a, b: Vector3f): bool">`<wbr />==`</a></li>
+    title="`==`(a, b: Vector3f): bool"><wbr />`==`</a></li>
   <li><a class="reference" href="#+,Time,Time"
-    title="`+`*(a, b: Time): Time">`<wbr />+`</a></li>
+    title="`+`(a, b: Time): Time"><wbr />`+`</a></li>
   <li><a class="reference" href="#-,Time,Time"
-    title="`-`*(a, b: Time): Time">`<wbr />-`</a></li>
+    title="`-`(a, b: Time): Time"><wbr />`-`</a></li>
   <li><a class="reference" href="#==,Time,Time"
-    title="`==`*(a, b: Time): bool">`<wbr />==`</a></li>
+    title="`==`(a, b: Time): bool"><wbr />`==`</a></li>
   <li><a class="reference" href="#<=,Time,Time"
-    title="`&lt;=`*(a, b: Time): bool">`<wbr />&lt;=`</a></li>
+    title="`&lt;=`(a, b: Time): bool"><wbr />`&lt;=`</a></li>
   <li><a class="reference" href="#<,Time,Time"
-    title="`&lt;`*(a, b: Time): bool">`<wbr />&lt;`</a></li>
+    title="`&lt;`(a, b: Time): bool"><wbr />`&lt;`</a></li>
 
   </ul>
 </li>
@@ -1216,7 +1283,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <a class="reference reference-toplevel" href="#16" id="66">Converters</a>
   <ul class="simple simple-toc-section">
       <li><a class="reference" href="#vec2.c,Vector2i"
-    title="vec2*(v: Vector2i): Vector2f"><wbr />vec2</a></li>
+    title="vec2(v: Vector2i): Vector2f"><wbr />vec2</a></li>
 
   </ul>
 </li>
@@ -1231,135 +1298,344 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
 <dl class="item">
 <a class="reference external" href="csfml_util.html">csfml_util</a>
 </dl></div>
+<div class="section" id="7">
+<h1><a class="toc-backref" href="#7">Types</a></h1>
+<dl class="item">
+<dt id="Time"><a name="Time"></a><pre><span class="Identifier">Time</span> <span class="Other">=</span> <span class="Keyword">object</span> 
+  <span class="Identifier">microseconds</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">int64</span>
+</pre></dt>
+<dd>
+Represents a time value
+
+</dd>
+<dt id="Clock"><a name="Clock"></a><pre><span class="Identifier">Clock</span> <span class="Other">=</span> <span class="Keyword">ptr</span> <span class="Identifier">TClock</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="Mutex"><a name="Mutex"></a><pre><span class="Identifier">Mutex</span> <span class="Other">=</span> <span class="Keyword">ptr</span> <span class="Identifier">TMutex</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="Thread"><a name="Thread"></a><pre><span class="Identifier">Thread</span> <span class="Other">=</span> <span class="Keyword">ptr</span> <span class="Identifier">TThread</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="InputStreamReadFunc"><a name="InputStreamReadFunc"></a><pre><span class="Identifier">InputStreamReadFunc</span> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">data</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">;</span> <span class="Identifier">size</span><span class="Other">:</span> <span class="Identifier">int64</span><span class="Other">;</span> <span class="Identifier">userData</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int64</span> <span class="Other">{.</span>
+    <span class="Identifier">cdecl</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="InputStreamSeekFunc"><a name="InputStreamSeekFunc"></a><pre><span class="Identifier">InputStreamSeekFunc</span> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">position</span><span class="Other">:</span> <span class="Identifier">int64</span><span class="Other">;</span> <span class="Identifier">userData</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int64</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="InputStreamTellFunc"><a name="InputStreamTellFunc"></a><pre><span class="Identifier">InputStreamTellFunc</span> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">userData</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int64</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="InputStreamGetSizeFunc"><a name="InputStreamGetSizeFunc"></a><pre><span class="Identifier">InputStreamGetSizeFunc</span> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">userData</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int64</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="InputStream"><a name="InputStream"></a><pre><span class="Identifier">InputStream</span> <span class="Other">=</span> <span class="Keyword">object</span> 
+  <span class="Identifier">read</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">InputStreamReadFunc</span>
+  <span class="Identifier">seek</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">InputStreamSeekFunc</span>
+  <span class="Identifier">tell</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">InputStreamTellFunc</span>
+  <span class="Identifier">getSize</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">InputStreamGetSizeFunc</span>
+  <span class="Identifier">userData</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">pointer</span>
+</pre></dt>
+<dd>
+Set of callbacks that allow users to define custom file streams
+
+</dd>
+<dt id="Vector2i"><a name="Vector2i"></a><pre><span class="Identifier">Vector2i</span> <span class="Other">=</span> <span class="Keyword">object</span> 
+  <span class="Identifier">x</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
+  <span class="Identifier">y</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
+</pre></dt>
+<dd>
+2-component vector of integers
+
+</dd>
+<dt id="Vector2f"><a name="Vector2f"></a><pre><span class="Identifier">Vector2f</span> <span class="Other">=</span> <span class="Keyword">object</span> 
+  <span class="Identifier">x</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cfloat</span>
+  <span class="Identifier">y</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cfloat</span>
+</pre></dt>
+<dd>
+2-component vector of floats
+
+</dd>
+<dt id="Vector3f"><a name="Vector3f"></a><pre><span class="Identifier">Vector3f</span> <span class="Other">=</span> <span class="Keyword">object</span> 
+  <span class="Identifier">x</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cfloat</span>
+  <span class="Identifier">y</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cfloat</span>
+  <span class="Identifier">z</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cfloat</span>
+</pre></dt>
+<dd>
+3-component vector of floats
+
+</dd>
+
+</dl></div>
 <div class="section" id="12">
 <h1><a class="toc-backref" href="#12">Procs</a></h1>
 <dl class="item">
-<dt id="vec2"><a name="vec2,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec2</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span></pre></dt>
+<dt id="asSeconds"><a name="asSeconds,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">asSeconds</span><span class="Other">(</span><span class="Identifier">time</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cfloat</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+                                     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTime_asSeconds&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Return a time value as a number of seconds</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">time</span></tt>:  Time value</li>
+</ul>
+<p><em>Returns:</em> Time in seconds</p>
+
+
+</dd>
+<dt id="asMilliseconds"><a name="asMilliseconds,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">asMilliseconds</span><span class="Other">(</span><span class="Identifier">time</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int32</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTime_asMilliseconds&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Return a time value as a number of milliseconds</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">time</span></tt>:  Time value</li>
+</ul>
+<p><em>Returns:</em> Time in milliseconds</p>
+
+
+</dd>
+<dt id="asMicroseconds"><a name="asMicroseconds,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">asMicroseconds</span><span class="Other">(</span><span class="Identifier">time</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int64</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTime_asMicroseconds&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Return a time value as a number of microseconds</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">time</span></tt>:  Time value</li>
+</ul>
+<p><em>Returns:</em> Time in microseconds</p>
+
+
+</dd>
+<dt id="seconds"><a name="seconds,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">seconds</span><span class="Other">(</span><span class="Identifier">amount</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Time</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSeconds&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Construct a time value from a number of seconds</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">amount</span></tt>:  Number of seconds</li>
+</ul>
+<p><em>Returns:</em> Time value constructed from the amount of seconds</p>
+
+
+</dd>
+<dt id="milliseconds"><a name="milliseconds,int32"></a><pre><span class="Keyword">proc</span> <span class="Identifier">milliseconds</span><span class="Other">(</span><span class="Identifier">amount</span><span class="Other">:</span> <span class="Identifier">int32</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Time</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfMilliseconds&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Construct a time value from a number of milliseconds</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">amount</span></tt>:  Number of milliseconds</li>
+</ul>
+<p><em>Returns:</em> Time value constructed from the amount of milliseconds</p>
+
+
+</dd>
+<dt id="microseconds"><a name="microseconds,int64"></a><pre><span class="Keyword">proc</span> <span class="Identifier">microseconds</span><span class="Other">(</span><span class="Identifier">amount</span><span class="Other">:</span> <span class="Identifier">int64</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Time</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfMicroseconds&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Construct a time value from a number of microseconds</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">amount</span></tt>:  Number of microseconds</li>
+</ul>
+<p><em>Returns:</em> Time value constructed from the amount of microseconds</p>
+
+
+</dd>
+<dt id="newClock"><a name="newClock,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newClock</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Clock</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfClock_create&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Create a new clock and start it</p>
+<p><em>Returns:</em> A new sfClock object</p>
+
+
+</dd>
+<dt id="copy"><a name="copy,Clock"></a><pre><span class="Keyword">proc</span> <span class="Identifier">copy</span><span class="Other">(</span><span class="Identifier">clock</span><span class="Other">:</span> <span class="Identifier">Clock</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Clock</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfClock_copy&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Create a new clock by copying an existing one</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">clock</span></tt>:  Clock to copy</li>
+</ul>
+<p><em>Returns:</em> A new sfClock object which is a copy of <tt class="docutils literal"><span class="pre">clock</span></tt></p>
+
+
+</dd>
+<dt id="destroy"><a name="destroy,Clock"></a><pre><span class="Keyword">proc</span> <span class="Identifier">destroy</span><span class="Other">(</span><span class="Identifier">clock</span><span class="Other">:</span> <span class="Identifier">Clock</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfClock_destroy&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Destroy a clock</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">clock</span></tt>:  Clock to destroy</li>
+</ul>
+
+
+</dd>
+<dt id="elapsedTime"><a name="elapsedTime,Clock"></a><pre><span class="Keyword">proc</span> <span class="Identifier">elapsedTime</span><span class="Other">(</span><span class="Identifier">clock</span><span class="Other">:</span> <span class="Identifier">Clock</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Time</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+                                       <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfClock_getElapsedTime&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the time elapsed in a clock</p>
+<p>This function returns the time elapsed since the last call to sfClock_restart (or the construction of the object if sfClock_restart has not been called).</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">clock</span></tt>:  Clock object</li>
+</ul>
+<p><em>Returns:</em> Time elapsed</p>
+
+
+</dd>
+<dt id="restart"><a name="restart,Clock"></a><pre><span class="Keyword">proc</span> <span class="Identifier">restart</span><span class="Other">(</span><span class="Identifier">clock</span><span class="Other">:</span> <span class="Identifier">Clock</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Time</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+                                   <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfClock_restart&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Restart a clock</p>
+<p>This function puts the time counter back to zero. It also returns the time elapsed since the clock was started.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">clock</span></tt>:  Clock object</li>
+</ul>
+<p><em>Returns:</em> Time elapsed</p>
+
+
+</dd>
+<dt id="sleep"><a name="sleep,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">sleep</span><span class="Other">(</span><span class="Identifier">duration</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSleep&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Make the current thread sleep for a given duration</p>
+<p>sfSleep is the best way to block a program or one of its threads, as it doesn't consume any CPU power.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">duration</span></tt>:  Time to sleep</li>
+</ul>
+
+
+</dd>
+<dt id="vec2"><a name="vec2,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec2</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="vec2"><a name="vec2,int,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec2</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span></pre></dt>
+<dt id="vec2"><a name="vec2,int,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec2</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="vec2"><a name="vec2,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec2</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span></pre></dt>
+<dt id="vec2"><a name="vec2,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec2</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="vec2"><a name="vec2,float,float"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec2</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span></pre></dt>
+<dt id="vec2"><a name="vec2,float,float"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec2</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="vec3"><a name="vec3,cfloat,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec3</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span></pre></dt>
+<dt id="vec3"><a name="vec3,cfloat,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec3</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="vec3"><a name="vec3,float,float,float"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec3</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span></pre></dt>
+<dt id="vec3"><a name="vec3,float,float,float"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec3</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="+"><a name="+,Vector2f,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">+</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span></pre></dt>
+<dt id="+"><a name="+,Vector2f,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`+`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="-"><a name="-,Vector2f,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">-</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span></pre></dt>
+<dt id="-"><a name="-,Vector2f,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id=""><a name=",Vector2f,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">*</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span></pre></dt>
+<dt id="*"><a name="*,Vector2f,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`*`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="/"><a name="/,Vector2f,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">/</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span></pre></dt>
+<dt id="/"><a name="/,Vector2f,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`/`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="=="><a name="==,Vector2f,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">==</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+<dt id="=="><a name="==,Vector2f,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="+"><a name="+,Vector2i,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">+</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span></pre></dt>
+<dt id="+"><a name="+,Vector2i,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`+`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="-"><a name="-,Vector2i,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">-</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span></pre></dt>
+<dt id="-"><a name="-,Vector2i,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id=""><a name=",Vector2i,cint"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">*</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span></pre></dt>
+<dt id="*"><a name="*,Vector2i,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`*`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="/"><a name="/,Vector2i,cint"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">/</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span></pre></dt>
+<dt id="/"><a name="/,Vector2i,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`/`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="=="><a name="==,Vector2i,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">==</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+<dt id="=="><a name="==,Vector2i,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="+"><a name="+,Vector3f,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">+</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span></pre></dt>
+<dt id="+"><a name="+,Vector3f,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`+`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="-"><a name="-,Vector3f,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">-</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span></pre></dt>
+<dt id="-"><a name="-,Vector3f,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id=""><a name=",Vector3f,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">*</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span></pre></dt>
+<dt id="*"><a name="*,Vector3f,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`*`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="/"><a name="/,Vector3f,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">/</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span></pre></dt>
+<dt id="/"><a name="/,Vector3f,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`/`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="=="><a name="==,Vector3f,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">==</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+<dt id="=="><a name="==,Vector3f,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="+"><a name="+,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">+</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Time</span></pre></dt>
+<dt id="+"><a name="+,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`+`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Time</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="-"><a name="-,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">-</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Time</span></pre></dt>
+<dt id="-"><a name="-,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Time</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="=="><a name="==,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">==</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+<dt id="=="><a name="==,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="<="><a name="<=,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">&lt;=</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+<dt id="<="><a name="<=,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`&lt;=`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="<"><a name="<,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Other">`</span><span class="Operator">&lt;</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
+<dt id="<"><a name="<,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`&lt;`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
@@ -1369,7 +1645,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
 <div class="section" id="16">
 <h1><a class="toc-backref" href="#16">Converters</a></h1>
 <dl class="item">
-<dt id="vec2"><a name="vec2.c,Vector2i"></a><pre><span class="Keyword">converter</span> <span class="Identifier">vec2</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">v</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span></pre></dt>
+<dt id="vec2"><a name="vec2.c,Vector2i"></a><pre><span class="Keyword">converter</span> <span class="Identifier">vec2</span><span class="Other">(</span><span class="Identifier">v</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
@@ -1384,7 +1660,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-03 01:30:08 UTC</small>
+        <small>Made with Nim. Generated: 2015-01-03 11:26:30 UTC</small>
       </div>
     </div>
   </div>
