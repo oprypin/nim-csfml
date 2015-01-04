@@ -50,8 +50,7 @@ proc init_Food(position: Vector2i, color: Color): Food =
     result.color = color
 
 proc draw[T](self: Food, target: T, states: RenderStates) =
-    var circle = new_CircleShape()
-    circle.radius = 0.9/2
+    var circle = new_CircleShape(radius=0.9/2)
     circle.position = vec2(self.position)+vec2(0.05, 0.05)
     circle.fill_color = self.color
     target.draw circle, states
@@ -104,8 +103,7 @@ proc draw[T](self: Snake, target: T, states: RenderStates) =
     for i in self.body.low..self.body.high:
         let current = self.body[i]
 
-        var circle = new_CircleShape()
-        circle.radius = 0.9/2
+        var circle = new_CircleShape(radius=0.9/2)
         circle.position = vec2(current)+vec2(0.05, 0.05)
         circle.fill_color = self.color
         target.draw circle, states
@@ -122,15 +120,13 @@ proc draw[T](self: Snake, target: T, states: RenderStates) =
             
             if (i > self.body.low and td == self.body[i-1]) or
               (i < self.body.high and td == self.body[i+1]):
-                var rect = new_RectangleShape()
-                rect.size = vec2(0.9, 0.9)
+                var rect = new_RectangleShape(size=vec2(0.9, 0.9))
                 rect.position = vec2(current)+vec2(float(d.x)/2.0+0.05, float(d.y)/2.0+0.05)
                 rect.fill_color = self.color
                 target.draw rect, states
         
         # Draw eyes with a darkened color
-        circle = new_CircleShape()
-        circle.radius = 0.2/2
+        circle = new_CircleShape(radius=0.2/2)
         circle.fill_color = color(
           self.color.red div 3, self.color.green div 3, self.color.blue div 3)
 

@@ -231,3 +231,23 @@ template draw*[T: RenderTexture|RenderWindow, O](renderTarget: T, obj: O, states
   ## Allows the syntax ``renderTarget.draw(drawable[, states])``
   ## by turning it into ``drawable.draw(renderTarget, states)``
   obj.draw(renderTarget, states)
+
+
+proc newCircleShape*(radius: cfloat, pointCount: cint = 30): CircleShape =
+  ## *Returns:* A new CircleShape with these members, or nil if it failed
+  result = newCircleShape()
+  if result == nil: return nil
+  result.radius = radius
+  result.pointCount = pointCount
+
+proc newRectangleShape*(size: Vector2f): RectangleShape =
+  ## *Returns:* A new RectangleShape with this size, or nil if it failed
+  result = newRectangleShape()
+  if result == nil: return nil
+  result.size = size
+
+proc newConvexShape*(pointCount: cint): ConvexShape =
+  ## *Returns:* A new ConvexShape with this pointCount, or nil if it failed
+  result = newConvexShape()
+  if result == nil: return nil
+  result.pointCount = pointCount

@@ -24,24 +24,21 @@ var ballSound = newSound()
 ballSound.buffer = newSoundBuffer("ball.wav")
 
 # Create the left paddle
-var leftPaddle = newRectangleShape()
-leftPaddle.size = paddleSize - vec2(3, 3)
+var leftPaddle = newRectangleShape(size = paddleSize - vec2(3, 3))
 leftPaddle.outlineThickness = 3
 leftPaddle.outlineColor = Black
 leftPaddle.fillColor = color(100, 100, 200)
 leftPaddle.origin = paddleSize / 2.0
 
 # Create the right paddle
-var rightPaddle = newRectangleShape()
-rightPaddle.size = paddleSize - vec2(3, 3)
+var rightPaddle = newRectangleShape(size = paddleSize - vec2(3, 3))
 rightPaddle.outlineThickness = 3
 rightPaddle.outlineColor = Black
 rightPaddle.fillColor = color(200, 100, 100)
 rightPaddle.origin = paddleSize / 2.0
 
 # Create the ball
-var ball = newCircleShape()
-ball.radius = ballRadius - 3
+var ball = newCircleShape(radius = ballRadius - 3)
 ball.outlineThickness = 3
 ball.outlineColor = Black
 ball.fillColor = White
