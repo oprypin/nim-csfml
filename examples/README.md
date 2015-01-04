@@ -33,10 +33,23 @@ Pong example [from SFML](https://github.com/LaurentGomila/SFML/blob/master/examp
 - `RenderStates`
 - Keyboard events
 
+### [sound_capture](sound_capture.nim)
+
+Sound Capture example [from SFML](https://github.com/LaurentGomila/SFML/blob/master/examples/sound_capture/)
+
+- Record sound
+- Play sound
+- Save sound
+
+### [typing](typing.nim)
+
+- Keyboard events, `TextEntered`
+- Unicode (Rune) string
 
 Acknowledgements
 ----------------
 
 - *pong.nim* was adapted from [SFML's Pong example](https://github.com/LaurentGomila/SFML/blob/master/examples/pong)
+- *sound_capture.nim* was adapted from [SFML's Sound Capture example](https://github.com/LaurentGomila/SFML/blob/master/examples/sound_capture/)
 - *sansation.ttf* and *ball.wav* were taken [from SFML's repository](https://github.com/LaurentGomila/SFML/blob/master/examples)
 - All the other files in this *examples* folder may be used without any limitations.
