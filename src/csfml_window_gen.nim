@@ -21,7 +21,7 @@ proc newContext*(): Context {.
   ## 
   ## This function activates the new context.
   ## 
-  ## *Returns:* New sfContext object
+  ## *Returns:* New Context object
 
 proc destroy*(context: Context) {.
   cdecl, dynlib: lib, importc: "sfContext_destroy".}
@@ -36,7 +36,7 @@ proc `active=`*(context: Context, active: IntBool) {.
   ## 
   ## *Arguments*:
   ## - ``context``:  Context object
-  ## - ``active``:   sfTrue to activate, sfFalse to deactivate
+  ## - ``active``:   True to activate, False to deactivate
 
 
 #--- SFML/Window/Event ---#
@@ -59,7 +59,7 @@ proc joystick_isConnected*(joystick: cint): bool {.
   ## *Arguments*:
   ## - ``joystick``:  Index of the joystick to check
   ## 
-  ## *Returns:* sfTrue if the joystick is connected, sfFalse otherwise
+  ## *Returns:* True if the joystick is connected, False otherwise
 
 proc joystick_getButtonCount*(joystick: cint): cint {.
   cdecl, dynlib: lib, importc: "sfJoystick_getButtonCount".}
@@ -82,7 +82,7 @@ proc joystick_hasAxis*(joystick: cint, axis: JoystickAxis): bool {.
   ## - ``joystick``:  Index of the joystick
   ## - ``axis``:      Axis to check
   ## 
-  ## *Returns:* sfTrue if the joystick supports the axis, sfFalse otherwise
+  ## *Returns:* True if the joystick supports the axis, False otherwise
 
 proc joystick_isButtonPressed*(joystick: cint, button: cint): bool {.
   cdecl, dynlib: lib, importc: "sfJoystick_isButtonPressed".}
@@ -94,7 +94,7 @@ proc joystick_isButtonPressed*(joystick: cint, button: cint): bool {.
   ## - ``joystick``:  Index of the joystick
   ## - ``button``:    Button to check
   ## 
-  ## *Returns:* sfTrue if the button is pressed, sfFalse otherwise
+  ## *Returns:* True if the button is pressed, False otherwise
 
 proc joystick_getAxisPosition*(joystick: cint, axis: JoystickAxis): cfloat {.
   cdecl, dynlib: lib, importc: "sfJoystick_getAxisPosition".}
@@ -138,7 +138,7 @@ proc keyboard_isKeyPressed*(key: KeyCode): bool {.
   ## *Arguments*:
   ## - ``key``:  Key to check
   ## 
-  ## *Returns:* sfTrue if the key is pressed, sfFalse otherwise
+  ## *Returns:* True if the key is pressed, False otherwise
 
 
 #--- SFML/Window/Mouse ---#
@@ -153,7 +153,7 @@ proc mouse_isButtonPressed*(button: MouseButton): bool {.
   ## *Arguments*:
   ## - ``button``:  Button to check
   ## 
-  ## *Returns:* sfTrue if the button is pressed, sfFalse otherwise
+  ## *Returns:* True if the button is pressed, False otherwise
 
 proc mouse_getPosition*(relativeTo: Window): Vector2i {.
   cdecl, dynlib: lib, importc: "sfMouse_getPosition".}
@@ -239,7 +239,7 @@ include csfml_union_event
 #--- SFML/Window/VideoMode ---#
 
 type VideoMode* {.pure, final.} = object
-  ## sfVideoMode defines a video mode (width, height, bpp, frequency)
+  ## VideoMode defines a video mode (width, height, bpp, frequency)
   ## and provides functions for getting modes supported
   ## by the display device
   width*: cint
@@ -280,7 +280,7 @@ proc valid*(mode: VideoMode): bool {.
   ## *Arguments*:
   ## - ``mode``:  Video mode
   ## 
-  ## *Returns:* sfTrue if the video mode is valid for fullscreen mode
+  ## *Returns:* True if the video mode is valid for fullscreen mode
 
 
 #--- SFML/Window/Window ---#
@@ -308,7 +308,7 @@ proc newWindow*(mode: VideoMode, title: cstring, style: uint32, settings: Contex
   ## depth defined in ``mode``. An optional style can be passed to
   ## customize the look and behaviour of the window (borders,
   ## title bar, resizable, closable, ...). If ``style`` contains
-  ## sfFullscreen, then ``mode`` must be a valid video mode.
+  ## Fullscreen, then ``mode`` must be a valid video mode.
   ## 
   ## The fourth parameter is a pointer to a structure specifying
   ## advanced OpenGL context settings such as antialiasing,
@@ -320,7 +320,7 @@ proc newWindow*(mode: VideoMode, title: cstring, style: uint32, settings: Contex
   ## - ``style``:     Window style
   ## - ``settings``:  Additional settings for the underlying OpenGL context
   ## 
-  ## *Returns:* A new sfWindow object
+  ## *Returns:* A new Window object
   (var Csettings = settings)
   newWindow(mode, title, style, Csettings)
 
@@ -333,7 +333,7 @@ proc newWindow*(mode: VideoMode, title: ptr uint32, style: uint32, settings: Con
   ## depth defined in ``mode``. An optional style can be passed to
   ## customize the look and behaviour of the window (borders,
   ## title bar, resizable, closable, ...). If ``style`` contains
-  ## sfFullscreen, then ``mode`` must be a valid video mode.
+  ## Fullscreen, then ``mode`` must be a valid video mode.
   ## 
   ## The fourth parameter is a pointer to a structure specifying
   ## advanced OpenGL context settings such as antialiasing,
@@ -345,7 +345,7 @@ proc newWindow*(mode: VideoMode, title: ptr uint32, style: uint32, settings: Con
   ## - ``style``:     Window style
   ## - ``settings``:  Additional settings for the underlying OpenGL context
   ## 
-  ## *Returns:* A new sfWindow object
+  ## *Returns:* A new Window object
   (var Csettings = settings)
   newWindow(mode, title, style, Csettings)
 
@@ -365,7 +365,7 @@ proc newWindow*(handle: WindowHandle, settings: ContextSettings): Window =
   ## - ``handle``:    Platform-specific handle of the control
   ## - ``settings``:  Additional settings for the underlying OpenGL context
   ## 
-  ## *Returns:* A new sfWindow object
+  ## *Returns:* A new Window object
   (var Csettings = settings)
   newWindow(handle, Csettings)
 
@@ -380,10 +380,10 @@ proc close*(window: Window) {.
   cdecl, dynlib: lib, importc: "sfWindow_close".}
   ## Close a window and destroy all the attached resources
   ## 
-  ## After calling this function, the sfWindow object remains
-  ## valid, you must call sfWindow_destroy to actually delete it.
-  ## All other functions such as sfWindow_pollEvent or sfWindow_display
-  ## will still work (i.e. you don't have to test sfWindow_isOpen
+  ## After calling this function, the Window object remains
+  ## valid, you must call Window_destroy to actually delete it.
+  ## All other functions such as Window_pollEvent or Window_display
+  ## will still work (i.e. you don't have to test Window_isOpen
   ## every time), and will have no effect on closed windows.
   ## 
   ## *Arguments*:
@@ -394,20 +394,20 @@ proc open*(window: Window): bool {.
   ## Tell whether or not a window is opened
   ## 
   ## This function returns whether or not the window exists.
-  ## Note that a hidden window (sfWindow_setVisible(sfFalse)) will return
-  ## sfTrue.
+  ## Note that a hidden window (Window_setVisible(False)) will return
+  ## True.
   ## 
   ## *Arguments*:
   ## - ``window``:  Window object
   ## 
-  ## *Returns:* sfTrue if the window is opened, sfFalse if it has been closed
+  ## *Returns:* True if the window is opened, False if it has been closed
 
 proc settings*(window: Window): ContextSettings {.
   cdecl, dynlib: lib, importc: "sfWindow_getSettings".}
   ## Get the settings of the OpenGL context of a window
   ## 
   ## Note that these settings may be different from what was
-  ## passed to the sfWindow_create function,
+  ## passed to the Window_create function,
   ## if one or more settings were not supported. In this case,
   ## SFML chose the closest match.
   ## 
@@ -430,7 +430,7 @@ proc pollEvent*(window: Window, event: var Event): bool {.
   ## - ``window``:  Window object
   ## - ``event``:   Event to be returned
   ## 
-  ## *Returns:* sfTrue if an event was returned, or sfFalse if the event queue was empty
+  ## *Returns:* True if an event was returned, or False if the event queue was empty
 
 proc waitEvent*(window: Window, event: var Event): bool {.
   cdecl, dynlib: lib, importc: "sfWindow_waitEvent".}
@@ -448,7 +448,7 @@ proc waitEvent*(window: Window, event: var Event): bool {.
   ## - ``window``:  Window object
   ## - ``event``:   Event to be returned
   ## 
-  ## *Returns:* sfFalse if any error occured
+  ## *Returns:* False if any error occured
 
 proc position*(window: Window): Vector2i {.
   cdecl, dynlib: lib, importc: "sfWindow_getPosition".}
@@ -526,7 +526,7 @@ proc `visible=`*(window: Window, visible: IntBool) {.
   ## 
   ## *Arguments*:
   ## - ``window``:   Window object
-  ## - ``visible``:  sfTrue to show the window, sfFalse to hide it
+  ## - ``visible``:  True to show the window, False to hide it
 
 proc `mouseCursorVisible=`*(window: Window, visible: IntBool) {.
   cdecl, dynlib: lib, importc: "sfWindow_setMouseCursorVisible".}
@@ -534,7 +534,7 @@ proc `mouseCursorVisible=`*(window: Window, visible: IntBool) {.
   ## 
   ## *Arguments*:
   ## - ``window``:   Window object
-  ## - ``visible``:  sfTrue to show, sfFalse to hide
+  ## - ``visible``:  True to show, False to hide
 
 proc `verticalSyncEnabled=`*(window: Window, enabled: IntBool) {.
   cdecl, dynlib: lib, importc: "sfWindow_setVerticalSyncEnabled".}
@@ -547,7 +547,7 @@ proc `verticalSyncEnabled=`*(window: Window, enabled: IntBool) {.
   ## 
   ## *Arguments*:
   ## - ``window``:   Window object
-  ## - ``enabled``:  sfTrue to enable v-sync, sfFalse to deactivate
+  ## - ``enabled``:  True to enable v-sync, False to deactivate
 
 proc `keyRepeatEnabled=`*(window: Window, enabled: IntBool) {.
   cdecl, dynlib: lib, importc: "sfWindow_setKeyRepeatEnabled".}
@@ -561,7 +561,7 @@ proc `keyRepeatEnabled=`*(window: Window, enabled: IntBool) {.
   ## 
   ## *Arguments*:
   ## - ``window``:   Window object
-  ## - ``enabled``:  sfTrue to enable, sfFalse to disable
+  ## - ``enabled``:  True to enable, False to disable
 
 proc `active=`*(window: Window, active: IntBool): bool {.
   cdecl, dynlib: lib, importc: "sfWindow_setActive".}
@@ -576,9 +576,9 @@ proc `active=`*(window: Window, active: IntBool): bool {.
   ## 
   ## *Arguments*:
   ## - ``window``:  Window object
-  ## - ``active``:  sfTrue to activate, sfFalse to deactivate
+  ## - ``active``:  True to activate, False to deactivate
   ## 
-  ## *Returns:* sfTrue if operation was successful, sfFalse otherwise
+  ## *Returns:* True if operation was successful, False otherwise
 
 proc display*(window: Window) {.
   cdecl, dynlib: lib, importc: "sfWindow_display".}
@@ -597,7 +597,7 @@ proc `framerateLimit=`*(window: Window, limit: cint) {.
   ## Limit the framerate to a maximum fixed frequency
   ## 
   ## If a limit is set, the window will use a small delay after
-  ## each call to sfWindow_display to ensure that the current frame
+  ## each call to Window_display to ensure that the current frame
   ## lasted long enough to match the framerate limit.
   ## 
   ## *Arguments*:
@@ -619,7 +619,7 @@ proc systemHandle*(window: Window): WindowHandle {.
   cdecl, dynlib: lib, importc: "sfWindow_getSystemHandle".}
   ## Get the OS-specific handle of the window
   ## 
-  ## The type of the returned handle is sfWindowHandle,
+  ## The type of the returned handle is WindowHandle,
   ## which is a typedef to the handle type defined by the OS.
   ## You shouldn't need to use this function, unless you have
   ## very specific stuff to implement that SFML doesn't support,

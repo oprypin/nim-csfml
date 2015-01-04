@@ -38,11 +38,6 @@ include csfml_window_gen
 
 
 proc contextSettings*(depth: cint = 0, stencil: cint = 0, antialiasing: cint = 0, major: cint = 2, minor: cint = 0): ContextSettings =
-  result.depthBits = depth
-  result.stencilBits = stencil
-  result.antialiasingLevel = antialiasing
-  result.majorVersion = major
-  result.minorVersion = minor
   ## *Arguments*:
   ## ``depth``: Depth buffer bits
   ## ``stencil``: Stencil buffer bits
@@ -51,18 +46,21 @@ proc contextSettings*(depth: cint = 0, stencil: cint = 0, antialiasing: cint = 0
   ## ``minor``: Minor number of the context version
   ##
   ## *Returns*: ContextSettings with these members
+  result.depthBits = depth
+  result.stencilBits = stencil
+  result.antialiasingLevel = antialiasing
+  result.majorVersion = major
+  result.minorVersion = minor
 
 
-proc mouse_getPosition*(): Vector2i =
+proc mouse_getPosition*(): Vector2i = mouse_getPosition(nil)
   ## *Returns*: The current position of mouse cursor relative to desktop
-  mouse_getPosition(nil)
 
-proc mouse_setPosition*(position: Vector2i) =
+proc mouse_setPosition*(position: Vector2i) = mouse_setPosition(position, nil)
   ## Set the current position of the mouse relative to desktop
   ##
   ## *Arguments*:
   ## - ``position``: New position of the mouse
-  mouse_setPosition(position, nil)
 
 
 proc videoMode*(): VideoMode = result
@@ -79,15 +77,14 @@ proc videoMode*(modeWidth, modeHeight: cint, bitsPerPixel: cint = 32): VideoMode
   result.bitsPerPixel = bitsPerPixel
 
 proc `==`*(a, b: VideoMode): bool =
-  a.width == b.width and a.height == b.height and a.bitsPerPixel == b.bitsPerPixel
+  return a.width == b.width and a.height == b.height and a.bitsPerPixel == b.bitsPerPixel
 proc `<`*(a, b: VideoMode): bool =
   if a.bitsPerPixel == b.bitsPerPixel:
     if a.width == b.width:
       return a.height < b.height
     return a.width < b.width
   return a.bitsPerPixel < b.bitsPerPixel
-proc `<=`*(a, b: VideoMode): bool =
-  not(b < a)
+proc `<=`*(a, b: VideoMode): bool = not(b < a)
 
 proc videoMode_getFullscreenModes*(): seq[VideoMode] =
   ## Overloaded proc that returns a seq instead of exposing pointers
@@ -101,9 +98,8 @@ proc videoMode_getFullscreenModes*(): seq[VideoMode] =
     p += sizeof(VideoMode)
 
 
-converter toUint32*(a: WindowStyle): uint32 =
+converter toUint32*(a: WindowStyle): uint32 = uint32 a
   ## Allows WindowStyle values to be combined using the | operator and be used in functions
-  uint32 a
 
 proc `title=`*(window: Window, title: string) =
   ## Overloaded proc that converts Nim's strings correctly
@@ -115,4 +111,3 @@ proc newWindow*(mode: VideoMode, title: string, style: uint32 = WindowStyle.Defa
   ## Overloaded proc that converts Nim's strings correctly
   var t = utf8to32(title)
   newWindow(mode, addr(t[0]), style, settings)
-

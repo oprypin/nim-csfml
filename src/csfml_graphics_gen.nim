@@ -29,7 +29,7 @@ proc color*(red: uint8, green: uint8, blue: uint8): Color {.
   ## - ``green``:  Green component (0 .. 255)
   ## - ``blue``:   Blue component  (0 .. 255)
   ## 
-  ## *Returns:* sfColor constructed from the components
+  ## *Returns:* Color constructed from the components
 
 proc color*(red: uint8, green: uint8, blue: uint8, alpha: uint8): Color {.
   cdecl, dynlib: lib, importc: "sfColor_fromRGBA".}
@@ -41,7 +41,7 @@ proc color*(red: uint8, green: uint8, blue: uint8, alpha: uint8): Color {.
   ## - ``blue``:   Blue component  (0 .. 255)
   ## - ``alpha``:  Alpha component (0 .. 255)
   ## 
-  ## *Returns:* sfColor constructed from the components
+  ## *Returns:* Color constructed from the components
 
 proc add*(color1: Color, color2: Color): Color {.
   cdecl, dynlib: lib, importc: "sfColor_add".}
@@ -88,7 +88,7 @@ proc contains*(rect: FloatRect, x: cfloat, y: cfloat): bool =
   ## - ``x``:     X coordinate of the point to test
   ## - ``y``:     Y coordinate of the point to test
   ## 
-  ## *Returns:* sfTrue if the point is inside
+  ## *Returns:* True if the point is inside
   (var Crect = rect)
   contains(Crect, x, y)
 
@@ -114,7 +114,7 @@ proc intersects*(rect1: FloatRect, rect2: FloatRect, intersection: var FloatRect
   ## - ``rect2``:         Second rectangle to test
   ## - ``intersection``:  Rectangle to be filled with overlapping rect (can be NULL)
   ## 
-  ## *Returns:* sfTrue if rectangles overlap
+  ## *Returns:* True if rectangles overlap
   (var Crect1 = rect1; var Crect2 = rect2)
   intersects(Crect1, Crect2, intersection)
 
@@ -215,7 +215,7 @@ proc transform*(a00: cfloat, a01: cfloat, a02: cfloat, a10: cfloat, a11: cfloat,
   ## - ``a21``:  Element (2, 1) of the matrix
   ## - ``a22``:  Element (2, 2) of the matrix
   ## 
-  ## *Returns:* A new sfTransform object
+  ## *Returns:* A new Transform object
 
 proc getMatrix*(transform: (var Transform){lvalue}, matrix: ptr cfloat) {.
   cdecl, dynlib: lib, importc: "sfTransform_getMatrix".}
@@ -355,7 +355,7 @@ proc newCircleShape*(): CircleShape {.
   cdecl, dynlib: lib, importc: "sfCircleShape_create".}
   ## Create a new circle shape
   ## 
-  ## *Returns:* A new sfCircleShape object, or NULL if it failed
+  ## *Returns:* A new CircleShape object, or NULL if it failed
 
 proc copy*(shape: CircleShape): CircleShape {.
   cdecl, dynlib: lib, importc: "sfCircleShape_copy".}
@@ -378,7 +378,7 @@ proc `position=`*(shape: CircleShape, position: Vector2f) {.
   ## Set the position of a circle shape
   ## 
   ## This function completely overwrites the previous position.
-  ## See sfCircleShape_move to apply an offset based on the previous position instead.
+  ## See CircleShape_move to apply an offset based on the previous position instead.
   ## The default position of a circle Shape object is (0, 0).
   ## 
   ## *Arguments*:
@@ -390,7 +390,7 @@ proc `rotation=`*(shape: CircleShape, angle: cfloat) {.
   ## Set the orientation of a circle shape
   ## 
   ## This function completely overwrites the previous rotation.
-  ## See sfCircleShape_rotate to add an angle based on the previous rotation instead.
+  ## See CircleShape_rotate to add an angle based on the previous rotation instead.
   ## The default rotation of a circle Shape object is 0.
   ## 
   ## *Arguments*:
@@ -402,7 +402,7 @@ proc `scale=`*(shape: CircleShape, scale: Vector2f) {.
   ## Set the scale factors of a circle shape
   ## 
   ## This function completely overwrites the previous scale.
-  ## See sfCircleShape_scale to add a factor based on the previous scale instead.
+  ## See CircleShape_scale to add a factor based on the previous scale instead.
   ## The default scale of a circle Shape object is (1, 1).
   ## 
   ## *Arguments*:
@@ -467,7 +467,7 @@ proc move*(shape: CircleShape, offset: Vector2f) {.
   ## Move a circle shape by a given offset
   ## 
   ## This function adds to the current position of the object,
-  ## unlike sfCircleShape_setPosition which overwrites it.
+  ## unlike CircleShape_setPosition which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``shape``:   Shape object
@@ -478,7 +478,7 @@ proc rotate*(shape: CircleShape, angle: cfloat) {.
   ## Rotate a circle shape
   ## 
   ## This function adds to the current rotation of the object,
-  ## unlike sfCircleShape_setRotation which overwrites it.
+  ## unlike CircleShape_setRotation which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``shape``:  Shape object
@@ -489,7 +489,7 @@ proc scale*(shape: CircleShape, factors: Vector2f) {.
   ## Scale a circle shape
   ## 
   ## This function multiplies the current scale of the object,
-  ## unlike sfCircleShape_setScale which overwrites it.
+  ## unlike CircleShape_setScale which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``shape``:    Shape object
@@ -552,7 +552,7 @@ proc `fillColor=`*(shape: CircleShape, color: Color) {.
   ## This color is modulated (multiplied) with the shape's
   ## texture if any. It can be used to colorize the shape,
   ## or change its global opacity.
-  ## You can use sfTransparent to make the inside of
+  ## You can use Transparent to make the inside of
   ## the shape transparent, and have the outline alone.
   ## By default, the shape's fill color is opaque white.
   ## 
@@ -564,7 +564,7 @@ proc `outlineColor=`*(shape: CircleShape, color: Color) {.
   cdecl, dynlib: lib, importc: "sfCircleShape_setOutlineColor".}
   ## Set the outline color of a circle shape
   ## 
-  ## You can use sfTransparent to disable the outline.
+  ## You can use Transparent to disable the outline.
   ## By default, the shape's outline color is opaque white.
   ## 
   ## *Arguments*:
@@ -715,7 +715,7 @@ proc newConvexShape*(): ConvexShape {.
   cdecl, dynlib: lib, importc: "sfConvexShape_create".}
   ## Create a new convex shape
   ## 
-  ## *Returns:* A new sfConvexShape object, or NULL if it failed
+  ## *Returns:* A new ConvexShape object, or NULL if it failed
 
 proc copy*(shape: ConvexShape): ConvexShape {.
   cdecl, dynlib: lib, importc: "sfConvexShape_copy".}
@@ -738,7 +738,7 @@ proc `position=`*(shape: ConvexShape, position: Vector2f) {.
   ## Set the position of a convex shape
   ## 
   ## This function completely overwrites the previous position.
-  ## See sfConvexShape_move to apply an offset based on the previous position instead.
+  ## See ConvexShape_move to apply an offset based on the previous position instead.
   ## The default position of a circle Shape object is (0, 0).
   ## 
   ## *Arguments*:
@@ -750,7 +750,7 @@ proc `rotation=`*(shape: ConvexShape, angle: cfloat) {.
   ## Set the orientation of a convex shape
   ## 
   ## This function completely overwrites the previous rotation.
-  ## See sfConvexShape_rotate to add an angle based on the previous rotation instead.
+  ## See ConvexShape_rotate to add an angle based on the previous rotation instead.
   ## The default rotation of a circle Shape object is 0.
   ## 
   ## *Arguments*:
@@ -762,7 +762,7 @@ proc `scale=`*(shape: ConvexShape, scale: Vector2f) {.
   ## Set the scale factors of a convex shape
   ## 
   ## This function completely overwrites the previous scale.
-  ## See sfConvexShape_scale to add a factor based on the previous scale instead.
+  ## See ConvexShape_scale to add a factor based on the previous scale instead.
   ## The default scale of a circle Shape object is (1, 1).
   ## 
   ## *Arguments*:
@@ -827,7 +827,7 @@ proc move*(shape: ConvexShape, offset: Vector2f) {.
   ## Move a convex shape by a given offset
   ## 
   ## This function adds to the current position of the object,
-  ## unlike sfConvexShape_setPosition which overwrites it.
+  ## unlike ConvexShape_setPosition which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``shape``:   Shape object
@@ -838,7 +838,7 @@ proc rotate*(shape: ConvexShape, angle: cfloat) {.
   ## Rotate a convex shape
   ## 
   ## This function adds to the current rotation of the object,
-  ## unlike sfConvexShape_setRotation which overwrites it.
+  ## unlike ConvexShape_setRotation which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``shape``:  Shape object
@@ -849,7 +849,7 @@ proc scale*(shape: ConvexShape, factors: Vector2f) {.
   ## Scale a convex shape
   ## 
   ## This function multiplies the current scale of the object,
-  ## unlike sfConvexShape_setScale which overwrites it.
+  ## unlike ConvexShape_setScale which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``shape``:    Shape object
@@ -912,7 +912,7 @@ proc `fillColor=`*(shape: ConvexShape, color: Color) {.
   ## This color is modulated (multiplied) with the shape's
   ## texture if any. It can be used to colorize the shape,
   ## or change its global opacity.
-  ## You can use sfTransparent to make the inside of
+  ## You can use Transparent to make the inside of
   ## the shape transparent, and have the outline alone.
   ## By default, the shape's fill color is opaque white.
   ## 
@@ -924,7 +924,7 @@ proc `outlineColor=`*(shape: ConvexShape, color: Color) {.
   cdecl, dynlib: lib, importc: "sfConvexShape_setOutlineColor".}
   ## Set the outline color of a convex shape
   ## 
-  ## You can use sfTransparent to disable the outline.
+  ## You can use Transparent to disable the outline.
   ## By default, the shape's outline color is opaque white.
   ## 
   ## *Arguments*:
@@ -1075,7 +1075,7 @@ proc globalBounds*(shape: ConvexShape): FloatRect {.
 #--- SFML/Graphics/Glyph ---#
 
 type Glyph* {.pure, final.} = object
-  ## sfGlyph describes a glyph (a visual character)
+  ## Glyph describes a glyph (a visual character)
   advance*: cint
   bounds*: IntRect
   textureRect*: IntRect
@@ -1087,7 +1087,7 @@ proc newFont*(filename: cstring): Font {.
   ## *Arguments*:
   ## - ``filename``:  Path of the font file to load
   ## 
-  ## *Returns:* A new sfFont object, or NULL if it failed
+  ## *Returns:* A new Font object, or NULL if it failed
 
 proc newFont*(data: pointer, sizeInBytes: int): Font {.
   cdecl, dynlib: lib, importc: "sfFont_createFromMemory".}
@@ -1097,7 +1097,7 @@ proc newFont*(data: pointer, sizeInBytes: int): Font {.
   ## - ``data``:         Pointer to the file data in memory
   ## - ``sizeInBytes``:  Size of the data to load, in bytes
   ## 
-  ## *Returns:* A new sfFont object, or NULL if it failed
+  ## *Returns:* A new Font object, or NULL if it failed
 
 proc newFont*(stream: var InputStream): Font {.
   cdecl, dynlib: lib, importc: "sfFont_createFromStream".}
@@ -1106,7 +1106,7 @@ proc newFont*(stream: var InputStream): Font {.
   ## *Arguments*:
   ## - ``stream``:  Source stream to read from
   ## 
-  ## *Returns:* A new sfFont object, or NULL if it failed
+  ## *Returns:* A new Font object, or NULL if it failed
 
 proc copy*(font: Font): Font {.
   cdecl, dynlib: lib, importc: "sfFont_copy".}
@@ -1181,7 +1181,7 @@ proc newImage*(width: cint, height: cint): Image {.
   ## - ``width``:   Width of the image
   ## - ``height``:  Height of the image
   ## 
-  ## *Returns:* A new sfImage object
+  ## *Returns:* A new Image object
 
 proc newImage*(width: cint, height: cint, color: Color): Image {.
   cdecl, dynlib: lib, importc: "sfImage_createFromColor".}
@@ -1192,7 +1192,7 @@ proc newImage*(width: cint, height: cint, color: Color): Image {.
   ## - ``height``:  Height of the image
   ## - ``color``:   Fill color
   ## 
-  ## *Returns:* A new sfImage object
+  ## *Returns:* A new Image object
 
 proc newImage*(width: cint, height: cint, pixels: ptr uint8): Image {.
   cdecl, dynlib: lib, importc: "sfImage_createFromPixels".}
@@ -1208,7 +1208,7 @@ proc newImage*(width: cint, height: cint, pixels: ptr uint8): Image {.
   ## - ``height``:  Height of the image
   ## - ``pixels``:  Array of pixels to copy to the image
   ## 
-  ## *Returns:* A new sfImage object
+  ## *Returns:* A new Image object
 
 proc newImage*(filename: cstring): Image {.
   cdecl, dynlib: lib, importc: "sfImage_createFromFile".}
@@ -1222,7 +1222,7 @@ proc newImage*(filename: cstring): Image {.
   ## *Arguments*:
   ## - ``filename``:  Path of the image file to load
   ## 
-  ## *Returns:* A new sfImage object, or NULL if it failed
+  ## *Returns:* A new Image object, or NULL if it failed
 
 proc newImage*(data: pointer, size: int): Image {.
   cdecl, dynlib: lib, importc: "sfImage_createFromMemory".}
@@ -1237,7 +1237,7 @@ proc newImage*(data: pointer, size: int): Image {.
   ## - ``data``:  Pointer to the file data in memory
   ## - ``size``:  Size of the data to load, in bytes
   ## 
-  ## *Returns:* A new sfImage object, or NULL if it failed
+  ## *Returns:* A new Image object, or NULL if it failed
 
 proc newImage*(stream: var InputStream): Image {.
   cdecl, dynlib: lib, importc: "sfImage_createFromStream".}
@@ -1251,7 +1251,7 @@ proc newImage*(stream: var InputStream): Image {.
   ## *Arguments*:
   ## - ``stream``:  Source stream to read from
   ## 
-  ## *Returns:* A new sfImage object, or NULL if it failed
+  ## *Returns:* A new Image object, or NULL if it failed
 
 proc copy*(image: Image): Image {.
   cdecl, dynlib: lib, importc: "sfImage_copy".}
@@ -1282,7 +1282,7 @@ proc saveToFile*(image: Image, filename: cstring): bool {.
   ## - ``image``:     Image object
   ## - ``filename``:  Path of the file to save
   ## 
-  ## *Returns:* sfTrue if saving was successful
+  ## *Returns:* True if saving was successful
 
 proc size*(image: Image): Vector2i {.
   cdecl, dynlib: lib, importc: "sfImage_getSize".}
@@ -1313,7 +1313,7 @@ proc copyImage*(image: Image, source: Image, destX: cint, destY: cint, sourceRec
   ## This function does a slow pixel copy and should not be
   ## used intensively. It can be used to prepare a complex
   ## static image from several others, but if you need this
-  ## kind of feature in real-time you'd better use sfRenderTexture.
+  ## kind of feature in real-time you'd better use RenderTexture.
   ## 
   ## If ``sourceRect`` is empty, the whole image is copied.
   ## If ``applyAlpha`` is set to true, the transparency of
@@ -1404,7 +1404,7 @@ proc newRectangleShape*(): RectangleShape {.
   cdecl, dynlib: lib, importc: "sfRectangleShape_create".}
   ## Create a new rectangle shape
   ## 
-  ## *Returns:* A new sfRectangleShape object, or NULL if it failed
+  ## *Returns:* A new RectangleShape object, or NULL if it failed
 
 proc copy*(shape: RectangleShape): RectangleShape {.
   cdecl, dynlib: lib, importc: "sfRectangleShape_copy".}
@@ -1427,7 +1427,7 @@ proc `position=`*(shape: RectangleShape, position: Vector2f) {.
   ## Set the position of a rectangle shape
   ## 
   ## This function completely overwrites the previous position.
-  ## See sfRectangleShape_move to apply an offset based on the previous position instead.
+  ## See RectangleShape_move to apply an offset based on the previous position instead.
   ## The default position of a circle Shape object is (0, 0).
   ## 
   ## *Arguments*:
@@ -1439,7 +1439,7 @@ proc `rotation=`*(shape: RectangleShape, angle: cfloat) {.
   ## Set the orientation of a rectangle shape
   ## 
   ## This function completely overwrites the previous rotation.
-  ## See sfRectangleShape_rotate to add an angle based on the previous rotation instead.
+  ## See RectangleShape_rotate to add an angle based on the previous rotation instead.
   ## The default rotation of a circle Shape object is 0.
   ## 
   ## *Arguments*:
@@ -1451,7 +1451,7 @@ proc `scale=`*(shape: RectangleShape, scale: Vector2f) {.
   ## Set the scale factors of a rectangle shape
   ## 
   ## This function completely overwrites the previous scale.
-  ## See sfRectangleShape_scale to add a factor based on the previous scale instead.
+  ## See RectangleShape_scale to add a factor based on the previous scale instead.
   ## The default scale of a circle Shape object is (1, 1).
   ## 
   ## *Arguments*:
@@ -1516,7 +1516,7 @@ proc move*(shape: RectangleShape, offset: Vector2f) {.
   ## Move a rectangle shape by a given offset
   ## 
   ## This function adds to the current position of the object,
-  ## unlike sfRectangleShape_setPosition which overwrites it.
+  ## unlike RectangleShape_setPosition which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``shape``:   Shape object
@@ -1527,7 +1527,7 @@ proc rotate*(shape: RectangleShape, angle: cfloat) {.
   ## Rotate a rectangle shape
   ## 
   ## This function adds to the current rotation of the object,
-  ## unlike sfRectangleShape_setRotation which overwrites it.
+  ## unlike RectangleShape_setRotation which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``shape``:  Shape object
@@ -1538,7 +1538,7 @@ proc scale*(shape: RectangleShape, factors: Vector2f) {.
   ## Scale a rectangle shape
   ## 
   ## This function multiplies the current scale of the object,
-  ## unlike sfRectangleShape_setScale which overwrites it.
+  ## unlike RectangleShape_setScale which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``shape``:    Shape object
@@ -1601,7 +1601,7 @@ proc `fillColor=`*(shape: RectangleShape, color: Color) {.
   ## This color is modulated (multiplied) with the shape's
   ## texture if any. It can be used to colorize the shape,
   ## or change its global opacity.
-  ## You can use sfTransparent to make the inside of
+  ## You can use Transparent to make the inside of
   ## the shape transparent, and have the outline alone.
   ## By default, the shape's fill color is opaque white.
   ## 
@@ -1613,7 +1613,7 @@ proc `outlineColor=`*(shape: RectangleShape, color: Color) {.
   cdecl, dynlib: lib, importc: "sfRectangleShape_setOutlineColor".}
   ## Set the outline color of a rectangle shape
   ## 
-  ## You can use sfTransparent to disable the outline.
+  ## You can use Transparent to disable the outline.
   ## By default, the shape's outline color is opaque white.
   ## 
   ## *Arguments*:
@@ -1845,7 +1845,7 @@ proc pollEvent*(renderWindow: RenderWindow, event: var Event): bool {.
   ## - ``renderWindow``:  Render window object
   ## - ``event``:         Event to fill, if any
   ## 
-  ## *Returns:* sfTrue if an event was returned, sfFalse if event queue was empty
+  ## *Returns:* True if an event was returned, False if event queue was empty
 
 proc waitEvent*(renderWindow: RenderWindow, event: var Event): bool {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_waitEvent".}
@@ -1855,7 +1855,7 @@ proc waitEvent*(renderWindow: RenderWindow, event: var Event): bool {.
   ## - ``renderWindow``:  Render window object
   ## - ``event``:         Event to fill
   ## 
-  ## *Returns:* sfFalse if an error occured
+  ## *Returns:* False if an error occured
 
 proc position*(renderWindow: RenderWindow): Vector2i {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_getPosition".}
@@ -1925,7 +1925,7 @@ proc `visible=`*(renderWindow: RenderWindow, visible: IntBool) {.
   ## 
   ## *Arguments*:
   ## - ``renderWindow``:  Render window object
-  ## - ``visible``:       sfTrue to show the window, sfFalse to hide it
+  ## - ``visible``:       True to show the window, False to hide it
 
 proc `mouseCursorVisible=`*(renderWindow: RenderWindow, show: IntBool) {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_setMouseCursorVisible".}
@@ -1933,7 +1933,7 @@ proc `mouseCursorVisible=`*(renderWindow: RenderWindow, show: IntBool) {.
   ## 
   ## *Arguments*:
   ## - ``renderWindow``:  Render window object
-  ## - ``show``:          sfTrue to show, sfFalse to hide
+  ## - ``show``:          True to show, False to hide
 
 proc `verticalSyncEnabled=`*(renderWindow: RenderWindow, enabled: IntBool) {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_setVerticalSyncEnabled".}
@@ -1941,7 +1941,7 @@ proc `verticalSyncEnabled=`*(renderWindow: RenderWindow, enabled: IntBool) {.
   ## 
   ## *Arguments*:
   ## - ``renderWindow``:  Render window object
-  ## - ``enabled``:       sfTrue to enable v-sync, sfFalse to deactivate
+  ## - ``enabled``:       True to enable v-sync, False to deactivate
 
 proc `keyRepeatEnabled=`*(renderWindow: RenderWindow, enabled: IntBool) {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_setKeyRepeatEnabled".}
@@ -1951,7 +1951,7 @@ proc `keyRepeatEnabled=`*(renderWindow: RenderWindow, enabled: IntBool) {.
   ## 
   ## *Arguments*:
   ## - ``renderWindow``:  Render window object
-  ## - ``enabled``:       sfTrue to enable, sfFalse to disable
+  ## - ``enabled``:       True to enable, False to disable
 
 proc `active=`*(renderWindow: RenderWindow, active: IntBool): bool {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_setActive".}
@@ -1959,7 +1959,7 @@ proc `active=`*(renderWindow: RenderWindow, active: IntBool): bool {.
   ## 
   ## *Arguments*:
   ## - ``renderWindow``:  Render window object
-  ## - ``active``:        sfTrue to activate, sfFalse to deactivate
+  ## - ``active``:        True to activate, False to deactivate
   ## 
   ## *Returns:* True if operation was successful, false otherwise
 
@@ -2200,7 +2200,7 @@ proc resetGLStates*(renderWindow: RenderWindow) {.
   ## This function can be used when you mix SFML drawing
   ## and direct OpenGL rendering, if you choose not to use
   ## pushGLStates/popGLStates. It makes sure that all OpenGL
-  ## states needed by SFML are set, so that subsequent sfRenderWindow_draw*()
+  ## states needed by SFML are set, so that subsequent RenderWindow_draw*()
   ## calls will work as expected.
   ## 
   ## *Arguments*:
@@ -2213,10 +2213,10 @@ proc capture*(renderWindow: RenderWindow): Image {.
   ## This is a slow operation, whose main purpose is to make
   ## screenshots of the application. If you want to update an
   ## image with the contents of the window and then use it for
-  ## drawing, you should rather use a sfTexture and its
-  ## update(sfWindow*) function.
+  ## drawing, you should rather use a Texture and its
+  ## update(Window*) function.
   ## You can also draw things directly to a texture with the
-  ## sfRenderWindow class.
+  ## RenderWindow class.
   ## 
   ## *Arguments*:
   ## - ``renderWindow``:  Render window object
@@ -2258,7 +2258,7 @@ proc newRenderTexture*(width: cint, height: cint, depthBuffer: IntBool): RenderT
   ## - ``height``:       Height of the render texture
   ## - ``depthBuffer``:  Do you want a depth-buffer attached? (useful only if you're doing 3D OpenGL on the rendertexture)
   ## 
-  ## *Returns:* A new sfRenderTexture object, or NULL if it failed
+  ## *Returns:* A new RenderTexture object, or NULL if it failed
 
 proc destroy*(renderTexture: RenderTexture) {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_destroy".}
@@ -2282,7 +2282,7 @@ proc `active=`*(renderTexture: RenderTexture, active: IntBool): bool {.
   ## 
   ## *Arguments*:
   ## - ``renderTexture``:  Render texture object
-  ## - ``active``:         sfTrue to activate, sfFalse to deactivate
+  ## - ``active``:         True to activate, False to deactivate
   ## 
   ## *Returns:* True if operation was successful, false otherwise
 
@@ -2495,7 +2495,7 @@ proc resetGLStates*(renderTexture: RenderTexture) {.
   ## This function can be used when you mix SFML drawing
   ## and direct OpenGL rendering, if you choose not to use
   ## pushGLStates/popGLStates. It makes sure that all OpenGL
-  ## states needed by SFML are set, so that subsequent sfRenderTexture_draw*()
+  ## states needed by SFML are set, so that subsequent RenderTexture_draw*()
   ## calls will work as expected.
   ## 
   ## *Arguments*:
@@ -2516,7 +2516,7 @@ proc `smooth=`*(renderTexture: RenderTexture, smooth: IntBool) {.
   ## 
   ## *Arguments*:
   ## - ``renderTexture``:  Render texture object
-  ## - ``smooth``:         sfTrue to enable smoothing, sfFalse to disable it
+  ## - ``smooth``:         True to enable smoothing, False to disable it
 
 proc smooth*(renderTexture: RenderTexture): bool {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_isSmooth".}
@@ -2525,7 +2525,7 @@ proc smooth*(renderTexture: RenderTexture): bool {.
   ## *Arguments*:
   ## - ``renderTexture``:  Render texture object
   ## 
-  ## *Returns:* sfTrue if smoothing is enabled, sfFalse if it is disabled
+  ## *Returns:* True if smoothing is enabled, False if it is disabled
 
 proc `repeated=`*(renderTexture: RenderTexture, repeated: IntBool) {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_setRepeated".}
@@ -2533,7 +2533,7 @@ proc `repeated=`*(renderTexture: RenderTexture, repeated: IntBool) {.
   ## 
   ## *Arguments*:
   ## - ``renderTexture``:  Render texture object
-  ## - ``repeated``:       sfTrue to enable repeating, sfFalse to disable it
+  ## - ``repeated``:       True to enable repeating, False to disable it
 
 proc repeated*(renderTexture: RenderTexture): bool {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_isRepeated".}
@@ -2542,7 +2542,7 @@ proc repeated*(renderTexture: RenderTexture): bool {.
   ## *Arguments*:
   ## - ``renderTexture``:  Render texture object
   ## 
-  ## *Returns:* sfTrue if repeat mode is enabled, sfFalse if it is disabled
+  ## *Returns:* True if repeat mode is enabled, False if it is disabled
 
 
 #--- SFML/Graphics/Shader ---#
@@ -2563,7 +2563,7 @@ proc newShader*(vertexShaderFilename: cstring, fragmentShaderFilename: cstring):
   ## - ``vertexShaderFilename``:    Path of the vertex shader file to load, or NULL to skip this shader
   ## - ``fragmentShaderFilename``:  Path of the fragment shader file to load, or NULL to skip this shader
   ## 
-  ## *Returns:* A new sfShader object, or NULL if it failed
+  ## *Returns:* A new Shader object, or NULL if it failed
 
 proc newShader*(vertexShader: cstring, fragmentShader: cstring): Shader {.
   cdecl, dynlib: lib, importc: "sfShader_createFromMemory".}
@@ -2581,7 +2581,7 @@ proc newShader*(vertexShader: cstring, fragmentShader: cstring): Shader {.
   ## - ``vertexShader``:    String containing the source code of the vertex shader, or NULL to skip this shader
   ## - ``fragmentShader``:  String containing the source code of the fragment shader, or NULL to skip this shader
   ## 
-  ## *Returns:* A new sfShader object, or NULL if it failed
+  ## *Returns:* A new Shader object, or NULL if it failed
 
 proc newShader*(vertexShaderStream: var InputStream, fragmentShaderStream: var InputStream): Shader {.
   cdecl, dynlib: lib, importc: "sfShader_createFromStream".}
@@ -2599,7 +2599,7 @@ proc newShader*(vertexShaderStream: var InputStream, fragmentShaderStream: var I
   ## - ``vertexShaderStream``:    Source stream to read the vertex shader from, or NULL to skip this shader
   ## - ``fragmentShaderStream``:  Source stream to read the fragment shader from, or NULL to skip this shader
   ## 
-  ## *Returns:* A new sfShader object, or NULL if it failed
+  ## *Returns:* A new Shader object, or NULL if it failed
 
 proc destroy*(shader: Shader) {.
   cdecl, dynlib: lib, importc: "sfShader_destroy".}
@@ -2745,7 +2745,7 @@ proc setTextureParameter*(shader: Shader, name: cstring, texture: Texture) {.
   ## 
   ## To use the texture of the object being draw, which cannot be
   ## known in advance, you can use the special function
-  ## sfShader_setCurrentTextureParameter:
+  ## Shader_setCurrentTextureParameter:
   ## 
   ## *Arguments*:
   ## - ``shader``:   Shader object
@@ -2773,7 +2773,7 @@ proc bindGL*(shader: Shader) {.
   ## 
   ## This function is not part of the graphics API, it mustn't be
   ## used when drawing SFML entities. It must be used only if you
-  ## mix sfShader with OpenGL code.
+  ## mix Shader with OpenGL code.
   ## 
   ## 
   ## *Arguments*:
@@ -2785,9 +2785,9 @@ proc shader_isAvailable*(): bool {.
   ## 
   ## This function should always be called before using
   ## the shader features. If it returns false, then
-  ## any attempt to use sfShader will fail.
+  ## any attempt to use Shader will fail.
   ## 
-  ## *Returns:* sfTrue if the system can use shaders, sfFalse otherwise
+  ## *Returns:* True if the system can use shaders, False otherwise
 
 
 #--- SFML/Graphics/Shape ---#
@@ -2805,7 +2805,7 @@ proc newShape*(getPointCount: ShapeGetPointCountCallback, getPoint: ShapeGetPoin
   ## - ``getPoint``:       Callback that provides the points of the shape
   ## - ``userData``:       Data to pass to the callback functions
   ## 
-  ## *Returns:* A new sfShape object
+  ## *Returns:* A new Shape object
 
 proc destroy*(shape: Shape) {.
   cdecl, dynlib: lib, importc: "sfShape_destroy".}
@@ -2819,7 +2819,7 @@ proc `position=`*(shape: Shape, position: Vector2f) {.
   ## Set the position of a shape
   ## 
   ## This function completely overwrites the previous position.
-  ## See sfShape_move to apply an offset based on the previous position instead.
+  ## See Shape_move to apply an offset based on the previous position instead.
   ## The default position of a circle Shape object is (0, 0).
   ## 
   ## *Arguments*:
@@ -2831,7 +2831,7 @@ proc `rotation=`*(shape: Shape, angle: cfloat) {.
   ## Set the orientation of a shape
   ## 
   ## This function completely overwrites the previous rotation.
-  ## See sfShape_rotate to add an angle based on the previous rotation instead.
+  ## See Shape_rotate to add an angle based on the previous rotation instead.
   ## The default rotation of a circle Shape object is 0.
   ## 
   ## *Arguments*:
@@ -2843,7 +2843,7 @@ proc `scale=`*(shape: Shape, scale: Vector2f) {.
   ## Set the scale factors of a shape
   ## 
   ## This function completely overwrites the previous scale.
-  ## See sfShape_scale to add a factor based on the previous scale instead.
+  ## See Shape_scale to add a factor based on the previous scale instead.
   ## The default scale of a circle Shape object is (1, 1).
   ## 
   ## *Arguments*:
@@ -2908,7 +2908,7 @@ proc move*(shape: Shape, offset: Vector2f) {.
   ## Move a shape by a given offset
   ## 
   ## This function adds to the current position of the object,
-  ## unlike sfShape_setPosition which overwrites it.
+  ## unlike Shape_setPosition which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``shape``:   Shape object
@@ -2919,7 +2919,7 @@ proc rotate*(shape: Shape, angle: cfloat) {.
   ## Rotate a shape
   ## 
   ## This function adds to the current rotation of the object,
-  ## unlike sfShape_setRotation which overwrites it.
+  ## unlike Shape_setRotation which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``shape``:  Shape object
@@ -2930,7 +2930,7 @@ proc scale*(shape: Shape, factors: Vector2f) {.
   ## Scale a shape
   ## 
   ## This function multiplies the current scale of the object,
-  ## unlike sfShape_setScale which overwrites it.
+  ## unlike Shape_setScale which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``shape``:    Shape object
@@ -2993,7 +2993,7 @@ proc `fillColor=`*(shape: Shape, color: Color) {.
   ## This color is modulated (multiplied) with the shape's
   ## texture if any. It can be used to colorize the shape,
   ## or change its global opacity.
-  ## You can use sfTransparent to make the inside of
+  ## You can use Transparent to make the inside of
   ## the shape transparent, and have the outline alone.
   ## By default, the shape's fill color is opaque white.
   ## 
@@ -3005,7 +3005,7 @@ proc `outlineColor=`*(shape: Shape, color: Color) {.
   cdecl, dynlib: lib, importc: "sfShape_setOutlineColor".}
   ## Set the outline color of a shape
   ## 
-  ## You can use sfTransparent to disable the outline.
+  ## You can use Transparent to disable the outline.
   ## By default, the shape's outline color is opaque white.
   ## 
   ## *Arguments*:
@@ -3139,7 +3139,7 @@ proc newSprite*(): Sprite {.
   cdecl, dynlib: lib, importc: "sfSprite_create".}
   ## Create a new sprite
   ## 
-  ## *Returns:* A new sfSprite object, or NULL if it failed
+  ## *Returns:* A new Sprite object, or NULL if it failed
 
 proc copy*(sprite: Sprite): Sprite {.
   cdecl, dynlib: lib, importc: "sfSprite_copy".}
@@ -3162,7 +3162,7 @@ proc `position=`*(sprite: Sprite, position: Vector2f) {.
   ## Set the position of a sprite
   ## 
   ## This function completely overwrites the previous position.
-  ## See sfSprite_move to apply an offset based on the previous position instead.
+  ## See Sprite_move to apply an offset based on the previous position instead.
   ## The default position of a sprite Sprite object is (0, 0).
   ## 
   ## *Arguments*:
@@ -3174,7 +3174,7 @@ proc `rotation=`*(sprite: Sprite, angle: cfloat) {.
   ## Set the orientation of a sprite
   ## 
   ## This function completely overwrites the previous rotation.
-  ## See sfSprite_rotate to add an angle based on the previous rotation instead.
+  ## See Sprite_rotate to add an angle based on the previous rotation instead.
   ## The default rotation of a sprite Sprite object is 0.
   ## 
   ## *Arguments*:
@@ -3186,7 +3186,7 @@ proc `scale=`*(sprite: Sprite, scale: Vector2f) {.
   ## Set the scale factors of a sprite
   ## 
   ## This function completely overwrites the previous scale.
-  ## See sfSprite_scale to add a factor based on the previous scale instead.
+  ## See Sprite_scale to add a factor based on the previous scale instead.
   ## The default scale of a sprite Sprite object is (1, 1).
   ## 
   ## *Arguments*:
@@ -3251,7 +3251,7 @@ proc move*(sprite: Sprite, offset: Vector2f) {.
   ## Move a sprite by a given offset
   ## 
   ## This function adds to the current position of the object,
-  ## unlike sfSprite_setPosition which overwrites it.
+  ## unlike Sprite_setPosition which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``sprite``:  Sprite object
@@ -3262,7 +3262,7 @@ proc rotate*(sprite: Sprite, angle: cfloat) {.
   ## Rotate a sprite
   ## 
   ## This function adds to the current rotation of the object,
-  ## unlike sfSprite_setRotation which overwrites it.
+  ## unlike Sprite_setRotation which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``sprite``:  Sprite object
@@ -3273,7 +3273,7 @@ proc scale*(sprite: Sprite, factors: Vector2f) {.
   ## Scale a sprite
   ## 
   ## This function multiplies the current scale of the object,
-  ## unlike sfSprite_setScale which overwrites it.
+  ## unlike Sprite_setScale which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``sprite``:   Sprite object
@@ -3412,7 +3412,7 @@ proc newText*(): Text {.
   cdecl, dynlib: lib, importc: "sfText_create".}
   ## Create a new text
   ## 
-  ## *Returns:* A new sfText object, or NULL if it failed
+  ## *Returns:* A new Text object, or NULL if it failed
 
 proc copy*(text: Text): Text {.
   cdecl, dynlib: lib, importc: "sfText_copy".}
@@ -3435,7 +3435,7 @@ proc `position=`*(text: Text, position: Vector2f) {.
   ## Set the position of a text
   ## 
   ## This function completely overwrites the previous position.
-  ## See sfText_move to apply an offset based on the previous position instead.
+  ## See Text_move to apply an offset based on the previous position instead.
   ## The default position of a text Text object is (0, 0).
   ## 
   ## *Arguments*:
@@ -3447,7 +3447,7 @@ proc `rotation=`*(text: Text, angle: cfloat) {.
   ## Set the orientation of a text
   ## 
   ## This function completely overwrites the previous rotation.
-  ## See sfText_rotate to add an angle based on the previous rotation instead.
+  ## See Text_rotate to add an angle based on the previous rotation instead.
   ## The default rotation of a text Text object is 0.
   ## 
   ## *Arguments*:
@@ -3459,7 +3459,7 @@ proc `scale=`*(text: Text, scale: Vector2f) {.
   ## Set the scale factors of a text
   ## 
   ## This function completely overwrites the previous scale.
-  ## See sfText_scale to add a factor based on the previous scale instead.
+  ## See Text_scale to add a factor based on the previous scale instead.
   ## The default scale of a text Text object is (1, 1).
   ## 
   ## *Arguments*:
@@ -3524,7 +3524,7 @@ proc move*(text: Text, offset: Vector2f) {.
   ## Move a text by a given offset
   ## 
   ## This function adds to the current position of the object,
-  ## unlike sfText_setPosition which overwrites it.
+  ## unlike Text_setPosition which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``text``:    Text object
@@ -3535,7 +3535,7 @@ proc rotate*(text: Text, angle: cfloat) {.
   ## Rotate a text
   ## 
   ## This function adds to the current rotation of the object,
-  ## unlike sfText_setRotation which overwrites it.
+  ## unlike Text_setRotation which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``text``:   Text object
@@ -3546,7 +3546,7 @@ proc scale*(text: Text, factors: Vector2f) {.
   ## Scale a text
   ## 
   ## This function multiplies the current scale of the object,
-  ## unlike sfText_setScale which overwrites it.
+  ## unlike Text_setScale which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``text``:     Text object
@@ -3618,8 +3618,8 @@ proc `style=`*(text: Text, style: uint32) {.
   ## Set the style of a text
   ## 
   ## You can pass a combination of one or more styles, for
-  ## example sfTextBold | sfTextItalic.
-  ## The default style is sfTextRegular.
+  ## example TextBold | TextItalic.
+  ## The default style is TextRegular.
   ## 
   ## *Arguments*:
   ## - ``text``:   Text object
@@ -3682,7 +3682,7 @@ proc style*(text: Text): uint32 {.
   ## *Arguments*:
   ## - ``text``:  Text object
   ## 
-  ## *Returns:* Current string style (see sfTextStyle enum)
+  ## *Returns:* Current string style (see TextStyle enum)
 
 proc color*(text: Text): Color {.
   cdecl, dynlib: lib, importc: "sfText_getColor".}
@@ -3751,7 +3751,7 @@ proc newTexture*(width: cint, height: cint): Texture {.
   ## - ``width``:   Texture width
   ## - ``height``:  Texture height
   ## 
-  ## *Returns:* A new sfTexture object, or NULL if it failed
+  ## *Returns:* A new Texture object, or NULL if it failed
 
 proc newTexture*(filename: cstring, area: (var IntRect){lvalue}): Texture {.
   cdecl, dynlib: lib, importc: "sfTexture_createFromFile".}
@@ -3762,7 +3762,7 @@ proc newTexture*(filename: cstring, area: IntRect): Texture =
   ## - ``filename``:  Path of the image file to load
   ## - ``area``:      Area of the source image to load (NULL to load the entire image)
   ## 
-  ## *Returns:* A new sfTexture object, or NULL if it failed
+  ## *Returns:* A new Texture object, or NULL if it failed
   (var Carea = area)
   newTexture(filename, Carea)
 
@@ -3776,7 +3776,7 @@ proc newTexture*(data: pointer, sizeInBytes: int, area: IntRect): Texture =
   ## - ``sizeInBytes``:  Size of the data to load, in bytes
   ## - ``area``:         Area of the source image to load (NULL to load the entire image)
   ## 
-  ## *Returns:* A new sfTexture object, or NULL if it failed
+  ## *Returns:* A new Texture object, or NULL if it failed
   (var Carea = area)
   newTexture(data, sizeInBytes, Carea)
 
@@ -3789,7 +3789,7 @@ proc newTexture*(stream: var InputStream, area: IntRect): Texture =
   ## - ``stream``:  Source stream to read from
   ## - ``area``:    Area of the source image to load (NULL to load the entire image)
   ## 
-  ## *Returns:* A new sfTexture object, or NULL if it failed
+  ## *Returns:* A new Texture object, or NULL if it failed
   (var Carea = area)
   newTexture(stream, Carea)
 
@@ -3802,7 +3802,7 @@ proc newTexture*(image: Image, area: IntRect): Texture =
   ## - ``image``:  Image to upload to the texture
   ## - ``area``:   Area of the source image to load (NULL to load the entire image)
   ## 
-  ## *Returns:* A new sfTexture object, or NULL if it failed
+  ## *Returns:* A new Texture object, or NULL if it failed
   (var Carea = area)
   newTexture(image, Carea)
 
@@ -3888,7 +3888,7 @@ proc `smooth=`*(texture: Texture, smooth: IntBool) {.
   ## 
   ## *Arguments*:
   ## - ``texture``:  The texture object
-  ## - ``smooth``:   sfTrue to enable smoothing, sfFalse to disable it
+  ## - ``smooth``:   True to enable smoothing, False to disable it
 
 proc smooth*(texture: Texture): bool {.
   cdecl, dynlib: lib, importc: "sfTexture_isSmooth".}
@@ -3897,7 +3897,7 @@ proc smooth*(texture: Texture): bool {.
   ## *Arguments*:
   ## - ``texture``:  The texture object
   ## 
-  ## *Returns:* sfTrue if smoothing is enabled, sfFalse if it is disabled
+  ## *Returns:* True if smoothing is enabled, False if it is disabled
 
 proc `repeated=`*(texture: Texture, repeated: IntBool) {.
   cdecl, dynlib: lib, importc: "sfTexture_setRepeated".}
@@ -3928,7 +3928,7 @@ proc repeated*(texture: Texture): bool {.
   ## *Arguments*:
   ## - ``texture``:  The texture object
   ## 
-  ## *Returns:* sfTrue if repeat mode is enabled, sfFalse if it is disabled
+  ## *Returns:* True if repeat mode is enabled, False if it is disabled
 
 proc bindGL*(texture: Texture) {.
   cdecl, dynlib: lib, importc: "sfTexture_bind".}
@@ -3936,7 +3936,7 @@ proc bindGL*(texture: Texture) {.
   ## 
   ## This function is not part of the graphics API, it mustn't be
   ## used when drawing SFML entities. It must be used only if you
-  ## mix sfTexture with OpenGL code.
+  ## mix Texture with OpenGL code.
   ## 
   ## 
   ## *Arguments*:
@@ -3955,7 +3955,7 @@ proc newTransformable*(): Transformable {.
   cdecl, dynlib: lib, importc: "sfTransformable_create".}
   ## Create a new transformable
   ## 
-  ## *Returns:* A new sfTransformable object
+  ## *Returns:* A new Transformable object
 
 proc copy*(transformable: Transformable): Transformable {.
   cdecl, dynlib: lib, importc: "sfTransformable_copy".}
@@ -3978,7 +3978,7 @@ proc `position=`*(transformable: Transformable, position: Vector2f) {.
   ## Set the position of a transformable
   ## 
   ## This function completely overwrites the previous position.
-  ## See sfTransformable_move to apply an offset based on the previous position instead.
+  ## See Transformable_move to apply an offset based on the previous position instead.
   ## The default position of a transformable Transformable object is (0, 0).
   ## 
   ## *Arguments*:
@@ -3990,7 +3990,7 @@ proc `rotation=`*(transformable: Transformable, angle: cfloat) {.
   ## Set the orientation of a transformable
   ## 
   ## This function completely overwrites the previous rotation.
-  ## See sfTransformable_rotate to add an angle based on the previous rotation instead.
+  ## See Transformable_rotate to add an angle based on the previous rotation instead.
   ## The default rotation of a transformable Transformable object is 0.
   ## 
   ## *Arguments*:
@@ -4002,7 +4002,7 @@ proc `scale=`*(transformable: Transformable, scale: Vector2f) {.
   ## Set the scale factors of a transformable
   ## 
   ## This function completely overwrites the previous scale.
-  ## See sfTransformable_scale to add a factor based on the previous scale instead.
+  ## See Transformable_scale to add a factor based on the previous scale instead.
   ## The default scale of a transformable Transformable object is (1, 1).
   ## 
   ## *Arguments*:
@@ -4067,7 +4067,7 @@ proc move*(transformable: Transformable, offset: Vector2f) {.
   ## Move a transformable by a given offset
   ## 
   ## This function adds to the current position of the object,
-  ## unlike sfTransformable_setPosition which overwrites it.
+  ## unlike Transformable_setPosition which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``transformable``:  Transformable object
@@ -4078,7 +4078,7 @@ proc rotate*(transformable: Transformable, angle: cfloat) {.
   ## Rotate a transformable
   ## 
   ## This function adds to the current rotation of the object,
-  ## unlike sfTransformable_setRotation which overwrites it.
+  ## unlike Transformable_setRotation which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``transformable``:  Transformable object
@@ -4089,7 +4089,7 @@ proc scale*(transformable: Transformable, factors: Vector2f) {.
   ## Scale a transformable
   ## 
   ## This function multiplies the current scale of the object,
-  ## unlike sfTransformable_setScale which overwrites it.
+  ## unlike Transformable_setScale which overwrites it.
   ## 
   ## *Arguments*:
   ## - ``transformable``:  Transformable object
@@ -4120,7 +4120,7 @@ proc newVertexArray*(): VertexArray {.
   cdecl, dynlib: lib, importc: "sfVertexArray_create".}
   ## Create a new vertex array
   ## 
-  ## *Returns:* A new sfVertexArray object
+  ## *Returns:* A new VertexArray object
 
 proc copy*(vertexArray: VertexArray): VertexArray {.
   cdecl, dynlib: lib, importc: "sfVertexArray_copy".}
@@ -4205,7 +4205,7 @@ proc `primitiveType=`*(vertexArray: VertexArray, kind: PrimitiveType) {.
   ## - As lines
   ## - As triangles
   ## - As quads
-  ## The default primitive type is sfPoints.
+  ## The default primitive type is Points.
   ## 
   ## *Arguments*:
   ## - ``vertexArray``:  Vertex array objet
@@ -4241,7 +4241,7 @@ proc newView*(): View {.
   ## 
   ## This function creates a default view of (0, 0, 1000, 1000)
   ## 
-  ## *Returns:* A new sfView object
+  ## *Returns:* A new View object
 
 proc newView*(rectangle: FloatRect): View {.
   cdecl, dynlib: lib, importc: "sfView_createFromRect".}
@@ -4250,7 +4250,7 @@ proc newView*(rectangle: FloatRect): View {.
   ## *Arguments*:
   ## - ``rectangle``:  Rectangle defining the zone to display
   ## 
-  ## *Returns:* A new sfView object
+  ## *Returns:* A new View object
 
 proc copy*(view: View): View {.
   cdecl, dynlib: lib, importc: "sfView_copy".}

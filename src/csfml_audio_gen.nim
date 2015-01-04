@@ -95,7 +95,7 @@ proc newMusic*(filename: cstring): Music {.
   ## Create a new music and load it from a file
   ## 
   ## This function doesn't start playing the music (call
-  ## sfMusic_play to do so).
+  ## Music_play to do so).
   ## Here is a complete list of all the supported audio formats:
   ## ogg, wav, flac, aiff, au, raw, paf, svx, nist, voc, ircam,
   ## w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.
@@ -103,14 +103,14 @@ proc newMusic*(filename: cstring): Music {.
   ## *Arguments*:
   ## - ``filename``:  Path of the music file to open
   ## 
-  ## *Returns:* A new sfMusic object (NULL if failed)
+  ## *Returns:* A new Music object (NULL if failed)
 
 proc newMusic*(data: pointer, sizeInBytes: int): Music {.
   cdecl, dynlib: lib, importc: "sfMusic_createFromMemory".}
   ## Create a new music and load it from a file in memory
   ## 
   ## This function doesn't start playing the music (call
-  ## sfMusic_play to do so).
+  ## Music_play to do so).
   ## Here is a complete list of all the supported audio formats:
   ## ogg, wav, flac, aiff, au, raw, paf, svx, nist, voc, ircam,
   ## w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.
@@ -119,14 +119,14 @@ proc newMusic*(data: pointer, sizeInBytes: int): Music {.
   ## - ``data``:         Pointer to the file data in memory
   ## - ``sizeInBytes``:  Size of the data to load, in bytes
   ## 
-  ## *Returns:* A new sfMusic object (NULL if failed)
+  ## *Returns:* A new Music object (NULL if failed)
 
 proc newMusic*(stream: var InputStream): Music {.
   cdecl, dynlib: lib, importc: "sfMusic_createFromStream".}
   ## Create a new music and load it from a custom stream
   ## 
   ## This function doesn't start playing the music (call
-  ## sfMusic_play to do so).
+  ## Music_play to do so).
   ## Here is a complete list of all the supported audio formats:
   ## ogg, wav, flac, aiff, au, raw, paf, svx, nist, voc, ircam,
   ## w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.
@@ -134,7 +134,7 @@ proc newMusic*(stream: var InputStream): Music {.
   ## *Arguments*:
   ## - ``stream``:  Source stream to read from
   ## 
-  ## *Returns:* A new sfMusic object (NULL if failed)
+  ## *Returns:* A new Music object (NULL if failed)
 
 proc destroy*(music: Music) {.
   cdecl, dynlib: lib, importc: "sfMusic_destroy".}
@@ -149,12 +149,12 @@ proc `loop=`*(music: Music, loop: IntBool) {.
   ## 
   ## If set, the music will restart from beginning after
   ## reaching the end and so on, until it is stopped or
-  ## sfMusic_setLoop(music, sfFalse) is called.
+  ## Music_setLoop(music, False) is called.
   ## The default looping state for musics is false.
   ## 
   ## *Arguments*:
   ## - ``music``:  Music object
-  ## - ``loop``:   sfTrue to play in loop, sfFalse to play once
+  ## - ``loop``:   True to play in loop, False to play once
 
 proc loop*(music: Music): bool {.
   cdecl, dynlib: lib, importc: "sfMusic_getLoop".}
@@ -163,7 +163,7 @@ proc loop*(music: Music): bool {.
   ## *Arguments*:
   ## - ``music``:  Music object
   ## 
-  ## *Returns:* sfTrue if the music is looping, sfFalse otherwise
+  ## *Returns:* True if the music is looping, False otherwise
 
 proc duration*(music: Music): Time {.
   cdecl, dynlib: lib, importc: "sfMusic_getDuration".}
@@ -203,7 +203,7 @@ proc stop*(music: Music) {.
   ## 
   ## This function stops the music if it was playing or paused,
   ## and does nothing if it was already stopped.
-  ## It also resets the playing position (unlike sfMusic_pause).
+  ## It also resets the playing position (unlike Music_pause).
   ## 
   ## *Arguments*:
   ## - ``music``:  Music object
@@ -298,7 +298,7 @@ proc `relativeToListener=`*(music: Music, relative: IntBool) {.
   ## 
   ## *Arguments*:
   ## - ``music``:     Music object
-  ## - ``relative``:  sfTrue to set the position relative, sfFalse to set it absolute
+  ## - ``relative``:  True to set the position relative, False to set it absolute
 
 proc `minDistance=`*(music: Music, distance: cfloat) {.
   cdecl, dynlib: lib, importc: "sfMusic_setMinDistance".}
@@ -378,7 +378,7 @@ proc relativeToListener*(music: Music): bool {.
   ## *Arguments*:
   ## - ``music``:  Music object
   ## 
-  ## *Returns:* sfTrue if the position is relative, sfFalse if it's absolute
+  ## *Returns:* True if the position is relative, False if it's absolute
 
 proc minDistance*(music: Music): cfloat {.
   cdecl, dynlib: lib, importc: "sfMusic_getMinDistance".}
@@ -405,7 +405,7 @@ proc newSound*(): Sound {.
   cdecl, dynlib: lib, importc: "sfSound_create".}
   ## Create a new sound
   ## 
-  ## *Returns:* A new sfSound object
+  ## *Returns:* A new Sound object
 
 proc copy*(sound: Sound): Sound {.
   cdecl, dynlib: lib, importc: "sfSound_copy".}
@@ -414,7 +414,7 @@ proc copy*(sound: Sound): Sound {.
   ## *Arguments*:
   ## - ``sound``:  Sound to copy
   ## 
-  ## *Returns:* A new sfSound object which is a copy of ``sound``
+  ## *Returns:* A new Sound object which is a copy of ``sound``
 
 proc destroy*(sound: Sound) {.
   cdecl, dynlib: lib, importc: "sfSound_destroy".}
@@ -452,7 +452,7 @@ proc stop*(sound: Sound) {.
   ## 
   ## This function stops the sound if it was playing or paused,
   ## and does nothing if it was already stopped.
-  ## It also resets the playing position (unlike sfSound_pause).
+  ## It also resets the playing position (unlike Sound_pause).
   ## 
   ## *Arguments*:
   ## - ``sound``:  Sound object
@@ -462,7 +462,7 @@ proc `buffer=`*(sound: Sound, buffer: SoundBuffer) {.
   ## Set the source buffer containing the audio data to play
   ## 
   ## It is important to note that the sound buffer is not copied,
-  ## thus the sfSoundBuffer object must remain alive as long
+  ## thus the SoundBuffer object must remain alive as long
   ## as it is attached to the sound.
   ## 
   ## *Arguments*:
@@ -484,12 +484,12 @@ proc `loop=`*(sound: Sound, loop: IntBool) {.
   ## 
   ## If set, the sound will restart from beginning after
   ## reaching the end and so on, until it is stopped or
-  ## sfSound_setLoop(sound, sfFalse) is called.
+  ## Sound_setLoop(sound, False) is called.
   ## The default looping state for sounds is false.
   ## 
   ## *Arguments*:
   ## - ``sound``:  Sound object
-  ## - ``loop``:   sfTrue to play in loop, sfFalse to play once
+  ## - ``loop``:   True to play in loop, False to play once
 
 proc loop*(sound: Sound): bool {.
   cdecl, dynlib: lib, importc: "sfSound_getLoop".}
@@ -498,7 +498,7 @@ proc loop*(sound: Sound): bool {.
   ## *Arguments*:
   ## - ``sound``:  Sound object
   ## 
-  ## *Returns:* sfTrue if the sound is looping, sfFalse otherwise
+  ## *Returns:* True if the sound is looping, False otherwise
 
 proc status*(sound: Sound): SoundStatus {.
   cdecl, dynlib: lib, importc: "sfSound_getStatus".}
@@ -558,7 +558,7 @@ proc `relativeToListener=`*(sound: Sound, relative: IntBool) {.
   ## 
   ## *Arguments*:
   ## - ``sound``:     Sound object
-  ## - ``relative``:  sfTrue to set the position relative, sfFalse to set it absolute
+  ## - ``relative``:  True to set the position relative, False to set it absolute
 
 proc `minDistance=`*(sound: Sound, distance: cfloat) {.
   cdecl, dynlib: lib, importc: "sfSound_setMinDistance".}
@@ -638,7 +638,7 @@ proc relativeToListener*(sound: Sound): bool {.
   ## *Arguments*:
   ## - ``sound``:  Sound object
   ## 
-  ## *Returns:* sfTrue if the position is relative, sfFalse if it's absolute
+  ## *Returns:* True if the position is relative, False if it's absolute
 
 proc minDistance*(sound: Sound): cfloat {.
   cdecl, dynlib: lib, importc: "sfSound_getMinDistance".}
@@ -681,7 +681,7 @@ proc newSoundBuffer*(filename: cstring): SoundBuffer {.
   ## *Arguments*:
   ## - ``filename``:  Path of the sound file to load
   ## 
-  ## *Returns:* A new sfSoundBuffer object (NULL if failed)
+  ## *Returns:* A new SoundBuffer object (NULL if failed)
 
 proc newSoundBuffer*(data: pointer, sizeInBytes: int): SoundBuffer {.
   cdecl, dynlib: lib, importc: "sfSoundBuffer_createFromMemory".}
@@ -695,7 +695,7 @@ proc newSoundBuffer*(data: pointer, sizeInBytes: int): SoundBuffer {.
   ## - ``data``:         Pointer to the file data in memory
   ## - ``sizeInBytes``:  Size of the data to load, in bytes
   ## 
-  ## *Returns:* A new sfSoundBuffer object (NULL if failed)
+  ## *Returns:* A new SoundBuffer object (NULL if failed)
 
 proc newSoundBuffer*(stream: var InputStream): SoundBuffer {.
   cdecl, dynlib: lib, importc: "sfSoundBuffer_createFromStream".}
@@ -708,14 +708,14 @@ proc newSoundBuffer*(stream: var InputStream): SoundBuffer {.
   ## *Arguments*:
   ## - ``stream``:  Source stream to read from
   ## 
-  ## *Returns:* A new sfSoundBuffer object (NULL if failed)
+  ## *Returns:* A new SoundBuffer object (NULL if failed)
 
 proc newSoundBuffer*(samples: ptr int16, sampleCount: int, channelCount: cint, sampleRate: cint): SoundBuffer {.
   cdecl, dynlib: lib, importc: "sfSoundBuffer_createFromSamples".}
   ## Create a new sound buffer and load it from an array of samples in memory
   ## 
   ## The assumed format of the audio samples is 16 bits signed integer
-  ## (sfInt16).
+  ## (Int16).
   ## 
   ## *Arguments*:
   ## - ``samples``:       Pointer to the array of samples in memory
@@ -723,7 +723,7 @@ proc newSoundBuffer*(samples: ptr int16, sampleCount: int, channelCount: cint, s
   ## - ``channelCount``:  Number of channels (1 = mono, 2 = stereo, ...)
   ## - ``sampleRate``:    Sample rate (number of samples to play per second)
   ## 
-  ## *Returns:* A new sfSoundBuffer object (NULL if failed)
+  ## *Returns:* A new SoundBuffer object (NULL if failed)
 
 proc copy*(soundBuffer: SoundBuffer): SoundBuffer {.
   cdecl, dynlib: lib, importc: "sfSoundBuffer_copy".}
@@ -732,7 +732,7 @@ proc copy*(soundBuffer: SoundBuffer): SoundBuffer {.
   ## *Arguments*:
   ## - ``soundBuffer``:  Sound buffer to copy
   ## 
-  ## *Returns:* A new sfSoundBuffer object which is a copy of ``soundBuffer``
+  ## *Returns:* A new SoundBuffer object which is a copy of ``soundBuffer``
 
 proc destroy*(soundBuffer: SoundBuffer) {.
   cdecl, dynlib: lib, importc: "sfSoundBuffer_destroy".}
@@ -753,15 +753,15 @@ proc saveToFile*(soundBuffer: SoundBuffer, filename: cstring): bool {.
   ## - ``soundBuffer``:  Sound buffer object
   ## - ``filename``:     Path of the sound file to write
   ## 
-  ## *Returns:* sfTrue if saving succeeded, sfFalse if it failed
+  ## *Returns:* True if saving succeeded, False if it failed
 
 proc samples*(soundBuffer: SoundBuffer): ptr int16 {.
   cdecl, dynlib: lib, importc: "sfSoundBuffer_getSamples".}
   ## Get the array of audio samples stored in a sound buffer
   ## 
   ## The format of the returned samples is 16 bits signed integer
-  ## (sfInt16). The total number of samples in this array
-  ## is given by the sfSoundBuffer_getSampleCount function.
+  ## (Int16). The total number of samples in this array
+  ## is given by the SoundBuffer_getSampleCount function.
   ## 
   ## *Arguments*:
   ## - ``soundBuffer``:  Sound buffer object
@@ -773,7 +773,7 @@ proc sampleCount*(soundBuffer: SoundBuffer): int {.
   ## Get the number of samples stored in a sound buffer
   ## 
   ## The array of samples can be accessed with the
-  ## sfSoundBuffer_getSamples function.
+  ## SoundBuffer_getSamples function.
   ## 
   ## *Arguments*:
   ## - ``soundBuffer``:  Sound buffer object
@@ -821,7 +821,7 @@ proc newSoundBufferRecorder*(): SoundBufferRecorder {.
   cdecl, dynlib: lib, importc: "sfSoundBufferRecorder_create".}
   ## Create a new sound buffer recorder
   ## 
-  ## *Returns:* A new sfSoundBufferRecorder object (NULL if failed)
+  ## *Returns:* A new SoundBufferRecorder object (NULL if failed)
 
 proc destroy*(soundBufferRecorder: SoundBufferRecorder) {.
   cdecl, dynlib: lib, importc: "sfSoundBufferRecorder_destroy".}
@@ -898,7 +898,7 @@ proc newSoundRecorder*(onStart: SoundRecorderStartCallback, onProcess: SoundReco
   ## - ``onStop``:     Callback function which will be called when the current capture stops (can be NULL)
   ## - ``userData``:   Data to pass to the callback function (can be NULL)
   ## 
-  ## *Returns:* A new sfSoundRecorder object (NULL if failed)
+  ## *Returns:* A new SoundRecorder object (NULL if failed)
 
 proc destroy*(soundRecorder: SoundRecorder) {.
   cdecl, dynlib: lib, importc: "sfSoundRecorder_destroy".}
@@ -948,6 +948,6 @@ proc soundRecorder_isAvailable*(): bool {.
   ## 
   ## This function should always be called before using
   ## the audio capture features. If it returns false, then
-  ## any attempt to use sfSoundRecorder will fail.
+  ## any attempt to use SoundRecorder will fail.
   ## 
-  ## *Returns:* sfTrue if audio capture is supported, sfFalse otherwise
+  ## *Returns:* True if audio capture is supported, False otherwise

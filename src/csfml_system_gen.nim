@@ -84,7 +84,7 @@ proc newClock*(): Clock {.
   cdecl, dynlib: lib, importc: "sfClock_create".}
   ## Create a new clock and start it
   ## 
-  ## *Returns:* A new sfClock object
+  ## *Returns:* A new Clock object
 
 proc copy*(clock: Clock): Clock {.
   cdecl, dynlib: lib, importc: "sfClock_copy".}
@@ -93,7 +93,7 @@ proc copy*(clock: Clock): Clock {.
   ## *Arguments*:
   ## - ``clock``:  Clock to copy
   ## 
-  ## *Returns:* A new sfClock object which is a copy of ``clock``
+  ## *Returns:* A new Clock object which is a copy of ``clock``
 
 proc destroy*(clock: Clock) {.
   cdecl, dynlib: lib, importc: "sfClock_destroy".}
@@ -107,8 +107,8 @@ proc elapsedTime*(clock: Clock): Time {.
   ## Get the time elapsed in a clock
   ## 
   ## This function returns the time elapsed since the last call
-  ## to sfClock_restart (or the construction of the object if
-  ## sfClock_restart has not been called).
+  ## to Clock_restart (or the construction of the object if
+  ## Clock_restart has not been called).
   ## 
   ## *Arguments*:
   ## - ``clock``:  Clock object
@@ -153,7 +153,7 @@ proc sleep*(duration: Time) {.
   cdecl, dynlib: lib, importc: "sfSleep".}
   ## Make the current thread sleep for a given duration
   ## 
-  ## sfSleep is the best way to block a program or one of its
+  ## Sleep is the best way to block a program or one of its
   ## threads, as it doesn't consume any CPU power.
   ## 
   ## *Arguments*:

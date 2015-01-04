@@ -335,6 +335,7 @@ class Visitor(c_ast.NodeVisitor):
                 doc = re.sub(r'\\li ', r'- ', doc)
                 doc = re.sub(r'\\a ([a-zA-Z0-9_]+)', r'``\1``', doc)
                 doc = re.sub(r'\\return ', r'*Returns:* ', doc)
+                doc = re.sub(r'\bsf([A-Z])', r'\1', doc)
             else:
                 global cmodule
                 cmodule = name.split('_')[1].lower()

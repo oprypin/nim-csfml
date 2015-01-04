@@ -82,7 +82,7 @@ proc `+`*(a, b: Color): Color =
   ##
   ## *Returns:* The component-wise sum of two colors. Components that exceed 255 are clamped to 255.
   add(a, b)
-proc `+=`(a: var Color, b: Color) =
+proc `+=`*(a: var Color, b: Color) =
   a = a+b
 proc `*`*(a, b: Color): Color =
   ## Alias for modulate
@@ -90,7 +90,7 @@ proc `*`*(a, b: Color): Color =
   ## *Returns:* The component-wise multiplication (also called "modulation") of two colors.
   ## Components are then divided by 255 so that the result is still in the range [0, 255].
   modulate(a, b)
-proc `*=`(a: var Color, b: Color) =
+proc `*=`*(a: var Color, b: Color) =
   a = a*b
 proc `-`*(a, b: Color): Color =
   ## *Returns:* The component-wise subtraction of two colors. Components below 0 are clamped to 0.
@@ -102,7 +102,7 @@ proc `-`*(a, b: Color): Color =
   else: result.b = a.b-b.b
   if a.a <= b.a: result.a = 0
   else: result.a = a.a-b.a
-proc `-=`(a: var Color, b: Color) =
+proc `-=`*(a: var Color, b: Color) =
   a = a-b
 
 let
@@ -143,10 +143,10 @@ converter rect*(r: IntRect): FloatRect =
   result.height = cfloat r.height
 
 proc `==`*(a, b: IntRect): bool =
-  ## *Returns*: whether all members of two IntRects are equal
+  ## *Returns*: whether corresponding members of two IntRects are equal
   a.left==b.left and a.top==b.top and a.width==b.width and a.height==b.height
 proc `==`*(a, b: FloatRect): bool =
-  ## *Returns*: whether all members of two FloatRects are equal
+  ## *Returns*: whether corresponding members of two FloatRects are equal
   a.left==b.left and a.top==b.top and a.width==b.width and a.height==b.height
 
 proc contains*(rect: IntRect, point: Vector2i): bool =
