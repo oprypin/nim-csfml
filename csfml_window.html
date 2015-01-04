@@ -1598,7 +1598,7 @@ Size events parameters
   <span class="Identifier">bitsPerPixel</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
 </pre></dt>
 <dd>
-sfVideoMode defines a video mode (width, height, bpp, frequency) and provides functions for getting modes supported by the display device
+VideoMode defines a video mode (width, height, bpp, frequency) and provides functions for getting modes supported by the display device
 
 </dd>
 <dt id="WindowStyle"><a name="WindowStyle"></a><pre><span class="Identifier">WindowStyle</span> <span class="Other">=</span> <span class="Keyword">enum</span> 
@@ -1647,7 +1647,7 @@ Structure defining the window's creation settings
 <dd>
 <p>Create a new context</p>
 <p>This function activates the new context.</p>
-<p><em>Returns:</em> New sfContext object</p>
+<p><em>Returns:</em> New Context object</p>
 
 
 </dd>
@@ -1667,7 +1667,7 @@ Structure defining the window's creation settings
 <p>Activate or deactivate explicitely a context</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">context</span></tt>:  Context object</li>
-<li><tt class="docutils literal"><span class="pre">active</span></tt>:   sfTrue to activate, sfFalse to deactivate</li>
+<li><tt class="docutils literal"><span class="pre">active</span></tt>:   True to activate, False to deactivate</li>
 </ul>
 
 
@@ -1679,7 +1679,7 @@ Structure defining the window's creation settings
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">joystick</span></tt>:  Index of the joystick to check</li>
 </ul>
-<p><em>Returns:</em> sfTrue if the joystick is connected, sfFalse otherwise</p>
+<p><em>Returns:</em> True if the joystick is connected, False otherwise</p>
 
 
 </dd>
@@ -1704,7 +1704,7 @@ Structure defining the window's creation settings
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">joystick</span></tt>:  Index of the joystick</li>
 <li><tt class="docutils literal"><span class="pre">axis</span></tt>:      Axis to check</li>
 </ul>
-<p><em>Returns:</em> sfTrue if the joystick supports the axis, sfFalse otherwise</p>
+<p><em>Returns:</em> True if the joystick supports the axis, False otherwise</p>
 
 
 </dd>
@@ -1717,7 +1717,7 @@ Structure defining the window's creation settings
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">joystick</span></tt>:  Index of the joystick</li>
 <li><tt class="docutils literal"><span class="pre">button</span></tt>:    Button to check</li>
 </ul>
-<p><em>Returns:</em> sfTrue if the button is pressed, sfFalse otherwise</p>
+<p><em>Returns:</em> True if the button is pressed, False otherwise</p>
 
 
 </dd>
@@ -1748,7 +1748,7 @@ Structure defining the window's creation settings
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">key</span></tt>:  Key to check</li>
 </ul>
-<p><em>Returns:</em> sfTrue if the key is pressed, sfFalse otherwise</p>
+<p><em>Returns:</em> True if the key is pressed, False otherwise</p>
 
 
 </dd>
@@ -1759,7 +1759,7 @@ Structure defining the window's creation settings
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">button</span></tt>:  Button to check</li>
 </ul>
-<p><em>Returns:</em> sfTrue if the button is pressed, sfFalse otherwise</p>
+<p><em>Returns:</em> True if the button is pressed, False otherwise</p>
 
 
 </dd>
@@ -1815,7 +1815,7 @@ Structure defining the window's creation settings
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">mode</span></tt>:  Video mode</li>
 </ul>
-<p><em>Returns:</em> sfTrue if the video mode is valid for fullscreen mode</p>
+<p><em>Returns:</em> True if the video mode is valid for fullscreen mode</p>
 
 
 </dd>
@@ -1869,7 +1869,7 @@ Structure defining the window's creation settings
 <dt id="close"><a name="close,Window"></a><pre><span class="Keyword">proc</span> <span class="Identifier">close</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">Window</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfWindow_close&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Close a window and destroy all the attached resources</p>
-<p>After calling this function, the sfWindow object remains valid, you must call sfWindow_destroy to actually delete it. All other functions such as sfWindow_pollEvent or sfWindow_display will still work (i.e. you don't have to test sfWindow_isOpen every time), and will have no effect on closed windows.</p>
+<p>After calling this function, the Window object remains valid, you must call Window_destroy to actually delete it. All other functions such as Window_pollEvent or Window_display will still work (i.e. you don't have to test Window_isOpen every time), and will have no effect on closed windows.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">window</span></tt>:  Window object</li>
 </ul>
@@ -1879,11 +1879,11 @@ Structure defining the window's creation settings
 <dt id="open"><a name="open,Window"></a><pre><span class="Keyword">proc</span> <span class="Identifier">open</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">Window</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfWindow_isOpen&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Tell whether or not a window is opened</p>
-<p>This function returns whether or not the window exists. Note that a hidden window (sfWindow_setVisible(sfFalse)) will return sfTrue.</p>
+<p>This function returns whether or not the window exists. Note that a hidden window (Window_setVisible(False)) will return True.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">window</span></tt>:  Window object</li>
 </ul>
-<p><em>Returns:</em> sfTrue if the window is opened, sfFalse if it has been closed</p>
+<p><em>Returns:</em> True if the window is opened, False if it has been closed</p>
 
 
 </dd>
@@ -1891,7 +1891,7 @@ Structure defining the window's creation settings
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfWindow_getSettings&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get the settings of the OpenGL context of a window</p>
-<p>Note that these settings may be different from what was passed to the sfWindow_create function, if one or more settings were not supported. In this case, SFML chose the closest match.</p>
+<p>Note that these settings may be different from what was passed to the Window_create function, if one or more settings were not supported. In this case, SFML chose the closest match.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">window</span></tt>:  Window object</li>
 </ul>
@@ -1908,7 +1908,7 @@ Structure defining the window's creation settings
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">window</span></tt>:  Window object</li>
 <li><tt class="docutils literal"><span class="pre">event</span></tt>:   Event to be returned</li>
 </ul>
-<p><em>Returns:</em> sfTrue if an event was returned, or sfFalse if the event queue was empty</p>
+<p><em>Returns:</em> True if an event was returned, or False if the event queue was empty</p>
 
 
 </dd>
@@ -1921,7 +1921,7 @@ Structure defining the window's creation settings
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">window</span></tt>:  Window object</li>
 <li><tt class="docutils literal"><span class="pre">event</span></tt>:   Event to be returned</li>
 </ul>
-<p><em>Returns:</em> sfFalse if any error occured</p>
+<p><em>Returns:</em> False if any error occured</p>
 
 
 </dd>
@@ -2013,7 +2013,7 @@ Structure defining the window's creation settings
 <p>Show or hide a window</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">window</span></tt>:   Window object</li>
-<li><tt class="docutils literal"><span class="pre">visible</span></tt>:  sfTrue to show the window, sfFalse to hide it</li>
+<li><tt class="docutils literal"><span class="pre">visible</span></tt>:  True to show the window, False to hide it</li>
 </ul>
 
 
@@ -2024,7 +2024,7 @@ Structure defining the window's creation settings
 <p>Show or hide the mouse cursor</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">window</span></tt>:   Window object</li>
-<li><tt class="docutils literal"><span class="pre">visible</span></tt>:  sfTrue to show, sfFalse to hide</li>
+<li><tt class="docutils literal"><span class="pre">visible</span></tt>:  True to show, False to hide</li>
 </ul>
 
 
@@ -2036,7 +2036,7 @@ Structure defining the window's creation settings
 <p>Activating vertical synchronization will limit the number of frames displayed to the refresh rate of the monitor. This can avoid some visual artifacts, and limit the framerate to a good value (but not constant across different computers).</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">window</span></tt>:   Window object</li>
-<li><tt class="docutils literal"><span class="pre">enabled</span></tt>:  sfTrue to enable v-sync, sfFalse to deactivate</li>
+<li><tt class="docutils literal"><span class="pre">enabled</span></tt>:  True to enable v-sync, False to deactivate</li>
 </ul>
 
 
@@ -2049,7 +2049,7 @@ Structure defining the window's creation settings
 <p>Key repeat is enabled by default.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">window</span></tt>:   Window object</li>
-<li><tt class="docutils literal"><span class="pre">enabled</span></tt>:  sfTrue to enable, sfFalse to disable</li>
+<li><tt class="docutils literal"><span class="pre">enabled</span></tt>:  True to enable, False to disable</li>
 </ul>
 
 
@@ -2061,9 +2061,9 @@ Structure defining the window's creation settings
 <p>A window is active only on the current thread, if you want to make it active on another thread you have to deactivate it on the previous thread first if it was active. Only one window can be active on a thread at a time, thus the window previously active (if any) automatically gets deactivated.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">window</span></tt>:  Window object</li>
-<li><tt class="docutils literal"><span class="pre">active</span></tt>:  sfTrue to activate, sfFalse to deactivate</li>
+<li><tt class="docutils literal"><span class="pre">active</span></tt>:  True to activate, False to deactivate</li>
 </ul>
-<p><em>Returns:</em> sfTrue if operation was successful, sfFalse otherwise</p>
+<p><em>Returns:</em> True if operation was successful, False otherwise</p>
 
 
 </dd>
@@ -2081,7 +2081,7 @@ Structure defining the window's creation settings
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfWindow_setFramerateLimit&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Limit the framerate to a maximum fixed frequency</p>
-<p>If a limit is set, the window will use a small delay after each call to sfWindow_display to ensure that the current frame lasted long enough to match the framerate limit.</p>
+<p>If a limit is set, the window will use a small delay after each call to Window_display to ensure that the current frame lasted long enough to match the framerate limit.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">window</span></tt>:  Window object</li>
 <li><tt class="docutils literal"><span class="pre">limit</span></tt>:   Framerate limit, in frames per seconds (use 0 to disable limit)</li>
@@ -2105,7 +2105,7 @@ Structure defining the window's creation settings
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfWindow_getSystemHandle&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get the OS-specific handle of the window</p>
-<p>The type of the returned handle is sfWindowHandle, which is a typedef to the handle type defined by the OS. You shouldn't need to use this function, unless you have very specific stuff to implement that SFML doesn't support, or implement a temporary workaround until a bug is fixed.</p>
+<p>The type of the returned handle is WindowHandle, which is a typedef to the handle type defined by the OS. You shouldn't need to use this function, unless you have very specific stuff to implement that SFML doesn't support, or implement a temporary workaround until a bug is fixed.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">window</span></tt>:  Window object</li>
 </ul>
@@ -2124,7 +2124,7 @@ Structure defining the window's creation settings
 </dd>
 <dt id="mouse_getPosition"><a name="mouse_getPosition,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouse_getPosition</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: The current position of mouse cursor relative to desktop
 
 </dd>
 <dt id="mouse_setPosition"><a name="mouse_setPosition,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouse_setPosition</span><span class="Other">(</span><span class="Identifier">position</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
@@ -2193,7 +2193,7 @@ Overloaded proc that converts Nim's strings correctly
 <dl class="item">
 <dt id="toUint32"><a name="toUint32.c,WindowStyle"></a><pre><span class="Keyword">converter</span> <span class="Identifier">toUint32</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">WindowStyle</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">uint32</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+Allows WindowStyle values to be combined using the | operator and be used in functions
 
 </dd>
 
@@ -2206,7 +2206,7 @@ Overloaded proc that converts Nim's strings correctly
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-04 00:56:36 UTC</small>
+        <small>Made with Nim. Generated: 2015-01-04 12:24:57 UTC</small>
       </div>
     </div>
   </div>

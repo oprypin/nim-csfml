@@ -1455,7 +1455,7 @@ Set of callbacks that allow users to define custom file streams
 <dt id="newClock"><a name="newClock,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newClock</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Clock</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfClock_create&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Create a new clock and start it</p>
-<p><em>Returns:</em> A new sfClock object</p>
+<p><em>Returns:</em> A new Clock object</p>
 
 
 </dd>
@@ -1465,7 +1465,7 @@ Set of callbacks that allow users to define custom file streams
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">clock</span></tt>:  Clock to copy</li>
 </ul>
-<p><em>Returns:</em> A new sfClock object which is a copy of <tt class="docutils literal"><span class="pre">clock</span></tt></p>
+<p><em>Returns:</em> A new Clock object which is a copy of <tt class="docutils literal"><span class="pre">clock</span></tt></p>
 
 
 </dd>
@@ -1482,7 +1482,7 @@ Set of callbacks that allow users to define custom file streams
                                        <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfClock_getElapsedTime&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get the time elapsed in a clock</p>
-<p>This function returns the time elapsed since the last call to sfClock_restart (or the construction of the object if sfClock_restart has not been called).</p>
+<p>This function returns the time elapsed since the last call to Clock_restart (or the construction of the object if Clock_restart has not been called).</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">clock</span></tt>:  Clock object</li>
 </ul>
@@ -1505,7 +1505,7 @@ Set of callbacks that allow users to define custom file streams
 <dt id="sleep"><a name="sleep,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">sleep</span><span class="Other">(</span><span class="Identifier">duration</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSleep&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Make the current thread sleep for a given duration</p>
-<p>sfSleep is the best way to block a program or one of its threads, as it doesn't consume any CPU power.</p>
+<p>Sleep is the best way to block a program or one of its threads, as it doesn't consume any CPU power.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">duration</span></tt>:  Time to sleep</li>
 </ul>
@@ -1534,7 +1534,7 @@ Set of callbacks that allow users to define custom file streams
 </dd>
 <dt id="vec3"><a name="vec3,cfloat,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec3</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: Vector3f with these coordinates
 
 </dd>
 <dt id="vec3"><a name="vec3,float,float,float"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vec3</span><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
@@ -1544,107 +1544,107 @@ Set of callbacks that allow users to define custom file streams
 </dd>
 <dt id="+"><a name="+,Vector2f,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`+`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-<em>Returns</em>: Memberwise addition
+<em>Returns</em>: memberwise addition
 
 </dd>
 <dt id="-"><a name="-,Vector2f,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-<em>Returns</em>: Memberwise subtraction
+<em>Returns</em>: memberwise subtraction
 
 </dd>
 <dt id="*"><a name="*,Vector2f,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`*`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-<em>Returns</em>: Memberwise multiplication by <tt class="docutils literal"><span class="pre">b</span></tt>
+<em>Returns</em>: memberwise multiplication by <tt class="docutils literal"><span class="pre">b</span></tt>
 
 </dd>
 <dt id="/"><a name="/,Vector2f,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`/`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-<em>Returns</em>: Memberwise division by <tt class="docutils literal"><span class="pre">b</span></tt>
+<em>Returns</em>: memberwise division by <tt class="docutils literal"><span class="pre">b</span></tt>
 
 </dd>
 <dt id="-"><a name="-,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-<em>Returns</em>: Memberwise opposite
+<em>Returns</em>: memberwise opposite
 
 </dd>
 <dt id="=="><a name="==,Vector2f,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: whether corresponding members of two Vector2fs are equal
 
 </dd>
 <dt id="+"><a name="+,Vector2i,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`+`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-<em>Returns</em>: Memberwise addition
+<em>Returns</em>: memberwise addition
 
 </dd>
 <dt id="-"><a name="-,Vector2i,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-<em>Returns</em>: Memberwise subtraction
+<em>Returns</em>: memberwise subtraction
 
 </dd>
 <dt id="*"><a name="*,Vector2i,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`*`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-<em>Returns</em>: Memberwise multiplication by <tt class="docutils literal"><span class="pre">b</span></tt>
+<em>Returns</em>: memberwise multiplication by <tt class="docutils literal"><span class="pre">b</span></tt>
 
 </dd>
 <dt id="/"><a name="/,Vector2i,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`/`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-<em>Returns</em>: Memberwise integer division by <tt class="docutils literal"><span class="pre">b</span></tt>
+<em>Returns</em>: memberwise integer division by <tt class="docutils literal"><span class="pre">b</span></tt>
 
 </dd>
 <dt id="-"><a name="-,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-<em>Returns</em>: Memberwise opposite
+<em>Returns</em>: memberwise opposite
 
 </dd>
 <dt id="=="><a name="==,Vector2i,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: whether corresponding members of two Vector2is are equal
 
 </dd>
 <dt id="+"><a name="+,Vector3f,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`+`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-<em>Returns</em>: Memberwise addition
+<em>Returns</em>: memberwise addition
 
 </dd>
 <dt id="-"><a name="-,Vector3f,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-<em>Returns</em>: Memberwise subtraction
+<em>Returns</em>: memberwise subtraction
 
 </dd>
 <dt id="*"><a name="*,Vector3f,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`*`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-<em>Returns</em>: Memberwise multiplication by <tt class="docutils literal"><span class="pre">b</span></tt>
+<em>Returns</em>: memberwise multiplication by <tt class="docutils literal"><span class="pre">b</span></tt>
 
 </dd>
 <dt id="/"><a name="/,Vector3f,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`/`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-<em>Returns</em>: Memberwise division by <tt class="docutils literal"><span class="pre">b</span></tt>
+<em>Returns</em>: memberwise division by <tt class="docutils literal"><span class="pre">b</span></tt>
 
 </dd>
 <dt id="-"><a name="-,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-<em>Returns</em>: Memberwise opposite
+<em>Returns</em>: memberwise opposite
 
 </dd>
 <dt id="=="><a name="==,Vector3f,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: whether corresponding members of two Vector3fs are equal
 
 </dd>
 <dt id="=="><a name="==,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: whether two time values are equal
 
 </dd>
 <dt id="<="><a name="<=,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`&lt;=`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: whether <tt class="docutils literal"><span class="pre">a</span></tt> is not later than <tt class="docutils literal"><span class="pre">b</span></tt>
 
 </dd>
 <dt id="<"><a name="<,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`&lt;`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+<em>Returns</em>: whether <tt class="docutils literal"><span class="pre">a</span></tt> is earlier than <tt class="docutils literal"><span class="pre">b</span></tt>
 
 </dd>
 
@@ -1667,7 +1667,7 @@ Conversion from Vector2i to Vector2f
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-04 00:56:37 UTC</small>
+        <small>Made with Nim. Generated: 2015-01-04 12:24:58 UTC</small>
       </div>
     </div>
   </div>

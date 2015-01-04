@@ -2181,10 +2181,16 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="`==`(a, b: Color): bool"><wbr />`==`</a></li>
   <li><a class="reference" href="#+,Color,Color"
     title="`+`(a, b: Color): Color"><wbr />`+`</a></li>
+  <li><a class="reference" href="#+=,Color,Color"
+    title="`+=`(a: var Color; b: Color)"><wbr />`+=`</a></li>
   <li><a class="reference" href="#*,Color,Color"
     title="`*`(a, b: Color): Color"><wbr />`*`</a></li>
+  <li><a class="reference" href="#*=,Color,Color"
+    title="`*=`(a: var Color; b: Color)"><wbr />`*=`</a></li>
   <li><a class="reference" href="#-,Color,Color"
     title="`-`(a, b: Color): Color"><wbr />`-`</a></li>
+  <li><a class="reference" href="#-=,Color,Color"
+    title="`-=`(a: var Color; b: Color)"><wbr />`-=`</a></li>
   <li><a class="reference" href="#rect,cint,cint,cint,cint"
     title="rect(left, top, width, height: cint): IntRect"><wbr />rect</a></li>
   <li><a class="reference" href="#rect,int,int,int,int"
@@ -2244,6 +2250,12 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="draw[T](renderTarget: T; obj: Text; states = renderStates())"><wbr />draw</a></li>
   <li><a class="reference" href="#draw,T,VertexArray"
     title="draw[T](renderTarget: T; obj: VertexArray; states = renderStates())"><wbr />draw</a></li>
+  <li><a class="reference" href="#newCircleShape,cfloat,cint"
+    title="newCircleShape(radius: cfloat; pointCount: cint = 30): CircleShape"><wbr />new<wbr />Circle<wbr />Shape</a></li>
+  <li><a class="reference" href="#newRectangleShape,Vector2f"
+    title="newRectangleShape(size: Vector2f): RectangleShape"><wbr />new<wbr />Rectangle<wbr />Shape</a></li>
+  <li><a class="reference" href="#newConvexShape,cint"
+    title="newConvexShape(pointCount: cint): ConvexShape"><wbr />new<wbr />Convex<wbr />Shape</a></li>
 
   </ul>
 </li>
@@ -2403,7 +2415,7 @@ Encapsulate a 3x3 transform matrix
   <span class="Identifier">textureRect</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">IntRect</span>
 </pre></dt>
 <dd>
-sfGlyph describes a glyph (a visual character)
+Glyph describes a glyph (a visual character)
 
 </dd>
 <dt id="PrimitiveType"><a name="PrimitiveType"></a><pre><span class="Identifier">PrimitiveType</span> <span class="Other">=</span> <span class="Keyword">enum</span> 
@@ -2518,7 +2530,7 @@ Define the states used for drawing to a RenderTarget
 <li><tt class="docutils literal"><span class="pre">green</span></tt>:  Green component (0 .. 255)</li>
 <li><tt class="docutils literal"><span class="pre">blue</span></tt>:   Blue component  (0 .. 255)</li>
 </ul>
-<p><em>Returns:</em> sfColor constructed from the components</p>
+<p><em>Returns:</em> Color constructed from the components</p>
 
 
 </dd>
@@ -2532,7 +2544,7 @@ Define the states used for drawing to a RenderTarget
 <li><tt class="docutils literal"><span class="pre">blue</span></tt>:   Blue component  (0 .. 255)</li>
 <li><tt class="docutils literal"><span class="pre">alpha</span></tt>:  Alpha component (0 .. 255)</li>
 </ul>
-<p><em>Returns:</em> sfColor constructed from the components</p>
+<p><em>Returns:</em> Color constructed from the components</p>
 
 
 </dd>
@@ -2649,7 +2661,7 @@ Define the states used for drawing to a RenderTarget
 <li><tt class="docutils literal"><span class="pre">a21</span></tt>:  Element (2, 1) of the matrix</li>
 <li><tt class="docutils literal"><span class="pre">a22</span></tt>:  Element (2, 2) of the matrix</li>
 </ul>
-<p><em>Returns:</em> A new sfTransform object</p>
+<p><em>Returns:</em> A new Transform object</p>
 
 
 </dd>
@@ -2792,7 +2804,7 @@ Define the states used for drawing to a RenderTarget
                                      <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfCircleShape_create&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Create a new circle shape</p>
-<p><em>Returns:</em> A new sfCircleShape object, or NULL if it failed</p>
+<p><em>Returns:</em> A new CircleShape object, or NULL if it failed</p>
 
 
 </dd>
@@ -2821,7 +2833,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfCircleShape_setPosition&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the position of a circle shape</p>
-<p>This function completely overwrites the previous position. See sfCircleShape_move to apply an offset based on the previous position instead. The default position of a circle Shape object is (0, 0).</p>
+<p>This function completely overwrites the previous position. See CircleShape_move to apply an offset based on the previous position instead. The default position of a circle Shape object is (0, 0).</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:     Shape object</li>
 <li><tt class="docutils literal"><span class="pre">position</span></tt>:  New position</li>
@@ -2833,7 +2845,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfCircleShape_setRotation&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the orientation of a circle shape</p>
-<p>This function completely overwrites the previous rotation. See sfCircleShape_rotate to add an angle based on the previous rotation instead. The default rotation of a circle Shape object is 0.</p>
+<p>This function completely overwrites the previous rotation. See CircleShape_rotate to add an angle based on the previous rotation instead. The default rotation of a circle Shape object is 0.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">angle</span></tt>:  New rotation, in degrees</li>
@@ -2845,7 +2857,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfCircleShape_setScale&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the scale factors of a circle shape</p>
-<p>This function completely overwrites the previous scale. See sfCircleShape_scale to add a factor based on the previous scale instead. The default scale of a circle Shape object is (1, 1).</p>
+<p>This function completely overwrites the previous scale. See CircleShape_scale to add a factor based on the previous scale instead. The default scale of a circle Shape object is (1, 1).</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">scale</span></tt>:  New scale factors</li>
@@ -2914,7 +2926,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfCircleShape_move&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Move a circle shape by a given offset</p>
-<p>This function adds to the current position of the object, unlike sfCircleShape_setPosition which overwrites it.</p>
+<p>This function adds to the current position of the object, unlike CircleShape_setPosition which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:   Shape object</li>
 <li><tt class="docutils literal"><span class="pre">offset</span></tt>:  Offset</li>
@@ -2926,7 +2938,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfCircleShape_rotate&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Rotate a circle shape</p>
-<p>This function adds to the current rotation of the object, unlike sfCircleShape_setRotation which overwrites it.</p>
+<p>This function adds to the current rotation of the object, unlike CircleShape_setRotation which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">angle</span></tt>:  Angle of rotation, in degrees</li>
@@ -2938,7 +2950,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfCircleShape_scale&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Scale a circle shape</p>
-<p>This function multiplies the current scale of the object, unlike sfCircleShape_setScale which overwrites it.</p>
+<p>This function multiplies the current scale of the object, unlike CircleShape_setScale which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:    Shape object</li>
 <li><tt class="docutils literal"><span class="pre">factors</span></tt>:  Scale factors</li>
@@ -2997,7 +3009,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfCircleShape_setFillColor&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the fill color of a circle shape</p>
-<p>This color is modulated (multiplied) with the shape's texture if any. It can be used to colorize the shape, or change its global opacity. You can use sfTransparent to make the inside of the shape transparent, and have the outline alone. By default, the shape's fill color is opaque white.</p>
+<p>This color is modulated (multiplied) with the shape's texture if any. It can be used to colorize the shape, or change its global opacity. You can use Transparent to make the inside of the shape transparent, and have the outline alone. By default, the shape's fill color is opaque white.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">color</span></tt>:  New color of the shape</li>
@@ -3009,7 +3021,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfCircleShape_setOutlineColor&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the outline color of a circle shape</p>
-<p>You can use sfTransparent to disable the outline. By default, the shape's outline color is opaque white.</p>
+<p>You can use Transparent to disable the outline. By default, the shape's outline color is opaque white.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">color</span></tt>:  New outline color of the shape</li>
@@ -3170,7 +3182,7 @@ Define the states used for drawing to a RenderTarget
                                      <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfConvexShape_create&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Create a new convex shape</p>
-<p><em>Returns:</em> A new sfConvexShape object, or NULL if it failed</p>
+<p><em>Returns:</em> A new ConvexShape object, or NULL if it failed</p>
 
 
 </dd>
@@ -3199,7 +3211,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfConvexShape_setPosition&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the position of a convex shape</p>
-<p>This function completely overwrites the previous position. See sfConvexShape_move to apply an offset based on the previous position instead. The default position of a circle Shape object is (0, 0).</p>
+<p>This function completely overwrites the previous position. See ConvexShape_move to apply an offset based on the previous position instead. The default position of a circle Shape object is (0, 0).</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:     Shape object</li>
 <li><tt class="docutils literal"><span class="pre">position</span></tt>:  New position</li>
@@ -3211,7 +3223,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfConvexShape_setRotation&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the orientation of a convex shape</p>
-<p>This function completely overwrites the previous rotation. See sfConvexShape_rotate to add an angle based on the previous rotation instead. The default rotation of a circle Shape object is 0.</p>
+<p>This function completely overwrites the previous rotation. See ConvexShape_rotate to add an angle based on the previous rotation instead. The default rotation of a circle Shape object is 0.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">angle</span></tt>:  New rotation, in degrees</li>
@@ -3223,7 +3235,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfConvexShape_setScale&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the scale factors of a convex shape</p>
-<p>This function completely overwrites the previous scale. See sfConvexShape_scale to add a factor based on the previous scale instead. The default scale of a circle Shape object is (1, 1).</p>
+<p>This function completely overwrites the previous scale. See ConvexShape_scale to add a factor based on the previous scale instead. The default scale of a circle Shape object is (1, 1).</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">scale</span></tt>:  New scale factors</li>
@@ -3292,7 +3304,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfConvexShape_move&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Move a convex shape by a given offset</p>
-<p>This function adds to the current position of the object, unlike sfConvexShape_setPosition which overwrites it.</p>
+<p>This function adds to the current position of the object, unlike ConvexShape_setPosition which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:   Shape object</li>
 <li><tt class="docutils literal"><span class="pre">offset</span></tt>:  Offset</li>
@@ -3304,7 +3316,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfConvexShape_rotate&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Rotate a convex shape</p>
-<p>This function adds to the current rotation of the object, unlike sfConvexShape_setRotation which overwrites it.</p>
+<p>This function adds to the current rotation of the object, unlike ConvexShape_setRotation which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">angle</span></tt>:  Angle of rotation, in degrees</li>
@@ -3316,7 +3328,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfConvexShape_scale&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Scale a convex shape</p>
-<p>This function multiplies the current scale of the object, unlike sfConvexShape_setScale which overwrites it.</p>
+<p>This function multiplies the current scale of the object, unlike ConvexShape_setScale which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:    Shape object</li>
 <li><tt class="docutils literal"><span class="pre">factors</span></tt>:  Scale factors</li>
@@ -3375,7 +3387,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfConvexShape_setFillColor&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the fill color of a convex shape</p>
-<p>This color is modulated (multiplied) with the shape's texture if any. It can be used to colorize the shape, or change its global opacity. You can use sfTransparent to make the inside of the shape transparent, and have the outline alone. By default, the shape's fill color is opaque white.</p>
+<p>This color is modulated (multiplied) with the shape's texture if any. It can be used to colorize the shape, or change its global opacity. You can use Transparent to make the inside of the shape transparent, and have the outline alone. By default, the shape's fill color is opaque white.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">color</span></tt>:  New color of the shape</li>
@@ -3387,7 +3399,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfConvexShape_setOutlineColor&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the outline color of a convex shape</p>
-<p>You can use sfTransparent to disable the outline. By default, the shape's outline color is opaque white.</p>
+<p>You can use Transparent to disable the outline. By default, the shape's outline color is opaque white.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">color</span></tt>:  New outline color of the shape</li>
@@ -3543,7 +3555,7 @@ Define the states used for drawing to a RenderTarget
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">filename</span></tt>:  Path of the font file to load</li>
 </ul>
-<p><em>Returns:</em> A new sfFont object, or NULL if it failed</p>
+<p><em>Returns:</em> A new Font object, or NULL if it failed</p>
 
 
 </dd>
@@ -3555,7 +3567,7 @@ Define the states used for drawing to a RenderTarget
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">data</span></tt>:         Pointer to the file data in memory</li>
 <li><tt class="docutils literal"><span class="pre">sizeInBytes</span></tt>:  Size of the data to load, in bytes</li>
 </ul>
-<p><em>Returns:</em> A new sfFont object, or NULL if it failed</p>
+<p><em>Returns:</em> A new Font object, or NULL if it failed</p>
 
 
 </dd>
@@ -3566,7 +3578,7 @@ Define the states used for drawing to a RenderTarget
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">stream</span></tt>:  Source stream to read from</li>
 </ul>
-<p><em>Returns:</em> A new sfFont object, or NULL if it failed</p>
+<p><em>Returns:</em> A new Font object, or NULL if it failed</p>
 
 
 </dd>
@@ -3650,7 +3662,7 @@ Define the states used for drawing to a RenderTarget
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">width</span></tt>:   Width of the image</li>
 <li><tt class="docutils literal"><span class="pre">height</span></tt>:  Height of the image</li>
 </ul>
-<p><em>Returns:</em> A new sfImage object</p>
+<p><em>Returns:</em> A new Image object</p>
 
 
 </dd>
@@ -3663,7 +3675,7 @@ Define the states used for drawing to a RenderTarget
 <li><tt class="docutils literal"><span class="pre">height</span></tt>:  Height of the image</li>
 <li><tt class="docutils literal"><span class="pre">color</span></tt>:   Fill color</li>
 </ul>
-<p><em>Returns:</em> A new sfImage object</p>
+<p><em>Returns:</em> A new Image object</p>
 
 
 </dd>
@@ -3677,7 +3689,7 @@ Define the states used for drawing to a RenderTarget
 <li><tt class="docutils literal"><span class="pre">height</span></tt>:  Height of the image</li>
 <li><tt class="docutils literal"><span class="pre">pixels</span></tt>:  Array of pixels to copy to the image</li>
 </ul>
-<p><em>Returns:</em> A new sfImage object</p>
+<p><em>Returns:</em> A new Image object</p>
 
 
 </dd>
@@ -3689,7 +3701,7 @@ Define the states used for drawing to a RenderTarget
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">filename</span></tt>:  Path of the image file to load</li>
 </ul>
-<p><em>Returns:</em> A new sfImage object, or NULL if it failed</p>
+<p><em>Returns:</em> A new Image object, or NULL if it failed</p>
 
 
 </dd>
@@ -3702,7 +3714,7 @@ Define the states used for drawing to a RenderTarget
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">data</span></tt>:  Pointer to the file data in memory</li>
 <li><tt class="docutils literal"><span class="pre">size</span></tt>:  Size of the data to load, in bytes</li>
 </ul>
-<p><em>Returns:</em> A new sfImage object, or NULL if it failed</p>
+<p><em>Returns:</em> A new Image object, or NULL if it failed</p>
 
 
 </dd>
@@ -3714,7 +3726,7 @@ Define the states used for drawing to a RenderTarget
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">stream</span></tt>:  Source stream to read from</li>
 </ul>
-<p><em>Returns:</em> A new sfImage object, or NULL if it failed</p>
+<p><em>Returns:</em> A new Image object, or NULL if it failed</p>
 
 
 </dd>
@@ -3746,7 +3758,7 @@ Define the states used for drawing to a RenderTarget
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">image</span></tt>:     Image object</li>
 <li><tt class="docutils literal"><span class="pre">filename</span></tt>:  Path of the file to save</li>
 </ul>
-<p><em>Returns:</em> sfTrue if saving was successful</p>
+<p><em>Returns:</em> True if saving was successful</p>
 
 
 </dd>
@@ -3779,7 +3791,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfImage_copyImage&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Copy pixels from an image onto another</p>
-<p>This function does a slow pixel copy and should not be used intensively. It can be used to prepare a complex static image from several others, but if you need this kind of feature in real-time you'd better use sfRenderTexture.</p>
+<p>This function does a slow pixel copy and should not be used intensively. It can be used to prepare a complex static image from several others, but if you need this kind of feature in real-time you'd better use RenderTexture.</p>
 <p>If <tt class="docutils literal"><span class="pre">sourceRect</span></tt> is empty, the whole image is copied. If <tt class="docutils literal"><span class="pre">applyAlpha</span></tt> is set to true, the transparency of source pixels is applied. If it is false, the pixels are copied unchanged with their alpha value.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">image</span></tt>:       Image object</li>
@@ -3856,7 +3868,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRectangleShape_create&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Create a new rectangle shape</p>
-<p><em>Returns:</em> A new sfRectangleShape object, or NULL if it failed</p>
+<p><em>Returns:</em> A new RectangleShape object, or NULL if it failed</p>
 
 
 </dd>
@@ -3885,7 +3897,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRectangleShape_setPosition&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the position of a rectangle shape</p>
-<p>This function completely overwrites the previous position. See sfRectangleShape_move to apply an offset based on the previous position instead. The default position of a circle Shape object is (0, 0).</p>
+<p>This function completely overwrites the previous position. See RectangleShape_move to apply an offset based on the previous position instead. The default position of a circle Shape object is (0, 0).</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:     Shape object</li>
 <li><tt class="docutils literal"><span class="pre">position</span></tt>:  New position</li>
@@ -3897,7 +3909,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRectangleShape_setRotation&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the orientation of a rectangle shape</p>
-<p>This function completely overwrites the previous rotation. See sfRectangleShape_rotate to add an angle based on the previous rotation instead. The default rotation of a circle Shape object is 0.</p>
+<p>This function completely overwrites the previous rotation. See RectangleShape_rotate to add an angle based on the previous rotation instead. The default rotation of a circle Shape object is 0.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">angle</span></tt>:  New rotation, in degrees</li>
@@ -3909,7 +3921,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRectangleShape_setScale&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the scale factors of a rectangle shape</p>
-<p>This function completely overwrites the previous scale. See sfRectangleShape_scale to add a factor based on the previous scale instead. The default scale of a circle Shape object is (1, 1).</p>
+<p>This function completely overwrites the previous scale. See RectangleShape_scale to add a factor based on the previous scale instead. The default scale of a circle Shape object is (1, 1).</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">scale</span></tt>:  New scale factors</li>
@@ -3978,7 +3990,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRectangleShape_move&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Move a rectangle shape by a given offset</p>
-<p>This function adds to the current position of the object, unlike sfRectangleShape_setPosition which overwrites it.</p>
+<p>This function adds to the current position of the object, unlike RectangleShape_setPosition which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:   Shape object</li>
 <li><tt class="docutils literal"><span class="pre">offset</span></tt>:  Offset</li>
@@ -3990,7 +4002,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRectangleShape_rotate&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Rotate a rectangle shape</p>
-<p>This function adds to the current rotation of the object, unlike sfRectangleShape_setRotation which overwrites it.</p>
+<p>This function adds to the current rotation of the object, unlike RectangleShape_setRotation which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">angle</span></tt>:  Angle of rotation, in degrees</li>
@@ -4002,7 +4014,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRectangleShape_scale&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Scale a rectangle shape</p>
-<p>This function multiplies the current scale of the object, unlike sfRectangleShape_setScale which overwrites it.</p>
+<p>This function multiplies the current scale of the object, unlike RectangleShape_setScale which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:    Shape object</li>
 <li><tt class="docutils literal"><span class="pre">factors</span></tt>:  Scale factors</li>
@@ -4061,7 +4073,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRectangleShape_setFillColor&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the fill color of a rectangle shape</p>
-<p>This color is modulated (multiplied) with the shape's texture if any. It can be used to colorize the shape, or change its global opacity. You can use sfTransparent to make the inside of the shape transparent, and have the outline alone. By default, the shape's fill color is opaque white.</p>
+<p>This color is modulated (multiplied) with the shape's texture if any. It can be used to colorize the shape, or change its global opacity. You can use Transparent to make the inside of the shape transparent, and have the outline alone. By default, the shape's fill color is opaque white.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">color</span></tt>:  New color of the shape</li>
@@ -4073,7 +4085,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRectangleShape_setOutlineColor&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the outline color of a rectangle shape</p>
-<p>You can use sfTransparent to disable the outline. By default, the shape's outline color is opaque white.</p>
+<p>You can use Transparent to disable the outline. By default, the shape's outline color is opaque white.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">color</span></tt>:  New outline color of the shape</li>
@@ -4309,7 +4321,7 @@ Define the states used for drawing to a RenderTarget
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">renderWindow</span></tt>:  Render window object</li>
 <li><tt class="docutils literal"><span class="pre">event</span></tt>:         Event to fill, if any</li>
 </ul>
-<p><em>Returns:</em> sfTrue if an event was returned, sfFalse if event queue was empty</p>
+<p><em>Returns:</em> True if an event was returned, False if event queue was empty</p>
 
 
 </dd>
@@ -4321,7 +4333,7 @@ Define the states used for drawing to a RenderTarget
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">renderWindow</span></tt>:  Render window object</li>
 <li><tt class="docutils literal"><span class="pre">event</span></tt>:         Event to fill</li>
 </ul>
-<p><em>Returns:</em> sfFalse if an error occured</p>
+<p><em>Returns:</em> False if an error occured</p>
 
 
 </dd>
@@ -4412,7 +4424,7 @@ Define the states used for drawing to a RenderTarget
 <p>Show or hide a render window</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">renderWindow</span></tt>:  Render window object</li>
-<li><tt class="docutils literal"><span class="pre">visible</span></tt>:       sfTrue to show the window, sfFalse to hide it</li>
+<li><tt class="docutils literal"><span class="pre">visible</span></tt>:       True to show the window, False to hide it</li>
 </ul>
 
 
@@ -4423,7 +4435,7 @@ Define the states used for drawing to a RenderTarget
 <p>Show or hide the mouse cursor on a render window</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">renderWindow</span></tt>:  Render window object</li>
-<li><tt class="docutils literal"><span class="pre">show</span></tt>:          sfTrue to show, sfFalse to hide</li>
+<li><tt class="docutils literal"><span class="pre">show</span></tt>:          True to show, False to hide</li>
 </ul>
 
 
@@ -4434,7 +4446,7 @@ Define the states used for drawing to a RenderTarget
 <p>Enable / disable vertical synchronization on a render window</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">renderWindow</span></tt>:  Render window object</li>
-<li><tt class="docutils literal"><span class="pre">enabled</span></tt>:       sfTrue to enable v-sync, sfFalse to deactivate</li>
+<li><tt class="docutils literal"><span class="pre">enabled</span></tt>:       True to enable v-sync, False to deactivate</li>
 </ul>
 
 
@@ -4446,7 +4458,7 @@ Define the states used for drawing to a RenderTarget
 <p>Automatic key-repeat is enabled by default</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">renderWindow</span></tt>:  Render window object</li>
-<li><tt class="docutils literal"><span class="pre">enabled</span></tt>:       sfTrue to enable, sfFalse to disable</li>
+<li><tt class="docutils literal"><span class="pre">enabled</span></tt>:       True to enable, False to disable</li>
 </ul>
 
 
@@ -4457,7 +4469,7 @@ Define the states used for drawing to a RenderTarget
 <p>Activate or deactivate a render window as the current target for rendering</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">renderWindow</span></tt>:  Render window object</li>
-<li><tt class="docutils literal"><span class="pre">active</span></tt>:        sfTrue to activate, sfFalse to deactivate</li>
+<li><tt class="docutils literal"><span class="pre">active</span></tt>:        True to activate, False to deactivate</li>
 </ul>
 <p><em>Returns:</em> True if operation was successful, false otherwise</p>
 
@@ -4759,7 +4771,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_resetGLStates&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Reset the internal OpenGL states so that the target is ready for drawing</p>
-<p>This function can be used when you mix SFML drawing and direct OpenGL rendering, if you choose not to use pushGLStates/popGLStates. It makes sure that all OpenGL states needed by SFML are set, so that subsequent sfRenderWindow_draw*() calls will work as expected.</p>
+<p>This function can be used when you mix SFML drawing and direct OpenGL rendering, if you choose not to use pushGLStates/popGLStates. It makes sure that all OpenGL states needed by SFML are set, so that subsequent RenderWindow_draw*() calls will work as expected.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">renderWindow</span></tt>:  render window object</li>
 </ul>
@@ -4770,7 +4782,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_capture&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Copy the current contents of a render window to an image</p>
-<p>This is a slow operation, whose main purpose is to make screenshots of the application. If you want to update an image with the contents of the window and then use it for drawing, you should rather use a sfTexture and its update(sfWindow*) function. You can also draw things directly to a texture with the sfRenderWindow class.</p>
+<p>This is a slow operation, whose main purpose is to make screenshots of the application. If you want to update an image with the contents of the window and then use it for drawing, you should rather use a Texture and its update(Window*) function. You can also draw things directly to a texture with the RenderWindow class.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">renderWindow</span></tt>:  Render window object</li>
 </ul>
@@ -4811,7 +4823,7 @@ Define the states used for drawing to a RenderTarget
 <li><tt class="docutils literal"><span class="pre">height</span></tt>:       Height of the render texture</li>
 <li><tt class="docutils literal"><span class="pre">depthBuffer</span></tt>:  Do you want a depth-buffer attached? (useful only if you're doing 3D OpenGL on the rendertexture)</li>
 </ul>
-<p><em>Returns:</em> A new sfRenderTexture object, or NULL if it failed</p>
+<p><em>Returns:</em> A new RenderTexture object, or NULL if it failed</p>
 
 
 </dd>
@@ -4842,7 +4854,7 @@ Define the states used for drawing to a RenderTarget
 <p>Activate or deactivate a render texture as the current target for rendering</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-<li><tt class="docutils literal"><span class="pre">active</span></tt>:         sfTrue to activate, sfFalse to deactivate</li>
+<li><tt class="docutils literal"><span class="pre">active</span></tt>:         True to activate, False to deactivate</li>
 </ul>
 <p><em>Returns:</em> True if operation was successful, false otherwise</p>
 
@@ -5111,7 +5123,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_resetGLStates&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Reset the internal OpenGL states so that the target is ready for drawing</p>
-<p>This function can be used when you mix SFML drawing and direct OpenGL rendering, if you choose not to use pushGLStates/popGLStates. It makes sure that all OpenGL states needed by SFML are set, so that subsequent sfRenderTexture_draw*() calls will work as expected.</p>
+<p>This function can be used when you mix SFML drawing and direct OpenGL rendering, if you choose not to use pushGLStates/popGLStates. It makes sure that all OpenGL states needed by SFML are set, so that subsequent RenderTexture_draw*() calls will work as expected.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
 </ul>
@@ -5135,7 +5147,7 @@ Define the states used for drawing to a RenderTarget
 <p>Enable or disable the smooth filter on a render texture</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-<li><tt class="docutils literal"><span class="pre">smooth</span></tt>:         sfTrue to enable smoothing, sfFalse to disable it</li>
+<li><tt class="docutils literal"><span class="pre">smooth</span></tt>:         True to enable smoothing, False to disable it</li>
 </ul>
 
 
@@ -5147,7 +5159,7 @@ Define the states used for drawing to a RenderTarget
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
 </ul>
-<p><em>Returns:</em> sfTrue if smoothing is enabled, sfFalse if it is disabled</p>
+<p><em>Returns:</em> True if smoothing is enabled, False if it is disabled</p>
 
 
 </dd>
@@ -5157,7 +5169,7 @@ Define the states used for drawing to a RenderTarget
 <p>Enable or disable texture repeating</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-<li><tt class="docutils literal"><span class="pre">repeated</span></tt>:       sfTrue to enable repeating, sfFalse to disable it</li>
+<li><tt class="docutils literal"><span class="pre">repeated</span></tt>:       True to enable repeating, False to disable it</li>
 </ul>
 
 
@@ -5169,7 +5181,7 @@ Define the states used for drawing to a RenderTarget
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
 </ul>
-<p><em>Returns:</em> sfTrue if repeat mode is enabled, sfFalse if it is disabled</p>
+<p><em>Returns:</em> True if repeat mode is enabled, False if it is disabled</p>
 
 
 </dd>
@@ -5182,7 +5194,7 @@ Define the states used for drawing to a RenderTarget
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">vertexShaderFilename</span></tt>:    Path of the vertex shader file to load, or NULL to skip this shader</li>
 <li><tt class="docutils literal"><span class="pre">fragmentShaderFilename</span></tt>:  Path of the fragment shader file to load, or NULL to skip this shader</li>
 </ul>
-<p><em>Returns:</em> A new sfShader object, or NULL if it failed</p>
+<p><em>Returns:</em> A new Shader object, or NULL if it failed</p>
 
 
 </dd>
@@ -5195,7 +5207,7 @@ Define the states used for drawing to a RenderTarget
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">vertexShader</span></tt>:    String containing the source code of the vertex shader, or NULL to skip this shader</li>
 <li><tt class="docutils literal"><span class="pre">fragmentShader</span></tt>:  String containing the source code of the fragment shader, or NULL to skip this shader</li>
 </ul>
-<p><em>Returns:</em> A new sfShader object, or NULL if it failed</p>
+<p><em>Returns:</em> A new Shader object, or NULL if it failed</p>
 
 
 </dd>
@@ -5209,7 +5221,7 @@ Define the states used for drawing to a RenderTarget
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">vertexShaderStream</span></tt>:    Source stream to read the vertex shader from, or NULL to skip this shader</li>
 <li><tt class="docutils literal"><span class="pre">fragmentShaderStream</span></tt>:  Source stream to read the fragment shader from, or NULL to skip this shader</li>
 </ul>
-<p><em>Returns:</em> A new sfShader object, or NULL if it failed</p>
+<p><em>Returns:</em> A new Shader object, or NULL if it failed</p>
 
 
 </dd>
@@ -5341,7 +5353,7 @@ Define the states used for drawing to a RenderTarget
 <p>Change a texture parameter of a shader</p>
 <p><tt class="docutils literal"><span class="pre">name</span></tt> is the name of the variable to change in the shader. The corresponding parameter in the shader must be a 2D texture (sampler2D GLSL type).</p>
 <p>It is important to note that <tt class="docutils literal"><span class="pre">texture</span></tt> must remain alive as long as the shader uses it, no copy is made internally.</p>
-<p>To use the texture of the object being draw, which cannot be known in advance, you can use the special function sfShader_setCurrentTextureParameter:</p>
+<p>To use the texture of the object being draw, which cannot be known in advance, you can use the special function Shader_setCurrentTextureParameter:</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shader</span></tt>:   Shader object</li>
 <li><tt class="docutils literal"><span class="pre">name</span></tt>:     Name of the texture in the shader</li>
@@ -5365,7 +5377,7 @@ Define the states used for drawing to a RenderTarget
 <dt id="bindGL"><a name="bindGL,Shader"></a><pre><span class="Keyword">proc</span> <span class="Identifier">bindGL</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_bind&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Bind a shader for rendering (activate it)</p>
-<p>This function is not part of the graphics API, it mustn't be used when drawing SFML entities. It must be used only if you mix sfShader with OpenGL code.</p>
+<p>This function is not part of the graphics API, it mustn't be used when drawing SFML entities. It must be used only if you mix Shader with OpenGL code.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shader</span></tt>:  Shader to bind, can be null to use no shader</li>
 </ul>
@@ -5376,8 +5388,8 @@ Define the states used for drawing to a RenderTarget
                                   <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_isAvailable&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Tell whether or not the system supports shaders</p>
-<p>This function should always be called before using the shader features. If it returns false, then any attempt to use sfShader will fail.</p>
-<p><em>Returns:</em> sfTrue if the system can use shaders, sfFalse otherwise</p>
+<p>This function should always be called before using the shader features. If it returns false, then any attempt to use Shader will fail.</p>
+<p><em>Returns:</em> True if the system can use shaders, False otherwise</p>
 
 
 </dd>
@@ -5391,7 +5403,7 @@ Define the states used for drawing to a RenderTarget
 <li><tt class="docutils literal"><span class="pre">getPoint</span></tt>:       Callback that provides the points of the shape</li>
 <li><tt class="docutils literal"><span class="pre">userData</span></tt>:       Data to pass to the callback functions</li>
 </ul>
-<p><em>Returns:</em> A new sfShape object</p>
+<p><em>Returns:</em> A new Shape object</p>
 
 
 </dd>
@@ -5408,7 +5420,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShape_setPosition&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the position of a shape</p>
-<p>This function completely overwrites the previous position. See sfShape_move to apply an offset based on the previous position instead. The default position of a circle Shape object is (0, 0).</p>
+<p>This function completely overwrites the previous position. See Shape_move to apply an offset based on the previous position instead. The default position of a circle Shape object is (0, 0).</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:     Shape object</li>
 <li><tt class="docutils literal"><span class="pre">position</span></tt>:  New position</li>
@@ -5420,7 +5432,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShape_setRotation&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the orientation of a shape</p>
-<p>This function completely overwrites the previous rotation. See sfShape_rotate to add an angle based on the previous rotation instead. The default rotation of a circle Shape object is 0.</p>
+<p>This function completely overwrites the previous rotation. See Shape_rotate to add an angle based on the previous rotation instead. The default rotation of a circle Shape object is 0.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">angle</span></tt>:  New rotation, in degrees</li>
@@ -5432,7 +5444,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShape_setScale&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the scale factors of a shape</p>
-<p>This function completely overwrites the previous scale. See sfShape_scale to add a factor based on the previous scale instead. The default scale of a circle Shape object is (1, 1).</p>
+<p>This function completely overwrites the previous scale. See Shape_scale to add a factor based on the previous scale instead. The default scale of a circle Shape object is (1, 1).</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">scale</span></tt>:  New scale factors</li>
@@ -5501,7 +5513,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShape_move&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Move a shape by a given offset</p>
-<p>This function adds to the current position of the object, unlike sfShape_setPosition which overwrites it.</p>
+<p>This function adds to the current position of the object, unlike Shape_setPosition which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:   Shape object</li>
 <li><tt class="docutils literal"><span class="pre">offset</span></tt>:  Offset</li>
@@ -5513,7 +5525,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShape_rotate&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Rotate a shape</p>
-<p>This function adds to the current rotation of the object, unlike sfShape_setRotation which overwrites it.</p>
+<p>This function adds to the current rotation of the object, unlike Shape_setRotation which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">angle</span></tt>:  Angle of rotation, in degrees</li>
@@ -5525,7 +5537,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShape_scale&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Scale a shape</p>
-<p>This function multiplies the current scale of the object, unlike sfShape_setScale which overwrites it.</p>
+<p>This function multiplies the current scale of the object, unlike Shape_setScale which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:    Shape object</li>
 <li><tt class="docutils literal"><span class="pre">factors</span></tt>:  Scale factors</li>
@@ -5584,7 +5596,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShape_setFillColor&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the fill color of a shape</p>
-<p>This color is modulated (multiplied) with the shape's texture if any. It can be used to colorize the shape, or change its global opacity. You can use sfTransparent to make the inside of the shape transparent, and have the outline alone. By default, the shape's fill color is opaque white.</p>
+<p>This color is modulated (multiplied) with the shape's texture if any. It can be used to colorize the shape, or change its global opacity. You can use Transparent to make the inside of the shape transparent, and have the outline alone. By default, the shape's fill color is opaque white.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">color</span></tt>:  New color of the shape</li>
@@ -5596,7 +5608,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShape_setOutlineColor&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the outline color of a shape</p>
-<p>You can use sfTransparent to disable the outline. By default, the shape's outline color is opaque white.</p>
+<p>You can use Transparent to disable the outline. By default, the shape's outline color is opaque white.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
 <li><tt class="docutils literal"><span class="pre">color</span></tt>:  New outline color of the shape</li>
@@ -5730,7 +5742,7 @@ Define the states used for drawing to a RenderTarget
 <dt id="newSprite"><a name="newSprite,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newSprite</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Sprite</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSprite_create&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Create a new sprite</p>
-<p><em>Returns:</em> A new sfSprite object, or NULL if it failed</p>
+<p><em>Returns:</em> A new Sprite object, or NULL if it failed</p>
 
 
 </dd>
@@ -5757,7 +5769,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSprite_setPosition&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the position of a sprite</p>
-<p>This function completely overwrites the previous position. See sfSprite_move to apply an offset based on the previous position instead. The default position of a sprite Sprite object is (0, 0).</p>
+<p>This function completely overwrites the previous position. See Sprite_move to apply an offset based on the previous position instead. The default position of a sprite Sprite object is (0, 0).</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">sprite</span></tt>:    Sprite object</li>
 <li><tt class="docutils literal"><span class="pre">position</span></tt>:  New position</li>
@@ -5769,7 +5781,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSprite_setRotation&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the orientation of a sprite</p>
-<p>This function completely overwrites the previous rotation. See sfSprite_rotate to add an angle based on the previous rotation instead. The default rotation of a sprite Sprite object is 0.</p>
+<p>This function completely overwrites the previous rotation. See Sprite_rotate to add an angle based on the previous rotation instead. The default rotation of a sprite Sprite object is 0.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">sprite</span></tt>:  Sprite object</li>
 <li><tt class="docutils literal"><span class="pre">angle</span></tt>:   New rotation, in degrees</li>
@@ -5781,7 +5793,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSprite_setScale&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the scale factors of a sprite</p>
-<p>This function completely overwrites the previous scale. See sfSprite_scale to add a factor based on the previous scale instead. The default scale of a sprite Sprite object is (1, 1).</p>
+<p>This function completely overwrites the previous scale. See Sprite_scale to add a factor based on the previous scale instead. The default scale of a sprite Sprite object is (1, 1).</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">sprite</span></tt>:  Sprite object</li>
 <li><tt class="docutils literal"><span class="pre">scale</span></tt>:   New scale factors</li>
@@ -5850,7 +5862,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSprite_move&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Move a sprite by a given offset</p>
-<p>This function adds to the current position of the object, unlike sfSprite_setPosition which overwrites it.</p>
+<p>This function adds to the current position of the object, unlike Sprite_setPosition which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">sprite</span></tt>:  Sprite object</li>
 <li><tt class="docutils literal"><span class="pre">offset</span></tt>:  Offset</li>
@@ -5862,7 +5874,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSprite_rotate&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Rotate a sprite</p>
-<p>This function adds to the current rotation of the object, unlike sfSprite_setRotation which overwrites it.</p>
+<p>This function adds to the current rotation of the object, unlike Sprite_setRotation which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">sprite</span></tt>:  Sprite object</li>
 <li><tt class="docutils literal"><span class="pre">angle</span></tt>:   Angle of rotation, in degrees</li>
@@ -5874,7 +5886,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSprite_scale&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Scale a sprite</p>
-<p>This function multiplies the current scale of the object, unlike sfSprite_setScale which overwrites it.</p>
+<p>This function multiplies the current scale of the object, unlike Sprite_setScale which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">sprite</span></tt>:   Sprite object</li>
 <li><tt class="docutils literal"><span class="pre">factors</span></tt>:  Scale factors</li>
@@ -6002,7 +6014,7 @@ Define the states used for drawing to a RenderTarget
 <dt id="newText"><a name="newText,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newText</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Text</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_create&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Create a new text</p>
-<p><em>Returns:</em> A new sfText object, or NULL if it failed</p>
+<p><em>Returns:</em> A new Text object, or NULL if it failed</p>
 
 
 </dd>
@@ -6029,7 +6041,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_setPosition&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the position of a text</p>
-<p>This function completely overwrites the previous position. See sfText_move to apply an offset based on the previous position instead. The default position of a text Text object is (0, 0).</p>
+<p>This function completely overwrites the previous position. See Text_move to apply an offset based on the previous position instead. The default position of a text Text object is (0, 0).</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">text</span></tt>:      Text object</li>
 <li><tt class="docutils literal"><span class="pre">position</span></tt>:  New position</li>
@@ -6041,7 +6053,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_setRotation&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the orientation of a text</p>
-<p>This function completely overwrites the previous rotation. See sfText_rotate to add an angle based on the previous rotation instead. The default rotation of a text Text object is 0.</p>
+<p>This function completely overwrites the previous rotation. See Text_rotate to add an angle based on the previous rotation instead. The default rotation of a text Text object is 0.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">text</span></tt>:   Text object</li>
 <li><tt class="docutils literal"><span class="pre">angle</span></tt>:  New rotation, in degrees</li>
@@ -6053,7 +6065,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_setScale&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the scale factors of a text</p>
-<p>This function completely overwrites the previous scale. See sfText_scale to add a factor based on the previous scale instead. The default scale of a text Text object is (1, 1).</p>
+<p>This function completely overwrites the previous scale. See Text_scale to add a factor based on the previous scale instead. The default scale of a text Text object is (1, 1).</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">text</span></tt>:   Text object</li>
 <li><tt class="docutils literal"><span class="pre">scale</span></tt>:  New scale factors</li>
@@ -6122,7 +6134,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_move&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Move a text by a given offset</p>
-<p>This function adds to the current position of the object, unlike sfText_setPosition which overwrites it.</p>
+<p>This function adds to the current position of the object, unlike Text_setPosition which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">text</span></tt>:    Text object</li>
 <li><tt class="docutils literal"><span class="pre">offset</span></tt>:  Offset</li>
@@ -6134,7 +6146,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_rotate&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Rotate a text</p>
-<p>This function adds to the current rotation of the object, unlike sfText_setRotation which overwrites it.</p>
+<p>This function adds to the current rotation of the object, unlike Text_setRotation which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">text</span></tt>:   Text object</li>
 <li><tt class="docutils literal"><span class="pre">angle</span></tt>:  Angle of rotation, in degrees</li>
@@ -6146,7 +6158,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_scale&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Scale a text</p>
-<p>This function multiplies the current scale of the object, unlike sfText_setScale which overwrites it.</p>
+<p>This function multiplies the current scale of the object, unlike Text_setScale which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">text</span></tt>:     Text object</li>
 <li><tt class="docutils literal"><span class="pre">factors</span></tt>:  Scale factors</li>
@@ -6227,7 +6239,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_setStyle&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the style of a text</p>
-<p>You can pass a combination of one or more styles, for example sfTextBold | sfTextItalic. The default style is sfTextRegular.</p>
+<p>You can pass a combination of one or more styles, for example TextBold | TextItalic. The default style is TextRegular.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">text</span></tt>:   Text object</li>
 <li><tt class="docutils literal"><span class="pre">style</span></tt>:  New style</li>
@@ -6297,7 +6309,7 @@ Define the states used for drawing to a RenderTarget
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">text</span></tt>:  Text object</li>
 </ul>
-<p><em>Returns:</em> Current string style (see sfTextStyle enum)</p>
+<p><em>Returns:</em> Current string style (see TextStyle enum)</p>
 
 
 </dd>
@@ -6356,7 +6368,7 @@ Define the states used for drawing to a RenderTarget
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">width</span></tt>:   Texture width</li>
 <li><tt class="docutils literal"><span class="pre">height</span></tt>:  Texture height</li>
 </ul>
-<p><em>Returns:</em> A new sfTexture object, or NULL if it failed</p>
+<p><em>Returns:</em> A new Texture object, or NULL if it failed</p>
 
 
 </dd>
@@ -6512,7 +6524,7 @@ Define the states used for drawing to a RenderTarget
 <p>Enable or disable the smooth filter on a texture</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">texture</span></tt>:  The texture object</li>
-<li><tt class="docutils literal"><span class="pre">smooth</span></tt>:   sfTrue to enable smoothing, sfFalse to disable it</li>
+<li><tt class="docutils literal"><span class="pre">smooth</span></tt>:   True to enable smoothing, False to disable it</li>
 </ul>
 
 
@@ -6524,7 +6536,7 @@ Define the states used for drawing to a RenderTarget
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">texture</span></tt>:  The texture object</li>
 </ul>
-<p><em>Returns:</em> sfTrue if smoothing is enabled, sfFalse if it is disabled</p>
+<p><em>Returns:</em> True if smoothing is enabled, False if it is disabled</p>
 
 
 </dd>
@@ -6547,14 +6559,14 @@ Define the states used for drawing to a RenderTarget
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">texture</span></tt>:  The texture object</li>
 </ul>
-<p><em>Returns:</em> sfTrue if repeat mode is enabled, sfFalse if it is disabled</p>
+<p><em>Returns:</em> True if repeat mode is enabled, False if it is disabled</p>
 
 
 </dd>
 <dt id="bindGL"><a name="bindGL,Texture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">bindGL</span><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTexture_bind&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Bind a texture for rendering</p>
-<p>This function is not part of the graphics API, it mustn't be used when drawing SFML entities. It must be used only if you mix sfTexture with OpenGL code.</p>
+<p>This function is not part of the graphics API, it mustn't be used when drawing SFML entities. It must be used only if you mix Texture with OpenGL code.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">texture</span></tt>:  Pointer to the texture to bind, can be null to use no texture</li>
 </ul>
@@ -6573,7 +6585,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTransformable_create&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Create a new transformable</p>
-<p><em>Returns:</em> A new sfTransformable object</p>
+<p><em>Returns:</em> A new Transformable object</p>
 
 
 </dd>
@@ -6602,7 +6614,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTransformable_setPosition&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the position of a transformable</p>
-<p>This function completely overwrites the previous position. See sfTransformable_move to apply an offset based on the previous position instead. The default position of a transformable Transformable object is (0, 0).</p>
+<p>This function completely overwrites the previous position. See Transformable_move to apply an offset based on the previous position instead. The default position of a transformable Transformable object is (0, 0).</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">transformable</span></tt>:  Transformable object</li>
 <li><tt class="docutils literal"><span class="pre">position</span></tt>:       New position</li>
@@ -6614,7 +6626,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTransformable_setRotation&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the orientation of a transformable</p>
-<p>This function completely overwrites the previous rotation. See sfTransformable_rotate to add an angle based on the previous rotation instead. The default rotation of a transformable Transformable object is 0.</p>
+<p>This function completely overwrites the previous rotation. See Transformable_rotate to add an angle based on the previous rotation instead. The default rotation of a transformable Transformable object is 0.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">transformable</span></tt>:  Transformable object</li>
 <li><tt class="docutils literal"><span class="pre">angle</span></tt>:          New rotation, in degrees</li>
@@ -6626,7 +6638,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTransformable_setScale&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the scale factors of a transformable</p>
-<p>This function completely overwrites the previous scale. See sfTransformable_scale to add a factor based on the previous scale instead. The default scale of a transformable Transformable object is (1, 1).</p>
+<p>This function completely overwrites the previous scale. See Transformable_scale to add a factor based on the previous scale instead. The default scale of a transformable Transformable object is (1, 1).</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">transformable</span></tt>:  Transformable object</li>
 <li><tt class="docutils literal"><span class="pre">scale</span></tt>:          New scale factors</li>
@@ -6695,7 +6707,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTransformable_move&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Move a transformable by a given offset</p>
-<p>This function adds to the current position of the object, unlike sfTransformable_setPosition which overwrites it.</p>
+<p>This function adds to the current position of the object, unlike Transformable_setPosition which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">transformable</span></tt>:  Transformable object</li>
 <li><tt class="docutils literal"><span class="pre">offset</span></tt>:         Offset</li>
@@ -6707,7 +6719,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTransformable_rotate&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Rotate a transformable</p>
-<p>This function adds to the current rotation of the object, unlike sfTransformable_setRotation which overwrites it.</p>
+<p>This function adds to the current rotation of the object, unlike Transformable_setRotation which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">transformable</span></tt>:  Transformable object</li>
 <li><tt class="docutils literal"><span class="pre">angle</span></tt>:          Angle of rotation, in degrees</li>
@@ -6719,7 +6731,7 @@ Define the states used for drawing to a RenderTarget
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTransformable_scale&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Scale a transformable</p>
-<p>This function multiplies the current scale of the object, unlike sfTransformable_setScale which overwrites it.</p>
+<p>This function multiplies the current scale of the object, unlike Transformable_setScale which overwrites it.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">transformable</span></tt>:  Transformable object</li>
 <li><tt class="docutils literal"><span class="pre">factors</span></tt>:        Scale factors</li>
@@ -6753,7 +6765,7 @@ Define the states used for drawing to a RenderTarget
                                      <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfVertexArray_create&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Create a new vertex array</p>
-<p><em>Returns:</em> A new sfVertexArray object</p>
+<p><em>Returns:</em> A new VertexArray object</p>
 
 
 </dd>
@@ -6846,7 +6858,7 @@ Define the states used for drawing to a RenderTarget
 <li>As triangles</li>
 <li>As quads</li>
 </ul>
-<p>The default primitive type is sfPoints.</p>
+<p>The default primitive type is Points.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">vertexArray</span></tt>:  Vertex array objet</li>
 <li><tt class="docutils literal"><span class="pre">type</span></tt>:         Type of primitive</li>
@@ -6881,7 +6893,7 @@ Define the states used for drawing to a RenderTarget
 <dd>
 <p>Create a default view</p>
 <p>This function creates a default view of (0, 0, 1000, 1000)</p>
-<p><em>Returns:</em> A new sfView object</p>
+<p><em>Returns:</em> A new View object</p>
 
 
 </dd>
@@ -6892,7 +6904,7 @@ Define the states used for drawing to a RenderTarget
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">rectangle</span></tt>:  Rectangle defining the zone to display</li>
 </ul>
-<p><em>Returns:</em> A new sfView object</p>
+<p><em>Returns:</em> A new View object</p>
 
 
 </dd>
@@ -7116,7 +7128,17 @@ Sets the alpha (opacity) component of a Color
 
 
 </dd>
+<dt id="+="><a name="+=,Color,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`+=`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Color</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
 <dt id="*"><a name="*,Color,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`*`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Color</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="*="><a name="*=,Color,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`*=`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Color</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
@@ -7124,6 +7146,11 @@ Sets the alpha (opacity) component of a Color
 <dt id="-"><a name="-,Color,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Color</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 <em>Returns:</em> The component-wise subtraction of two colors. Components below 0 are clamped to 0.
+
+</dd>
+<dt id="-="><a name="-=,Color,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-=`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Color</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+
 
 </dd>
 <dt id="rect"><a name="rect,cint,cint,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">rect</span><span class="Other">(</span><span class="Identifier">left</span><span class="Other">,</span> <span class="Identifier">top</span><span class="Other">,</span> <span class="Identifier">width</span><span class="Other">,</span> <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntRect</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
@@ -7275,6 +7302,22 @@ Overloaded proc that converts Nim's strings correctly
 
 
 </dd>
+<dt id="newCircleShape"><a name="newCircleShape,cfloat,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newCircleShape</span><span class="Other">(</span><span class="Identifier">radius</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">pointCount</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">30</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">CircleShape</span> <span class="Other">{.</span>
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<em>Returns:</em> A new CircleShape with these members, or nil if it failed
+
+</dd>
+<dt id="newRectangleShape"><a name="newRectangleShape,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRectangleShape</span><span class="Other">(</span><span class="Identifier">size</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RectangleShape</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<em>Returns:</em> A new RectangleShape with this size, or nil if it failed
+
+</dd>
+<dt id="newConvexShape"><a name="newConvexShape,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newConvexShape</span><span class="Other">(</span><span class="Identifier">pointCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<em>Returns:</em> A new ConvexShape with this pointCount, or nil if it failed
+
+</dd>
 
 </dl></div>
 <div class="section" id="16">
@@ -7310,7 +7353,7 @@ Allows the syntax <tt class="docutils literal"><span class="pre">renderTarget.dr
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-04 00:56:37 UTC</small>
+        <small>Made with Nim. Generated: 2015-01-04 12:24:57 UTC</small>
       </div>
     </div>
   </div>
