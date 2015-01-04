@@ -1278,42 +1278,42 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#modulate,Color,Color"
     title="modulate(color1: Color; color2: Color): Color"><wbr />modulate</a></li>
   <li><a class="reference" href="#contains,,cfloat,cfloat"
-    title="contains(rect: (var FloatRect){lvalue}; x: cfloat; y: cfloat): bool"><wbr />contains</a></li>
+    title="contains(rect: (var FloatRect){lvalue}; x: cfloat; y: cfloat): BoolInt"><wbr />contains</a></li>
   <li><a class="reference" href="#contains,FloatRect,cfloat,cfloat"
-    title="contains(rect: FloatRect; x: cfloat; y: cfloat): bool"><wbr />contains</a></li>
+    title="contains(rect: FloatRect; x: cfloat; y: cfloat): BoolInt"><wbr />contains</a></li>
   <li><a class="reference" href="#contains,,cint,cint"
-    title="contains(rect: (var IntRect){lvalue}; x: cint; y: cint): bool"><wbr />contains</a></li>
+    title="contains(rect: (var IntRect){lvalue}; x: cint; y: cint): BoolInt"><wbr />contains</a></li>
   <li><a class="reference" href="#contains,IntRect,cint,cint"
-    title="contains(rect: IntRect; x: cint; y: cint): bool"><wbr />contains</a></li>
+    title="contains(rect: IntRect; x: cint; y: cint): BoolInt"><wbr />contains</a></li>
   <li><a class="reference" href="#intersects,,,FloatRect"
     title="intersects(rect1: (var FloatRect){lvalue}; rect2: (var FloatRect){lvalue}; 
-           intersection: var FloatRect): bool"><wbr />intersects</a></li>
+           intersection: var FloatRect): BoolInt"><wbr />intersects</a></li>
   <li><a class="reference" href="#intersects,,FloatRect,FloatRect"
     title="intersects(rect1: (var FloatRect){lvalue}; rect2: FloatRect; 
-           intersection: var FloatRect): bool"><wbr />intersects</a></li>
+           intersection: var FloatRect): BoolInt"><wbr />intersects</a></li>
   <li><a class="reference" href="#intersects,FloatRect,,FloatRect"
     title="intersects(rect1: FloatRect; rect2: (var FloatRect){lvalue}; 
-           intersection: var FloatRect): bool"><wbr />intersects</a></li>
+           intersection: var FloatRect): BoolInt"><wbr />intersects</a></li>
   <li><a class="reference" href="#intersects,FloatRect,FloatRect,FloatRect"
-    title="intersects(rect1: FloatRect; rect2: FloatRect; intersection: var FloatRect): bool"><wbr />intersects</a></li>
+    title="intersects(rect1: FloatRect; rect2: FloatRect; intersection: var FloatRect): BoolInt"><wbr />intersects</a></li>
   <li><a class="reference" href="#intersects,,,IntRect"
     title="intersects(rect1: (var IntRect){lvalue}; rect2: (var IntRect){lvalue}; 
-           intersection: var IntRect): bool"><wbr />intersects</a></li>
+           intersection: var IntRect): BoolInt"><wbr />intersects</a></li>
   <li><a class="reference" href="#intersects,,IntRect,IntRect"
     title="intersects(rect1: (var IntRect){lvalue}; rect2: IntRect; 
-           intersection: var IntRect): bool"><wbr />intersects</a></li>
+           intersection: var IntRect): BoolInt"><wbr />intersects</a></li>
   <li><a class="reference" href="#intersects,IntRect,,IntRect"
     title="intersects(rect1: IntRect; rect2: (var IntRect){lvalue}; 
-           intersection: var IntRect): bool"><wbr />intersects</a></li>
+           intersection: var IntRect): BoolInt"><wbr />intersects</a></li>
   <li><a class="reference" href="#intersects,IntRect,IntRect,IntRect"
-    title="intersects(rect1: IntRect; rect2: IntRect; intersection: var IntRect): bool"><wbr />intersects</a></li>
+    title="intersects(rect1: IntRect; rect2: IntRect; intersection: var IntRect): BoolInt"><wbr />intersects</a></li>
   <li><a class="reference" href="#transform,cfloat,cfloat,cfloat,cfloat,cfloat,cfloat,cfloat,cfloat,cfloat"
     title="transform(a00: cfloat; a01: cfloat; a02: cfloat; a10: cfloat; a11: cfloat; 
           a12: cfloat; a20: cfloat; a21: cfloat; a22: cfloat): Transform"><wbr />transform</a></li>
-  <li><a class="reference" href="#getMatrix,,ptr.cfloat"
-    title="getMatrix(transform: (var Transform){lvalue}; matrix: ptr cfloat)"><wbr />get<wbr />Matrix</a></li>
-  <li><a class="reference" href="#getMatrix,Transform,ptr.cfloat"
-    title="getMatrix(transform: Transform; matrix: ptr cfloat)"><wbr />get<wbr />Matrix</a></li>
+  <li><a class="reference" href="#getMatrix_Ptr,,ptr.cfloat"
+    title="getMatrix_Ptr(transform: (var Transform){lvalue}; matrix: ptr cfloat)"><wbr />get<wbr />Matrix_<wbr />Ptr</a></li>
+  <li><a class="reference" href="#getMatrix_Ptr,Transform,ptr.cfloat"
+    title="getMatrix_Ptr(transform: Transform; matrix: ptr cfloat)"><wbr />get<wbr />Matrix_<wbr />Ptr</a></li>
   <li><a class="reference" href="#inverse,"
     title="inverse(transform: (var Transform){lvalue}): Transform"><wbr />inverse</a></li>
   <li><a class="reference" href="#inverse,Transform"
@@ -1373,8 +1373,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="transform(shape: CircleShape): Transform"><wbr />transform</a></li>
   <li><a class="reference" href="#inverseTransform,CircleShape"
     title="inverseTransform(shape: CircleShape): Transform"><wbr />inverse<wbr />Transform</a></li>
-  <li><a class="reference" href="#setTexture,CircleShape,Texture,IntBool"
-    title="setTexture(shape: CircleShape; texture: Texture; resetRect: IntBool)"><wbr />set<wbr />Texture</a></li>
+  <li><a class="reference" href="#setTexture,CircleShape,Texture,BoolInt"
+    title="setTexture(shape: CircleShape; texture: Texture; resetRect: BoolInt)"><wbr />set<wbr />Texture</a></li>
   <li><a class="reference" href="#textureRect=,CircleShape,IntRect"
     title="textureRect=(shape: CircleShape; rect: IntRect)"><wbr />texture<wbr />Rect=</a></li>
   <li><a class="reference" href="#fillColor=,CircleShape,Color"
@@ -1439,8 +1439,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="transform(shape: ConvexShape): Transform"><wbr />transform</a></li>
   <li><a class="reference" href="#inverseTransform,ConvexShape"
     title="inverseTransform(shape: ConvexShape): Transform"><wbr />inverse<wbr />Transform</a></li>
-  <li><a class="reference" href="#setTexture,ConvexShape,Texture,IntBool"
-    title="setTexture(shape: ConvexShape; texture: Texture; resetRect: IntBool)"><wbr />set<wbr />Texture</a></li>
+  <li><a class="reference" href="#setTexture,ConvexShape,Texture,BoolInt"
+    title="setTexture(shape: ConvexShape; texture: Texture; resetRect: BoolInt)"><wbr />set<wbr />Texture</a></li>
   <li><a class="reference" href="#textureRect=,ConvexShape,IntRect"
     title="textureRect=(shape: ConvexShape; rect: IntRect)"><wbr />texture<wbr />Rect=</a></li>
   <li><a class="reference" href="#fillColor=,ConvexShape,Color"
@@ -1481,10 +1481,10 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="copy(font: Font): Font"><wbr />copy</a></li>
   <li><a class="reference" href="#destroy,Font"
     title="destroy(font: Font)"><wbr />destroy</a></li>
-  <li><a class="reference" href="#getGlyph,Font,uint32,cint,IntBool"
-    title="getGlyph(font: Font; codePoint: uint32; characterSize: cint; bold: IntBool): Glyph"><wbr />get<wbr />Glyph</a></li>
-  <li><a class="reference" href="#getKerning,Font,uint32,uint32,cint"
-    title="getKerning(font: Font; first: uint32; second: uint32; characterSize: cint): cint"><wbr />get<wbr />Kerning</a></li>
+  <li><a class="reference" href="#getGlyph,Font,RuneU32,cint,BoolInt"
+    title="getGlyph(font: Font; codePoint: RuneU32; characterSize: cint; bold: BoolInt): Glyph"><wbr />get<wbr />Glyph</a></li>
+  <li><a class="reference" href="#getKerning,Font,RuneU32,RuneU32,cint"
+    title="getKerning(font: Font; first: RuneU32; second: RuneU32; characterSize: cint): cint"><wbr />get<wbr />Kerning</a></li>
   <li><a class="reference" href="#getLineSpacing,Font,cint"
     title="getLineSpacing(font: Font; characterSize: cint): cint"><wbr />get<wbr />Line<wbr />Spacing</a></li>
   <li><a class="reference" href="#getTexture,Font,cint"
@@ -1493,8 +1493,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="newImage(width: cint; height: cint): Image"><wbr />new<wbr />Image</a></li>
   <li><a class="reference" href="#newImage,cint,cint,Color"
     title="newImage(width: cint; height: cint; color: Color): Image"><wbr />new<wbr />Image</a></li>
-  <li><a class="reference" href="#newImage,cint,cint,ptr.uint8"
-    title="newImage(width: cint; height: cint; pixels: ptr uint8): Image"><wbr />new<wbr />Image</a></li>
+  <li><a class="reference" href="#newImage_Ptr,cint,cint,ptr.uint8"
+    title="newImage_Ptr(width: cint; height: cint; pixels: ptr uint8): Image"><wbr />new<wbr />Image_<wbr />Ptr</a></li>
   <li><a class="reference" href="#newImage,cstring"
     title="newImage(filename: cstring): Image"><wbr />new<wbr />Image</a></li>
   <li><a class="reference" href="#newImage,pointer,int"
@@ -1506,14 +1506,14 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#destroy,Image"
     title="destroy(image: Image)"><wbr />destroy</a></li>
   <li><a class="reference" href="#saveToFile,Image,cstring"
-    title="saveToFile(image: Image; filename: cstring): bool"><wbr />save<wbr />To<wbr />File</a></li>
+    title="saveToFile(image: Image; filename: cstring): BoolInt"><wbr />save<wbr />To<wbr />File</a></li>
   <li><a class="reference" href="#size,Image"
     title="size(image: Image): Vector2i"><wbr />size</a></li>
   <li><a class="reference" href="#newImage,Image,Color,uint8"
     title="newImage(image: Image; color: Color; alpha: uint8)"><wbr />new<wbr />Image</a></li>
-  <li><a class="reference" href="#copyImage,Image,Image,cint,cint,IntRect,IntBool"
+  <li><a class="reference" href="#copyImage,Image,Image,cint,cint,IntRect,BoolInt"
     title="copyImage(image: Image; source: Image; destX: cint; destY: cint; 
-          sourceRect: IntRect; applyAlpha: IntBool)"><wbr />copy<wbr />Image</a></li>
+          sourceRect: IntRect; applyAlpha: BoolInt)"><wbr />copy<wbr />Image</a></li>
   <li><a class="reference" href="#setPixel,Image,cint,cint,Color"
     title="setPixel(image: Image; x: cint; y: cint; color: Color)"><wbr />set<wbr />Pixel</a></li>
   <li><a class="reference" href="#getPixel,Image,cint,cint"
@@ -1556,8 +1556,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="transform(shape: RectangleShape): Transform"><wbr />transform</a></li>
   <li><a class="reference" href="#inverseTransform,RectangleShape"
     title="inverseTransform(shape: RectangleShape): Transform"><wbr />inverse<wbr />Transform</a></li>
-  <li><a class="reference" href="#setTexture,RectangleShape,Texture,IntBool"
-    title="setTexture(shape: RectangleShape; texture: Texture; resetRect: IntBool)"><wbr />set<wbr />Texture</a></li>
+  <li><a class="reference" href="#setTexture,RectangleShape,Texture,BoolInt"
+    title="setTexture(shape: RectangleShape; texture: Texture; resetRect: BoolInt)"><wbr />set<wbr />Texture</a></li>
   <li><a class="reference" href="#textureRect=,RectangleShape,IntRect"
     title="textureRect=(shape: RectangleShape; rect: IntRect)"><wbr />texture<wbr />Rect=</a></li>
   <li><a class="reference" href="#fillColor=,RectangleShape,Color"
@@ -1588,18 +1588,12 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="localBounds(shape: RectangleShape): FloatRect"><wbr />local<wbr />Bounds</a></li>
   <li><a class="reference" href="#globalBounds,RectangleShape"
     title="globalBounds(shape: RectangleShape): FloatRect"><wbr />global<wbr />Bounds</a></li>
-  <li><a class="reference" href="#newRenderWindow,VideoMode,cstring,uint32,"
-    title="newRenderWindow(mode: VideoMode; title: cstring; style: uint32; 
-                settings: (var ContextSettings){lvalue}): RenderWindow"><wbr />new<wbr />Render<wbr />Window</a></li>
-  <li><a class="reference" href="#newRenderWindow,VideoMode,cstring,uint32,ContextSettings"
-    title="newRenderWindow(mode: VideoMode; title: cstring; style: uint32; 
-                settings: ContextSettings): RenderWindow"><wbr />new<wbr />Render<wbr />Window</a></li>
-  <li><a class="reference" href="#newRenderWindow,VideoMode,ptr.uint32,uint32,"
-    title="newRenderWindow(mode: VideoMode; title: ptr uint32; style: uint32; 
-                settings: (var ContextSettings){lvalue}): RenderWindow"><wbr />new<wbr />Render<wbr />Window</a></li>
-  <li><a class="reference" href="#newRenderWindow,VideoMode,ptr.uint32,uint32,ContextSettings"
-    title="newRenderWindow(mode: VideoMode; title: ptr uint32; style: uint32; 
-                settings: ContextSettings): RenderWindow"><wbr />new<wbr />Render<wbr />Window</a></li>
+  <li><a class="reference" href="#newRenderWindow_C,VideoMode,cstring,BitMaskU32,"
+    title="newRenderWindow_C(mode: VideoMode; title: cstring; style: BitMaskU32; 
+                  settings: (var ContextSettings){lvalue}): RenderWindow"><wbr />new<wbr />Render<wbr />Window_<wbr />C</a></li>
+  <li><a class="reference" href="#newRenderWindow_C,VideoMode,cstring,BitMaskU32,ContextSettings"
+    title="newRenderWindow_C(mode: VideoMode; title: cstring; style: BitMaskU32; 
+                  settings: ContextSettings): RenderWindow"><wbr />new<wbr />Render<wbr />Window_<wbr />C</a></li>
   <li><a class="reference" href="#newRenderWindow,WindowHandle,"
     title="newRenderWindow(handle: WindowHandle; settings: (var ContextSettings){lvalue}): RenderWindow"><wbr />new<wbr />Render<wbr />Window</a></li>
   <li><a class="reference" href="#newRenderWindow,WindowHandle,ContextSettings"
@@ -1609,13 +1603,13 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#close,RenderWindow"
     title="close(renderWindow: RenderWindow)"><wbr />close</a></li>
   <li><a class="reference" href="#open,RenderWindow"
-    title="open(renderWindow: RenderWindow): bool"><wbr />open</a></li>
+    title="open(renderWindow: RenderWindow): BoolInt"><wbr />open</a></li>
   <li><a class="reference" href="#settings,RenderWindow"
     title="settings(renderWindow: RenderWindow): ContextSettings"><wbr />settings</a></li>
   <li><a class="reference" href="#pollEvent,RenderWindow,Event"
-    title="pollEvent(renderWindow: RenderWindow; event: var Event): bool"><wbr />poll<wbr />Event</a></li>
+    title="pollEvent(renderWindow: RenderWindow; event: var Event): BoolInt"><wbr />poll<wbr />Event</a></li>
   <li><a class="reference" href="#waitEvent,RenderWindow,Event"
-    title="waitEvent(renderWindow: RenderWindow; event: var Event): bool"><wbr />wait<wbr />Event</a></li>
+    title="waitEvent(renderWindow: RenderWindow; event: var Event): BoolInt"><wbr />wait<wbr />Event</a></li>
   <li><a class="reference" href="#position,RenderWindow"
     title="position(renderWindow: RenderWindow): Vector2i"><wbr />position</a></li>
   <li><a class="reference" href="#position=,RenderWindow,Vector2i"
@@ -1624,22 +1618,21 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="size(renderWindow: RenderWindow): Vector2i"><wbr />size</a></li>
   <li><a class="reference" href="#size=,RenderWindow,Vector2i"
     title="size=(renderWindow: RenderWindow; size: Vector2i)"><wbr />size=</a></li>
-  <li><a class="reference" href="#title=,RenderWindow,cstring"
-    title="title=(renderWindow: RenderWindow; title: cstring)"><wbr />title=</a></li>
-  <li><a class="reference" href="#unicodeTitle=,RenderWindow,ptr.uint32"
-    title="unicodeTitle=(renderWindow: RenderWindow; title: ptr uint32)"><wbr />unicode<wbr />Title=</a></li>
-  <li><a class="reference" href="#setIcon,RenderWindow,cint,cint,ptr.uint8"
-    title="setIcon(renderWindow: RenderWindow; width: cint; height: cint; pixels: ptr uint8)"><wbr />set<wbr />Icon</a></li>
-  <li><a class="reference" href="#visible=,RenderWindow,IntBool"
-    title="visible=(renderWindow: RenderWindow; visible: IntBool)"><wbr />visible=</a></li>
-  <li><a class="reference" href="#mouseCursorVisible=,RenderWindow,IntBool"
-    title="mouseCursorVisible=(renderWindow: RenderWindow; show: IntBool)"><wbr />mouse<wbr />Cursor<wbr />Visible=</a></li>
-  <li><a class="reference" href="#verticalSyncEnabled=,RenderWindow,IntBool"
-    title="verticalSyncEnabled=(renderWindow: RenderWindow; enabled: IntBool)"><wbr />vertical<wbr />Sync<wbr />Enabled=</a></li>
-  <li><a class="reference" href="#keyRepeatEnabled=,RenderWindow,IntBool"
-    title="keyRepeatEnabled=(renderWindow: RenderWindow; enabled: IntBool)"><wbr />key<wbr />Repeat<wbr />Enabled=</a></li>
-  <li><a class="reference" href="#active=,RenderWindow,IntBool"
-    title="active=(renderWindow: RenderWindow; active: IntBool): bool"><wbr />active=</a></li>
+  <li><a class="reference" href="#title_C=,RenderWindow,cstring"
+    title="title_C=(renderWindow: RenderWindow; title: cstring)"><wbr />title_<wbr />C=</a></li>
+  <li><a class="reference" href="#setIcon_Ptr,RenderWindow,cint,cint,ptr.uint8"
+    title="setIcon_Ptr(renderWindow: RenderWindow; width: cint; height: cint; 
+            pixels: ptr uint8)"><wbr />set<wbr />Icon_<wbr />Ptr</a></li>
+  <li><a class="reference" href="#visible=,RenderWindow,BoolInt"
+    title="visible=(renderWindow: RenderWindow; visible: BoolInt)"><wbr />visible=</a></li>
+  <li><a class="reference" href="#mouseCursorVisible=,RenderWindow,BoolInt"
+    title="mouseCursorVisible=(renderWindow: RenderWindow; show: BoolInt)"><wbr />mouse<wbr />Cursor<wbr />Visible=</a></li>
+  <li><a class="reference" href="#verticalSyncEnabled=,RenderWindow,BoolInt"
+    title="verticalSyncEnabled=(renderWindow: RenderWindow; enabled: BoolInt)"><wbr />vertical<wbr />Sync<wbr />Enabled=</a></li>
+  <li><a class="reference" href="#keyRepeatEnabled=,RenderWindow,BoolInt"
+    title="keyRepeatEnabled=(renderWindow: RenderWindow; enabled: BoolInt)"><wbr />key<wbr />Repeat<wbr />Enabled=</a></li>
+  <li><a class="reference" href="#active=,RenderWindow,BoolInt"
+    title="active=(renderWindow: RenderWindow; active: BoolInt): BoolInt"><wbr />active=</a></li>
   <li><a class="reference" href="#display,RenderWindow"
     title="display(renderWindow: RenderWindow)"><wbr />display</a></li>
   <li><a class="reference" href="#framerateLimit=,RenderWindow,cint"
@@ -1726,14 +1719,14 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="mouse_getPositionRenderWindow(relativeTo: RenderWindow): Vector2i"><wbr />mouse_<wbr />get<wbr />Position<wbr />Render<wbr />Window</a></li>
   <li><a class="reference" href="#mouse_setPositionRenderWindow,Vector2i,RenderWindow"
     title="mouse_setPositionRenderWindow(position: Vector2i; relativeTo: RenderWindow)"><wbr />mouse_<wbr />set<wbr />Position<wbr />Render<wbr />Window</a></li>
-  <li><a class="reference" href="#newRenderTexture,cint,cint,IntBool"
-    title="newRenderTexture(width: cint; height: cint; depthBuffer: IntBool): RenderTexture"><wbr />new<wbr />Render<wbr />Texture</a></li>
+  <li><a class="reference" href="#newRenderTexture,cint,cint,BoolInt"
+    title="newRenderTexture(width: cint; height: cint; depthBuffer: BoolInt): RenderTexture"><wbr />new<wbr />Render<wbr />Texture</a></li>
   <li><a class="reference" href="#destroy,RenderTexture"
     title="destroy(renderTexture: RenderTexture)"><wbr />destroy</a></li>
   <li><a class="reference" href="#size,RenderTexture"
     title="size(renderTexture: RenderTexture): Vector2i"><wbr />size</a></li>
-  <li><a class="reference" href="#active=,RenderTexture,IntBool"
-    title="active=(renderTexture: RenderTexture; active: IntBool): bool"><wbr />active=</a></li>
+  <li><a class="reference" href="#active=,RenderTexture,BoolInt"
+    title="active=(renderTexture: RenderTexture; active: BoolInt): BoolInt"><wbr />active=</a></li>
   <li><a class="reference" href="#display,RenderTexture"
     title="display(renderTexture: RenderTexture)"><wbr />display</a></li>
   <li><a class="reference" href="#clear,RenderTexture,Color"
@@ -1811,14 +1804,14 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="resetGLStates(renderTexture: RenderTexture)"><wbr />reset<wbr />GLStates</a></li>
   <li><a class="reference" href="#texture,RenderTexture"
     title="texture(renderTexture: RenderTexture): Texture"><wbr />texture</a></li>
-  <li><a class="reference" href="#smooth=,RenderTexture,IntBool"
-    title="smooth=(renderTexture: RenderTexture; smooth: IntBool)"><wbr />smooth=</a></li>
+  <li><a class="reference" href="#smooth=,RenderTexture,BoolInt"
+    title="smooth=(renderTexture: RenderTexture; smooth: BoolInt)"><wbr />smooth=</a></li>
   <li><a class="reference" href="#smooth,RenderTexture"
-    title="smooth(renderTexture: RenderTexture): bool"><wbr />smooth</a></li>
-  <li><a class="reference" href="#repeated=,RenderTexture,IntBool"
-    title="repeated=(renderTexture: RenderTexture; repeated: IntBool)"><wbr />repeated=</a></li>
+    title="smooth(renderTexture: RenderTexture): BoolInt"><wbr />smooth</a></li>
+  <li><a class="reference" href="#repeated=,RenderTexture,BoolInt"
+    title="repeated=(renderTexture: RenderTexture; repeated: BoolInt)"><wbr />repeated=</a></li>
   <li><a class="reference" href="#repeated,RenderTexture"
-    title="repeated(renderTexture: RenderTexture): bool"><wbr />repeated</a></li>
+    title="repeated(renderTexture: RenderTexture): BoolInt"><wbr />repeated</a></li>
   <li><a class="reference" href="#newShader,cstring,cstring"
     title="newShader(vertexShaderFilename: cstring; fragmentShaderFilename: cstring): Shader"><wbr />new<wbr />Shader</a></li>
   <li><a class="reference" href="#newShader,cstring,cstring_2"
@@ -1853,7 +1846,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#bindGL,Shader"
     title="bindGL(shader: Shader)"><wbr />bind<wbr />GL</a></li>
   <li><a class="reference" href="#shader_isAvailable,"
-    title="shader_isAvailable(): bool"><wbr />shader_<wbr />is<wbr />Available</a></li>
+    title="shader_isAvailable(): BoolInt"><wbr />shader_<wbr />is<wbr />Available</a></li>
   <li><a class="reference" href="#newShape,ShapeGetPointCountCallback,ShapeGetPointCallback,pointer"
     title="newShape(getPointCount: ShapeGetPointCountCallback; 
          getPoint: ShapeGetPointCallback; userData: pointer): Shape"><wbr />new<wbr />Shape</a></li>
@@ -1885,8 +1878,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="transform(shape: Shape): Transform"><wbr />transform</a></li>
   <li><a class="reference" href="#inverseTransform,Shape"
     title="inverseTransform(shape: Shape): Transform"><wbr />inverse<wbr />Transform</a></li>
-  <li><a class="reference" href="#setTexture,Shape,Texture,IntBool"
-    title="setTexture(shape: Shape; texture: Texture; resetRect: IntBool)"><wbr />set<wbr />Texture</a></li>
+  <li><a class="reference" href="#setTexture,Shape,Texture,BoolInt"
+    title="setTexture(shape: Shape; texture: Texture; resetRect: BoolInt)"><wbr />set<wbr />Texture</a></li>
   <li><a class="reference" href="#textureRect=,Shape,IntRect"
     title="textureRect=(shape: Shape; rect: IntRect)"><wbr />texture<wbr />Rect=</a></li>
   <li><a class="reference" href="#fillColor=,Shape,Color"
@@ -1947,8 +1940,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="transform(sprite: Sprite): Transform"><wbr />transform</a></li>
   <li><a class="reference" href="#inverseTransform,Sprite"
     title="inverseTransform(sprite: Sprite): Transform"><wbr />inverse<wbr />Transform</a></li>
-  <li><a class="reference" href="#setTexture,Sprite,Texture,IntBool"
-    title="setTexture(sprite: Sprite; texture: Texture; resetRect: IntBool)"><wbr />set<wbr />Texture</a></li>
+  <li><a class="reference" href="#setTexture,Sprite,Texture,BoolInt"
+    title="setTexture(sprite: Sprite; texture: Texture; resetRect: BoolInt)"><wbr />set<wbr />Texture</a></li>
   <li><a class="reference" href="#textureRect=,Sprite,IntRect"
     title="textureRect=(sprite: Sprite; rectangle: IntRect)"><wbr />texture<wbr />Rect=</a></li>
   <li><a class="reference" href="#color=,Sprite,Color"
@@ -1995,28 +1988,24 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="transform(text: Text): Transform"><wbr />transform</a></li>
   <li><a class="reference" href="#inverseTransform,Text"
     title="inverseTransform(text: Text): Transform"><wbr />inverse<wbr />Transform</a></li>
-  <li><a class="reference" href="#string=,Text,cstring"
-    title="string=(text: Text; string: cstring)"><wbr />string=</a></li>
-  <li><a class="reference" href="#unicodeString=,Text,ptr.uint32"
-    title="unicodeString=(text: Text; string: ptr uint32)"><wbr />unicode<wbr />String=</a></li>
+  <li><a class="reference" href="#str_C=,Text,cstring"
+    title="str_C=(text: Text; str: cstring)"><wbr />str_<wbr />C=</a></li>
   <li><a class="reference" href="#font=,Text,Font"
     title="font=(text: Text; font: Font)"><wbr />font=</a></li>
   <li><a class="reference" href="#characterSize=,Text,cint"
     title="characterSize=(text: Text; size: cint)"><wbr />character<wbr />Size=</a></li>
-  <li><a class="reference" href="#style=,Text,uint32"
-    title="style=(text: Text; style: uint32)"><wbr />style=</a></li>
+  <li><a class="reference" href="#style=,Text,BitMaskU32"
+    title="style=(text: Text; style: BitMaskU32)"><wbr />style=</a></li>
   <li><a class="reference" href="#color=,Text,Color"
     title="color=(text: Text; color: Color)"><wbr />color=</a></li>
-  <li><a class="reference" href="#string,Text"
-    title="string(text: Text): cstring"><wbr />string</a></li>
-  <li><a class="reference" href="#unicodeString,Text"
-    title="unicodeString(text: Text): ptr uint32"><wbr />unicode<wbr />String</a></li>
+  <li><a class="reference" href="#str_C,Text"
+    title="str_C(text: Text): cstring"><wbr />str_<wbr />C</a></li>
   <li><a class="reference" href="#font,Text"
     title="font(text: Text): Font"><wbr />font</a></li>
   <li><a class="reference" href="#characterSize,Text"
     title="characterSize(text: Text): cint"><wbr />character<wbr />Size</a></li>
   <li><a class="reference" href="#style,Text"
-    title="style(text: Text): uint32"><wbr />style</a></li>
+    title="style(text: Text): BitMaskU32"><wbr />style</a></li>
   <li><a class="reference" href="#color,Text"
     title="color(text: Text): Color"><wbr />color</a></li>
   <li><a class="reference" href="#findCharacterPos,Text,int"
@@ -2051,9 +2040,9 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="size(texture: Texture): Vector2i"><wbr />size</a></li>
   <li><a class="reference" href="#copyToImage,Texture"
     title="copyToImage(texture: Texture): Image"><wbr />copy<wbr />To<wbr />Image</a></li>
-  <li><a class="reference" href="#updateFromPixels,Texture,ptr.uint8,cint,cint,cint,cint"
-    title="updateFromPixels(texture: Texture; pixels: ptr uint8; width: cint; height: cint; 
-                 x: cint; y: cint)"><wbr />update<wbr />From<wbr />Pixels</a></li>
+  <li><a class="reference" href="#updateFromPixels_Ptr,Texture,ptr.uint8,cint,cint,cint,cint"
+    title="updateFromPixels_Ptr(texture: Texture; pixels: ptr uint8; width: cint; 
+                     height: cint; x: cint; y: cint)"><wbr />update<wbr />From<wbr />Pixels_<wbr />Ptr</a></li>
   <li><a class="reference" href="#updateFromImage,Texture,Image,cint,cint"
     title="updateFromImage(texture: Texture; image: Image; x: cint; y: cint)"><wbr />update<wbr />From<wbr />Image</a></li>
   <li><a class="reference" href="#updateFromWindow,Texture,Window,cint,cint"
@@ -2061,14 +2050,14 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#updateFromRenderWindow,Texture,RenderWindow,cint,cint"
     title="updateFromRenderWindow(texture: Texture; renderWindow: RenderWindow; x: cint; 
                        y: cint)"><wbr />update<wbr />From<wbr />Render<wbr />Window</a></li>
-  <li><a class="reference" href="#smooth=,Texture,IntBool"
-    title="smooth=(texture: Texture; smooth: IntBool)"><wbr />smooth=</a></li>
+  <li><a class="reference" href="#smooth=,Texture,BoolInt"
+    title="smooth=(texture: Texture; smooth: BoolInt)"><wbr />smooth=</a></li>
   <li><a class="reference" href="#smooth,Texture"
-    title="smooth(texture: Texture): bool"><wbr />smooth</a></li>
-  <li><a class="reference" href="#repeated=,Texture,IntBool"
-    title="repeated=(texture: Texture; repeated: IntBool)"><wbr />repeated=</a></li>
+    title="smooth(texture: Texture): BoolInt"><wbr />smooth</a></li>
+  <li><a class="reference" href="#repeated=,Texture,BoolInt"
+    title="repeated=(texture: Texture; repeated: BoolInt)"><wbr />repeated=</a></li>
   <li><a class="reference" href="#repeated,Texture"
-    title="repeated(texture: Texture): bool"><wbr />repeated</a></li>
+    title="repeated(texture: Texture): BoolInt"><wbr />repeated</a></li>
   <li><a class="reference" href="#bindGL,Texture"
     title="bindGL(texture: Texture)"><wbr />bind<wbr />GL</a></li>
   <li><a class="reference" href="#texture_getMaximumSize,"
@@ -2230,12 +2219,14 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
              texture: Texture = nil; shader: Shader = nil): RenderStates"><wbr />render<wbr />States</a></li>
   <li><a class="reference" href="#title=,RenderWindow,string"
     title="title=(window: RenderWindow; title: string)"><wbr />title=</a></li>
-  <li><a class="reference" href="#newRenderWindow,VideoMode,string,uint32"
+  <li><a class="reference" href="#newRenderWindow,VideoMode,string,BitMaskU32"
     title="newRenderWindow(mode: VideoMode; title: string; 
-                style: uint32 = WindowStyle.Default; 
+                style: BitMaskU32 = WindowStyle.Default; 
                 settings = contextSettings()): RenderWindow"><wbr />new<wbr />Render<wbr />Window</a></li>
-  <li><a class="reference" href="#string=,Text,string"
-    title="string=(text: Text; string: string)"><wbr />string=</a></li>
+  <li><a class="reference" href="#str,Text"
+    title="str(text: Text): string"><wbr />str</a></li>
+  <li><a class="reference" href="#str=,Text,string"
+    title="str=(text: Text; str: string)"><wbr />str=</a></li>
   <li><a class="reference" href="#draw,T,CircleShape"
     title="draw[T](renderTarget: T; obj: CircleShape; states = renderStates())"><wbr />draw</a></li>
   <li><a class="reference" href="#draw,T,ConvexShape"
@@ -2264,8 +2255,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <ul class="simple simple-toc-section">
       <li><a class="reference" href="#rect.c,IntRect"
     title="rect(r: IntRect): FloatRect"><wbr />rect</a></li>
-  <li><a class="reference" href="#toUint32.c,TextStyle"
-    title="toUint32(a: TextStyle): uint32"><wbr />to<wbr />Uint32</a></li>
+  <li><a class="reference" href="#toBitMaskU32.c,TextStyle"
+    title="toBitMaskU32(a: TextStyle): BitMaskU32"><wbr />to<wbr />Bit<wbr />Mask<wbr />U32</a></li>
 
   </ul>
 </li>
@@ -2286,7 +2277,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <div class="section" id="6">
 <h1><a class="toc-backref" href="#6">Imports</a></h1>
 <dl class="item">
-<a class="reference external" href="csfml_system.html">csfml_system</a>, <a class="reference external" href="csfml_window.html">csfml_window</a>, <a class="reference external" href="csfml_util.html">csfml_util</a>, <a class="reference external" href="unsigned.html">unsigned</a>
+<a class="reference external" href="csfml_system.html">csfml_system</a>, <a class="reference external" href="csfml_window.html">csfml_window</a>, <a class="reference external" href="csfml_util.html">csfml_util</a>, <a class="reference external" href="unsigned.html">unsigned</a>, <a class="reference external" href="unicode.html">unicode</a>
 </dl></div>
 <div class="section" id="7">
 <h1><a class="toc-backref" href="#7">Types</a></h1>
@@ -2572,74 +2563,74 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="contains"><a name="contains,,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">contains</span><span class="Other">(</span><span class="Identifier">rect</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span>
+<dt id="contains"><a name="contains,,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">contains</span><span class="Other">(</span><span class="Identifier">rect</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span>
     <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfFloatRect_contains&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="contains"><a name="contains,FloatRect,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">contains</span><span class="Other">(</span><span class="Identifier">rect</span><span class="Other">:</span> <span class="Identifier">FloatRect</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> 
+<dt id="contains"><a name="contains,FloatRect,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">contains</span><span class="Other">(</span><span class="Identifier">rect</span><span class="Other">:</span> <span class="Identifier">FloatRect</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> 
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="contains"><a name="contains,,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">contains</span><span class="Other">(</span><span class="Identifier">rect</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="contains"><a name="contains,,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">contains</span><span class="Other">(</span><span class="Identifier">rect</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfIntRect_contains&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="contains"><a name="contains,IntRect,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">contains</span><span class="Other">(</span><span class="Identifier">rect</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="contains"><a name="contains,IntRect,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">contains</span><span class="Other">(</span><span class="Identifier">rect</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
 <dt id="intersects"><a name="intersects,,,FloatRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">intersects</span><span class="Other">(</span><span class="Identifier">rect1</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> <span class="Identifier">rect2</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> 
-                <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+                <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfFloatRect_intersects&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
 <dt id="intersects"><a name="intersects,,FloatRect,FloatRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">intersects</span><span class="Other">(</span><span class="Identifier">rect1</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> <span class="Identifier">rect2</span><span class="Other">:</span> <span class="Identifier">FloatRect</span><span class="Other">;</span> 
-                <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+                <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
 <dt id="intersects"><a name="intersects,FloatRect,,FloatRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">intersects</span><span class="Other">(</span><span class="Identifier">rect1</span><span class="Other">:</span> <span class="Identifier">FloatRect</span><span class="Other">;</span> <span class="Identifier">rect2</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> 
-                <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+                <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="intersects"><a name="intersects,FloatRect,FloatRect,FloatRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">intersects</span><span class="Other">(</span><span class="Identifier">rect1</span><span class="Other">:</span> <span class="Identifier">FloatRect</span><span class="Other">;</span> <span class="Identifier">rect2</span><span class="Other">:</span> <span class="Identifier">FloatRect</span><span class="Other">;</span> <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span>
+<dt id="intersects"><a name="intersects,FloatRect,FloatRect,FloatRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">intersects</span><span class="Other">(</span><span class="Identifier">rect1</span><span class="Other">:</span> <span class="Identifier">FloatRect</span><span class="Other">;</span> <span class="Identifier">rect2</span><span class="Other">:</span> <span class="Identifier">FloatRect</span><span class="Other">;</span> <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span>
     <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
 <dt id="intersects"><a name="intersects,,,IntRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">intersects</span><span class="Other">(</span><span class="Identifier">rect1</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> <span class="Identifier">rect2</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> 
-                <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+                <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfIntRect_intersects&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
 <dt id="intersects"><a name="intersects,,IntRect,IntRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">intersects</span><span class="Other">(</span><span class="Identifier">rect1</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> <span class="Identifier">rect2</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">;</span> 
-                <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+                <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
 <dt id="intersects"><a name="intersects,IntRect,,IntRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">intersects</span><span class="Other">(</span><span class="Identifier">rect1</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">;</span> <span class="Identifier">rect2</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> 
-                <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+                <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="intersects"><a name="intersects,IntRect,IntRect,IntRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">intersects</span><span class="Other">(</span><span class="Identifier">rect1</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">;</span> <span class="Identifier">rect2</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">;</span> <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span>
+<dt id="intersects"><a name="intersects,IntRect,IntRect,IntRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">intersects</span><span class="Other">(</span><span class="Identifier">rect1</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">;</span> <span class="Identifier">rect2</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">;</span> <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span>
     <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
@@ -2665,13 +2656,14 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="getMatrix"><a name="getMatrix,,ptr.cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getMatrix</span><span class="Other">(</span><span class="Identifier">transform</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">Transform</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> <span class="Identifier">matrix</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">cfloat</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTransform_getMatrix&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="getMatrix_Ptr"><a name="getMatrix_Ptr,,ptr.cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getMatrix_Ptr</span><span class="Other">(</span><span class="Identifier">transform</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">Transform</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> <span class="Identifier">matrix</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">cfloat</span><span class="Other">)</span> <span class="Other">{.</span>
+    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTransform_getMatrix&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="getMatrix"><a name="getMatrix,Transform,ptr.cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getMatrix</span><span class="Other">(</span><span class="Identifier">transform</span><span class="Other">:</span> <span class="Identifier">Transform</span><span class="Other">;</span> <span class="Identifier">matrix</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">cfloat</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="getMatrix_Ptr"><a name="getMatrix_Ptr,Transform,ptr.cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getMatrix_Ptr</span><span class="Other">(</span><span class="Identifier">transform</span><span class="Other">:</span> <span class="Identifier">Transform</span><span class="Other">;</span> <span class="Identifier">matrix</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">cfloat</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> 
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Return the 4x4 matrix of a transform</p>
 <p>This function fills an array of 16 floats with the transform converted as a 4x4 matrix, which is directly compatible with OpenGL functions.</p>
@@ -2980,7 +2972,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="setTexture"><a name="setTexture,CircleShape,Texture,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setTexture</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">CircleShape</span><span class="Other">;</span> <span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">resetRect</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span> <span class="Other">{.</span>
+<dt id="setTexture"><a name="setTexture,CircleShape,Texture,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setTexture</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">CircleShape</span><span class="Other">;</span> <span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">resetRect</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span>
     <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfCircleShape_setTexture&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Change the source texture of a circle shape</p>
@@ -3358,7 +3350,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="setTexture"><a name="setTexture,ConvexShape,Texture,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setTexture</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">;</span> <span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">resetRect</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span> <span class="Other">{.</span>
+<dt id="setTexture"><a name="setTexture,ConvexShape,Texture,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setTexture</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">;</span> <span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">resetRect</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span>
     <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfConvexShape_setTexture&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Change the source texture of a convex shape</p>
@@ -3601,7 +3593,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="getGlyph"><a name="getGlyph,Font,uint32,cint,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getGlyph</span><span class="Other">(</span><span class="Identifier">font</span><span class="Other">:</span> <span class="Identifier">Font</span><span class="Other">;</span> <span class="Identifier">codePoint</span><span class="Other">:</span> <span class="Identifier">uint32</span><span class="Other">;</span> <span class="Identifier">characterSize</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">bold</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Glyph</span> <span class="Other">{.</span>
+<dt id="getGlyph"><a name="getGlyph,Font,RuneU32,cint,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getGlyph</span><span class="Other">(</span><span class="Identifier">font</span><span class="Other">:</span> <span class="Identifier">Font</span><span class="Other">;</span> <span class="Identifier">codePoint</span><span class="Other">:</span> <span class="Identifier">RuneU32</span><span class="Other">;</span> <span class="Identifier">characterSize</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">bold</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Glyph</span> <span class="Other">{.</span>
     <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfFont_getGlyph&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get a glyph in a font</p>
@@ -3615,7 +3607,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="getKerning"><a name="getKerning,Font,uint32,uint32,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getKerning</span><span class="Other">(</span><span class="Identifier">font</span><span class="Other">:</span> <span class="Identifier">Font</span><span class="Other">;</span> <span class="Identifier">first</span><span class="Other">:</span> <span class="Identifier">uint32</span><span class="Other">;</span> <span class="Identifier">second</span><span class="Other">:</span> <span class="Identifier">uint32</span><span class="Other">;</span> <span class="Identifier">characterSize</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">{.</span>
+<dt id="getKerning"><a name="getKerning,Font,RuneU32,RuneU32,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getKerning</span><span class="Other">(</span><span class="Identifier">font</span><span class="Other">:</span> <span class="Identifier">Font</span><span class="Other">;</span> <span class="Identifier">first</span><span class="Other">:</span> <span class="Identifier">RuneU32</span><span class="Other">;</span> <span class="Identifier">second</span><span class="Other">:</span> <span class="Identifier">RuneU32</span><span class="Other">;</span> <span class="Identifier">characterSize</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">{.</span>
     <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfFont_getKerning&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get the kerning value corresponding to a given pair of characters in a font</p>
@@ -3679,7 +3671,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="newImage"><a name="newImage,cint,cint,ptr.uint8"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newImage</span><span class="Other">(</span><span class="Identifier">width</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">pixels</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">uint8</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Image</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="newImage_Ptr"><a name="newImage_Ptr,cint,cint,ptr.uint8"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newImage_Ptr</span><span class="Other">(</span><span class="Identifier">width</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">pixels</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">uint8</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Image</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfImage_createFromPixels&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Create an image from an array of pixels</p>
@@ -3749,7 +3741,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="saveToFile"><a name="saveToFile,Image,cstring"></a><pre><span class="Keyword">proc</span> <span class="Identifier">saveToFile</span><span class="Other">(</span><span class="Identifier">image</span><span class="Other">:</span> <span class="Identifier">Image</span><span class="Other">;</span> <span class="Identifier">filename</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="saveToFile"><a name="saveToFile,Image,cstring"></a><pre><span class="Keyword">proc</span> <span class="Identifier">saveToFile</span><span class="Other">(</span><span class="Identifier">image</span><span class="Other">:</span> <span class="Identifier">Image</span><span class="Other">;</span> <span class="Identifier">filename</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfImage_saveToFile&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Save an image to a file on disk</p>
@@ -3786,8 +3778,8 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="copyImage"><a name="copyImage,Image,Image,cint,cint,IntRect,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">copyImage</span><span class="Other">(</span><span class="Identifier">image</span><span class="Other">:</span> <span class="Identifier">Image</span><span class="Other">;</span> <span class="Identifier">source</span><span class="Other">:</span> <span class="Identifier">Image</span><span class="Other">;</span> <span class="Identifier">destX</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">destY</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> 
-               <span class="Identifier">sourceRect</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">;</span> <span class="Identifier">applyAlpha</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="copyImage"><a name="copyImage,Image,Image,cint,cint,IntRect,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">copyImage</span><span class="Other">(</span><span class="Identifier">image</span><span class="Other">:</span> <span class="Identifier">Image</span><span class="Other">;</span> <span class="Identifier">source</span><span class="Other">:</span> <span class="Identifier">Image</span><span class="Other">;</span> <span class="Identifier">destX</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">destY</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> 
+               <span class="Identifier">sourceRect</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">;</span> <span class="Identifier">applyAlpha</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfImage_copyImage&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Copy pixels from an image onto another</p>
@@ -4044,7 +4036,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="setTexture"><a name="setTexture,RectangleShape,Texture,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setTexture</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">RectangleShape</span><span class="Other">;</span> <span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">resetRect</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span> <span class="Other">{.</span>
+<dt id="setTexture"><a name="setTexture,RectangleShape,Texture,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setTexture</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">RectangleShape</span><span class="Other">;</span> <span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">resetRect</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span>
     <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRectangleShape_setTexture&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Change the source texture of a rectangle shape</p>
@@ -4231,29 +4223,15 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="newRenderWindow"><a name="newRenderWindow,VideoMode,cstring,uint32,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderWindow</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">uint32</span><span class="Other">;</span> 
-                     <span class="Identifier">settings</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">ContextSettings</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span> <span class="Other">{.</span>
+<dt id="newRenderWindow_C"><a name="newRenderWindow_C,VideoMode,cstring,BitMaskU32,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderWindow_C</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span><span class="Other">;</span> 
+                       <span class="Identifier">settings</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">ContextSettings</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span> <span class="Other">{.</span>
     <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_create&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="newRenderWindow"><a name="newRenderWindow,VideoMode,cstring,uint32,ContextSettings"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderWindow</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">uint32</span><span class="Other">;</span> 
-                     <span class="Identifier">settings</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> 
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="newRenderWindow"><a name="newRenderWindow,VideoMode,ptr.uint32,uint32,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderWindow</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">uint32</span><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">uint32</span><span class="Other">;</span> 
-                     <span class="Identifier">settings</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">ContextSettings</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span> <span class="Other">{.</span>
-    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_createUnicode&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="newRenderWindow"><a name="newRenderWindow,VideoMode,ptr.uint32,uint32,ContextSettings"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderWindow</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">uint32</span><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">uint32</span><span class="Other">;</span> 
-                     <span class="Identifier">settings</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> 
+<dt id="newRenderWindow_C"><a name="newRenderWindow_C,VideoMode,cstring,BitMaskU32,ContextSettings"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderWindow_C</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span><span class="Other">;</span> 
+                       <span class="Identifier">settings</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> 
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
@@ -4292,7 +4270,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="open"><a name="open,RenderWindow"></a><pre><span class="Keyword">proc</span> <span class="Identifier">open</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="open"><a name="open,RenderWindow"></a><pre><span class="Keyword">proc</span> <span class="Identifier">open</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_isOpen&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Tell whether or not a render window is opened</p>
@@ -4313,7 +4291,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="pollEvent"><a name="pollEvent,RenderWindow,Event"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pollEvent</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">event</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Event</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="pollEvent"><a name="pollEvent,RenderWindow,Event"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pollEvent</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">event</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Event</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_pollEvent&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get the event on top of event queue of a render window, if any, and pop it</p>
@@ -4325,7 +4303,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="waitEvent"><a name="waitEvent,RenderWindow,Event"></a><pre><span class="Keyword">proc</span> <span class="Identifier">waitEvent</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">event</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Event</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="waitEvent"><a name="waitEvent,RenderWindow,Event"></a><pre><span class="Keyword">proc</span> <span class="Identifier">waitEvent</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">event</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Event</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_waitEvent&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Wait for an event and return it</p>
@@ -4382,7 +4360,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="title="><a name="title=,RenderWindow,cstring"></a><pre><span class="Keyword">proc</span> <span class="Identifier">title=</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="title_C="><a name="title_C=,RenderWindow,cstring"></a><pre><span class="Keyword">proc</span> <span class="Identifier">title_C=</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_setTitle&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Change the title of a render window</p>
@@ -4393,20 +4371,9 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="unicodeTitle="><a name="unicodeTitle=,RenderWindow,ptr.uint32"></a><pre><span class="Keyword">proc</span> <span class="Identifier">unicodeTitle=</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">uint32</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_setUnicodeTitle&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Change the title of a render window (with a UTF-32 string)</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderWindow</span></tt>:  Render window object</li>
-<li><tt class="docutils literal"><span class="pre">title</span></tt>:         New title</li>
-</ul>
-
-
-</dd>
-<dt id="setIcon"><a name="setIcon,RenderWindow,cint,cint,ptr.uint8"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setIcon</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">width</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> 
-             <span class="Identifier">pixels</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">uint8</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
-                                  <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_setIcon&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="setIcon_Ptr"><a name="setIcon_Ptr,RenderWindow,cint,cint,ptr.uint8"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setIcon_Ptr</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">width</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> 
+                 <span class="Identifier">pixels</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">uint8</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+                                      <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_setIcon&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Change a render window's icon</p>
 <p><em>Arguments</em>:</p>
@@ -4418,7 +4385,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="visible="><a name="visible=,RenderWindow,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">visible=</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">visible</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="visible="><a name="visible=,RenderWindow,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">visible=</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">visible</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_setVisible&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Show or hide a render window</p>
@@ -4429,7 +4396,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="mouseCursorVisible="><a name="mouseCursorVisible=,RenderWindow,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouseCursorVisible=</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">show</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="mouseCursorVisible="><a name="mouseCursorVisible=,RenderWindow,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouseCursorVisible=</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">show</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_setMouseCursorVisible&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Show or hide the mouse cursor on a render window</p>
@@ -4440,7 +4407,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="verticalSyncEnabled="><a name="verticalSyncEnabled=,RenderWindow,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">verticalSyncEnabled=</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">enabled</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="verticalSyncEnabled="><a name="verticalSyncEnabled=,RenderWindow,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">verticalSyncEnabled=</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">enabled</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_setVerticalSyncEnabled&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Enable / disable vertical synchronization on a render window</p>
@@ -4451,7 +4418,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="keyRepeatEnabled="><a name="keyRepeatEnabled=,RenderWindow,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">keyRepeatEnabled=</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">enabled</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="keyRepeatEnabled="><a name="keyRepeatEnabled=,RenderWindow,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">keyRepeatEnabled=</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">enabled</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_setKeyRepeatEnabled&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Enable or disable automatic key-repeat for keydown events</p>
@@ -4463,7 +4430,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="active="><a name="active=,RenderWindow,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">active=</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">active</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="active="><a name="active=,RenderWindow,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">active=</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">active</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_setActive&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Activate or deactivate a render window as the current target for rendering</p>
@@ -4814,7 +4781,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="newRenderTexture"><a name="newRenderTexture,cint,cint,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderTexture</span><span class="Other">(</span><span class="Identifier">width</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">depthBuffer</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span> <span class="Other">{.</span>
+<dt id="newRenderTexture"><a name="newRenderTexture,cint,cint,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderTexture</span><span class="Other">(</span><span class="Identifier">width</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">depthBuffer</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span> <span class="Other">{.</span>
     <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_create&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Construct a new render texture</p>
@@ -4848,7 +4815,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="active="><a name="active=,RenderTexture,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">active=</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">active</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="active="><a name="active=,RenderTexture,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">active=</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">active</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_setActive&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Activate or deactivate a render texture as the current target for rendering</p>
@@ -5141,7 +5108,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="smooth="><a name="smooth=,RenderTexture,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">smooth=</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">smooth</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="smooth="><a name="smooth=,RenderTexture,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">smooth=</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">smooth</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_setSmooth&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Enable or disable the smooth filter on a render texture</p>
@@ -5152,7 +5119,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="smooth"><a name="smooth,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">smooth</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="smooth"><a name="smooth,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">smooth</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_isSmooth&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Tell whether the smooth filter is enabled or not for a render texture</p>
@@ -5163,7 +5130,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="repeated="><a name="repeated=,RenderTexture,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">repeated=</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">repeated</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="repeated="><a name="repeated=,RenderTexture,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">repeated=</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">repeated</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_setRepeated&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Enable or disable texture repeating</p>
@@ -5174,7 +5141,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="repeated"><a name="repeated,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">repeated</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="repeated"><a name="repeated,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">repeated</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_isRepeated&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Tell whether the texture is repeated or not</p>
@@ -5384,8 +5351,8 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="shader_isAvailable"><a name="shader_isAvailable,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">shader_isAvailable</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
-                                  <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_isAvailable&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="shader_isAvailable"><a name="shader_isAvailable,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">shader_isAvailable</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+                                     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_isAvailable&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Tell whether or not the system supports shaders</p>
 <p>This function should always be called before using the shader features. If it returns false, then any attempt to use Shader will fail.</p>
@@ -5567,7 +5534,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="setTexture"><a name="setTexture,Shape,Texture,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setTexture</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">Shape</span><span class="Other">;</span> <span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">resetRect</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="setTexture"><a name="setTexture,Shape,Texture,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setTexture</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">Shape</span><span class="Other">;</span> <span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">resetRect</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShape_setTexture&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Change the source texture of a shape</p>
@@ -5916,7 +5883,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="setTexture"><a name="setTexture,Sprite,Texture,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setTexture</span><span class="Other">(</span><span class="Identifier">sprite</span><span class="Other">:</span> <span class="Identifier">Sprite</span><span class="Other">;</span> <span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">resetRect</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="setTexture"><a name="setTexture,Sprite,Texture,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setTexture</span><span class="Other">(</span><span class="Identifier">sprite</span><span class="Other">:</span> <span class="Identifier">Sprite</span><span class="Other">;</span> <span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">resetRect</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSprite_setTexture&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Change the source texture of a sprite</p>
@@ -6188,22 +6155,11 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="string="><a name="string=,Text,cstring"></a><pre><span class="Keyword">proc</span> <span class="Identifier">string=</span><span class="Other">(</span><span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">;</span> <span class="Identifier">string</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_setString&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="str_C="><a name="str_C=,Text,cstring"></a><pre><span class="Keyword">proc</span> <span class="Identifier">str_C=</span><span class="Other">(</span><span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">;</span> <span class="Identifier">str</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+                                        <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_setString&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the string of a text (from an ANSI string)</p>
 <p>A text's string is empty by default.</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">text</span></tt>:    Text object</li>
-<li><tt class="docutils literal"><span class="pre">string</span></tt>:  New string</li>
-</ul>
-
-
-</dd>
-<dt id="unicodeString="><a name="unicodeString=,Text,ptr.uint32"></a><pre><span class="Keyword">proc</span> <span class="Identifier">unicodeString=</span><span class="Other">(</span><span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">;</span> <span class="Identifier">string</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">uint32</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_setUnicodeString&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Set the string of a text (from a unicode string)</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">text</span></tt>:    Text object</li>
 <li><tt class="docutils literal"><span class="pre">string</span></tt>:  New string</li>
@@ -6235,7 +6191,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="style="><a name="style=,Text,uint32"></a><pre><span class="Keyword">proc</span> <span class="Identifier">style=</span><span class="Other">(</span><span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">uint32</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="style="><a name="style=,Text,BitMaskU32"></a><pre><span class="Keyword">proc</span> <span class="Identifier">style=</span><span class="Other">(</span><span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_setStyle&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the style of a text</p>
@@ -6259,25 +6215,14 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="string"><a name="string,Text"></a><pre><span class="Keyword">proc</span> <span class="Identifier">string</span><span class="Other">(</span><span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cstring</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
-                                   <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_getString&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="str_C"><a name="str_C,Text"></a><pre><span class="Keyword">proc</span> <span class="Identifier">str_C</span><span class="Other">(</span><span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cstring</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+                                  <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_getString&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get the string of a text (returns an ANSI string)</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">text</span></tt>:  Text object</li>
 </ul>
 <p><em>Returns:</em> String as a locale-dependant ANSI string</p>
-
-
-</dd>
-<dt id="unicodeString"><a name="unicodeString,Text"></a><pre><span class="Keyword">proc</span> <span class="Identifier">unicodeString</span><span class="Other">(</span><span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">uint32</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_getUnicodeString&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Get the string of a text (returns a unicode string)</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">text</span></tt>:  Text object</li>
-</ul>
-<p><em>Returns:</em> String as UTF-32</p>
 
 
 </dd>
@@ -6303,7 +6248,8 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="style"><a name="style,Text"></a><pre><span class="Keyword">proc</span> <span class="Identifier">style</span><span class="Other">(</span><span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">uint32</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_getStyle&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="style"><a name="style,Text"></a><pre><span class="Keyword">proc</span> <span class="Identifier">style</span><span class="Other">(</span><span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+                                     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfText_getStyle&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get the style of a text</p>
 <p><em>Arguments</em>:</p>
@@ -6462,8 +6408,8 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="updateFromPixels"><a name="updateFromPixels,Texture,ptr.uint8,cint,cint,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">updateFromPixels</span><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">pixels</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">uint8</span><span class="Other">;</span> <span class="Identifier">width</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> 
-                      <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="updateFromPixels_Ptr"><a name="updateFromPixels_Ptr,Texture,ptr.uint8,cint,cint,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">updateFromPixels_Ptr</span><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">pixels</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">uint8</span><span class="Other">;</span> <span class="Identifier">width</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> 
+                          <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTexture_updateFromPixels&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Update a texture from an array of pixels</p>
@@ -6518,7 +6464,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="smooth="><a name="smooth=,Texture,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">smooth=</span><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">smooth</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="smooth="><a name="smooth=,Texture,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">smooth=</span><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">smooth</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTexture_setSmooth&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Enable or disable the smooth filter on a texture</p>
@@ -6529,8 +6475,8 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="smooth"><a name="smooth,Texture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">smooth</span><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
-                                      <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTexture_isSmooth&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="smooth"><a name="smooth,Texture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">smooth</span><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTexture_isSmooth&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Tell whether the smooth filter is enabled or not for a texture</p>
 <p><em>Arguments</em>:</p>
@@ -6540,7 +6486,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="repeated="><a name="repeated=,Texture,IntBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">repeated=</span><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">repeated</span><span class="Other">:</span> <span class="Identifier">IntBool</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="repeated="><a name="repeated=,Texture,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">repeated=</span><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">repeated</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTexture_setRepeated&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Enable or disable repeating for a texture</p>
@@ -6552,8 +6498,8 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="repeated"><a name="repeated,Texture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">repeated</span><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
-                                        <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTexture_isRepeated&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="repeated"><a name="repeated,Texture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">repeated</span><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTexture_isRepeated&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Tell whether a texture is repeated or not</p>
 <p><em>Arguments</em>:</p>
@@ -7251,20 +7197,25 @@ Sets the alpha (opacity) component of a Color
 </dd>
 <dt id="title="><a name="title=,RenderWindow,string"></a><pre><span class="Keyword">proc</span> <span class="Identifier">title=</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-Overloaded proc that converts Nim's strings correctly
+Wrapper proc that converts Nim's strings correctly
 
 </dd>
-<dt id="newRenderWindow"><a name="newRenderWindow,VideoMode,string,uint32"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderWindow</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> 
-                     <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">uint32</span> <span class="Other">=</span> <span class="Identifier">WindowStyle</span><span class="Other">.</span><span class="Identifier">Default</span><span class="Other">;</span> 
+<dt id="newRenderWindow"><a name="newRenderWindow,VideoMode,string,BitMaskU32"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderWindow</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> 
+                     <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span> <span class="Other">=</span> <span class="Identifier">WindowStyle</span><span class="Other">.</span><span class="Identifier">Default</span><span class="Other">;</span> 
                      <span class="Identifier">settings</span> <span class="Other">=</span> <span class="Identifier">contextSettings</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> 
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="string="><a name="string=,Text,string"></a><pre><span class="Keyword">proc</span> <span class="Identifier">string=</span><span class="Other">(</span><span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">;</span> <span class="Identifier">string</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="str"><a name="str,Text"></a><pre><span class="Keyword">proc</span> <span class="Identifier">str</span><span class="Other">(</span><span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-Overloaded proc that converts Nim's strings correctly
+
+
+</dd>
+<dt id="str="><a name="str=,Text,string"></a><pre><span class="Keyword">proc</span> <span class="Identifier">str=</span><span class="Other">(</span><span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">;</span> <span class="Identifier">str</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+Wrapper proc that converts Nim's strings correctly
 
 </dd>
 <dt id="draw"><a name="draw,T,CircleShape"></a><pre><span class="Keyword">proc</span> <span class="Identifier">draw</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">renderTarget</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">CircleShape</span><span class="Other">;</span> <span class="Identifier">states</span> <span class="Other">=</span> <span class="Identifier">renderStates</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span></pre></dt>
@@ -7328,9 +7279,9 @@ Overloaded proc that converts Nim's strings correctly
 Conversion from IntRect to FloatRect
 
 </dd>
-<dt id="toUint32"><a name="toUint32.c,TextStyle"></a><pre><span class="Keyword">converter</span> <span class="Identifier">toUint32</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">TextStyle</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">uint32</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="toBitMaskU32"><a name="toBitMaskU32.c,TextStyle"></a><pre><span class="Keyword">converter</span> <span class="Identifier">toBitMaskU32</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">TextStyle</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
-
+Allows TextStyle values to be combined using the | operator and be used in functions
 
 </dd>
 
@@ -7353,7 +7304,7 @@ Allows the syntax <tt class="docutils literal"><span class="pre">renderTarget.dr
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-04 12:24:57 UTC</small>
+        <small>Made with Nim. Generated: 2015-01-04 16:46:52 UTC</small>
       </div>
     </div>
   </div>
