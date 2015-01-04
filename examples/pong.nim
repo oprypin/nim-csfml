@@ -53,7 +53,7 @@ pauseMessage.font = font
 pauseMessage.characterSize = 40
 pauseMessage.position = vec2(170.0, 150.0)
 pauseMessage.color = White
-pauseMessage.string = "Welcome to SFML pong!\nPress space to start the game"
+pauseMessage.str = "Welcome to SFML pong!\nPress space to start the game"
 
 # Define the paddles properties
 var AITimer = newClock()
@@ -127,10 +127,10 @@ while window.open:
         # Check collisions between the ball and the screen
         if ball.position.x - ballRadius < 0.0:
             isPlaying = false
-            pauseMessage.string = "You lost!\nPress space to restart or\nescape to exit"
+            pauseMessage.str = "You lost!\nPress space to restart or\nescape to exit"
         if ball.position.x + ballRadius > gameWidth:
             isPlaying = false
-            pauseMessage.string = "You won!\nPress space to restart or\nescape to exit"
+            pauseMessage.str = "You won!\nPress space to restart or\nescape to exit"
         if ball.position.y - ballRadius < 0.0:
             ballSound.play()
             ballAngle = -ballAngle

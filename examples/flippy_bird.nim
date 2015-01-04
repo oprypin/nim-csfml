@@ -35,7 +35,7 @@ while window.open:
     
     speed += 0.3
     bird.move vec2(0.0, speed)
-    bird.rotation = 
+    bird.rotation =
       if speed*8.0 < 90.0: speed*8.0
       else: 90.0
      

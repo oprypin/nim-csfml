@@ -9,3 +9,9 @@ block:
   assert color(0, 5, 10)-color(3, 5, 7) == color(0, 0, 3, 0)
   
   assert Yellow == color(255, 255, 0)
+
+block:
+  let s = "Випробування"
+  var txt = newText()
+  txt.str = s
+  assert txt.str == s

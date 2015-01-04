@@ -87,27 +87,27 @@ proc `<`*(a, b: VideoMode): bool =
 proc `<=`*(a, b: VideoMode): bool = not(b < a)
 
 proc videoMode_getFullscreenModes*(): seq[VideoMode] =
-  ## Overloaded proc that returns a seq instead of exposing pointers
+  ## Wrapper proc that returns a seq instead of exposing pointers
   ##
   ## *Returns:* seq containing all the supported fullscreen modes
   var count: int
-  var p = cast[int](videoMode_getFullscreenModes(addr count))
+  var p = cast[int](videoMode_getFullscreenModes_Ptr(addr count))
   result = newSeq[VideoMode](count)
   for i in result.low..result.high:
     result[i] = cast[ptr VideoMode](p)[]
     p += sizeof(VideoMode)
 
 
-converter toUint32*(a: WindowStyle): uint32 = uint32 a
+converter toBitMaskU32*(a: WindowStyle): BitMaskU32 = BitMaskU32 a
   ## Allows WindowStyle values to be combined using the | operator and be used in functions
 
 proc `title=`*(window: Window, title: string) =
-  ## Overloaded proc that converts Nim's strings correctly
+  ## Wrapper proc that converts Nim's strings correctly
   var t = utf8to32(title)
-  window.unicodeTitle = addr(t[0])
+  window.title_U32 = addr(t[0])
 
-proc newWindow*(mode: VideoMode, title: string, style: uint32 = WindowStyle.Default,
+proc newWindow*(mode: VideoMode, title: string, style: BitMaskU32 = WindowStyle.Default,
                 settings = contextSettings()): Window =
-  ## Overloaded proc that converts Nim's strings correctly
+  ## Wrapper proc that converts Nim's strings correctly
   var t = utf8to32(title)
-  newWindow(mode, addr(t[0]), style, settings)
+  newWindow_U32(mode, addr(t[0]), style, settings)

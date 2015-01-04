@@ -78,9 +78,9 @@ type IntRect* {.pure, final.} = object
   width*: cint
   height*: cint
 
-proc contains*(rect: (var FloatRect){lvalue}, x: cfloat, y: cfloat): bool {.
+proc contains*(rect: (var FloatRect){lvalue}, x: cfloat, y: cfloat): BoolInt {.
   cdecl, dynlib: lib, importc: "sfFloatRect_contains".}
-proc contains*(rect: FloatRect, x: cfloat, y: cfloat): bool =
+proc contains*(rect: FloatRect, x: cfloat, y: cfloat): BoolInt =
   ## Check if a point is inside a rectangle's area
   ## 
   ## *Arguments*:
@@ -92,21 +92,21 @@ proc contains*(rect: FloatRect, x: cfloat, y: cfloat): bool =
   (var Crect = rect)
   contains(Crect, x, y)
 
-proc contains*(rect: (var IntRect){lvalue}, x: cint, y: cint): bool {.
+proc contains*(rect: (var IntRect){lvalue}, x: cint, y: cint): BoolInt {.
   cdecl, dynlib: lib, importc: "sfIntRect_contains".}
-proc contains*(rect: IntRect, x: cint, y: cint): bool =
+proc contains*(rect: IntRect, x: cint, y: cint): BoolInt =
   (var Crect = rect)
   contains(Crect, x, y)
 
-proc intersects*(rect1: (var FloatRect){lvalue}, rect2: (var FloatRect){lvalue}, intersection: var FloatRect): bool {.
+proc intersects*(rect1: (var FloatRect){lvalue}, rect2: (var FloatRect){lvalue}, intersection: var FloatRect): BoolInt {.
   cdecl, dynlib: lib, importc: "sfFloatRect_intersects".}
-proc intersects*(rect1: (var FloatRect){lvalue}, rect2: FloatRect, intersection: var FloatRect): bool =
+proc intersects*(rect1: (var FloatRect){lvalue}, rect2: FloatRect, intersection: var FloatRect): BoolInt =
   (var Crect2 = rect2)
   intersects(rect1, Crect2, intersection)
-proc intersects*(rect1: FloatRect, rect2: (var FloatRect){lvalue}, intersection: var FloatRect): bool =
+proc intersects*(rect1: FloatRect, rect2: (var FloatRect){lvalue}, intersection: var FloatRect): BoolInt =
   (var Crect1 = rect1)
   intersects(Crect1, rect2, intersection)
-proc intersects*(rect1: FloatRect, rect2: FloatRect, intersection: var FloatRect): bool =
+proc intersects*(rect1: FloatRect, rect2: FloatRect, intersection: var FloatRect): BoolInt =
   ## Check intersection between two rectangles
   ## 
   ## *Arguments*:
@@ -118,15 +118,15 @@ proc intersects*(rect1: FloatRect, rect2: FloatRect, intersection: var FloatRect
   (var Crect1 = rect1; var Crect2 = rect2)
   intersects(Crect1, Crect2, intersection)
 
-proc intersects*(rect1: (var IntRect){lvalue}, rect2: (var IntRect){lvalue}, intersection: var IntRect): bool {.
+proc intersects*(rect1: (var IntRect){lvalue}, rect2: (var IntRect){lvalue}, intersection: var IntRect): BoolInt {.
   cdecl, dynlib: lib, importc: "sfIntRect_intersects".}
-proc intersects*(rect1: (var IntRect){lvalue}, rect2: IntRect, intersection: var IntRect): bool =
+proc intersects*(rect1: (var IntRect){lvalue}, rect2: IntRect, intersection: var IntRect): BoolInt =
   (var Crect2 = rect2)
   intersects(rect1, Crect2, intersection)
-proc intersects*(rect1: IntRect, rect2: (var IntRect){lvalue}, intersection: var IntRect): bool =
+proc intersects*(rect1: IntRect, rect2: (var IntRect){lvalue}, intersection: var IntRect): BoolInt =
   (var Crect1 = rect1)
   intersects(Crect1, rect2, intersection)
-proc intersects*(rect1: IntRect, rect2: IntRect, intersection: var IntRect): bool =
+proc intersects*(rect1: IntRect, rect2: IntRect, intersection: var IntRect): BoolInt =
   (var Crect1 = rect1; var Crect2 = rect2)
   intersects(Crect1, Crect2, intersection)
 
@@ -217,9 +217,9 @@ proc transform*(a00: cfloat, a01: cfloat, a02: cfloat, a10: cfloat, a11: cfloat,
   ## 
   ## *Returns:* A new Transform object
 
-proc getMatrix*(transform: (var Transform){lvalue}, matrix: ptr cfloat) {.
+proc getMatrix_Ptr*(transform: (var Transform){lvalue}, matrix: ptr cfloat) {.
   cdecl, dynlib: lib, importc: "sfTransform_getMatrix".}
-proc getMatrix*(transform: Transform, matrix: ptr cfloat) =
+proc getMatrix_Ptr*(transform: Transform, matrix: ptr cfloat) =
   ## Return the 4x4 matrix of a transform
   ## 
   ## This function fills an array of 16 floats with the transform
@@ -231,7 +231,7 @@ proc getMatrix*(transform: Transform, matrix: ptr cfloat) =
   ## - ``transform``:  Transform object
   ## - ``matrix``:  Pointer to the 16-element array to fill with the matrix
   (var Ctransform = transform)
-  getMatrix(Ctransform, matrix)
+  getMatrix_Ptr(Ctransform, matrix)
 
 proc inverse*(transform: (var Transform){lvalue}): Transform {.
   cdecl, dynlib: lib, importc: "sfTransform_getInverse".}
@@ -513,7 +513,7 @@ proc inverseTransform*(shape: CircleShape): Transform {.
   ## 
   ## *Returns:* Inverse of the combined transformations applied to the object
 
-proc setTexture*(shape: CircleShape, texture: Texture, resetRect: IntBool) {.
+proc setTexture*(shape: CircleShape, texture: Texture, resetRect: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfCircleShape_setTexture".}
   ## Change the source texture of a circle shape
   ## 
@@ -873,7 +873,7 @@ proc inverseTransform*(shape: ConvexShape): Transform {.
   ## 
   ## *Returns:* Inverse of the combined transformations applied to the object
 
-proc setTexture*(shape: ConvexShape, texture: Texture, resetRect: IntBool) {.
+proc setTexture*(shape: ConvexShape, texture: Texture, resetRect: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfConvexShape_setTexture".}
   ## Change the source texture of a convex shape
   ## 
@@ -1124,7 +1124,7 @@ proc destroy*(font: Font) {.
   ## *Arguments*:
   ## - ``font``:  Font to delete
 
-proc getGlyph*(font: Font, codePoint: uint32, characterSize: cint, bold: IntBool): Glyph {.
+proc getGlyph*(font: Font, codePoint: RuneU32, characterSize: cint, bold: BoolInt): Glyph {.
   cdecl, dynlib: lib, importc: "sfFont_getGlyph".}
   ## Get a glyph in a font
   ## 
@@ -1136,7 +1136,7 @@ proc getGlyph*(font: Font, codePoint: uint32, characterSize: cint, bold: IntBool
   ## 
   ## *Returns:* The corresponding glyph
 
-proc getKerning*(font: Font, first: uint32, second: uint32, characterSize: cint): cint {.
+proc getKerning*(font: Font, first: RuneU32, second: RuneU32, characterSize: cint): cint {.
   cdecl, dynlib: lib, importc: "sfFont_getKerning".}
   ## Get the kerning value corresponding to a given pair of characters in a font
   ## 
@@ -1194,7 +1194,7 @@ proc newImage*(width: cint, height: cint, color: Color): Image {.
   ## 
   ## *Returns:* A new Image object
 
-proc newImage*(width: cint, height: cint, pixels: ptr uint8): Image {.
+proc newImage_Ptr*(width: cint, height: cint, pixels: ptr uint8): Image {.
   cdecl, dynlib: lib, importc: "sfImage_createFromPixels".}
   ## Create an image from an array of pixels
   ## 
@@ -1269,7 +1269,7 @@ proc destroy*(image: Image) {.
   ## *Arguments*:
   ## - ``image``:  Image to delete
 
-proc saveToFile*(image: Image, filename: cstring): bool {.
+proc saveToFile*(image: Image, filename: cstring): BoolInt {.
   cdecl, dynlib: lib, importc: "sfImage_saveToFile".}
   ## Save an image to a file on disk
   ## 
@@ -1306,7 +1306,7 @@ proc newImage*(image: Image, color: Color, alpha: uint8) {.
   ## - ``color``:  Color to make transparent
   ## - ``alpha``:  Alpha value to assign to transparent pixels
 
-proc copyImage*(image: Image, source: Image, destX: cint, destY: cint, sourceRect: IntRect, applyAlpha: IntBool) {.
+proc copyImage*(image: Image, source: Image, destX: cint, destY: cint, sourceRect: IntRect, applyAlpha: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfImage_copyImage".}
   ## Copy pixels from an image onto another
   ## 
@@ -1562,7 +1562,7 @@ proc inverseTransform*(shape: RectangleShape): Transform {.
   ## 
   ## *Returns:* Inverse of the combined transformations applied to the object
 
-proc setTexture*(shape: RectangleShape, texture: Texture, resetRect: IntBool) {.
+proc setTexture*(shape: RectangleShape, texture: Texture, resetRect: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfRectangleShape_setTexture".}
   ## Change the source texture of a rectangle shape
   ## 
@@ -1770,9 +1770,9 @@ type Vertex* {.pure, final.} = object
   color*: Color
   texCoords*: Vector2f
 
-proc newRenderWindow*(mode: VideoMode, title: cstring, style: uint32, settings: (var ContextSettings){lvalue}): RenderWindow {.
+proc newRenderWindow_C*(mode: VideoMode, title: cstring, style: BitMaskU32, settings: (var ContextSettings){lvalue}): RenderWindow {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_create".}
-proc newRenderWindow*(mode: VideoMode, title: cstring, style: uint32, settings: ContextSettings): RenderWindow =
+proc newRenderWindow_C*(mode: VideoMode, title: cstring, style: BitMaskU32, settings: ContextSettings): RenderWindow =
   ## Construct a new render window
   ## 
   ## *Arguments*:
@@ -1781,11 +1781,11 @@ proc newRenderWindow*(mode: VideoMode, title: cstring, style: uint32, settings: 
   ## - ``style``:     Window style
   ## - ``settings``:  Creation settings (pass NULL to use default values)
   (var Csettings = settings)
-  newRenderWindow(mode, title, style, Csettings)
+  newRenderWindow_C(mode, title, style, Csettings)
 
-proc newRenderWindow*(mode: VideoMode, title: ptr uint32, style: uint32, settings: (var ContextSettings){lvalue}): RenderWindow {.
+proc newRenderWindow_U32(mode: VideoMode, title: StringU32, style: BitMaskU32, settings: (var ContextSettings){lvalue}): RenderWindow {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_createUnicode".}
-proc newRenderWindow*(mode: VideoMode, title: ptr uint32, style: uint32, settings: ContextSettings): RenderWindow =
+proc newRenderWindow_U32(mode: VideoMode, title: StringU32, style: BitMaskU32, settings: ContextSettings): RenderWindow =
   ## Construct a new render window (with a UTF-32 title)
   ## 
   ## *Arguments*:
@@ -1794,7 +1794,7 @@ proc newRenderWindow*(mode: VideoMode, title: ptr uint32, style: uint32, setting
   ## - ``style``:     Window style
   ## - ``settings``:  Creation settings (pass NULL to use default values)
   (var Csettings = settings)
-  newRenderWindow(mode, title, style, Csettings)
+  newRenderWindow_U32(mode, title, style, Csettings)
 
 proc newRenderWindow*(handle: WindowHandle, settings: (var ContextSettings){lvalue}): RenderWindow {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_createFromHandle".}
@@ -1821,7 +1821,7 @@ proc close*(renderWindow: RenderWindow) {.
   ## *Arguments*:
   ## - ``renderWindow``:  Render window to close
 
-proc open*(renderWindow: RenderWindow): bool {.
+proc open*(renderWindow: RenderWindow): BoolInt {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_isOpen".}
   ## Tell whether or not a render window is opened
   ## 
@@ -1837,7 +1837,7 @@ proc settings*(renderWindow: RenderWindow): ContextSettings {.
   ## 
   ## *Returns:* Settings used to create the window
 
-proc pollEvent*(renderWindow: RenderWindow, event: var Event): bool {.
+proc pollEvent*(renderWindow: RenderWindow, event: var Event): BoolInt {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_pollEvent".}
   ## Get the event on top of event queue of a render window, if any, and pop it
   ## 
@@ -1847,7 +1847,7 @@ proc pollEvent*(renderWindow: RenderWindow, event: var Event): bool {.
   ## 
   ## *Returns:* True if an event was returned, False if event queue was empty
 
-proc waitEvent*(renderWindow: RenderWindow, event: var Event): bool {.
+proc waitEvent*(renderWindow: RenderWindow, event: var Event): BoolInt {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_waitEvent".}
   ## Wait for an event and return it
   ## 
@@ -1893,7 +1893,7 @@ proc `size=`*(renderWindow: RenderWindow, size: Vector2i) {.
   ## - ``renderWindow``:  Render window object
   ## - ``size``:          New size, in pixels
 
-proc `title=`*(renderWindow: RenderWindow, title: cstring) {.
+proc `title_C=`*(renderWindow: RenderWindow, title: cstring) {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_setTitle".}
   ## Change the title of a render window
   ## 
@@ -1901,7 +1901,7 @@ proc `title=`*(renderWindow: RenderWindow, title: cstring) {.
   ## - ``renderWindow``:  Render window object
   ## - ``title``:         New title
 
-proc `unicodeTitle=`*(renderWindow: RenderWindow, title: ptr uint32) {.
+proc `title_U32=`(renderWindow: RenderWindow, title: StringU32) {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_setUnicodeTitle".}
   ## Change the title of a render window (with a UTF-32 string)
   ## 
@@ -1909,7 +1909,7 @@ proc `unicodeTitle=`*(renderWindow: RenderWindow, title: ptr uint32) {.
   ## - ``renderWindow``:  Render window object
   ## - ``title``:         New title
 
-proc setIcon*(renderWindow: RenderWindow, width: cint, height: cint, pixels: ptr uint8) {.
+proc setIcon_Ptr*(renderWindow: RenderWindow, width: cint, height: cint, pixels: ptr uint8) {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_setIcon".}
   ## Change a render window's icon
   ## 
@@ -1919,7 +1919,7 @@ proc setIcon*(renderWindow: RenderWindow, width: cint, height: cint, pixels: ptr
   ## - ``height``:        Icon's height, in pixels
   ## - ``pixels``:        Pointer to the pixels in memory, format must be RGBA 32 bits
 
-proc `visible=`*(renderWindow: RenderWindow, visible: IntBool) {.
+proc `visible=`*(renderWindow: RenderWindow, visible: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_setVisible".}
   ## Show or hide a render window
   ## 
@@ -1927,7 +1927,7 @@ proc `visible=`*(renderWindow: RenderWindow, visible: IntBool) {.
   ## - ``renderWindow``:  Render window object
   ## - ``visible``:       True to show the window, False to hide it
 
-proc `mouseCursorVisible=`*(renderWindow: RenderWindow, show: IntBool) {.
+proc `mouseCursorVisible=`*(renderWindow: RenderWindow, show: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_setMouseCursorVisible".}
   ## Show or hide the mouse cursor on a render window
   ## 
@@ -1935,7 +1935,7 @@ proc `mouseCursorVisible=`*(renderWindow: RenderWindow, show: IntBool) {.
   ## - ``renderWindow``:  Render window object
   ## - ``show``:          True to show, False to hide
 
-proc `verticalSyncEnabled=`*(renderWindow: RenderWindow, enabled: IntBool) {.
+proc `verticalSyncEnabled=`*(renderWindow: RenderWindow, enabled: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_setVerticalSyncEnabled".}
   ## Enable / disable vertical synchronization on a render window
   ## 
@@ -1943,7 +1943,7 @@ proc `verticalSyncEnabled=`*(renderWindow: RenderWindow, enabled: IntBool) {.
   ## - ``renderWindow``:  Render window object
   ## - ``enabled``:       True to enable v-sync, False to deactivate
 
-proc `keyRepeatEnabled=`*(renderWindow: RenderWindow, enabled: IntBool) {.
+proc `keyRepeatEnabled=`*(renderWindow: RenderWindow, enabled: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_setKeyRepeatEnabled".}
   ## Enable or disable automatic key-repeat for keydown events
   ## 
@@ -1953,7 +1953,7 @@ proc `keyRepeatEnabled=`*(renderWindow: RenderWindow, enabled: IntBool) {.
   ## - ``renderWindow``:  Render window object
   ## - ``enabled``:       True to enable, False to disable
 
-proc `active=`*(renderWindow: RenderWindow, active: IntBool): bool {.
+proc `active=`*(renderWindow: RenderWindow, active: BoolInt): BoolInt {.
   cdecl, dynlib: lib, importc: "sfRenderWindow_setActive".}
   ## Activate or deactivate a render window as the current target for rendering
   ## 
@@ -2249,7 +2249,7 @@ proc mouse_setPositionRenderWindow*(position: Vector2i, relativeTo: RenderWindow
 
 #--- SFML/Graphics/RenderTexture ---#
 
-proc newRenderTexture*(width: cint, height: cint, depthBuffer: IntBool): RenderTexture {.
+proc newRenderTexture*(width: cint, height: cint, depthBuffer: BoolInt): RenderTexture {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_create".}
   ## Construct a new render texture
   ## 
@@ -2276,7 +2276,7 @@ proc size*(renderTexture: RenderTexture): Vector2i {.
   ## 
   ## *Returns:* Size in pixels
 
-proc `active=`*(renderTexture: RenderTexture, active: IntBool): bool {.
+proc `active=`*(renderTexture: RenderTexture, active: BoolInt): BoolInt {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_setActive".}
   ## Activate or deactivate a render texture as the current target for rendering
   ## 
@@ -2510,7 +2510,7 @@ proc texture*(renderTexture: RenderTexture): Texture {.
   ## 
   ## *Returns:* Pointer to the target texture
 
-proc `smooth=`*(renderTexture: RenderTexture, smooth: IntBool) {.
+proc `smooth=`*(renderTexture: RenderTexture, smooth: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_setSmooth".}
   ## Enable or disable the smooth filter on a render texture
   ## 
@@ -2518,7 +2518,7 @@ proc `smooth=`*(renderTexture: RenderTexture, smooth: IntBool) {.
   ## - ``renderTexture``:  Render texture object
   ## - ``smooth``:         True to enable smoothing, False to disable it
 
-proc smooth*(renderTexture: RenderTexture): bool {.
+proc smooth*(renderTexture: RenderTexture): BoolInt {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_isSmooth".}
   ## Tell whether the smooth filter is enabled or not for a render texture
   ## 
@@ -2527,7 +2527,7 @@ proc smooth*(renderTexture: RenderTexture): bool {.
   ## 
   ## *Returns:* True if smoothing is enabled, False if it is disabled
 
-proc `repeated=`*(renderTexture: RenderTexture, repeated: IntBool) {.
+proc `repeated=`*(renderTexture: RenderTexture, repeated: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_setRepeated".}
   ## Enable or disable texture repeating
   ## 
@@ -2535,7 +2535,7 @@ proc `repeated=`*(renderTexture: RenderTexture, repeated: IntBool) {.
   ## - ``renderTexture``:  Render texture object
   ## - ``repeated``:       True to enable repeating, False to disable it
 
-proc repeated*(renderTexture: RenderTexture): bool {.
+proc repeated*(renderTexture: RenderTexture): BoolInt {.
   cdecl, dynlib: lib, importc: "sfRenderTexture_isRepeated".}
   ## Tell whether the texture is repeated or not
   ## 
@@ -2779,7 +2779,7 @@ proc bindGL*(shader: Shader) {.
   ## *Arguments*:
   ## - ``shader``:  Shader to bind, can be null to use no shader
 
-proc shader_isAvailable*(): bool {.
+proc shader_isAvailable*(): BoolInt {.
   cdecl, dynlib: lib, importc: "sfShader_isAvailable".}
   ## Tell whether or not the system supports shaders
   ## 
@@ -2954,7 +2954,7 @@ proc inverseTransform*(shape: Shape): Transform {.
   ## 
   ## *Returns:* Inverse of the combined transformations applied to the object
 
-proc setTexture*(shape: Shape, texture: Texture, resetRect: IntBool) {.
+proc setTexture*(shape: Shape, texture: Texture, resetRect: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfShape_setTexture".}
   ## Change the source texture of a shape
   ## 
@@ -3297,7 +3297,7 @@ proc inverseTransform*(sprite: Sprite): Transform {.
   ## 
   ## *Returns:* Inverse of the combined transformations applied to the object
 
-proc setTexture*(sprite: Sprite, texture: Texture, resetRect: IntBool) {.
+proc setTexture*(sprite: Sprite, texture: Texture, resetRect: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfSprite_setTexture".}
   ## Change the source texture of a sprite
   ## 
@@ -3570,7 +3570,7 @@ proc inverseTransform*(text: Text): Transform {.
   ## 
   ## *Returns:* Inverse of the combined transformations applied to the object
 
-proc `string=`*(text: Text, string: cstring) {.
+proc `str_C=`*(text: Text, str: cstring) {.
   cdecl, dynlib: lib, importc: "sfText_setString".}
   ## Set the string of a text (from an ANSI string)
   ## 
@@ -3580,7 +3580,7 @@ proc `string=`*(text: Text, string: cstring) {.
   ## - ``text``:    Text object
   ## - ``string``:  New string
 
-proc `unicodeString=`*(text: Text, string: ptr uint32) {.
+proc `str_U32=`(text: Text, str: StringU32) {.
   cdecl, dynlib: lib, importc: "sfText_setUnicodeString".}
   ## Set the string of a text (from a unicode string)
   ## 
@@ -3613,7 +3613,7 @@ proc `characterSize=`*(text: Text, size: cint) {.
   ## - ``text``:  Text object
   ## - ``size``:  New character size, in pixels
 
-proc `style=`*(text: Text, style: uint32) {.
+proc `style=`*(text: Text, style: BitMaskU32) {.
   cdecl, dynlib: lib, importc: "sfText_setStyle".}
   ## Set the style of a text
   ## 
@@ -3635,7 +3635,7 @@ proc `color=`*(text: Text, color: Color) {.
   ## - ``text``:   Text object
   ## - ``color``:  New color of the text
 
-proc string*(text: Text): cstring {.
+proc str_C*(text: Text): cstring {.
   cdecl, dynlib: lib, importc: "sfText_getString".}
   ## Get the string of a text (returns an ANSI string)
   ## 
@@ -3644,7 +3644,7 @@ proc string*(text: Text): cstring {.
   ## 
   ## *Returns:* String as a locale-dependant ANSI string
 
-proc unicodeString*(text: Text): ptr uint32 {.
+proc str_U32(text: Text): StringU32 {.
   cdecl, dynlib: lib, importc: "sfText_getUnicodeString".}
   ## Get the string of a text (returns a unicode string)
   ## 
@@ -3675,7 +3675,7 @@ proc characterSize*(text: Text): cint {.
   ## 
   ## *Returns:* Size of the characters
 
-proc style*(text: Text): uint32 {.
+proc style*(text: Text): BitMaskU32 {.
   cdecl, dynlib: lib, importc: "sfText_getStyle".}
   ## Get the style of a text
   ## 
@@ -3840,7 +3840,7 @@ proc copyToImage*(texture: Texture): Image {.
   ## 
   ## *Returns:* Image containing the texture's pixels
 
-proc updateFromPixels*(texture: Texture, pixels: ptr uint8, width: cint, height: cint, x: cint, y: cint) {.
+proc updateFromPixels_Ptr*(texture: Texture, pixels: ptr uint8, width: cint, height: cint, x: cint, y: cint) {.
   cdecl, dynlib: lib, importc: "sfTexture_updateFromPixels".}
   ## Update a texture from an array of pixels
   ## 
@@ -3882,7 +3882,7 @@ proc updateFromRenderWindow*(texture: Texture, renderWindow: RenderWindow, x: ci
   ## - ``x``:             X offset in the texture where to copy the source pixels
   ## - ``y``:             Y offset in the texture where to copy the source pixels
 
-proc `smooth=`*(texture: Texture, smooth: IntBool) {.
+proc `smooth=`*(texture: Texture, smooth: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfTexture_setSmooth".}
   ## Enable or disable the smooth filter on a texture
   ## 
@@ -3890,7 +3890,7 @@ proc `smooth=`*(texture: Texture, smooth: IntBool) {.
   ## - ``texture``:  The texture object
   ## - ``smooth``:   True to enable smoothing, False to disable it
 
-proc smooth*(texture: Texture): bool {.
+proc smooth*(texture: Texture): BoolInt {.
   cdecl, dynlib: lib, importc: "sfTexture_isSmooth".}
   ## Tell whether the smooth filter is enabled or not for a texture
   ## 
@@ -3899,7 +3899,7 @@ proc smooth*(texture: Texture): bool {.
   ## 
   ## *Returns:* True if smoothing is enabled, False if it is disabled
 
-proc `repeated=`*(texture: Texture, repeated: IntBool) {.
+proc `repeated=`*(texture: Texture, repeated: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfTexture_setRepeated".}
   ## Enable or disable repeating for a texture
   ## 
@@ -3921,7 +3921,7 @@ proc `repeated=`*(texture: Texture, repeated: IntBool) {.
   ## - ``texture``:   The texture object
   ## - ``repeated``:  True to repeat the texture, false to disable repeating
 
-proc repeated*(texture: Texture): bool {.
+proc repeated*(texture: Texture): BoolInt {.
   cdecl, dynlib: lib, importc: "sfTexture_isRepeated".}
   ## Tell whether a texture is repeated or not
   ## 

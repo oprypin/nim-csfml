@@ -23,16 +23,28 @@
 
 import unicode, unsigned
 
-proc utf8to32*(s: string): seq[uint32] =
+type
+  BoolInt* = distinct cint ## CSFML uses cint as bool
+  RuneU32* = distinct uint32 ## CSFML uses uint32 for Unicode characters
+  StringU32* = ptr RuneU32 ## CSFML uses uint32* for Unicode strings
+  BitMaskU32* = distinct uint32 ## CSFML uses uint32 for bitmask enum arguments
+
+proc utf8to32*(s: string): seq[RuneU32] =
+  ## Converts a UTF-8 string to a zero-terminated sequence of Runes
   result = @[]
   for c in runes(s):
-    result.add(uint32(c))
-  result.add 0
+    result.add RuneU32(c)
+  result.add RuneU32(0)
 
-type IntBool* = distinct cint
-converter toBool*(x: IntBool): bool =
-  cint(x) != 0
-converter toIntBool*(x: bool): IntBool =
-  IntBool(if x: 1 else: 0)
+converter toBool*(x: BoolInt): bool = cint(x) != 0
+  ## Converts BoolInt to bool
+converter toBoolInt*(x: bool): BoolInt = BoolInt(if x: 1 else: 0)
+  ## Converts bool to BoolInt
 
-proc `|`*(a, b: uint32): uint32 = a or b
+proc `|`*(a, b: BitMaskU32): BitMaskU32 = BitMaskU32(uint32(a) or uint32(b))
+  ## Operator for combining two bitmask values
+
+converter toRuneU32*(x: Rune): RuneU32 = RuneU32 x
+  ## Converts Rune to RuneU32
+converter toRune*(x: RuneU32): Rune = Rune x
+  ## Converts RuneU32 to Rune

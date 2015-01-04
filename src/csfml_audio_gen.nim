@@ -143,7 +143,7 @@ proc destroy*(music: Music) {.
   ## *Arguments*:
   ## - ``music``:  Music to destroy
 
-proc `loop=`*(music: Music, loop: IntBool) {.
+proc `loop=`*(music: Music, loop: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfMusic_setLoop".}
   ## Set whether or not a music should loop after reaching the end
   ## 
@@ -156,7 +156,7 @@ proc `loop=`*(music: Music, loop: IntBool) {.
   ## - ``music``:  Music object
   ## - ``loop``:   True to play in loop, False to play once
 
-proc loop*(music: Music): bool {.
+proc loop*(music: Music): BoolInt {.
   cdecl, dynlib: lib, importc: "sfMusic_getLoop".}
   ## Tell whether or not a music is in loop mode
   ## 
@@ -286,7 +286,7 @@ proc `position=`*(music: Music, position: Vector3f) {.
   ## - ``music``:     Music object
   ## - ``position``:  Position of the music in the scene
 
-proc `relativeToListener=`*(music: Music, relative: IntBool) {.
+proc `relativeToListener=`*(music: Music, relative: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfMusic_setRelativeToListener".}
   ## Make a musics's position relative to the listener or absolute
   ## 
@@ -370,7 +370,7 @@ proc position*(music: Music): Vector3f {.
   ## 
   ## *Returns:* Position of the music in the world
 
-proc relativeToListener*(music: Music): bool {.
+proc relativeToListener*(music: Music): BoolInt {.
   cdecl, dynlib: lib, importc: "sfMusic_isRelativeToListener".}
   ## Tell whether a music's position is relative to the
   ## listener or is absolute
@@ -478,7 +478,7 @@ proc buffer*(sound: Sound): SoundBuffer {.
   ## 
   ## *Returns:* Sound buffer attached to the sound (can be NULL)
 
-proc `loop=`*(sound: Sound, loop: IntBool) {.
+proc `loop=`*(sound: Sound, loop: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfSound_setLoop".}
   ## Set whether or not a sound should loop after reaching the end
   ## 
@@ -491,7 +491,7 @@ proc `loop=`*(sound: Sound, loop: IntBool) {.
   ## - ``sound``:  Sound object
   ## - ``loop``:   True to play in loop, False to play once
 
-proc loop*(sound: Sound): bool {.
+proc loop*(sound: Sound): BoolInt {.
   cdecl, dynlib: lib, importc: "sfSound_getLoop".}
   ## Tell whether or not a sound is in loop mode
   ## 
@@ -546,7 +546,7 @@ proc `position=`*(sound: Sound, position: Vector3f) {.
   ## - ``sound``:     Sound object
   ## - ``position``:  Position of the sound in the scene
 
-proc `relativeToListener=`*(sound: Sound, relative: IntBool) {.
+proc `relativeToListener=`*(sound: Sound, relative: BoolInt) {.
   cdecl, dynlib: lib, importc: "sfSound_setRelativeToListener".}
   ## Make the sound's position relative to the listener or absolute
   ## 
@@ -630,7 +630,7 @@ proc position*(sound: Sound): Vector3f {.
   ## 
   ## *Returns:* Position of the sound in the world
 
-proc relativeToListener*(sound: Sound): bool {.
+proc relativeToListener*(sound: Sound): BoolInt {.
   cdecl, dynlib: lib, importc: "sfSound_isRelativeToListener".}
   ## Tell whether a sound's position is relative to the
   ## listener or is absolute
@@ -710,7 +710,7 @@ proc newSoundBuffer*(stream: var InputStream): SoundBuffer {.
   ## 
   ## *Returns:* A new SoundBuffer object (NULL if failed)
 
-proc newSoundBuffer*(samples: ptr int16, sampleCount: int, channelCount: cint, sampleRate: cint): SoundBuffer {.
+proc newSoundBuffer_Ptr*(samples: ptr int16, sampleCount: int, channelCount: cint, sampleRate: cint): SoundBuffer {.
   cdecl, dynlib: lib, importc: "sfSoundBuffer_createFromSamples".}
   ## Create a new sound buffer and load it from an array of samples in memory
   ## 
@@ -741,7 +741,7 @@ proc destroy*(soundBuffer: SoundBuffer) {.
   ## *Arguments*:
   ## - ``soundBuffer``:  Sound buffer to destroy
 
-proc saveToFile*(soundBuffer: SoundBuffer, filename: cstring): bool {.
+proc saveToFile*(soundBuffer: SoundBuffer, filename: cstring): BoolInt {.
   cdecl, dynlib: lib, importc: "sfSoundBuffer_saveToFile".}
   ## Save a sound buffer to an audio file
   ## 
@@ -882,9 +882,9 @@ proc buffer*(soundBufferRecorder: SoundBufferRecorder): SoundBuffer {.
 
 #--- SFML/Audio/SoundRecorder ---#
 
-type SoundRecorderStartCallback* = proc(p1: pointer): IntBool {.cdecl.}
+type SoundRecorderStartCallback* = proc(p1: pointer): BoolInt {.cdecl.}
 
-type SoundRecorderProcessCallback* = proc(p1: ptr int16; p2: int; p3: pointer): IntBool {.cdecl.}
+type SoundRecorderProcessCallback* = proc(p1: ptr int16; p2: int; p3: pointer): BoolInt {.cdecl.}
 
 type SoundRecorderStopCallback* = proc(p1: pointer): void {.cdecl.}
 
@@ -942,7 +942,7 @@ proc sampleRate*(soundRecorder: SoundRecorder): cint {.
   ## 
   ## *Returns:* Sample rate, in samples per second
 
-proc soundRecorder_isAvailable*(): bool {.
+proc soundRecorder_isAvailable*(): BoolInt {.
   cdecl, dynlib: lib, importc: "sfSoundRecorder_isAvailable".}
   ## Check if the system supports audio capture
   ## 

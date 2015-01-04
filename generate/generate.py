@@ -57,7 +57,7 @@ def rename_type(name):
         'size_t': 'int',
         'unsigned int': 'cint',
         'float': 'cfloat',
-        'sfBool': 'IntBool',
+        'sfBool': 'BoolInt',
         'sfVector2u': 'sfVector2i',
     }.get(name, name)
     if ptr and name=='void':
@@ -84,6 +84,7 @@ def rename_identifier(name):
         'type': 'kind',
         'bind': 'bindGL',
     }.get(name, name)
+    name = name.replace('String', 'Str').replace('string', 'str')
     return name[0].lower()+name[1:]
 
 def common_start(strings):
@@ -141,7 +142,10 @@ def handle_struct(name, items):
     for typ, name in items:
         if typ in ['sfEventType']:
             continue
-        yield '  {}*: {}'.format(name, rename_type(typ))
+        typ = rename_type(typ)
+        if typ=='uint32' and name=='unicode':
+            typ = 'RuneU32'
+        yield '  {}*: {}'.format(name, typ)
 
 
 classes = set()
@@ -154,11 +158,14 @@ def handle_class(name):
 
 
 def handle_function(main, params):
+    public = '*'
     ftype, fname = main
     nfname = rename_sf(fname)
     nfname = re.sub(r'(.+)_create.*', r'new\1', nfname)
     nfname = re.sub(r'(.+)_from.+', r'\1', nfname)
     nfname = re.sub(r'(.+)With.+', r'\1', nfname)
+    if 'unicode' in fname.lower():
+        nfname += '_U32'
     if params:
         p1 = rename_type(params[0][0])+'_'
         if p1.startswith('var '):
@@ -167,9 +174,7 @@ def handle_function(main, params):
             nfname = nfname[len(p1):]
     nfname = rename_identifier(nfname)
     nftype = rename_type(ftype).replace('var ', 'ptr ')
-    if nftype=='IntBool':
-        nftype = 'bool'
-    main_sgn = 'proc {nfname}*({sparams}): {nftype}'
+    main_sgn = 'proc {nfname}{public}({sparams}): {nftype}'
     main_fn = '{nfname}'
     cimp = ' {{.\n  cdecl, dynlib: lib, importc: "{}".}}'.format(fname)
     if nfname.startswith('get') and nfname[3].isupper() and len(params)==1:
@@ -177,11 +182,23 @@ def handle_function(main, params):
     elif nfname.startswith('is') and nfname[2].isupper() and len(params)==1:
         nfname = nfname[2].lower()+nfname[3:]
     elif nfname.startswith('set') and nfname[3].isupper() and len(params)==2:
-        main_sgn = 'proc `{nfname}=`*({sparams}): {nftype}'
+        main_sgn = 'proc `{nfname}=`{public}({sparams}): {nftype}'
         main_fn = '`{nfname}=`'
         nfname = nfname[3].lower()+nfname[4:]
+    if nfname.startswith('unicode'):
+        nfname = nfname[7].lower()+nfname[8:]
     if nftype=='void':
         main_sgn = main_sgn[:-10]
+    if nftype=='cstring' and nfname in ['str', 'title']:
+        nfname += '_C'
+    if nftype=='ptr uint32':
+        nftype = 'StringU32'
+        public = ''
+    if nftype=='uint32':
+        if nfname in ['style']: nftype = 'BitMaskU32'
+        else: nftype = 'RuneU32'
+    if nfname.startswith('ptr '):
+        nfname += '_Ptr'
     r = []
     for repl in itertools.product((False, True), repeat=len(params)):
         aparams = []
@@ -190,6 +207,15 @@ def handle_function(main, params):
         for i, (repl, (ptype, pname)) in enumerate(zip(repl, params), 1):
             rtype = rename_type(ptype)
             rname = rename_identifier(pname) or 'p{}'.format(i)
+            if rtype=='cstring' and rname in ['str', 'title']:
+                if '_C' not in nfname:
+                    nfname += '_C'
+            if rtype=='ptr uint32':
+                rtype = 'StringU32'
+                public = ''
+            if rtype=='uint32':
+                if rname in ['style']: rtype = 'BitMaskU32'
+                else: rtype = 'RuneU32'
             if ptype.startswith('const') and rtype.startswith('var '):
                 if repl:
                     rrtype = rtype[4:]
@@ -198,6 +224,9 @@ def handle_function(main, params):
                     rrtype = '({}){{lvalue}}'.format(rtype)
             else:
                 rrtype = rtype
+            if rtype.startswith('ptr '):
+                if '_Ptr' not in nfname:
+                    nfname += '_Ptr'
             aparams.append((rname, rrtype))
         sparams = ', '.join('{}: {}'.format(*p) for p in aparams)
         if replv:

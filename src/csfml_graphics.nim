@@ -32,7 +32,7 @@ import csfml_util
 include csfml_graphics_gen
 
 
-import unsigned
+import unsigned, unicode
 
 
 proc color*(red, green, blue: int, alpha: int = 255): Color =
@@ -193,25 +193,35 @@ proc renderStates*(blendMode = BlendMode.Alpha, transform = Identity,
 
 
 proc `title=`*(window: RenderWindow, title: string) =
-  ## Overloaded proc that converts Nim's strings correctly
+  ## Wrapper proc that converts Nim's strings correctly
   var t = utf8to32(title)
-  window.unicodeTitle = addr(t[0])
-proc newRenderWindow*(mode: VideoMode, title: string, style: uint32 = WindowStyle.Default,
+  window.title_U32 = addr(t[0])
+proc newRenderWindow*(mode: VideoMode, title: string, style: BitMaskU32 = WindowStyle.Default,
                       settings = contextSettings()): RenderWindow =
-  ## Overloaded proc that converts Nim's strings correctly
+  ## Wrapper proc that converts Nim's strings correctly
   var t = utf8to32(title)
-  newRenderWindow(mode, addr(t[0]), style, settings)
+  newRenderWindow_U32(mode, addr(t[0]), style, settings)
 
 
-proc `string=`*(text: Text, string: string) =
-  ## Overloaded proc that converts Nim's strings correctly
-  var t = utf8to32(string)
-  text.unicodeString = addr(t[0])
+proc str*(text: Text): string =
+  ## Wrapper proc that converts to Nim's strings correctly
+  var ip = cast[int](text.str_U32)
+  var r = newSeq[Rune]()
+  while true:
+    var p = cast[ptr[RuneU32]](ip)
+    if uint32(p[]) == 0:
+      break
+    r.add p[]
+    ip += sizeof(RuneU32)
+  $r
+proc `str=`*(text: Text, str: string) =
+  ## Wrapper proc that converts Nim's strings correctly
+  var t = utf8to32(str)
+  text.str_U32 = addr(t[0])
 
 
-converter toUint32*(a: TextStyle): uint32 =
+converter toBitMaskU32*(a: TextStyle): BitMaskU32 = BitMaskU32 a
   ## Allows TextStyle values to be combined using the | operator and be used in functions
-  uint32 a
 
 
 template defDraw(name: expr) {.immediate.} =
