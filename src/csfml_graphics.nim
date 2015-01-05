@@ -242,8 +242,8 @@ defDraw Sprite
 defDraw Text
 defDraw VertexArray
 
-template draw*[T: RenderTexture|RenderWindow, O] (
-  renderTarget: T, obj: O, states = renderStates()): stmt =
+proc draw*[T: RenderTexture|RenderWindow, O] (
+  renderTarget: T, obj: O, states = renderStates()) =
   ## Allows the syntax ``renderTarget.draw(drawable[, states])``
   ## by turning it into ``drawable.draw(renderTarget, states)``
   obj.draw(renderTarget, states)

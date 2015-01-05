@@ -103,10 +103,10 @@ proc draw[T](self: Snake, target: T, states: RenderStates) =
     for i in self.body.low..self.body.high:
         let current = self.body[i]
 
-        var circle = new_CircleShape(radius=0.9/2)
-        circle.position = vec2(current)+vec2(0.05, 0.05)
-        circle.fill_color = self.color
-        target.draw circle, states
+        var segment = new_CircleShape(radius=0.9/2)
+        segment.position = vec2(current)+vec2(0.05, 0.05)
+        segment.fill_color = self.color
+        target.draw segment, states
 
         # The following is eye candy and may be removed
         # but change the above to RectangleShape of size (0.9, 0.9)
@@ -120,21 +120,21 @@ proc draw[T](self: Snake, target: T, states: RenderStates) =
             
             if (i > self.body.low and td == self.body[i-1]) or
               (i < self.body.high and td == self.body[i+1]):
-                var rect = new_RectangleShape(size=vec2(0.9, 0.9))
-                rect.position = vec2(current)+vec2(float(d.x)/2.0+0.05, float(d.y)/2.0+0.05)
-                rect.fill_color = self.color
-                target.draw rect, states
+                var connection = new_RectangleShape(size=vec2(0.9, 0.9))
+                connection.position = vec2(current)+vec2(float(d.x)/2.0+0.05, float(d.y)/2.0+0.05)
+                connection.fill_color = self.color
+                target.draw connection, states
         
         # Draw eyes with a darkened color
-        circle = new_CircleShape(radius=0.2/2)
-        circle.fill_color = color(
+        var eye = new_CircleShape(radius=0.2/2)
+        eye.fill_color = color(
           self.color.red div 3, self.color.green div 3, self.color.blue div 3)
 
         let delta = vec2(abs(self.direction.y)/4, abs(self.direction.x)/4)
-        circle.position = self.body[0]+vec2(0.4, 0.4)+delta
-        target.draw circle, states
-        circle.position = self.body[0]+vec2(0.4, 0.4)-delta
-        target.draw circle, states
+        eye.position = self.body[0]+vec2(0.4, 0.4)+delta
+        target.draw eye, states
+        eye.position = self.body[0]+vec2(0.4, 0.4)-delta
+        target.draw eye, states
 
 
 
