@@ -1315,8 +1315,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="destroy(soundBuffer: SoundBuffer)"><wbr />destroy</a></li>
   <li><a class="reference" href="#saveToFile,SoundBuffer,cstring"
     title="saveToFile(soundBuffer: SoundBuffer; filename: cstring): BoolInt"><wbr />save<wbr />To<wbr />File</a></li>
-  <li><a class="reference" href="#samples,SoundBuffer"
-    title="samples(soundBuffer: SoundBuffer): ptr int16"><wbr />samples</a></li>
+  <li><a class="reference" href="#samples_Ptr,SoundBuffer"
+    title="samples_Ptr(soundBuffer: SoundBuffer): ptr int16"><wbr />samples_<wbr />Ptr</a></li>
   <li><a class="reference" href="#sampleCount,SoundBuffer"
     title="sampleCount(soundBuffer: SoundBuffer): int"><wbr />sample<wbr />Count</a></li>
   <li><a class="reference" href="#sampleRate,SoundBuffer"
@@ -1351,6 +1351,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="sampleRate(soundRecorder: SoundRecorder): cint"><wbr />sample<wbr />Rate</a></li>
   <li><a class="reference" href="#soundRecorder_isAvailable,"
     title="soundRecorder_isAvailable(): BoolInt"><wbr />sound<wbr />Recorder_<wbr />is<wbr />Available</a></li>
+  <li><a class="reference" href="#newSound,SoundBuffer"
+    title="newSound(buffer: SoundBuffer): Sound"><wbr />new<wbr />Sound</a></li>
 
   </ul>
 </li>
@@ -2149,7 +2151,7 @@ Enumeration of statuses for sounds and musics
 
 
 </dd>
-<dt id="samples"><a name="samples,SoundBuffer"></a><pre><span class="Keyword">proc</span> <span class="Identifier">samples</span><span class="Other">(</span><span class="Identifier">soundBuffer</span><span class="Other">:</span> <span class="Identifier">SoundBuffer</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">int16</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
+<dt id="samples_Ptr"><a name="samples_Ptr,SoundBuffer"></a><pre><span class="Keyword">proc</span> <span class="Identifier">samples_Ptr</span><span class="Other">(</span><span class="Identifier">soundBuffer</span><span class="Other">:</span> <span class="Identifier">SoundBuffer</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">int16</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundBuffer_getSamples&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get the array of audio samples stored in a sound buffer</p>
@@ -2341,6 +2343,11 @@ Enumeration of statuses for sounds and musics
 
 
 </dd>
+<dt id="newSound"><a name="newSound,SoundBuffer"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newSound</span><span class="Other">(</span><span class="Identifier">buffer</span><span class="Other">:</span> <span class="Identifier">SoundBuffer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Sound</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<em>Returns:</em> A new Sound with this buffer
+
+</dd>
 
 </dl></div>
 
@@ -2351,7 +2358,7 @@ Enumeration of statuses for sounds and musics
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-04 16:46:52 UTC</small>
+        <small>Made with Nim. Generated: 2015-01-05 02:24:26 UTC</small>
       </div>
     </div>
   </div>

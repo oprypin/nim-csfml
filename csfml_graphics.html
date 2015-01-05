@@ -2102,8 +2102,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="destroy(vertexArray: VertexArray)"><wbr />destroy</a></li>
   <li><a class="reference" href="#vertexCount,VertexArray"
     title="vertexCount(vertexArray: VertexArray): cint"><wbr />vertex<wbr />Count</a></li>
-  <li><a class="reference" href="#getVertex,VertexArray,cint"
-    title="getVertex(vertexArray: VertexArray; index: cint): ptr Vertex"><wbr />get<wbr />Vertex</a></li>
+  <li><a class="reference" href="#getVertex_Ptr,VertexArray,cint"
+    title="getVertex_Ptr(vertexArray: VertexArray; index: cint): ptr Vertex"><wbr />get<wbr />Vertex_<wbr />Ptr</a></li>
   <li><a class="reference" href="#clear,VertexArray"
     title="clear(vertexArray: VertexArray)"><wbr />clear</a></li>
   <li><a class="reference" href="#resize,VertexArray,cint"
@@ -2247,6 +2247,22 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="newRectangleShape(size: Vector2f): RectangleShape"><wbr />new<wbr />Rectangle<wbr />Shape</a></li>
   <li><a class="reference" href="#newConvexShape,cint"
     title="newConvexShape(pointCount: cint): ConvexShape"><wbr />new<wbr />Convex<wbr />Shape</a></li>
+  <li><a class="reference" href="#texture=,Sprite,Texture"
+    title="texture=(sprite: Sprite; texture: Texture)"><wbr />texture=</a></li>
+  <li><a class="reference" href="#newSprite,Texture"
+    title="newSprite(texture: Texture): Sprite"><wbr />new<wbr />Sprite</a></li>
+  <li><a class="reference" href="#newSprite,Texture,IntRect"
+    title="newSprite(texture: Texture; rectangle: IntRect): Sprite"><wbr />new<wbr />Sprite</a></li>
+  <li><a class="reference" href="#vertex,"
+    title="vertex(position = vec2(0.0, 0.0); color = White; texCoords = vec2(0.0, 0.0)): Vertex"><wbr />vertex</a></li>
+  <li><a class="reference" href="#newVertexArray,PrimitiveType,int"
+    title="newVertexArray(primitiveType: PrimitiveType; vertexCount = 0): VertexArray"><wbr />new<wbr />Vertex<wbr />Array</a></li>
+  <li><a class="reference" href="#[],VertexArray,int"
+    title="`[]`(vertexArray: VertexArray; index: int): Vertex"><wbr />`[]`</a></li>
+  <li><a class="reference" href="#[]=,VertexArray,int,Vertex"
+    title="`[]=`(vertexArray: VertexArray; index: int; vertex: Vertex): Vertex"><wbr />`[]=`</a></li>
+  <li><a class="reference" href="#newView,Vector2f,Vector2f"
+    title="newView(center: Vector2f; size: Vector2f): View"><wbr />new<wbr />View</a></li>
 
   </ul>
 </li>
@@ -6747,7 +6763,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="getVertex"><a name="getVertex,VertexArray,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getVertex</span><span class="Other">(</span><span class="Identifier">vertexArray</span><span class="Other">:</span> <span class="Identifier">VertexArray</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Vertex</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="getVertex_Ptr"><a name="getVertex_Ptr,VertexArray,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getVertex_Ptr</span><span class="Other">(</span><span class="Identifier">vertexArray</span><span class="Other">:</span> <span class="Identifier">VertexArray</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Vertex</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">lib</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfVertexArray_getVertex&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get access to a vertex by its index</p>
@@ -7269,6 +7285,54 @@ Wrapper proc that converts Nim's strings correctly
 <em>Returns:</em> A new ConvexShape with this pointCount, or nil if it failed
 
 </dd>
+<dt id="texture="><a name="texture=,Sprite,Texture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">texture=</span><span class="Other">(</span><span class="Identifier">sprite</span><span class="Other">:</span> <span class="Identifier">Sprite</span><span class="Other">;</span> <span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+Change the source texture of a sprite without resetting textureRect
+
+</dd>
+<dt id="newSprite"><a name="newSprite,Texture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newSprite</span><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Sprite</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<em>Returns:</em> A new Sprite with this texture, or nil if it failed
+
+</dd>
+<dt id="newSprite"><a name="newSprite,Texture,IntRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newSprite</span><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">;</span> <span class="Identifier">rectangle</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Sprite</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> 
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Construct the sprite from a sub-rectangle of a source texture</p>
+<p><em>Returns:</em> A new Sprite with this texture and textureRect, or nil if it failed</p>
+
+
+</dd>
+<dt id="vertex"><a name="vertex,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vertex</span><span class="Other">(</span><span class="Identifier">position</span> <span class="Other">=</span> <span class="Identifier">vec2</span><span class="Other">(</span><span class="FloatNumber">0.0</span><span class="Other">,</span> <span class="FloatNumber">0.0</span><span class="Other">)</span><span class="Other">;</span> <span class="Identifier">color</span> <span class="Other">=</span> <span class="Identifier">White</span><span class="Other">;</span> <span class="Identifier">texCoords</span> <span class="Other">=</span> <span class="Identifier">vec2</span><span class="Other">(</span><span class="FloatNumber">0.0</span><span class="Other">,</span> <span class="FloatNumber">0.0</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vertex</span> <span class="Other">{.</span>
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<em>Returns</em>: Vertex with these members
+
+</dd>
+<dt id="newVertexArray"><a name="newVertexArray,PrimitiveType,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newVertexArray</span><span class="Other">(</span><span class="Identifier">primitiveType</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> <span class="Identifier">vertexCount</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">VertexArray</span> <span class="Other">{.</span>
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<em>Returns</em>: VertexArray with this type of primitives and initial number of vertices
+
+</dd>
+<dt id="[]"><a name="[],VertexArray,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]`</span><span class="Other">(</span><span class="Identifier">vertexArray</span><span class="Other">:</span> <span class="Identifier">VertexArray</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vertex</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="[]="><a name="[]=,VertexArray,int,Vertex"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]=`</span><span class="Other">(</span><span class="Identifier">vertexArray</span><span class="Other">:</span> <span class="Identifier">VertexArray</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">vertex</span><span class="Other">:</span> <span class="Identifier">Vertex</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vertex</span> <span class="Other">{.</span>
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Set a vertex by its index</p>
+<p>This function doesn't check <tt class="docutils literal"><span class="pre">index</span></tt>, it must be in range [0, vertex count - 1]. The behaviour is undefined otherwise.</p>
+
+
+</dd>
+<dt id="newView"><a name="newView,Vector2f,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newView</span><span class="Other">(</span><span class="Identifier">center</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">;</span> <span class="Identifier">size</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">View</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<em>Returns</em>: View with these members
+
+</dd>
 
 </dl></div>
 <div class="section" id="16">
@@ -7304,7 +7368,7 @@ Allows the syntax <tt class="docutils literal"><span class="pre">renderTarget.dr
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-04 16:46:52 UTC</small>
+        <small>Made with Nim. Generated: 2015-01-05 02:24:26 UTC</small>
       </div>
     </div>
   </div>
