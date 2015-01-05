@@ -755,7 +755,7 @@ proc saveToFile*(soundBuffer: SoundBuffer, filename: cstring): BoolInt {.
   ## 
   ## *Returns:* True if saving succeeded, False if it failed
 
-proc samples*(soundBuffer: SoundBuffer): ptr int16 {.
+proc samples_Ptr*(soundBuffer: SoundBuffer): ptr int16 {.
   cdecl, dynlib: lib, importc: "sfSoundBuffer_getSamples".}
   ## Get the array of audio samples stored in a sound buffer
   ## 

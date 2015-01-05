@@ -4147,7 +4147,7 @@ proc vertexCount*(vertexArray: VertexArray): cint {.
   ## 
   ## *Returns:* Number of vertices in the array
 
-proc getVertex*(vertexArray: VertexArray, index: cint): ptr Vertex {.
+proc getVertex_Ptr*(vertexArray: VertexArray, index: cint): ptr Vertex {.
   cdecl, dynlib: lib, importc: "sfVertexArray_getVertex".}
   ## Get access to a vertex by its index
   ## 

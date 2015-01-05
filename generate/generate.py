@@ -197,8 +197,9 @@ def handle_function(main, params):
     if nftype=='uint32':
         if nfname in ['style']: nftype = 'BitMaskU32'
         else: nftype = 'RuneU32'
-    if nfname.startswith('ptr '):
-        nfname += '_Ptr'
+    if nftype.startswith('ptr '):
+        if 'Ptr' not in nfname:
+            nfname += '_Ptr'
     r = []
     for repl in itertools.product((False, True), repeat=len(params)):
         aparams = []
@@ -225,7 +226,7 @@ def handle_function(main, params):
             else:
                 rrtype = rtype
             if rtype.startswith('ptr '):
-                if '_Ptr' not in nfname:
+                if 'Ptr' not in nfname:
                     nfname += '_Ptr'
             aparams.append((rname, rrtype))
         sparams = ', '.join('{}: {}'.format(*p) for p in aparams)

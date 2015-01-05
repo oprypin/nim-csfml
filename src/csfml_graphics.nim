@@ -237,7 +237,8 @@ defDraw Sprite
 defDraw Text
 defDraw VertexArray
 
-template draw*[T: RenderTexture|RenderWindow, O](renderTarget: T, obj: O, states = renderStates()): stmt =
+template draw*[T: RenderTexture|RenderWindow, O] (
+  renderTarget: T, obj: O, states = renderStates()): stmt =
   ## Allows the syntax ``renderTarget.draw(drawable[, states])``
   ## by turning it into ``drawable.draw(renderTarget, states)``
   obj.draw(renderTarget, states)
@@ -261,3 +262,63 @@ proc newConvexShape*(pointCount: cint): ConvexShape =
   result = newConvexShape()
   if result == nil: return nil
   result.pointCount = pointCount
+
+
+proc `texture=`*(sprite: Sprite, texture: Texture) =
+  ## Change the source texture of a sprite without resetting textureRect
+  sprite.setTexture(texture, resetRect = false)
+
+proc newSprite*(texture: Texture): Sprite =
+  ## *Returns:* A new Sprite with this texture, or nil if it failed
+  result = newSprite()
+  if result == nil: return nil
+  result.setTexture(texture, resetRect = true)
+proc newSprite*(texture: Texture, rectangle: IntRect): Sprite =
+  ## Construct the sprite from a sub-rectangle of a source texture
+  ##
+  ## *Returns:* A new Sprite with this texture and textureRect, or nil if it failed
+  result = newSprite()
+  if result == nil: return nil
+  result.texture = texture
+  result.textureRect = rectangle
+
+
+proc vertex*(position = vec2(0.0, 0.0), color = White, texCoords = vec2(0.0, 0.0)): Vertex =
+  ## *Returns*: Vertex with these members
+  result.position = position
+  result.color = color
+  result.texCoords = texCoords
+
+
+proc resize(vertexArray: VertexArray, size: int) =
+  vertexArray.resize(cint(size))
+
+proc newVertexArray*(primitiveType: PrimitiveType, vertexCount = 0): VertexArray =
+  ## *Returns*: VertexArray with this type of primitives and initial number of vertices
+  result = newVertexArray()
+  result.primitiveType = primitiveType
+  result.resize(vertexCount)
+
+proc `[]`*(vertexArray: VertexArray, index: int): Vertex =
+  ## Get a vertex by its index
+  ##
+  ## This function doesn't check ``index``, it must be in range
+  ## [0, vertex count - 1]. The behaviour is undefined
+  ## otherwise.
+  ##
+  ## *Returns:* The index-th vertex
+  vertexArray.getVertex_Ptr(cint(index))[]
+proc `[]=`*(vertexArray: VertexArray, index: int, vertex: Vertex): Vertex =
+  ## Set a vertex by its index
+  ##
+  ## This function doesn't check ``index``, it must be in range
+  ## [0, vertex count - 1]. The behaviour is undefined
+  ## otherwise.
+  vertexArray.getVertex_Ptr(cint(index))[] = vertex
+
+
+proc newView*(center: Vector2f, size: Vector2f): View =
+  ## *Returns*: View with these members
+  result = newView()
+  result.center = center
+  result.size = size
