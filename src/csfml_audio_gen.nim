@@ -5,7 +5,7 @@
 #--- SFML/Audio/Listener ---#
 
 proc listener_setGlobalVolume*(volume: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfListener_setGlobalVolume".}
+  cdecl, importc: "sfListener_setGlobalVolume".}
   ## Change the global volume of all the sounds and musics
   ## 
   ## The volume is a number between 0 and 100; it is combined with
@@ -16,13 +16,13 @@ proc listener_setGlobalVolume*(volume: cfloat) {.
   ## - ``volume``:  New global volume, in the range [0, 100]
 
 proc listener_getGlobalVolume*(): cfloat {.
-  cdecl, dynlib: lib, importc: "sfListener_getGlobalVolume".}
+  cdecl, importc: "sfListener_getGlobalVolume".}
   ## Get the current value of the global volume
   ## 
   ## *Returns:* Current global volume, in the range [0, 100]
 
 proc listener_setPosition*(position: Vector3f) {.
-  cdecl, dynlib: lib, importc: "sfListener_setPosition".}
+  cdecl, importc: "sfListener_setPosition".}
   ## Set the position of the listener in the scene
   ## 
   ## The default listener's position is (0, 0, 0).
@@ -31,13 +31,13 @@ proc listener_setPosition*(position: Vector3f) {.
   ## - ``position``:  New position of the listener
 
 proc listener_getPosition*(): Vector3f {.
-  cdecl, dynlib: lib, importc: "sfListener_getPosition".}
+  cdecl, importc: "sfListener_getPosition".}
   ## Get the current position of the listener in the scene
   ## 
   ## *Returns:* The listener's position
 
 proc listener_setDirection*(orientation: Vector3f) {.
-  cdecl, dynlib: lib, importc: "sfListener_setDirection".}
+  cdecl, importc: "sfListener_setDirection".}
   ## Set the orientation of the listener in the scene
   ## 
   ## The orientation defines the 3D axes of the listener
@@ -49,7 +49,7 @@ proc listener_setDirection*(orientation: Vector3f) {.
   ## - ``position``:  New direction of the listener
 
 proc listener_getDirection*(): Vector3f {.
-  cdecl, dynlib: lib, importc: "sfListener_getDirection".}
+  cdecl, importc: "sfListener_getDirection".}
   ## Get the current orientation of the listener in the scene
   ## 
   ## *Returns:* The listener's direction
@@ -67,31 +67,25 @@ type SoundStatus* {.pure, size: sizeof(cint).} = enum  ## Enumeration of statuse
 #--- SFML/Audio/Types ---#
 
 type
-  Music* = ptr TMusic
-  TMusic {.pure, final.} = object
+  Music* = ptr object
 
 type
-  Sound* = ptr TSound
-  TSound {.pure, final.} = object
+  Sound* = ptr object
 
 type
-  SoundBuffer* = ptr TSoundBuffer
-  TSoundBuffer {.pure, final.} = object
+  SoundBuffer* = ptr object
 
 type
-  SoundBufferRecorder* = ptr TSoundBufferRecorder
-  TSoundBufferRecorder {.pure, final.} = object
+  SoundBufferRecorder* = ptr object
 
 type
-  SoundRecorder* = ptr TSoundRecorder
-  TSoundRecorder {.pure, final.} = object
+  SoundRecorder* = ptr object
 
 type
-  SoundStream* = ptr TSoundStream
-  TSoundStream {.pure, final.} = object
+  SoundStream* = ptr object
 
 proc newMusic*(filename: cstring): Music {.
-  cdecl, dynlib: lib, importc: "sfMusic_createFromFile".}
+  cdecl, importc: "sfMusic_createFromFile".}
   ## Create a new music and load it from a file
   ## 
   ## This function doesn't start playing the music (call
@@ -106,7 +100,7 @@ proc newMusic*(filename: cstring): Music {.
   ## *Returns:* A new Music object (NULL if failed)
 
 proc newMusic*(data: pointer, sizeInBytes: int): Music {.
-  cdecl, dynlib: lib, importc: "sfMusic_createFromMemory".}
+  cdecl, importc: "sfMusic_createFromMemory".}
   ## Create a new music and load it from a file in memory
   ## 
   ## This function doesn't start playing the music (call
@@ -122,7 +116,7 @@ proc newMusic*(data: pointer, sizeInBytes: int): Music {.
   ## *Returns:* A new Music object (NULL if failed)
 
 proc newMusic*(stream: var InputStream): Music {.
-  cdecl, dynlib: lib, importc: "sfMusic_createFromStream".}
+  cdecl, importc: "sfMusic_createFromStream".}
   ## Create a new music and load it from a custom stream
   ## 
   ## This function doesn't start playing the music (call
@@ -137,14 +131,14 @@ proc newMusic*(stream: var InputStream): Music {.
   ## *Returns:* A new Music object (NULL if failed)
 
 proc destroy*(music: Music) {.
-  cdecl, dynlib: lib, importc: "sfMusic_destroy".}
+  override, cdecl, importc: "sfMusic_destroy".}
   ## Destroy a music
   ## 
   ## *Arguments*:
   ## - ``music``:  Music to destroy
 
 proc `loop=`*(music: Music, loop: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfMusic_setLoop".}
+  cdecl, importc: "sfMusic_setLoop".}
   ## Set whether or not a music should loop after reaching the end
   ## 
   ## If set, the music will restart from beginning after
@@ -157,7 +151,7 @@ proc `loop=`*(music: Music, loop: BoolInt) {.
   ## - ``loop``:   True to play in loop, False to play once
 
 proc loop*(music: Music): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfMusic_getLoop".}
+  cdecl, importc: "sfMusic_getLoop".}
   ## Tell whether or not a music is in loop mode
   ## 
   ## *Arguments*:
@@ -166,7 +160,7 @@ proc loop*(music: Music): BoolInt {.
   ## *Returns:* True if the music is looping, False otherwise
 
 proc duration*(music: Music): Time {.
-  cdecl, dynlib: lib, importc: "sfMusic_getDuration".}
+  cdecl, importc: "sfMusic_getDuration".}
   ## Get the total duration of a music
   ## 
   ## *Arguments*:
@@ -175,7 +169,7 @@ proc duration*(music: Music): Time {.
   ## *Returns:* Music duration
 
 proc play*(music: Music) {.
-  cdecl, dynlib: lib, importc: "sfMusic_play".}
+  cdecl, importc: "sfMusic_play".}
   ## Start or resume playing a music
   ## 
   ## This function starts the music if it was stopped, resumes
@@ -188,7 +182,7 @@ proc play*(music: Music) {.
   ## - ``music``:  Music object
 
 proc pause*(music: Music) {.
-  cdecl, dynlib: lib, importc: "sfMusic_pause".}
+  cdecl, importc: "sfMusic_pause".}
   ## Pause a music
   ## 
   ## This function pauses the music if it was playing,
@@ -198,7 +192,7 @@ proc pause*(music: Music) {.
   ## - ``music``:  Music object
 
 proc stop*(music: Music) {.
-  cdecl, dynlib: lib, importc: "sfMusic_stop".}
+  cdecl, importc: "sfMusic_stop".}
   ## Stop playing a music
   ## 
   ## This function stops the music if it was playing or paused,
@@ -209,7 +203,7 @@ proc stop*(music: Music) {.
   ## - ``music``:  Music object
 
 proc channelCount*(music: Music): cint {.
-  cdecl, dynlib: lib, importc: "sfMusic_getChannelCount".}
+  cdecl, importc: "sfMusic_getChannelCount".}
   ## Return the number of channels of a music
   ## 
   ## 1 channel means a mono sound, 2 means stereo, etc.
@@ -220,7 +214,7 @@ proc channelCount*(music: Music): cint {.
   ## *Returns:* Number of channels
 
 proc sampleRate*(music: Music): cint {.
-  cdecl, dynlib: lib, importc: "sfMusic_getSampleRate".}
+  cdecl, importc: "sfMusic_getSampleRate".}
   ## Get the sample rate of a music
   ## 
   ## The sample rate is the number of audio samples played per
@@ -232,7 +226,7 @@ proc sampleRate*(music: Music): cint {.
   ## *Returns:* Sample rate, in number of samples per second
 
 proc status*(music: Music): SoundStatus {.
-  cdecl, dynlib: lib, importc: "sfMusic_getStatus".}
+  cdecl, importc: "sfMusic_getStatus".}
   ## Get the current status of a music (stopped, paused, playing)
   ## 
   ## *Arguments*:
@@ -241,7 +235,7 @@ proc status*(music: Music): SoundStatus {.
   ## *Returns:* Current status
 
 proc playingOffset*(music: Music): Time {.
-  cdecl, dynlib: lib, importc: "sfMusic_getPlayingOffset".}
+  cdecl, importc: "sfMusic_getPlayingOffset".}
   ## Get the current playing position of a music
   ## 
   ## *Arguments*:
@@ -250,7 +244,7 @@ proc playingOffset*(music: Music): Time {.
   ## *Returns:* Current playing position
 
 proc `pitch=`*(music: Music, pitch: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfMusic_setPitch".}
+  cdecl, importc: "sfMusic_setPitch".}
   ## Set the pitch of a music
   ## 
   ## The pitch represents the perceived fundamental frequency
@@ -264,7 +258,7 @@ proc `pitch=`*(music: Music, pitch: cfloat) {.
   ## - ``pitch``:  New pitch to apply to the music
 
 proc `volume=`*(music: Music, volume: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfMusic_setVolume".}
+  cdecl, importc: "sfMusic_setVolume".}
   ## Set the volume of a music
   ## 
   ## The volume is a value between 0 (mute) and 100 (full volume).
@@ -275,7 +269,7 @@ proc `volume=`*(music: Music, volume: cfloat) {.
   ## - ``volume``:  Volume of the music
 
 proc `position=`*(music: Music, position: Vector3f) {.
-  cdecl, dynlib: lib, importc: "sfMusic_setPosition".}
+  cdecl, importc: "sfMusic_setPosition".}
   ## Set the 3D position of a music in the audio scene
   ## 
   ## Only musics with one channel (mono musics) can be
@@ -287,7 +281,7 @@ proc `position=`*(music: Music, position: Vector3f) {.
   ## - ``position``:  Position of the music in the scene
 
 proc `relativeToListener=`*(music: Music, relative: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfMusic_setRelativeToListener".}
+  cdecl, importc: "sfMusic_setRelativeToListener".}
   ## Make a musics's position relative to the listener or absolute
   ## 
   ## Making a music relative to the listener will ensure that it will always
@@ -301,7 +295,7 @@ proc `relativeToListener=`*(music: Music, relative: BoolInt) {.
   ## - ``relative``:  True to set the position relative, False to set it absolute
 
 proc `minDistance=`*(music: Music, distance: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfMusic_setMinDistance".}
+  cdecl, importc: "sfMusic_setMinDistance".}
   ## Set the minimum distance of a music
   ## 
   ## The "minimum distance" of a music is the maximum
@@ -316,7 +310,7 @@ proc `minDistance=`*(music: Music, distance: cfloat) {.
   ## - ``distance``:  New minimum distance of the music
 
 proc `attenuation=`*(music: Music, attenuation: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfMusic_setAttenuation".}
+  cdecl, importc: "sfMusic_setAttenuation".}
   ## Set the attenuation factor of a music
   ## 
   ## The attenuation is a multiplicative factor which makes
@@ -333,7 +327,7 @@ proc `attenuation=`*(music: Music, attenuation: cfloat) {.
   ## - ``attenuation``:  New attenuation factor of the music
 
 proc `playingOffset=`*(music: Music, timeOffset: Time) {.
-  cdecl, dynlib: lib, importc: "sfMusic_setPlayingOffset".}
+  cdecl, importc: "sfMusic_setPlayingOffset".}
   ## Change the current playing position of a music
   ## 
   ## The playing position can be changed when the music is
@@ -344,7 +338,7 @@ proc `playingOffset=`*(music: Music, timeOffset: Time) {.
   ## - ``timeOffset``:  New playing position
 
 proc pitch*(music: Music): cfloat {.
-  cdecl, dynlib: lib, importc: "sfMusic_getPitch".}
+  cdecl, importc: "sfMusic_getPitch".}
   ## Get the pitch of a music
   ## 
   ## *Arguments*:
@@ -353,7 +347,7 @@ proc pitch*(music: Music): cfloat {.
   ## *Returns:* Pitch of the music
 
 proc volume*(music: Music): cfloat {.
-  cdecl, dynlib: lib, importc: "sfMusic_getVolume".}
+  cdecl, importc: "sfMusic_getVolume".}
   ## Get the volume of a music
   ## 
   ## *Arguments*:
@@ -362,7 +356,7 @@ proc volume*(music: Music): cfloat {.
   ## *Returns:* Volume of the music, in the range [0, 100]
 
 proc position*(music: Music): Vector3f {.
-  cdecl, dynlib: lib, importc: "sfMusic_getPosition".}
+  cdecl, importc: "sfMusic_getPosition".}
   ## Get the 3D position of a music in the audio scene
   ## 
   ## *Arguments*:
@@ -371,7 +365,7 @@ proc position*(music: Music): Vector3f {.
   ## *Returns:* Position of the music in the world
 
 proc relativeToListener*(music: Music): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfMusic_isRelativeToListener".}
+  cdecl, importc: "sfMusic_isRelativeToListener".}
   ## Tell whether a music's position is relative to the
   ## listener or is absolute
   ## 
@@ -381,7 +375,7 @@ proc relativeToListener*(music: Music): BoolInt {.
   ## *Returns:* True if the position is relative, False if it's absolute
 
 proc minDistance*(music: Music): cfloat {.
-  cdecl, dynlib: lib, importc: "sfMusic_getMinDistance".}
+  cdecl, importc: "sfMusic_getMinDistance".}
   ## Get the minimum distance of a music
   ## 
   ## *Arguments*:
@@ -390,7 +384,7 @@ proc minDistance*(music: Music): cfloat {.
   ## *Returns:* Minimum distance of the music
 
 proc attenuation*(music: Music): cfloat {.
-  cdecl, dynlib: lib, importc: "sfMusic_getAttenuation".}
+  cdecl, importc: "sfMusic_getAttenuation".}
   ## Get the attenuation factor of a music
   ## 
   ## *Arguments*:
@@ -402,13 +396,13 @@ proc attenuation*(music: Music): cfloat {.
 #--- SFML/Audio/Sound ---#
 
 proc newSound*(): Sound {.
-  cdecl, dynlib: lib, importc: "sfSound_create".}
+  cdecl, importc: "sfSound_create".}
   ## Create a new sound
   ## 
   ## *Returns:* A new Sound object
 
 proc copy*(sound: Sound): Sound {.
-  cdecl, dynlib: lib, importc: "sfSound_copy".}
+  cdecl, importc: "sfSound_copy".}
   ## Create a new sound by copying an existing one
   ## 
   ## *Arguments*:
@@ -417,14 +411,14 @@ proc copy*(sound: Sound): Sound {.
   ## *Returns:* A new Sound object which is a copy of ``sound``
 
 proc destroy*(sound: Sound) {.
-  cdecl, dynlib: lib, importc: "sfSound_destroy".}
+  override, cdecl, importc: "sfSound_destroy".}
   ## Destroy a sound
   ## 
   ## *Arguments*:
   ## - ``sound``:  Sound to destroy
 
 proc play*(sound: Sound) {.
-  cdecl, dynlib: lib, importc: "sfSound_play".}
+  cdecl, importc: "sfSound_play".}
   ## Start or resume playing a sound
   ## 
   ## This function starts the sound if it was stopped, resumes
@@ -437,7 +431,7 @@ proc play*(sound: Sound) {.
   ## - ``sound``:  Sound object
 
 proc pause*(sound: Sound) {.
-  cdecl, dynlib: lib, importc: "sfSound_pause".}
+  cdecl, importc: "sfSound_pause".}
   ## Pause a sound
   ## 
   ## This function pauses the sound if it was playing,
@@ -447,7 +441,7 @@ proc pause*(sound: Sound) {.
   ## - ``sound``:  Sound object
 
 proc stop*(sound: Sound) {.
-  cdecl, dynlib: lib, importc: "sfSound_stop".}
+  cdecl, importc: "sfSound_stop".}
   ## Stop playing a sound
   ## 
   ## This function stops the sound if it was playing or paused,
@@ -458,7 +452,7 @@ proc stop*(sound: Sound) {.
   ## - ``sound``:  Sound object
 
 proc `buffer=`*(sound: Sound, buffer: SoundBuffer) {.
-  cdecl, dynlib: lib, importc: "sfSound_setBuffer".}
+  cdecl, importc: "sfSound_setBuffer".}
   ## Set the source buffer containing the audio data to play
   ## 
   ## It is important to note that the sound buffer is not copied,
@@ -470,7 +464,7 @@ proc `buffer=`*(sound: Sound, buffer: SoundBuffer) {.
   ## - ``buffer``:  Sound buffer to attach to the sound
 
 proc buffer*(sound: Sound): SoundBuffer {.
-  cdecl, dynlib: lib, importc: "sfSound_getBuffer".}
+  cdecl, importc: "sfSound_getBuffer".}
   ## Get the audio buffer attached to a sound
   ## 
   ## *Arguments*:
@@ -479,7 +473,7 @@ proc buffer*(sound: Sound): SoundBuffer {.
   ## *Returns:* Sound buffer attached to the sound (can be NULL)
 
 proc `loop=`*(sound: Sound, loop: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfSound_setLoop".}
+  cdecl, importc: "sfSound_setLoop".}
   ## Set whether or not a sound should loop after reaching the end
   ## 
   ## If set, the sound will restart from beginning after
@@ -492,7 +486,7 @@ proc `loop=`*(sound: Sound, loop: BoolInt) {.
   ## - ``loop``:   True to play in loop, False to play once
 
 proc loop*(sound: Sound): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfSound_getLoop".}
+  cdecl, importc: "sfSound_getLoop".}
   ## Tell whether or not a sound is in loop mode
   ## 
   ## *Arguments*:
@@ -501,7 +495,7 @@ proc loop*(sound: Sound): BoolInt {.
   ## *Returns:* True if the sound is looping, False otherwise
 
 proc status*(sound: Sound): SoundStatus {.
-  cdecl, dynlib: lib, importc: "sfSound_getStatus".}
+  cdecl, importc: "sfSound_getStatus".}
   ## Get the current status of a sound (stopped, paused, playing)
   ## 
   ## *Arguments*:
@@ -510,7 +504,7 @@ proc status*(sound: Sound): SoundStatus {.
   ## *Returns:* Current status
 
 proc `pitch=`*(sound: Sound, pitch: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfSound_setPitch".}
+  cdecl, importc: "sfSound_setPitch".}
   ## Set the pitch of a sound
   ## 
   ## The pitch represents the perceived fundamental frequency
@@ -524,7 +518,7 @@ proc `pitch=`*(sound: Sound, pitch: cfloat) {.
   ## - ``pitch``:  New pitch to apply to the sound
 
 proc `volume=`*(sound: Sound, volume: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfSound_setVolume".}
+  cdecl, importc: "sfSound_setVolume".}
   ## Set the volume of a sound
   ## 
   ## The volume is a value between 0 (mute) and 100 (full volume).
@@ -535,7 +529,7 @@ proc `volume=`*(sound: Sound, volume: cfloat) {.
   ## - ``volume``:  Volume of the sound
 
 proc `position=`*(sound: Sound, position: Vector3f) {.
-  cdecl, dynlib: lib, importc: "sfSound_setPosition".}
+  cdecl, importc: "sfSound_setPosition".}
   ## Set the 3D position of a sound in the audio scene
   ## 
   ## Only sounds with one channel (mono sounds) can be
@@ -547,7 +541,7 @@ proc `position=`*(sound: Sound, position: Vector3f) {.
   ## - ``position``:  Position of the sound in the scene
 
 proc `relativeToListener=`*(sound: Sound, relative: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfSound_setRelativeToListener".}
+  cdecl, importc: "sfSound_setRelativeToListener".}
   ## Make the sound's position relative to the listener or absolute
   ## 
   ## Making a sound relative to the listener will ensure that it will always
@@ -561,7 +555,7 @@ proc `relativeToListener=`*(sound: Sound, relative: BoolInt) {.
   ## - ``relative``:  True to set the position relative, False to set it absolute
 
 proc `minDistance=`*(sound: Sound, distance: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfSound_setMinDistance".}
+  cdecl, importc: "sfSound_setMinDistance".}
   ## Set the minimum distance of a sound
   ## 
   ## The "minimum distance" of a sound is the maximum
@@ -576,7 +570,7 @@ proc `minDistance=`*(sound: Sound, distance: cfloat) {.
   ## - ``distance``:  New minimum distance of the sound
 
 proc `attenuation=`*(sound: Sound, attenuation: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfSound_setAttenuation".}
+  cdecl, importc: "sfSound_setAttenuation".}
   ## Set the attenuation factor of a sound
   ## 
   ## The attenuation is a multiplicative factor which makes
@@ -593,7 +587,7 @@ proc `attenuation=`*(sound: Sound, attenuation: cfloat) {.
   ## - ``attenuation``:  New attenuation factor of the sound
 
 proc `playingOffset=`*(sound: Sound, timeOffset: Time) {.
-  cdecl, dynlib: lib, importc: "sfSound_setPlayingOffset".}
+  cdecl, importc: "sfSound_setPlayingOffset".}
   ## Change the current playing position of a sound
   ## 
   ## The playing position can be changed when the sound is
@@ -604,7 +598,7 @@ proc `playingOffset=`*(sound: Sound, timeOffset: Time) {.
   ## - ``timeOffset``:  New playing position
 
 proc pitch*(sound: Sound): cfloat {.
-  cdecl, dynlib: lib, importc: "sfSound_getPitch".}
+  cdecl, importc: "sfSound_getPitch".}
   ## Get the pitch of a sound
   ## 
   ## *Arguments*:
@@ -613,7 +607,7 @@ proc pitch*(sound: Sound): cfloat {.
   ## *Returns:* Pitch of the sound
 
 proc volume*(sound: Sound): cfloat {.
-  cdecl, dynlib: lib, importc: "sfSound_getVolume".}
+  cdecl, importc: "sfSound_getVolume".}
   ## Get the volume of a sound
   ## 
   ## *Arguments*:
@@ -622,7 +616,7 @@ proc volume*(sound: Sound): cfloat {.
   ## *Returns:* Volume of the sound, in the range [0, 100]
 
 proc position*(sound: Sound): Vector3f {.
-  cdecl, dynlib: lib, importc: "sfSound_getPosition".}
+  cdecl, importc: "sfSound_getPosition".}
   ## Get the 3D position of a sound in the audio scene
   ## 
   ## *Arguments*:
@@ -631,7 +625,7 @@ proc position*(sound: Sound): Vector3f {.
   ## *Returns:* Position of the sound in the world
 
 proc relativeToListener*(sound: Sound): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfSound_isRelativeToListener".}
+  cdecl, importc: "sfSound_isRelativeToListener".}
   ## Tell whether a sound's position is relative to the
   ## listener or is absolute
   ## 
@@ -641,7 +635,7 @@ proc relativeToListener*(sound: Sound): BoolInt {.
   ## *Returns:* True if the position is relative, False if it's absolute
 
 proc minDistance*(sound: Sound): cfloat {.
-  cdecl, dynlib: lib, importc: "sfSound_getMinDistance".}
+  cdecl, importc: "sfSound_getMinDistance".}
   ## Get the minimum distance of a sound
   ## 
   ## *Arguments*:
@@ -650,7 +644,7 @@ proc minDistance*(sound: Sound): cfloat {.
   ## *Returns:* Minimum distance of the sound
 
 proc attenuation*(sound: Sound): cfloat {.
-  cdecl, dynlib: lib, importc: "sfSound_getAttenuation".}
+  cdecl, importc: "sfSound_getAttenuation".}
   ## Get the attenuation factor of a sound
   ## 
   ## *Arguments*:
@@ -659,7 +653,7 @@ proc attenuation*(sound: Sound): cfloat {.
   ## *Returns:* Attenuation factor of the sound
 
 proc playingOffset*(sound: Sound): Time {.
-  cdecl, dynlib: lib, importc: "sfSound_getPlayingOffset".}
+  cdecl, importc: "sfSound_getPlayingOffset".}
   ## Get the current playing position of a sound
   ## 
   ## *Arguments*:
@@ -671,7 +665,7 @@ proc playingOffset*(sound: Sound): Time {.
 #--- SFML/Audio/SoundBuffer ---#
 
 proc newSoundBuffer*(filename: cstring): SoundBuffer {.
-  cdecl, dynlib: lib, importc: "sfSoundBuffer_createFromFile".}
+  cdecl, importc: "sfSoundBuffer_createFromFile".}
   ## Create a new sound buffer and load it from a file
   ## 
   ## Here is a complete list of all the supported audio formats:
@@ -684,7 +678,7 @@ proc newSoundBuffer*(filename: cstring): SoundBuffer {.
   ## *Returns:* A new SoundBuffer object (NULL if failed)
 
 proc newSoundBuffer*(data: pointer, sizeInBytes: int): SoundBuffer {.
-  cdecl, dynlib: lib, importc: "sfSoundBuffer_createFromMemory".}
+  cdecl, importc: "sfSoundBuffer_createFromMemory".}
   ## Create a new sound buffer and load it from a file in memory
   ## 
   ## Here is a complete list of all the supported audio formats:
@@ -698,7 +692,7 @@ proc newSoundBuffer*(data: pointer, sizeInBytes: int): SoundBuffer {.
   ## *Returns:* A new SoundBuffer object (NULL if failed)
 
 proc newSoundBuffer*(stream: var InputStream): SoundBuffer {.
-  cdecl, dynlib: lib, importc: "sfSoundBuffer_createFromStream".}
+  cdecl, importc: "sfSoundBuffer_createFromStream".}
   ## Create a new sound buffer and load it from a custom stream
   ## 
   ## Here is a complete list of all the supported audio formats:
@@ -710,8 +704,8 @@ proc newSoundBuffer*(stream: var InputStream): SoundBuffer {.
   ## 
   ## *Returns:* A new SoundBuffer object (NULL if failed)
 
-proc newSoundBuffer_Ptr*(samples: ptr int16, sampleCount: int, channelCount: cint, sampleRate: cint): SoundBuffer {.
-  cdecl, dynlib: lib, importc: "sfSoundBuffer_createFromSamples".}
+proc newSoundBuffer*(samples: ptr int16, sampleCount: int, channelCount: cint, sampleRate: cint): SoundBuffer {.
+  cdecl, importc: "sfSoundBuffer_createFromSamples".}
   ## Create a new sound buffer and load it from an array of samples in memory
   ## 
   ## The assumed format of the audio samples is 16 bits signed integer
@@ -726,7 +720,7 @@ proc newSoundBuffer_Ptr*(samples: ptr int16, sampleCount: int, channelCount: cin
   ## *Returns:* A new SoundBuffer object (NULL if failed)
 
 proc copy*(soundBuffer: SoundBuffer): SoundBuffer {.
-  cdecl, dynlib: lib, importc: "sfSoundBuffer_copy".}
+  cdecl, importc: "sfSoundBuffer_copy".}
   ## Create a new sound buffer by copying an existing one
   ## 
   ## *Arguments*:
@@ -735,14 +729,14 @@ proc copy*(soundBuffer: SoundBuffer): SoundBuffer {.
   ## *Returns:* A new SoundBuffer object which is a copy of ``soundBuffer``
 
 proc destroy*(soundBuffer: SoundBuffer) {.
-  cdecl, dynlib: lib, importc: "sfSoundBuffer_destroy".}
+  override, cdecl, importc: "sfSoundBuffer_destroy".}
   ## Destroy a sound buffer
   ## 
   ## *Arguments*:
   ## - ``soundBuffer``:  Sound buffer to destroy
 
 proc saveToFile*(soundBuffer: SoundBuffer, filename: cstring): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfSoundBuffer_saveToFile".}
+  cdecl, importc: "sfSoundBuffer_saveToFile".}
   ## Save a sound buffer to an audio file
   ## 
   ## Here is a complete list of all the supported audio formats:
@@ -755,8 +749,8 @@ proc saveToFile*(soundBuffer: SoundBuffer, filename: cstring): BoolInt {.
   ## 
   ## *Returns:* True if saving succeeded, False if it failed
 
-proc samples_Ptr*(soundBuffer: SoundBuffer): ptr int16 {.
-  cdecl, dynlib: lib, importc: "sfSoundBuffer_getSamples".}
+proc samples*(soundBuffer: SoundBuffer): ptr int16 {.
+  cdecl, importc: "sfSoundBuffer_getSamples".}
   ## Get the array of audio samples stored in a sound buffer
   ## 
   ## The format of the returned samples is 16 bits signed integer
@@ -769,7 +763,7 @@ proc samples_Ptr*(soundBuffer: SoundBuffer): ptr int16 {.
   ## *Returns:* Read-only pointer to the array of sound samples
 
 proc sampleCount*(soundBuffer: SoundBuffer): int {.
-  cdecl, dynlib: lib, importc: "sfSoundBuffer_getSampleCount".}
+  cdecl, importc: "sfSoundBuffer_getSampleCount".}
   ## Get the number of samples stored in a sound buffer
   ## 
   ## The array of samples can be accessed with the
@@ -781,7 +775,7 @@ proc sampleCount*(soundBuffer: SoundBuffer): int {.
   ## *Returns:* Number of samples
 
 proc sampleRate*(soundBuffer: SoundBuffer): cint {.
-  cdecl, dynlib: lib, importc: "sfSoundBuffer_getSampleRate".}
+  cdecl, importc: "sfSoundBuffer_getSampleRate".}
   ## Get the sample rate of a sound buffer
   ## 
   ## The sample rate is the number of samples played per second.
@@ -794,7 +788,7 @@ proc sampleRate*(soundBuffer: SoundBuffer): cint {.
   ## *Returns:* Sample rate (number of samples per second)
 
 proc channelCount*(soundBuffer: SoundBuffer): cint {.
-  cdecl, dynlib: lib, importc: "sfSoundBuffer_getChannelCount".}
+  cdecl, importc: "sfSoundBuffer_getChannelCount".}
   ## Get the number of channels used by a sound buffer
   ## 
   ## If the sound is mono then the number of channels will
@@ -806,7 +800,7 @@ proc channelCount*(soundBuffer: SoundBuffer): cint {.
   ## *Returns:* Number of channels
 
 proc duration*(soundBuffer: SoundBuffer): Time {.
-  cdecl, dynlib: lib, importc: "sfSoundBuffer_getDuration".}
+  cdecl, importc: "sfSoundBuffer_getDuration".}
   ## Get the total duration of a sound buffer
   ## 
   ## *Arguments*:
@@ -818,20 +812,20 @@ proc duration*(soundBuffer: SoundBuffer): Time {.
 #--- SFML/Audio/SoundBufferRecorder ---#
 
 proc newSoundBufferRecorder*(): SoundBufferRecorder {.
-  cdecl, dynlib: lib, importc: "sfSoundBufferRecorder_create".}
+  cdecl, importc: "sfSoundBufferRecorder_create".}
   ## Create a new sound buffer recorder
   ## 
   ## *Returns:* A new SoundBufferRecorder object (NULL if failed)
 
 proc destroy*(soundBufferRecorder: SoundBufferRecorder) {.
-  cdecl, dynlib: lib, importc: "sfSoundBufferRecorder_destroy".}
+  override, cdecl, importc: "sfSoundBufferRecorder_destroy".}
   ## Destroy a sound buffer recorder
   ## 
   ## *Arguments*:
   ## - ``soundBufferRecorder``:  Sound buffer recorder to destroy
 
 proc start*(soundBufferRecorder: SoundBufferRecorder, sampleRate: cint) {.
-  cdecl, dynlib: lib, importc: "sfSoundBufferRecorder_start".}
+  cdecl, importc: "sfSoundBufferRecorder_start".}
   ## Start the capture of a sound recorder recorder
   ## 
   ## The ``sampleRate`` parameter defines the number of audio samples
@@ -846,14 +840,14 @@ proc start*(soundBufferRecorder: SoundBufferRecorder, sampleRate: cint) {.
   ## - ``sampleRate``:           Desired capture rate, in number of samples per second
 
 proc stop*(soundBufferRecorder: SoundBufferRecorder) {.
-  cdecl, dynlib: lib, importc: "sfSoundBufferRecorder_stop".}
+  cdecl, importc: "sfSoundBufferRecorder_stop".}
   ## Stop the capture of a sound recorder
   ## 
   ## *Arguments*:
   ## - ``soundBufferRecorder``:  Sound buffer recorder object
 
 proc sampleRate*(soundBufferRecorder: SoundBufferRecorder): cint {.
-  cdecl, dynlib: lib, importc: "sfSoundBufferRecorder_getSampleRate".}
+  cdecl, importc: "sfSoundBufferRecorder_getSampleRate".}
   ## Get the sample rate of a sound buffer recorder
   ## 
   ## The sample rate defines the number of audio samples
@@ -866,7 +860,7 @@ proc sampleRate*(soundBufferRecorder: SoundBufferRecorder): cint {.
   ## *Returns:* Sample rate, in samples per second
 
 proc buffer*(soundBufferRecorder: SoundBufferRecorder): SoundBuffer {.
-  cdecl, dynlib: lib, importc: "sfSoundBufferRecorder_getBuffer".}
+  cdecl, importc: "sfSoundBufferRecorder_getBuffer".}
   ## Get the sound buffer containing the captured audio data
   ## 
   ## The sound buffer is valid only after the capture has ended.
@@ -889,7 +883,7 @@ type SoundRecorderProcessCallback* = proc(p1: ptr int16; p2: int; p3: pointer): 
 type SoundRecorderStopCallback* = proc(p1: pointer): void {.cdecl.}
 
 proc newSoundRecorder*(onStart: SoundRecorderStartCallback, onProcess: SoundRecorderProcessCallback, onStop: SoundRecorderStopCallback, userData: pointer): SoundRecorder {.
-  cdecl, dynlib: lib, importc: "sfSoundRecorder_create".}
+  cdecl, importc: "sfSoundRecorder_create".}
   ## Construct a new sound recorder from callback functions
   ## 
   ## *Arguments*:
@@ -901,14 +895,14 @@ proc newSoundRecorder*(onStart: SoundRecorderStartCallback, onProcess: SoundReco
   ## *Returns:* A new SoundRecorder object (NULL if failed)
 
 proc destroy*(soundRecorder: SoundRecorder) {.
-  cdecl, dynlib: lib, importc: "sfSoundRecorder_destroy".}
+  override, cdecl, importc: "sfSoundRecorder_destroy".}
   ## Destroy a sound recorder
   ## 
   ## *Arguments*:
   ## - ``soundRecorder``:  Sound recorder to destroy
 
 proc start*(soundRecorder: SoundRecorder, sampleRate: cint) {.
-  cdecl, dynlib: lib, importc: "sfSoundRecorder_start".}
+  cdecl, importc: "sfSoundRecorder_start".}
   ## Start the capture of a sound recorder
   ## 
   ## The ``sampleRate`` parameter defines the number of audio samples
@@ -923,14 +917,14 @@ proc start*(soundRecorder: SoundRecorder, sampleRate: cint) {.
   ## - ``sampleRate``:     Desired capture rate, in number of samples per second
 
 proc stop*(soundRecorder: SoundRecorder) {.
-  cdecl, dynlib: lib, importc: "sfSoundRecorder_stop".}
+  cdecl, importc: "sfSoundRecorder_stop".}
   ## Stop the capture of a sound recorder
   ## 
   ## *Arguments*:
   ## - ``soundRecorder``:  Sound recorder object
 
 proc sampleRate*(soundRecorder: SoundRecorder): cint {.
-  cdecl, dynlib: lib, importc: "sfSoundRecorder_getSampleRate".}
+  cdecl, importc: "sfSoundRecorder_getSampleRate".}
   ## Get the sample rate of a sound recorder
   ## 
   ## The sample rate defines the number of audio samples
@@ -943,7 +937,7 @@ proc sampleRate*(soundRecorder: SoundRecorder): cint {.
   ## *Returns:* Sample rate, in samples per second
 
 proc soundRecorder_isAvailable*(): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfSoundRecorder_isAvailable".}
+  cdecl, importc: "sfSoundRecorder_isAvailable".}
   ## Check if the system supports audio capture
   ## 
   ## This function should always be called before using

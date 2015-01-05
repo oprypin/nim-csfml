@@ -13,7 +13,7 @@ type BlendMode* {.pure, size: sizeof(cint).} = enum  ## Available blending modes
 
 #--- SFML/Graphics/Color ---#
 
-type Color* {.pure, final.} = object
+type Color* = object
   ## Utility class for manpulating RGBA colors
   r*: uint8
   g*: uint8
@@ -21,7 +21,7 @@ type Color* {.pure, final.} = object
   a*: uint8
 
 proc color*(red: uint8, green: uint8, blue: uint8): Color {.
-  cdecl, dynlib: lib, importc: "sfColor_fromRGB".}
+  cdecl, importc: "sfColor_fromRGB".}
   ## Construct a color from its 3 RGB components
   ## 
   ## *Arguments*:
@@ -32,7 +32,7 @@ proc color*(red: uint8, green: uint8, blue: uint8): Color {.
   ## *Returns:* Color constructed from the components
 
 proc color*(red: uint8, green: uint8, blue: uint8, alpha: uint8): Color {.
-  cdecl, dynlib: lib, importc: "sfColor_fromRGBA".}
+  cdecl, importc: "sfColor_fromRGBA".}
   ## Construct a color from its 4 RGBA components
   ## 
   ## *Arguments*:
@@ -44,7 +44,7 @@ proc color*(red: uint8, green: uint8, blue: uint8, alpha: uint8): Color {.
   ## *Returns:* Color constructed from the components
 
 proc add*(color1: Color, color2: Color): Color {.
-  cdecl, dynlib: lib, importc: "sfColor_add".}
+  cdecl, importc: "sfColor_add".}
   ## Add two colors
   ## 
   ## *Arguments*:
@@ -54,7 +54,7 @@ proc add*(color1: Color, color2: Color): Color {.
   ## *Returns:* Component-wise saturated addition of the two colors
 
 proc modulate*(color1: Color, color2: Color): Color {.
-  cdecl, dynlib: lib, importc: "sfColor_modulate".}
+  cdecl, importc: "sfColor_modulate".}
   ## Modulate two colors
   ## 
   ## *Arguments*:
@@ -66,20 +66,20 @@ proc modulate*(color1: Color, color2: Color): Color {.
 
 #--- SFML/Graphics/Rect ---#
 
-type FloatRect* {.pure, final.} = object
+type FloatRect* = object
   left*: cfloat
   top*: cfloat
   width*: cfloat
   height*: cfloat
 
-type IntRect* {.pure, final.} = object
+type IntRect* = object
   left*: cint
   top*: cint
   width*: cint
   height*: cint
 
 proc contains*(rect: (var FloatRect){lvalue}, x: cfloat, y: cfloat): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfFloatRect_contains".}
+  cdecl, importc: "sfFloatRect_contains".}
 proc contains*(rect: FloatRect, x: cfloat, y: cfloat): BoolInt =
   ## Check if a point is inside a rectangle's area
   ## 
@@ -93,13 +93,13 @@ proc contains*(rect: FloatRect, x: cfloat, y: cfloat): BoolInt =
   contains(Crect, x, y)
 
 proc contains*(rect: (var IntRect){lvalue}, x: cint, y: cint): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfIntRect_contains".}
+  cdecl, importc: "sfIntRect_contains".}
 proc contains*(rect: IntRect, x: cint, y: cint): BoolInt =
   (var Crect = rect)
   contains(Crect, x, y)
 
 proc intersects*(rect1: (var FloatRect){lvalue}, rect2: (var FloatRect){lvalue}, intersection: var FloatRect): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfFloatRect_intersects".}
+  cdecl, importc: "sfFloatRect_intersects".}
 proc intersects*(rect1: (var FloatRect){lvalue}, rect2: FloatRect, intersection: var FloatRect): BoolInt =
   (var Crect2 = rect2)
   intersects(rect1, Crect2, intersection)
@@ -119,7 +119,7 @@ proc intersects*(rect1: FloatRect, rect2: FloatRect, intersection: var FloatRect
   intersects(Crect1, Crect2, intersection)
 
 proc intersects*(rect1: (var IntRect){lvalue}, rect2: (var IntRect){lvalue}, intersection: var IntRect): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfIntRect_intersects".}
+  cdecl, importc: "sfIntRect_intersects".}
 proc intersects*(rect1: (var IntRect){lvalue}, rect2: IntRect, intersection: var IntRect): BoolInt =
   (var Crect2 = rect2)
   intersects(rect1, Crect2, intersection)
@@ -137,71 +137,56 @@ proc intersects*(rect1: IntRect, rect2: IntRect, intersection: var IntRect): Boo
 #--- SFML/Graphics/Types ---#
 
 type
-  CircleShape* = ptr TCircleShape
-  TCircleShape {.pure, final.} = object
+  CircleShape* = ptr object
 
 type
-  ConvexShape* = ptr TConvexShape
-  TConvexShape {.pure, final.} = object
+  ConvexShape* = ptr object
 
 type
-  Font* = ptr TFont
-  TFont {.pure, final.} = object
+  Font* = ptr object
 
 type
-  Image* = ptr TImage
-  TImage {.pure, final.} = object
+  Image* = ptr object
 
 type
-  Shader* = ptr TShader
-  TShader {.pure, final.} = object
+  Shader* = ptr object
 
 type
-  RectangleShape* = ptr TRectangleShape
-  TRectangleShape {.pure, final.} = object
+  RectangleShape* = ptr object
 
 type
-  RenderTexture* = ptr TRenderTexture
-  TRenderTexture {.pure, final.} = object
+  RenderTexture* = ptr object
 
 type
-  RenderWindow* = ptr TRenderWindow
-  TRenderWindow {.pure, final.} = object
+  RenderWindow* = ptr object
 
 type
-  Shape* = ptr TShape
-  TShape {.pure, final.} = object
+  Shape* = ptr object
 
 type
-  Sprite* = ptr TSprite
-  TSprite {.pure, final.} = object
+  Sprite* = ptr object
 
 type
-  Text* = ptr TText
-  TText {.pure, final.} = object
+  Text* = ptr object
 
 type
-  Texture* = ptr TTexture
-  TTexture {.pure, final.} = object
+  Texture* = ptr object
 
 type
-  Transformable* = ptr TTransformable
-  TTransformable {.pure, final.} = object
+  Transformable* = ptr object
 
 type
-  VertexArray* = ptr TVertexArray
-  TVertexArray {.pure, final.} = object
+  VertexArray* = ptr object
 
 type
-  View* = ptr TView
-  TView {.pure, final.} = object
+  View* = ptr object
 
-type Transform* {.pure, final.} = object
+type Transform* = object
   ## Encapsulate a 3x3 transform matrix
   matrix*: array[0..8, cfloat]
 
 proc transform*(a00: cfloat, a01: cfloat, a02: cfloat, a10: cfloat, a11: cfloat, a12: cfloat, a20: cfloat, a21: cfloat, a22: cfloat): Transform {.
-  cdecl, dynlib: lib, importc: "sfTransform_fromMatrix".}
+  cdecl, importc: "sfTransform_fromMatrix".}
   ## Create a new transform from a matrix
   ## 
   ## *Arguments*:
@@ -217,9 +202,9 @@ proc transform*(a00: cfloat, a01: cfloat, a02: cfloat, a10: cfloat, a11: cfloat,
   ## 
   ## *Returns:* A new Transform object
 
-proc getMatrix_Ptr*(transform: (var Transform){lvalue}, matrix: ptr cfloat) {.
-  cdecl, dynlib: lib, importc: "sfTransform_getMatrix".}
-proc getMatrix_Ptr*(transform: Transform, matrix: ptr cfloat) =
+proc getMatrix*(transform: (var Transform){lvalue}, matrix: ptr cfloat) {.
+  cdecl, importc: "sfTransform_getMatrix".}
+proc getMatrix*(transform: Transform, matrix: ptr cfloat) =
   ## Return the 4x4 matrix of a transform
   ## 
   ## This function fills an array of 16 floats with the transform
@@ -231,10 +216,10 @@ proc getMatrix_Ptr*(transform: Transform, matrix: ptr cfloat) =
   ## - ``transform``:  Transform object
   ## - ``matrix``:  Pointer to the 16-element array to fill with the matrix
   (var Ctransform = transform)
-  getMatrix_Ptr(Ctransform, matrix)
+  getMatrix(Ctransform, matrix)
 
 proc inverse*(transform: (var Transform){lvalue}): Transform {.
-  cdecl, dynlib: lib, importc: "sfTransform_getInverse".}
+  cdecl, importc: "sfTransform_getInverse".}
 proc inverse*(transform: Transform): Transform =
   ## Return the inverse of a transform
   ## 
@@ -248,7 +233,7 @@ proc inverse*(transform: Transform): Transform =
   inverse(Ctransform)
 
 proc transformPoint*(transform: (var Transform){lvalue}, point: Vector2f): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfTransform_transformPoint".}
+  cdecl, importc: "sfTransform_transformPoint".}
 proc transformPoint*(transform: Transform, point: Vector2f): Vector2f =
   ## Apply a transform to a 2D point
   ## 
@@ -261,7 +246,7 @@ proc transformPoint*(transform: Transform, point: Vector2f): Vector2f =
   transformPoint(Ctransform, point)
 
 proc transformRect*(transform: (var Transform){lvalue}, rectangle: FloatRect): FloatRect {.
-  cdecl, dynlib: lib, importc: "sfTransform_transformRect".}
+  cdecl, importc: "sfTransform_transformRect".}
 proc transformRect*(transform: Transform, rectangle: FloatRect): FloatRect =
   ## Apply a transform to a rectangle
   ## 
@@ -280,7 +265,7 @@ proc transformRect*(transform: Transform, rectangle: FloatRect): FloatRect =
   transformRect(Ctransform, rectangle)
 
 proc combine*(transform: var Transform, other: (var Transform){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfTransform_combine".}
+  cdecl, importc: "sfTransform_combine".}
 proc combine*(transform: var Transform, other: Transform) =
   ## Combine two transforms
   ## 
@@ -295,7 +280,7 @@ proc combine*(transform: var Transform, other: Transform) =
   combine(transform, Cother)
 
 proc translate*(transform: var Transform, x: cfloat, y: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfTransform_translate".}
+  cdecl, importc: "sfTransform_translate".}
   ## Combine a transform with a translation
   ## 
   ## *Arguments*:
@@ -304,7 +289,7 @@ proc translate*(transform: var Transform, x: cfloat, y: cfloat) {.
   ## - ``y``:          Offset to apply on Y axis
 
 proc rotate*(transform: var Transform, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfTransform_rotate".}
+  cdecl, importc: "sfTransform_rotate".}
   ## Combine the current transform with a rotation
   ## 
   ## *Arguments*:
@@ -312,7 +297,7 @@ proc rotate*(transform: var Transform, angle: cfloat) {.
   ## - ``angle``:      Rotation angle, in degrees
 
 proc rotate*(transform: var Transform, angle: cfloat, centerX: cfloat, centerY: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfTransform_rotateWithCenter".}
+  cdecl, importc: "sfTransform_rotateWithCenter".}
   ## Combine the current transform with a rotation
   ## 
   ## The center of rotation is provided for convenience as a second
@@ -327,7 +312,7 @@ proc rotate*(transform: var Transform, angle: cfloat, centerX: cfloat, centerY: 
   ## - ``centerY``:    Y coordinate of the center of rotation
 
 proc scale*(transform: var Transform, scaleX: cfloat, scaleY: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfTransform_scale".}
+  cdecl, importc: "sfTransform_scale".}
   ## Combine the current transform with a scaling
   ## 
   ## *Arguments*:
@@ -336,7 +321,7 @@ proc scale*(transform: var Transform, scaleX: cfloat, scaleY: cfloat) {.
   ## - ``scaleY``:     Scaling factor on the Y axis
 
 proc scale*(transform: var Transform, scaleX: cfloat, scaleY: cfloat, centerX: cfloat, centerY: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfTransform_scaleWithCenter".}
+  cdecl, importc: "sfTransform_scaleWithCenter".}
   ## Combine the current transform with a scaling
   ## 
   ## The center of scaling is provided for convenience as a second
@@ -352,13 +337,13 @@ proc scale*(transform: var Transform, scaleX: cfloat, scaleY: cfloat, centerX: c
   ## - ``centerY``:    Y coordinate of the center of scaling
 
 proc newCircleShape*(): CircleShape {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_create".}
+  cdecl, importc: "sfCircleShape_create".}
   ## Create a new circle shape
   ## 
   ## *Returns:* A new CircleShape object, or NULL if it failed
 
 proc copy*(shape: CircleShape): CircleShape {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_copy".}
+  cdecl, importc: "sfCircleShape_copy".}
   ## Copy an existing circle shape
   ## 
   ## *Arguments*:
@@ -367,14 +352,14 @@ proc copy*(shape: CircleShape): CircleShape {.
   ## *Returns:* Copied object
 
 proc destroy*(shape: CircleShape) {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_destroy".}
+  override, cdecl, importc: "sfCircleShape_destroy".}
   ## Destroy an existing circle Shape
   ## 
   ## *Arguments*:
   ## - ``Shape``:  Shape to delete
 
 proc `position=`*(shape: CircleShape, position: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_setPosition".}
+  cdecl, importc: "sfCircleShape_setPosition".}
   ## Set the position of a circle shape
   ## 
   ## This function completely overwrites the previous position.
@@ -386,7 +371,7 @@ proc `position=`*(shape: CircleShape, position: Vector2f) {.
   ## - ``position``:  New position
 
 proc `rotation=`*(shape: CircleShape, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_setRotation".}
+  cdecl, importc: "sfCircleShape_setRotation".}
   ## Set the orientation of a circle shape
   ## 
   ## This function completely overwrites the previous rotation.
@@ -398,7 +383,7 @@ proc `rotation=`*(shape: CircleShape, angle: cfloat) {.
   ## - ``angle``:  New rotation, in degrees
 
 proc `scale=`*(shape: CircleShape, scale: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_setScale".}
+  cdecl, importc: "sfCircleShape_setScale".}
   ## Set the scale factors of a circle shape
   ## 
   ## This function completely overwrites the previous scale.
@@ -410,7 +395,7 @@ proc `scale=`*(shape: CircleShape, scale: Vector2f) {.
   ## - ``scale``:  New scale factors
 
 proc `origin=`*(shape: CircleShape, origin: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_setOrigin".}
+  cdecl, importc: "sfCircleShape_setOrigin".}
   ## Set the local origin of a circle shape
   ## 
   ## The origin of an object defines the center point for
@@ -425,7 +410,7 @@ proc `origin=`*(shape: CircleShape, origin: Vector2f) {.
   ## - ``origin``:  New origin
 
 proc position*(shape: CircleShape): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_getPosition".}
+  cdecl, importc: "sfCircleShape_getPosition".}
   ## Get the position of a circle shape
   ## 
   ## *Arguments*:
@@ -434,7 +419,7 @@ proc position*(shape: CircleShape): Vector2f {.
   ## *Returns:* Current position
 
 proc rotation*(shape: CircleShape): cfloat {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_getRotation".}
+  cdecl, importc: "sfCircleShape_getRotation".}
   ## Get the orientation of a circle shape
   ## 
   ## The rotation is always in the range [0, 360].
@@ -445,7 +430,7 @@ proc rotation*(shape: CircleShape): cfloat {.
   ## *Returns:* Current rotation, in degrees
 
 proc scale*(shape: CircleShape): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_getScale".}
+  cdecl, importc: "sfCircleShape_getScale".}
   ## Get the current scale of a circle shape
   ## 
   ## *Arguments*:
@@ -454,7 +439,7 @@ proc scale*(shape: CircleShape): Vector2f {.
   ## *Returns:* Current scale factors
 
 proc origin*(shape: CircleShape): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_getOrigin".}
+  cdecl, importc: "sfCircleShape_getOrigin".}
   ## Get the local origin of a circle shape
   ## 
   ## *Arguments*:
@@ -463,7 +448,7 @@ proc origin*(shape: CircleShape): Vector2f {.
   ## *Returns:* Current origin
 
 proc move*(shape: CircleShape, offset: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_move".}
+  cdecl, importc: "sfCircleShape_move".}
   ## Move a circle shape by a given offset
   ## 
   ## This function adds to the current position of the object,
@@ -474,7 +459,7 @@ proc move*(shape: CircleShape, offset: Vector2f) {.
   ## - ``offset``:  Offset
 
 proc rotate*(shape: CircleShape, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_rotate".}
+  cdecl, importc: "sfCircleShape_rotate".}
   ## Rotate a circle shape
   ## 
   ## This function adds to the current rotation of the object,
@@ -485,7 +470,7 @@ proc rotate*(shape: CircleShape, angle: cfloat) {.
   ## - ``angle``:  Angle of rotation, in degrees
 
 proc scale*(shape: CircleShape, factors: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_scale".}
+  cdecl, importc: "sfCircleShape_scale".}
   ## Scale a circle shape
   ## 
   ## This function multiplies the current scale of the object,
@@ -496,7 +481,7 @@ proc scale*(shape: CircleShape, factors: Vector2f) {.
   ## - ``factors``:  Scale factors
 
 proc transform*(shape: CircleShape): Transform {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_getTransform".}
+  cdecl, importc: "sfCircleShape_getTransform".}
   ## Get the combined transform of a circle shape
   ## 
   ## *Arguments*:
@@ -505,7 +490,7 @@ proc transform*(shape: CircleShape): Transform {.
   ## *Returns:* Transform combining the position/rotation/scale/origin of the object
 
 proc inverseTransform*(shape: CircleShape): Transform {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_getInverseTransform".}
+  cdecl, importc: "sfCircleShape_getInverseTransform".}
   ## Get the inverse of the combined transform of a circle shape
   ## 
   ## *Arguments*:
@@ -514,7 +499,7 @@ proc inverseTransform*(shape: CircleShape): Transform {.
   ## *Returns:* Inverse of the combined transformations applied to the object
 
 proc setTexture*(shape: CircleShape, texture: Texture, resetRect: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_setTexture".}
+  cdecl, importc: "sfCircleShape_setTexture".}
   ## Change the source texture of a circle shape
   ## 
   ## The ``texture`` argument refers to a texture that must
@@ -534,7 +519,7 @@ proc setTexture*(shape: CircleShape, texture: Texture, resetRect: BoolInt) {.
   ## - ``resetRect``:  Should the texture rect be reset to the size of the new texture?
 
 proc `textureRect=`*(shape: CircleShape, rect: IntRect) {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_setTextureRect".}
+  cdecl, importc: "sfCircleShape_setTextureRect".}
   ## Set the sub-rectangle of the texture that a circle shape will display
   ## 
   ## The texture rect is useful when you don't want to display
@@ -546,7 +531,7 @@ proc `textureRect=`*(shape: CircleShape, rect: IntRect) {.
   ## - ``rect``:   Rectangle defining the region of the texture to display
 
 proc `fillColor=`*(shape: CircleShape, color: Color) {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_setFillColor".}
+  cdecl, importc: "sfCircleShape_setFillColor".}
   ## Set the fill color of a circle shape
   ## 
   ## This color is modulated (multiplied) with the shape's
@@ -561,7 +546,7 @@ proc `fillColor=`*(shape: CircleShape, color: Color) {.
   ## - ``color``:  New color of the shape
 
 proc `outlineColor=`*(shape: CircleShape, color: Color) {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_setOutlineColor".}
+  cdecl, importc: "sfCircleShape_setOutlineColor".}
   ## Set the outline color of a circle shape
   ## 
   ## You can use Transparent to disable the outline.
@@ -572,7 +557,7 @@ proc `outlineColor=`*(shape: CircleShape, color: Color) {.
   ## - ``color``:  New outline color of the shape
 
 proc `outlineThickness=`*(shape: CircleShape, thickness: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_setOutlineThickness".}
+  cdecl, importc: "sfCircleShape_setOutlineThickness".}
   ## Set the thickness of a circle shape's outline
   ## 
   ## This number cannot be negative. Using zero disables
@@ -584,7 +569,7 @@ proc `outlineThickness=`*(shape: CircleShape, thickness: cfloat) {.
   ## - ``thickness``:  New outline thickness
 
 proc texture*(shape: CircleShape): Texture {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_getTexture".}
+  cdecl, importc: "sfCircleShape_getTexture".}
   ## Get the source texture of a circle shape
   ## 
   ## If the shape has no source texture, a NULL pointer is returned.
@@ -597,7 +582,7 @@ proc texture*(shape: CircleShape): Texture {.
   ## *Returns:* Pointer to the shape's texture
 
 proc textureRect*(shape: CircleShape): IntRect {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_getTextureRect".}
+  cdecl, importc: "sfCircleShape_getTextureRect".}
   ## Get the sub-rectangle of the texture displayed by a circle shape
   ## 
   ## *Arguments*:
@@ -606,7 +591,7 @@ proc textureRect*(shape: CircleShape): IntRect {.
   ## *Returns:* Texture rectangle of the shape
 
 proc fillColor*(shape: CircleShape): Color {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_getFillColor".}
+  cdecl, importc: "sfCircleShape_getFillColor".}
   ## Get the fill color of a circle shape
   ## 
   ## *Arguments*:
@@ -615,7 +600,7 @@ proc fillColor*(shape: CircleShape): Color {.
   ## *Returns:* Fill color of the shape
 
 proc outlineColor*(shape: CircleShape): Color {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_getOutlineColor".}
+  cdecl, importc: "sfCircleShape_getOutlineColor".}
   ## Get the outline color of a circle shape
   ## 
   ## *Arguments*:
@@ -624,7 +609,7 @@ proc outlineColor*(shape: CircleShape): Color {.
   ## *Returns:* Outline color of the shape
 
 proc outlineThickness*(shape: CircleShape): cfloat {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_getOutlineThickness".}
+  cdecl, importc: "sfCircleShape_getOutlineThickness".}
   ## Get the outline thickness of a circle shape
   ## 
   ## *Arguments*:
@@ -633,7 +618,7 @@ proc outlineThickness*(shape: CircleShape): cfloat {.
   ## *Returns:* Outline thickness of the shape
 
 proc pointCount*(shape: CircleShape): cint {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_getPointCount".}
+  cdecl, importc: "sfCircleShape_getPointCount".}
   ## Get the total number of points of a circle shape
   ## 
   ## *Arguments*:
@@ -642,7 +627,7 @@ proc pointCount*(shape: CircleShape): cint {.
   ## *Returns:* Number of points of the shape
 
 proc getPoint*(shape: CircleShape, index: cint): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_getPoint".}
+  cdecl, importc: "sfCircleShape_getPoint".}
   ## Get a point of a circle shape
   ## 
   ## The result is undefined if ``index`` is out of the valid range.
@@ -654,7 +639,7 @@ proc getPoint*(shape: CircleShape, index: cint): Vector2f {.
   ## *Returns:* Index-th point of the shape
 
 proc `radius=`*(shape: CircleShape, radius: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_setRadius".}
+  cdecl, importc: "sfCircleShape_setRadius".}
   ## Set the radius of a circle
   ## 
   ## *Arguments*:
@@ -662,7 +647,7 @@ proc `radius=`*(shape: CircleShape, radius: cfloat) {.
   ## - ``radius``:  New radius of the circle
 
 proc radius*(shape: CircleShape): cfloat {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_getRadius".}
+  cdecl, importc: "sfCircleShape_getRadius".}
   ## Get the radius of a circle
   ## 
   ## *Arguments*:
@@ -671,7 +656,7 @@ proc radius*(shape: CircleShape): cfloat {.
   ## *Returns:* Radius of the circle
 
 proc `pointCount=`*(shape: CircleShape, count: cint) {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_setPointCount".}
+  cdecl, importc: "sfCircleShape_setPointCount".}
   ## Set the number of points of a circle
   ## 
   ## *Arguments*:
@@ -679,7 +664,7 @@ proc `pointCount=`*(shape: CircleShape, count: cint) {.
   ## - ``count``:  New number of points of the circle
 
 proc localBounds*(shape: CircleShape): FloatRect {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_getLocalBounds".}
+  cdecl, importc: "sfCircleShape_getLocalBounds".}
   ## Get the local bounding rectangle of a circle shape
   ## 
   ## The returned rectangle is in local coordinates, which means
@@ -694,7 +679,7 @@ proc localBounds*(shape: CircleShape): FloatRect {.
   ## *Returns:* Local bounding rectangle of the entity
 
 proc globalBounds*(shape: CircleShape): FloatRect {.
-  cdecl, dynlib: lib, importc: "sfCircleShape_getGlobalBounds".}
+  cdecl, importc: "sfCircleShape_getGlobalBounds".}
   ## Get the global bounding rectangle of a circle shape
   ## 
   ## The returned rectangle is in global coordinates, which means
@@ -712,13 +697,13 @@ proc globalBounds*(shape: CircleShape): FloatRect {.
 #--- SFML/Graphics/ConvexShape ---#
 
 proc newConvexShape*(): ConvexShape {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_create".}
+  cdecl, importc: "sfConvexShape_create".}
   ## Create a new convex shape
   ## 
   ## *Returns:* A new ConvexShape object, or NULL if it failed
 
 proc copy*(shape: ConvexShape): ConvexShape {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_copy".}
+  cdecl, importc: "sfConvexShape_copy".}
   ## Copy an existing convex shape
   ## 
   ## *Arguments*:
@@ -727,14 +712,14 @@ proc copy*(shape: ConvexShape): ConvexShape {.
   ## *Returns:* Copied object
 
 proc destroy*(shape: ConvexShape) {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_destroy".}
+  override, cdecl, importc: "sfConvexShape_destroy".}
   ## Destroy an existing convex Shape
   ## 
   ## *Arguments*:
   ## - ``Shape``:  Shape to delete
 
 proc `position=`*(shape: ConvexShape, position: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_setPosition".}
+  cdecl, importc: "sfConvexShape_setPosition".}
   ## Set the position of a convex shape
   ## 
   ## This function completely overwrites the previous position.
@@ -746,7 +731,7 @@ proc `position=`*(shape: ConvexShape, position: Vector2f) {.
   ## - ``position``:  New position
 
 proc `rotation=`*(shape: ConvexShape, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_setRotation".}
+  cdecl, importc: "sfConvexShape_setRotation".}
   ## Set the orientation of a convex shape
   ## 
   ## This function completely overwrites the previous rotation.
@@ -758,7 +743,7 @@ proc `rotation=`*(shape: ConvexShape, angle: cfloat) {.
   ## - ``angle``:  New rotation, in degrees
 
 proc `scale=`*(shape: ConvexShape, scale: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_setScale".}
+  cdecl, importc: "sfConvexShape_setScale".}
   ## Set the scale factors of a convex shape
   ## 
   ## This function completely overwrites the previous scale.
@@ -770,7 +755,7 @@ proc `scale=`*(shape: ConvexShape, scale: Vector2f) {.
   ## - ``scale``:  New scale factors
 
 proc `origin=`*(shape: ConvexShape, origin: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_setOrigin".}
+  cdecl, importc: "sfConvexShape_setOrigin".}
   ## Set the local origin of a convex shape
   ## 
   ## The origin of an object defines the center point for
@@ -785,7 +770,7 @@ proc `origin=`*(shape: ConvexShape, origin: Vector2f) {.
   ## - ``origin``:  New origin
 
 proc position*(shape: ConvexShape): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_getPosition".}
+  cdecl, importc: "sfConvexShape_getPosition".}
   ## Get the position of a convex shape
   ## 
   ## *Arguments*:
@@ -794,7 +779,7 @@ proc position*(shape: ConvexShape): Vector2f {.
   ## *Returns:* Current position
 
 proc rotation*(shape: ConvexShape): cfloat {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_getRotation".}
+  cdecl, importc: "sfConvexShape_getRotation".}
   ## Get the orientation of a convex shape
   ## 
   ## The rotation is always in the range [0, 360].
@@ -805,7 +790,7 @@ proc rotation*(shape: ConvexShape): cfloat {.
   ## *Returns:* Current rotation, in degrees
 
 proc scale*(shape: ConvexShape): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_getScale".}
+  cdecl, importc: "sfConvexShape_getScale".}
   ## Get the current scale of a convex shape
   ## 
   ## *Arguments*:
@@ -814,7 +799,7 @@ proc scale*(shape: ConvexShape): Vector2f {.
   ## *Returns:* Current scale factors
 
 proc origin*(shape: ConvexShape): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_getOrigin".}
+  cdecl, importc: "sfConvexShape_getOrigin".}
   ## Get the local origin of a convex shape
   ## 
   ## *Arguments*:
@@ -823,7 +808,7 @@ proc origin*(shape: ConvexShape): Vector2f {.
   ## *Returns:* Current origin
 
 proc move*(shape: ConvexShape, offset: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_move".}
+  cdecl, importc: "sfConvexShape_move".}
   ## Move a convex shape by a given offset
   ## 
   ## This function adds to the current position of the object,
@@ -834,7 +819,7 @@ proc move*(shape: ConvexShape, offset: Vector2f) {.
   ## - ``offset``:  Offset
 
 proc rotate*(shape: ConvexShape, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_rotate".}
+  cdecl, importc: "sfConvexShape_rotate".}
   ## Rotate a convex shape
   ## 
   ## This function adds to the current rotation of the object,
@@ -845,7 +830,7 @@ proc rotate*(shape: ConvexShape, angle: cfloat) {.
   ## - ``angle``:  Angle of rotation, in degrees
 
 proc scale*(shape: ConvexShape, factors: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_scale".}
+  cdecl, importc: "sfConvexShape_scale".}
   ## Scale a convex shape
   ## 
   ## This function multiplies the current scale of the object,
@@ -856,7 +841,7 @@ proc scale*(shape: ConvexShape, factors: Vector2f) {.
   ## - ``factors``:  Scale factors
 
 proc transform*(shape: ConvexShape): Transform {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_getTransform".}
+  cdecl, importc: "sfConvexShape_getTransform".}
   ## Get the combined transform of a convex shape
   ## 
   ## *Arguments*:
@@ -865,7 +850,7 @@ proc transform*(shape: ConvexShape): Transform {.
   ## *Returns:* Transform combining the position/rotation/scale/origin of the object
 
 proc inverseTransform*(shape: ConvexShape): Transform {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_getInverseTransform".}
+  cdecl, importc: "sfConvexShape_getInverseTransform".}
   ## Get the inverse of the combined transform of a convex shape
   ## 
   ## *Arguments*:
@@ -874,7 +859,7 @@ proc inverseTransform*(shape: ConvexShape): Transform {.
   ## *Returns:* Inverse of the combined transformations applied to the object
 
 proc setTexture*(shape: ConvexShape, texture: Texture, resetRect: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_setTexture".}
+  cdecl, importc: "sfConvexShape_setTexture".}
   ## Change the source texture of a convex shape
   ## 
   ## The ``texture`` argument refers to a texture that must
@@ -894,7 +879,7 @@ proc setTexture*(shape: ConvexShape, texture: Texture, resetRect: BoolInt) {.
   ## - ``resetRect``:  Should the texture rect be reset to the size of the new texture?
 
 proc `textureRect=`*(shape: ConvexShape, rect: IntRect) {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_setTextureRect".}
+  cdecl, importc: "sfConvexShape_setTextureRect".}
   ## Set the sub-rectangle of the texture that a convex shape will display
   ## 
   ## The texture rect is useful when you don't want to display
@@ -906,7 +891,7 @@ proc `textureRect=`*(shape: ConvexShape, rect: IntRect) {.
   ## - ``rect``:   Rectangle defining the region of the texture to display
 
 proc `fillColor=`*(shape: ConvexShape, color: Color) {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_setFillColor".}
+  cdecl, importc: "sfConvexShape_setFillColor".}
   ## Set the fill color of a convex shape
   ## 
   ## This color is modulated (multiplied) with the shape's
@@ -921,7 +906,7 @@ proc `fillColor=`*(shape: ConvexShape, color: Color) {.
   ## - ``color``:  New color of the shape
 
 proc `outlineColor=`*(shape: ConvexShape, color: Color) {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_setOutlineColor".}
+  cdecl, importc: "sfConvexShape_setOutlineColor".}
   ## Set the outline color of a convex shape
   ## 
   ## You can use Transparent to disable the outline.
@@ -932,7 +917,7 @@ proc `outlineColor=`*(shape: ConvexShape, color: Color) {.
   ## - ``color``:  New outline color of the shape
 
 proc `outlineThickness=`*(shape: ConvexShape, thickness: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_setOutlineThickness".}
+  cdecl, importc: "sfConvexShape_setOutlineThickness".}
   ## Set the thickness of a convex shape's outline
   ## 
   ## This number cannot be negative. Using zero disables
@@ -944,7 +929,7 @@ proc `outlineThickness=`*(shape: ConvexShape, thickness: cfloat) {.
   ## - ``thickness``:  New outline thickness
 
 proc texture*(shape: ConvexShape): Texture {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_getTexture".}
+  cdecl, importc: "sfConvexShape_getTexture".}
   ## Get the source texture of a convex shape
   ## 
   ## If the shape has no source texture, a NULL pointer is returned.
@@ -957,7 +942,7 @@ proc texture*(shape: ConvexShape): Texture {.
   ## *Returns:* Pointer to the shape's texture
 
 proc textureRect*(shape: ConvexShape): IntRect {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_getTextureRect".}
+  cdecl, importc: "sfConvexShape_getTextureRect".}
   ## Get the sub-rectangle of the texture displayed by a convex shape
   ## 
   ## *Arguments*:
@@ -966,7 +951,7 @@ proc textureRect*(shape: ConvexShape): IntRect {.
   ## *Returns:* Texture rectangle of the shape
 
 proc fillColor*(shape: ConvexShape): Color {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_getFillColor".}
+  cdecl, importc: "sfConvexShape_getFillColor".}
   ## Get the fill color of a convex shape
   ## 
   ## *Arguments*:
@@ -975,7 +960,7 @@ proc fillColor*(shape: ConvexShape): Color {.
   ## *Returns:* Fill color of the shape
 
 proc outlineColor*(shape: ConvexShape): Color {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_getOutlineColor".}
+  cdecl, importc: "sfConvexShape_getOutlineColor".}
   ## Get the outline color of a convex shape
   ## 
   ## *Arguments*:
@@ -984,7 +969,7 @@ proc outlineColor*(shape: ConvexShape): Color {.
   ## *Returns:* Outline color of the shape
 
 proc outlineThickness*(shape: ConvexShape): cfloat {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_getOutlineThickness".}
+  cdecl, importc: "sfConvexShape_getOutlineThickness".}
   ## Get the outline thickness of a convex shape
   ## 
   ## *Arguments*:
@@ -993,7 +978,7 @@ proc outlineThickness*(shape: ConvexShape): cfloat {.
   ## *Returns:* Outline thickness of the shape
 
 proc pointCount*(shape: ConvexShape): cint {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_getPointCount".}
+  cdecl, importc: "sfConvexShape_getPointCount".}
   ## Get the total number of points of a convex shape
   ## 
   ## *Arguments*:
@@ -1002,7 +987,7 @@ proc pointCount*(shape: ConvexShape): cint {.
   ## *Returns:* Number of points of the shape
 
 proc getPoint*(shape: ConvexShape, index: cint): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_getPoint".}
+  cdecl, importc: "sfConvexShape_getPoint".}
   ## Get a point of a convex shape
   ## 
   ## The result is undefined if ``index`` is out of the valid range.
@@ -1014,7 +999,7 @@ proc getPoint*(shape: ConvexShape, index: cint): Vector2f {.
   ## *Returns:* Index-th point of the shape
 
 proc `pointCount=`*(shape: ConvexShape, count: cint) {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_setPointCount".}
+  cdecl, importc: "sfConvexShape_setPointCount".}
   ## Set the number of points of a convex shap
   ## 
   ## ``count`` must be greater than 2 to define a valid shape.
@@ -1024,7 +1009,7 @@ proc `pointCount=`*(shape: ConvexShape, count: cint) {.
   ## - ``count``:  New number of points of the shape
 
 proc setPoint*(shape: ConvexShape, index: cint, point: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_setPoint".}
+  cdecl, importc: "sfConvexShape_setPoint".}
   ## Set the position of a point in a convex shape
   ## 
   ## Don't forget that the polygon must remain convex, and
@@ -1039,7 +1024,7 @@ proc setPoint*(shape: ConvexShape, index: cint, point: Vector2f) {.
   ## - ``point``:  New point
 
 proc localBounds*(shape: ConvexShape): FloatRect {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_getLocalBounds".}
+  cdecl, importc: "sfConvexShape_getLocalBounds".}
   ## Get the local bounding rectangle of a convex shape
   ## 
   ## The returned rectangle is in local coordinates, which means
@@ -1054,7 +1039,7 @@ proc localBounds*(shape: ConvexShape): FloatRect {.
   ## *Returns:* Local bounding rectangle of the entity
 
 proc globalBounds*(shape: ConvexShape): FloatRect {.
-  cdecl, dynlib: lib, importc: "sfConvexShape_getGlobalBounds".}
+  cdecl, importc: "sfConvexShape_getGlobalBounds".}
   ## Get the global bounding rectangle of a convex shape
   ## 
   ## The returned rectangle is in global coordinates, which means
@@ -1074,14 +1059,14 @@ proc globalBounds*(shape: ConvexShape): FloatRect {.
 
 #--- SFML/Graphics/Glyph ---#
 
-type Glyph* {.pure, final.} = object
+type Glyph* = object
   ## Glyph describes a glyph (a visual character)
   advance*: cint
   bounds*: IntRect
   textureRect*: IntRect
 
 proc newFont*(filename: cstring): Font {.
-  cdecl, dynlib: lib, importc: "sfFont_createFromFile".}
+  cdecl, importc: "sfFont_createFromFile".}
   ## Create a new font from a file
   ## 
   ## *Arguments*:
@@ -1090,7 +1075,7 @@ proc newFont*(filename: cstring): Font {.
   ## *Returns:* A new Font object, or NULL if it failed
 
 proc newFont*(data: pointer, sizeInBytes: int): Font {.
-  cdecl, dynlib: lib, importc: "sfFont_createFromMemory".}
+  cdecl, importc: "sfFont_createFromMemory".}
   ## Create a new image font a file in memory
   ## 
   ## *Arguments*:
@@ -1100,7 +1085,7 @@ proc newFont*(data: pointer, sizeInBytes: int): Font {.
   ## *Returns:* A new Font object, or NULL if it failed
 
 proc newFont*(stream: var InputStream): Font {.
-  cdecl, dynlib: lib, importc: "sfFont_createFromStream".}
+  cdecl, importc: "sfFont_createFromStream".}
   ## Create a new image font a custom stream
   ## 
   ## *Arguments*:
@@ -1109,7 +1094,7 @@ proc newFont*(stream: var InputStream): Font {.
   ## *Returns:* A new Font object, or NULL if it failed
 
 proc copy*(font: Font): Font {.
-  cdecl, dynlib: lib, importc: "sfFont_copy".}
+  cdecl, importc: "sfFont_copy".}
   ## Copy an existing font
   ## 
   ## *Arguments*:
@@ -1118,14 +1103,14 @@ proc copy*(font: Font): Font {.
   ## *Returns:* Copied object
 
 proc destroy*(font: Font) {.
-  cdecl, dynlib: lib, importc: "sfFont_destroy".}
+  override, cdecl, importc: "sfFont_destroy".}
   ## Destroy an existing font
   ## 
   ## *Arguments*:
   ## - ``font``:  Font to delete
 
 proc getGlyph*(font: Font, codePoint: RuneU32, characterSize: cint, bold: BoolInt): Glyph {.
-  cdecl, dynlib: lib, importc: "sfFont_getGlyph".}
+  cdecl, importc: "sfFont_getGlyph".}
   ## Get a glyph in a font
   ## 
   ## *Arguments*:
@@ -1137,7 +1122,7 @@ proc getGlyph*(font: Font, codePoint: RuneU32, characterSize: cint, bold: BoolIn
   ## *Returns:* The corresponding glyph
 
 proc getKerning*(font: Font, first: RuneU32, second: RuneU32, characterSize: cint): cint {.
-  cdecl, dynlib: lib, importc: "sfFont_getKerning".}
+  cdecl, importc: "sfFont_getKerning".}
   ## Get the kerning value corresponding to a given pair of characters in a font
   ## 
   ## *Arguments*:
@@ -1149,7 +1134,7 @@ proc getKerning*(font: Font, first: RuneU32, second: RuneU32, characterSize: cin
   ## *Returns:* Kerning offset, in pixels
 
 proc getLineSpacing*(font: Font, characterSize: cint): cint {.
-  cdecl, dynlib: lib, importc: "sfFont_getLineSpacing".}
+  cdecl, importc: "sfFont_getLineSpacing".}
   ## Get the line spacing value
   ## 
   ## *Arguments*:
@@ -1159,7 +1144,7 @@ proc getLineSpacing*(font: Font, characterSize: cint): cint {.
   ## *Returns:* Line spacing, in pixels
 
 proc getTexture*(font: Font, characterSize: cint): Texture {.
-  cdecl, dynlib: lib, importc: "sfFont_getTexture".}
+  cdecl, importc: "sfFont_getTexture".}
   ## Get the texture containing the glyphs of a given size in a font
   ## 
   ## *Arguments*:
@@ -1172,7 +1157,7 @@ proc getTexture*(font: Font, characterSize: cint): Texture {.
 #--- SFML/Graphics/Image ---#
 
 proc newImage*(width: cint, height: cint): Image {.
-  cdecl, dynlib: lib, importc: "sfImage_create".}
+  cdecl, importc: "sfImage_create".}
   ## Create an image
   ## 
   ## This image is filled with black pixels.
@@ -1184,7 +1169,7 @@ proc newImage*(width: cint, height: cint): Image {.
   ## *Returns:* A new Image object
 
 proc newImage*(width: cint, height: cint, color: Color): Image {.
-  cdecl, dynlib: lib, importc: "sfImage_createFromColor".}
+  cdecl, importc: "sfImage_createFromColor".}
   ## Create an image and fill it with a unique color
   ## 
   ## *Arguments*:
@@ -1194,8 +1179,8 @@ proc newImage*(width: cint, height: cint, color: Color): Image {.
   ## 
   ## *Returns:* A new Image object
 
-proc newImage_Ptr*(width: cint, height: cint, pixels: ptr uint8): Image {.
-  cdecl, dynlib: lib, importc: "sfImage_createFromPixels".}
+proc newImage*(width: cint, height: cint, pixels: ptr uint8): Image {.
+  cdecl, importc: "sfImage_createFromPixels".}
   ## Create an image from an array of pixels
   ## 
   ## The ``pixel`` array is assumed to contain 32-bits RGBA pixels,
@@ -1211,7 +1196,7 @@ proc newImage_Ptr*(width: cint, height: cint, pixels: ptr uint8): Image {.
   ## *Returns:* A new Image object
 
 proc newImage*(filename: cstring): Image {.
-  cdecl, dynlib: lib, importc: "sfImage_createFromFile".}
+  cdecl, importc: "sfImage_createFromFile".}
   ## Create an image from a file on disk
   ## 
   ## The supported image formats are bmp, png, tga, jpg, gif,
@@ -1225,7 +1210,7 @@ proc newImage*(filename: cstring): Image {.
   ## *Returns:* A new Image object, or NULL if it failed
 
 proc newImage*(data: pointer, size: int): Image {.
-  cdecl, dynlib: lib, importc: "sfImage_createFromMemory".}
+  cdecl, importc: "sfImage_createFromMemory".}
   ## Create an image from a file in memory
   ## 
   ## The supported image formats are bmp, png, tga, jpg, gif,
@@ -1240,7 +1225,7 @@ proc newImage*(data: pointer, size: int): Image {.
   ## *Returns:* A new Image object, or NULL if it failed
 
 proc newImage*(stream: var InputStream): Image {.
-  cdecl, dynlib: lib, importc: "sfImage_createFromStream".}
+  cdecl, importc: "sfImage_createFromStream".}
   ## Create an image from a custom stream
   ## 
   ## The supported image formats are bmp, png, tga, jpg, gif,
@@ -1254,7 +1239,7 @@ proc newImage*(stream: var InputStream): Image {.
   ## *Returns:* A new Image object, or NULL if it failed
 
 proc copy*(image: Image): Image {.
-  cdecl, dynlib: lib, importc: "sfImage_copy".}
+  cdecl, importc: "sfImage_copy".}
   ## Copy an existing image
   ## 
   ## *Arguments*:
@@ -1263,14 +1248,14 @@ proc copy*(image: Image): Image {.
   ## *Returns:* Copied object
 
 proc destroy*(image: Image) {.
-  cdecl, dynlib: lib, importc: "sfImage_destroy".}
+  override, cdecl, importc: "sfImage_destroy".}
   ## Destroy an existing image
   ## 
   ## *Arguments*:
   ## - ``image``:  Image to delete
 
 proc saveToFile*(image: Image, filename: cstring): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfImage_saveToFile".}
+  cdecl, importc: "sfImage_saveToFile".}
   ## Save an image to a file on disk
   ## 
   ## The format of the image is automatically deduced from
@@ -1285,7 +1270,7 @@ proc saveToFile*(image: Image, filename: cstring): BoolInt {.
   ## *Returns:* True if saving was successful
 
 proc size*(image: Image): Vector2i {.
-  cdecl, dynlib: lib, importc: "sfImage_getSize".}
+  cdecl, importc: "sfImage_getSize".}
   ## Return the size of an image
   ## 
   ## *Arguments*:
@@ -1294,7 +1279,7 @@ proc size*(image: Image): Vector2i {.
   ## *Returns:* Size in pixels
 
 proc newImage*(image: Image, color: Color, alpha: uint8) {.
-  cdecl, dynlib: lib, importc: "sfImage_createMaskFromColor".}
+  cdecl, importc: "sfImage_createMaskFromColor".}
   ## Create a transparency mask from a specified color-key
   ## 
   ## This function sets the alpha value of every pixel matching
@@ -1307,7 +1292,7 @@ proc newImage*(image: Image, color: Color, alpha: uint8) {.
   ## - ``alpha``:  Alpha value to assign to transparent pixels
 
 proc copyImage*(image: Image, source: Image, destX: cint, destY: cint, sourceRect: IntRect, applyAlpha: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfImage_copyImage".}
+  cdecl, importc: "sfImage_copyImage".}
   ## Copy pixels from an image onto another
   ## 
   ## This function does a slow pixel copy and should not be
@@ -1329,7 +1314,7 @@ proc copyImage*(image: Image, source: Image, destX: cint, destY: cint, sourceRec
   ## - ``applyAlpha``:  Should the copy take in account the source transparency?
 
 proc setPixel*(image: Image, x: cint, y: cint, color: Color) {.
-  cdecl, dynlib: lib, importc: "sfImage_setPixel".}
+  cdecl, importc: "sfImage_setPixel".}
   ## Change the color of a pixel in an image
   ## 
   ## This function doesn't check the validity of the pixel
@@ -1343,7 +1328,7 @@ proc setPixel*(image: Image, x: cint, y: cint, color: Color) {.
   ## - ``color``:  New color of the pixel
 
 proc getPixel*(image: Image, x: cint, y: cint): Color {.
-  cdecl, dynlib: lib, importc: "sfImage_getPixel".}
+  cdecl, importc: "sfImage_getPixel".}
   ## Get the color of a pixel in an image
   ## 
   ## This function doesn't check the validity of the pixel
@@ -1358,7 +1343,7 @@ proc getPixel*(image: Image, x: cint, y: cint): Color {.
   ## *Returns:* Color of the pixel at coordinates (x, y)
 
 proc pixelsPtr*(image: Image): ptr uint8 {.
-  cdecl, dynlib: lib, importc: "sfImage_getPixelsPtr".}
+  cdecl, importc: "sfImage_getPixelsPtr".}
   ## Get a read-only pointer to the array of pixels of an image
   ## 
   ## The returned value points to an array of RGBA pixels made of
@@ -1374,14 +1359,14 @@ proc pixelsPtr*(image: Image): ptr uint8 {.
   ## *Returns:* Read-only pointer to the array of pixels
 
 proc flipHorizontally*(image: Image) {.
-  cdecl, dynlib: lib, importc: "sfImage_flipHorizontally".}
+  cdecl, importc: "sfImage_flipHorizontally".}
   ## Flip an image horizontally (left <-> right)
   ## 
   ## *Arguments*:
   ## - ``image``:  Image object
 
 proc flipVertically*(image: Image) {.
-  cdecl, dynlib: lib, importc: "sfImage_flipVertically".}
+  cdecl, importc: "sfImage_flipVertically".}
   ## Flip an image vertically (top <-> bottom)
   ## 
   ## *Arguments*:
@@ -1401,13 +1386,13 @@ type PrimitiveType* {.pure, size: sizeof(cint).} = enum  ## Types of primitives 
 #--- SFML/Graphics/RectangleShape ---#
 
 proc newRectangleShape*(): RectangleShape {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_create".}
+  cdecl, importc: "sfRectangleShape_create".}
   ## Create a new rectangle shape
   ## 
   ## *Returns:* A new RectangleShape object, or NULL if it failed
 
 proc copy*(shape: RectangleShape): RectangleShape {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_copy".}
+  cdecl, importc: "sfRectangleShape_copy".}
   ## Copy an existing rectangle shape
   ## 
   ## *Arguments*:
@@ -1416,14 +1401,14 @@ proc copy*(shape: RectangleShape): RectangleShape {.
   ## *Returns:* Copied object
 
 proc destroy*(shape: RectangleShape) {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_destroy".}
+  override, cdecl, importc: "sfRectangleShape_destroy".}
   ## Destroy an existing rectangle shape
   ## 
   ## *Arguments*:
   ## - ``Shape``:  Shape to delete
 
 proc `position=`*(shape: RectangleShape, position: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_setPosition".}
+  cdecl, importc: "sfRectangleShape_setPosition".}
   ## Set the position of a rectangle shape
   ## 
   ## This function completely overwrites the previous position.
@@ -1435,7 +1420,7 @@ proc `position=`*(shape: RectangleShape, position: Vector2f) {.
   ## - ``position``:  New position
 
 proc `rotation=`*(shape: RectangleShape, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_setRotation".}
+  cdecl, importc: "sfRectangleShape_setRotation".}
   ## Set the orientation of a rectangle shape
   ## 
   ## This function completely overwrites the previous rotation.
@@ -1447,7 +1432,7 @@ proc `rotation=`*(shape: RectangleShape, angle: cfloat) {.
   ## - ``angle``:  New rotation, in degrees
 
 proc `scale=`*(shape: RectangleShape, scale: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_setScale".}
+  cdecl, importc: "sfRectangleShape_setScale".}
   ## Set the scale factors of a rectangle shape
   ## 
   ## This function completely overwrites the previous scale.
@@ -1459,7 +1444,7 @@ proc `scale=`*(shape: RectangleShape, scale: Vector2f) {.
   ## - ``scale``:  New scale factors
 
 proc `origin=`*(shape: RectangleShape, origin: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_setOrigin".}
+  cdecl, importc: "sfRectangleShape_setOrigin".}
   ## Set the local origin of a rectangle shape
   ## 
   ## The origin of an object defines the center point for
@@ -1474,7 +1459,7 @@ proc `origin=`*(shape: RectangleShape, origin: Vector2f) {.
   ## - ``origin``:  New origin
 
 proc position*(shape: RectangleShape): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_getPosition".}
+  cdecl, importc: "sfRectangleShape_getPosition".}
   ## Get the position of a rectangle shape
   ## 
   ## *Arguments*:
@@ -1483,7 +1468,7 @@ proc position*(shape: RectangleShape): Vector2f {.
   ## *Returns:* Current position
 
 proc rotation*(shape: RectangleShape): cfloat {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_getRotation".}
+  cdecl, importc: "sfRectangleShape_getRotation".}
   ## Get the orientation of a rectangle shape
   ## 
   ## The rotation is always in the range [0, 360].
@@ -1494,7 +1479,7 @@ proc rotation*(shape: RectangleShape): cfloat {.
   ## *Returns:* Current rotation, in degrees
 
 proc scale*(shape: RectangleShape): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_getScale".}
+  cdecl, importc: "sfRectangleShape_getScale".}
   ## Get the current scale of a rectangle shape
   ## 
   ## *Arguments*:
@@ -1503,7 +1488,7 @@ proc scale*(shape: RectangleShape): Vector2f {.
   ## *Returns:* Current scale factors
 
 proc origin*(shape: RectangleShape): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_getOrigin".}
+  cdecl, importc: "sfRectangleShape_getOrigin".}
   ## Get the local origin of a rectangle shape
   ## 
   ## *Arguments*:
@@ -1512,7 +1497,7 @@ proc origin*(shape: RectangleShape): Vector2f {.
   ## *Returns:* Current origin
 
 proc move*(shape: RectangleShape, offset: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_move".}
+  cdecl, importc: "sfRectangleShape_move".}
   ## Move a rectangle shape by a given offset
   ## 
   ## This function adds to the current position of the object,
@@ -1523,7 +1508,7 @@ proc move*(shape: RectangleShape, offset: Vector2f) {.
   ## - ``offset``:  Offset
 
 proc rotate*(shape: RectangleShape, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_rotate".}
+  cdecl, importc: "sfRectangleShape_rotate".}
   ## Rotate a rectangle shape
   ## 
   ## This function adds to the current rotation of the object,
@@ -1534,7 +1519,7 @@ proc rotate*(shape: RectangleShape, angle: cfloat) {.
   ## - ``angle``:  Angle of rotation, in degrees
 
 proc scale*(shape: RectangleShape, factors: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_scale".}
+  cdecl, importc: "sfRectangleShape_scale".}
   ## Scale a rectangle shape
   ## 
   ## This function multiplies the current scale of the object,
@@ -1545,7 +1530,7 @@ proc scale*(shape: RectangleShape, factors: Vector2f) {.
   ## - ``factors``:  Scale factors
 
 proc transform*(shape: RectangleShape): Transform {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_getTransform".}
+  cdecl, importc: "sfRectangleShape_getTransform".}
   ## Get the combined transform of a rectangle shape
   ## 
   ## *Arguments*:
@@ -1554,7 +1539,7 @@ proc transform*(shape: RectangleShape): Transform {.
   ## *Returns:* Transform combining the position/rotation/scale/origin of the object
 
 proc inverseTransform*(shape: RectangleShape): Transform {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_getInverseTransform".}
+  cdecl, importc: "sfRectangleShape_getInverseTransform".}
   ## Get the inverse of the combined transform of a rectangle shape
   ## 
   ## *Arguments*:
@@ -1563,7 +1548,7 @@ proc inverseTransform*(shape: RectangleShape): Transform {.
   ## *Returns:* Inverse of the combined transformations applied to the object
 
 proc setTexture*(shape: RectangleShape, texture: Texture, resetRect: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_setTexture".}
+  cdecl, importc: "sfRectangleShape_setTexture".}
   ## Change the source texture of a rectangle shape
   ## 
   ## The ``texture`` argument refers to a texture that must
@@ -1583,7 +1568,7 @@ proc setTexture*(shape: RectangleShape, texture: Texture, resetRect: BoolInt) {.
   ## - ``resetRect``:  Should the texture rect be reset to the size of the new texture?
 
 proc `textureRect=`*(shape: RectangleShape, rect: IntRect) {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_setTextureRect".}
+  cdecl, importc: "sfRectangleShape_setTextureRect".}
   ## Set the sub-rectangle of the texture that a rectangle shape will display
   ## 
   ## The texture rect is useful when you don't want to display
@@ -1595,7 +1580,7 @@ proc `textureRect=`*(shape: RectangleShape, rect: IntRect) {.
   ## - ``rect``:   Rectangle defining the region of the texture to display
 
 proc `fillColor=`*(shape: RectangleShape, color: Color) {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_setFillColor".}
+  cdecl, importc: "sfRectangleShape_setFillColor".}
   ## Set the fill color of a rectangle shape
   ## 
   ## This color is modulated (multiplied) with the shape's
@@ -1610,7 +1595,7 @@ proc `fillColor=`*(shape: RectangleShape, color: Color) {.
   ## - ``color``:  New color of the shape
 
 proc `outlineColor=`*(shape: RectangleShape, color: Color) {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_setOutlineColor".}
+  cdecl, importc: "sfRectangleShape_setOutlineColor".}
   ## Set the outline color of a rectangle shape
   ## 
   ## You can use Transparent to disable the outline.
@@ -1621,7 +1606,7 @@ proc `outlineColor=`*(shape: RectangleShape, color: Color) {.
   ## - ``color``:  New outline color of the shape
 
 proc `outlineThickness=`*(shape: RectangleShape, thickness: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_setOutlineThickness".}
+  cdecl, importc: "sfRectangleShape_setOutlineThickness".}
   ## Set the thickness of a rectangle shape's outline
   ## 
   ## This number cannot be negative. Using zero disables
@@ -1633,7 +1618,7 @@ proc `outlineThickness=`*(shape: RectangleShape, thickness: cfloat) {.
   ## - ``thickness``:  New outline thickness
 
 proc texture*(shape: RectangleShape): Texture {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_getTexture".}
+  cdecl, importc: "sfRectangleShape_getTexture".}
   ## Get the source texture of a rectangle shape
   ## 
   ## If the shape has no source texture, a NULL pointer is returned.
@@ -1646,7 +1631,7 @@ proc texture*(shape: RectangleShape): Texture {.
   ## *Returns:* Pointer to the shape's texture
 
 proc textureRect*(shape: RectangleShape): IntRect {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_getTextureRect".}
+  cdecl, importc: "sfRectangleShape_getTextureRect".}
   ## Get the sub-rectangle of the texture displayed by a rectangle shape
   ## 
   ## *Arguments*:
@@ -1655,7 +1640,7 @@ proc textureRect*(shape: RectangleShape): IntRect {.
   ## *Returns:* Texture rectangle of the shape
 
 proc fillColor*(shape: RectangleShape): Color {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_getFillColor".}
+  cdecl, importc: "sfRectangleShape_getFillColor".}
   ## Get the fill color of a rectangle shape
   ## 
   ## *Arguments*:
@@ -1664,7 +1649,7 @@ proc fillColor*(shape: RectangleShape): Color {.
   ## *Returns:* Fill color of the shape
 
 proc outlineColor*(shape: RectangleShape): Color {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_getOutlineColor".}
+  cdecl, importc: "sfRectangleShape_getOutlineColor".}
   ## Get the outline color of a rectangle shape
   ## 
   ## *Arguments*:
@@ -1673,7 +1658,7 @@ proc outlineColor*(shape: RectangleShape): Color {.
   ## *Returns:* Outline color of the shape
 
 proc outlineThickness*(shape: RectangleShape): cfloat {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_getOutlineThickness".}
+  cdecl, importc: "sfRectangleShape_getOutlineThickness".}
   ## Get the outline thickness of a rectangle shape
   ## 
   ## *Arguments*:
@@ -1682,7 +1667,7 @@ proc outlineThickness*(shape: RectangleShape): cfloat {.
   ## *Returns:* Outline thickness of the shape
 
 proc pointCount*(shape: RectangleShape): cint {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_getPointCount".}
+  cdecl, importc: "sfRectangleShape_getPointCount".}
   ## Get the total number of points of a rectangle shape
   ## 
   ## *Arguments*:
@@ -1691,7 +1676,7 @@ proc pointCount*(shape: RectangleShape): cint {.
   ## *Returns:* Number of points of the shape
 
 proc getPoint*(shape: RectangleShape, index: cint): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_getPoint".}
+  cdecl, importc: "sfRectangleShape_getPoint".}
   ## Get a point of a rectangle shape
   ## 
   ## The result is undefined if ``index`` is out of the valid range.
@@ -1703,7 +1688,7 @@ proc getPoint*(shape: RectangleShape, index: cint): Vector2f {.
   ## *Returns:* Index-th point of the shape
 
 proc `size=`*(shape: RectangleShape, size: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_setSize".}
+  cdecl, importc: "sfRectangleShape_setSize".}
   ## Set the size of a rectangle shape
   ## 
   ## *Arguments*:
@@ -1711,7 +1696,7 @@ proc `size=`*(shape: RectangleShape, size: Vector2f) {.
   ## - ``size``:   New size of the rectangle
 
 proc size*(shape: RectangleShape): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_getSize".}
+  cdecl, importc: "sfRectangleShape_getSize".}
   ## Get the size of a rectangle shape
   ## 
   ## *Arguments*:
@@ -1720,7 +1705,7 @@ proc size*(shape: RectangleShape): Vector2f {.
   ## *Returns:* height Size of the rectangle
 
 proc localBounds*(shape: RectangleShape): FloatRect {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_getLocalBounds".}
+  cdecl, importc: "sfRectangleShape_getLocalBounds".}
   ## Get the local bounding rectangle of a rectangle shape
   ## 
   ## The returned rectangle is in local coordinates, which means
@@ -1735,7 +1720,7 @@ proc localBounds*(shape: RectangleShape): FloatRect {.
   ## *Returns:* Local bounding rectangle of the entity
 
 proc globalBounds*(shape: RectangleShape): FloatRect {.
-  cdecl, dynlib: lib, importc: "sfRectangleShape_getGlobalBounds".}
+  cdecl, importc: "sfRectangleShape_getGlobalBounds".}
   ## Get the global bounding rectangle of a rectangle shape
   ## 
   ## The returned rectangle is in global coordinates, which means
@@ -1752,7 +1737,7 @@ proc globalBounds*(shape: RectangleShape): FloatRect {.
 
 #--- SFML/Graphics/RenderStates ---#
 
-type RenderStates* {.pure, final.} = object
+type RenderStates* = object
   ## Define the states used for drawing to a RenderTarget
   blendMode*: BlendMode
   transform*: Transform
@@ -1765,14 +1750,14 @@ type RenderStates* {.pure, final.} = object
 
 #--- SFML/Graphics/Vertex ---#
 
-type Vertex* {.pure, final.} = object
+type Vertex* = object
   position*: Vector2f
   color*: Color
   texCoords*: Vector2f
 
-proc newRenderWindow_C*(mode: VideoMode, title: cstring, style: BitMaskU32, settings: (var ContextSettings){lvalue}): RenderWindow {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_create".}
-proc newRenderWindow_C*(mode: VideoMode, title: cstring, style: BitMaskU32, settings: ContextSettings): RenderWindow =
+proc newRenderWindowC*(mode: VideoMode, title: cstring, style: BitMaskU32, settings: (var ContextSettings){lvalue}): RenderWindow {.
+  cdecl, importc: "sfRenderWindow_create".}
+proc newRenderWindowC*(mode: VideoMode, title: cstring, style: BitMaskU32, settings: ContextSettings): RenderWindow =
   ## Construct a new render window
   ## 
   ## *Arguments*:
@@ -1781,10 +1766,10 @@ proc newRenderWindow_C*(mode: VideoMode, title: cstring, style: BitMaskU32, sett
   ## - ``style``:     Window style
   ## - ``settings``:  Creation settings (pass NULL to use default values)
   (var Csettings = settings)
-  newRenderWindow_C(mode, title, style, Csettings)
+  newRenderWindowC(mode, title, style, Csettings)
 
 proc newRenderWindow_U32(mode: VideoMode, title: StringU32, style: BitMaskU32, settings: (var ContextSettings){lvalue}): RenderWindow {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_createUnicode".}
+  cdecl, importc: "sfRenderWindow_createUnicode".}
 proc newRenderWindow_U32(mode: VideoMode, title: StringU32, style: BitMaskU32, settings: ContextSettings): RenderWindow =
   ## Construct a new render window (with a UTF-32 title)
   ## 
@@ -1797,7 +1782,7 @@ proc newRenderWindow_U32(mode: VideoMode, title: StringU32, style: BitMaskU32, s
   newRenderWindow_U32(mode, title, style, Csettings)
 
 proc newRenderWindow*(handle: WindowHandle, settings: (var ContextSettings){lvalue}): RenderWindow {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_createFromHandle".}
+  cdecl, importc: "sfRenderWindow_createFromHandle".}
 proc newRenderWindow*(handle: WindowHandle, settings: ContextSettings): RenderWindow =
   ## Construct a render window from an existing control
   ## 
@@ -1808,28 +1793,28 @@ proc newRenderWindow*(handle: WindowHandle, settings: ContextSettings): RenderWi
   newRenderWindow(handle, Csettings)
 
 proc destroy*(renderWindow: RenderWindow) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_destroy".}
+  override, cdecl, importc: "sfRenderWindow_destroy".}
   ## Destroy an existing render window
   ## 
   ## *Arguments*:
   ## - ``renderWindow``:  Render window to destroy
 
 proc close*(renderWindow: RenderWindow) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_close".}
+  cdecl, importc: "sfRenderWindow_close".}
   ## Close a render window (but doesn't destroy the internal data)
   ## 
   ## *Arguments*:
   ## - ``renderWindow``:  Render window to close
 
 proc open*(renderWindow: RenderWindow): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_isOpen".}
+  cdecl, importc: "sfRenderWindow_isOpen".}
   ## Tell whether or not a render window is opened
   ## 
   ## *Arguments*:
   ## - ``renderWindow``:  Render window object
 
 proc settings*(renderWindow: RenderWindow): ContextSettings {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_getSettings".}
+  cdecl, importc: "sfRenderWindow_getSettings".}
   ## Get the creation settings of a render window
   ## 
   ## *Arguments*:
@@ -1838,7 +1823,7 @@ proc settings*(renderWindow: RenderWindow): ContextSettings {.
   ## *Returns:* Settings used to create the window
 
 proc pollEvent*(renderWindow: RenderWindow, event: var Event): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_pollEvent".}
+  cdecl, importc: "sfRenderWindow_pollEvent".}
   ## Get the event on top of event queue of a render window, if any, and pop it
   ## 
   ## *Arguments*:
@@ -1848,7 +1833,7 @@ proc pollEvent*(renderWindow: RenderWindow, event: var Event): BoolInt {.
   ## *Returns:* True if an event was returned, False if event queue was empty
 
 proc waitEvent*(renderWindow: RenderWindow, event: var Event): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_waitEvent".}
+  cdecl, importc: "sfRenderWindow_waitEvent".}
   ## Wait for an event and return it
   ## 
   ## *Arguments*:
@@ -1858,7 +1843,7 @@ proc waitEvent*(renderWindow: RenderWindow, event: var Event): BoolInt {.
   ## *Returns:* False if an error occured
 
 proc position*(renderWindow: RenderWindow): Vector2i {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_getPosition".}
+  cdecl, importc: "sfRenderWindow_getPosition".}
   ## Get the position of a render window
   ## 
   ## *Arguments*:
@@ -1867,7 +1852,7 @@ proc position*(renderWindow: RenderWindow): Vector2i {.
   ## *Returns:* Position in pixels
 
 proc `position=`*(renderWindow: RenderWindow, position: Vector2i) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_setPosition".}
+  cdecl, importc: "sfRenderWindow_setPosition".}
   ## Change the position of a render window on screen
   ## 
   ## Only works for top-level windows
@@ -1877,7 +1862,7 @@ proc `position=`*(renderWindow: RenderWindow, position: Vector2i) {.
   ## - ``position``:      New position, in pixels
 
 proc size*(renderWindow: RenderWindow): Vector2i {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_getSize".}
+  cdecl, importc: "sfRenderWindow_getSize".}
   ## Get the size of the rendering region of a render window
   ## 
   ## *Arguments*:
@@ -1886,15 +1871,15 @@ proc size*(renderWindow: RenderWindow): Vector2i {.
   ## *Returns:* Size in pixels
 
 proc `size=`*(renderWindow: RenderWindow, size: Vector2i) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_setSize".}
+  cdecl, importc: "sfRenderWindow_setSize".}
   ## Change the size of the rendering region of a render window
   ## 
   ## *Arguments*:
   ## - ``renderWindow``:  Render window object
   ## - ``size``:          New size, in pixels
 
-proc `title_C=`*(renderWindow: RenderWindow, title: cstring) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_setTitle".}
+proc `titleC=`*(renderWindow: RenderWindow, title: cstring) {.
+  cdecl, importc: "sfRenderWindow_setTitle".}
   ## Change the title of a render window
   ## 
   ## *Arguments*:
@@ -1902,15 +1887,15 @@ proc `title_C=`*(renderWindow: RenderWindow, title: cstring) {.
   ## - ``title``:         New title
 
 proc `title_U32=`(renderWindow: RenderWindow, title: StringU32) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_setUnicodeTitle".}
+  cdecl, importc: "sfRenderWindow_setUnicodeTitle".}
   ## Change the title of a render window (with a UTF-32 string)
   ## 
   ## *Arguments*:
   ## - ``renderWindow``:  Render window object
   ## - ``title``:         New title
 
-proc setIcon_Ptr*(renderWindow: RenderWindow, width: cint, height: cint, pixels: ptr uint8) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_setIcon".}
+proc setIcon*(renderWindow: RenderWindow, width: cint, height: cint, pixels: ptr uint8) {.
+  cdecl, importc: "sfRenderWindow_setIcon".}
   ## Change a render window's icon
   ## 
   ## *Arguments*:
@@ -1920,7 +1905,7 @@ proc setIcon_Ptr*(renderWindow: RenderWindow, width: cint, height: cint, pixels:
   ## - ``pixels``:        Pointer to the pixels in memory, format must be RGBA 32 bits
 
 proc `visible=`*(renderWindow: RenderWindow, visible: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_setVisible".}
+  cdecl, importc: "sfRenderWindow_setVisible".}
   ## Show or hide a render window
   ## 
   ## *Arguments*:
@@ -1928,7 +1913,7 @@ proc `visible=`*(renderWindow: RenderWindow, visible: BoolInt) {.
   ## - ``visible``:       True to show the window, False to hide it
 
 proc `mouseCursorVisible=`*(renderWindow: RenderWindow, show: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_setMouseCursorVisible".}
+  cdecl, importc: "sfRenderWindow_setMouseCursorVisible".}
   ## Show or hide the mouse cursor on a render window
   ## 
   ## *Arguments*:
@@ -1936,7 +1921,7 @@ proc `mouseCursorVisible=`*(renderWindow: RenderWindow, show: BoolInt) {.
   ## - ``show``:          True to show, False to hide
 
 proc `verticalSyncEnabled=`*(renderWindow: RenderWindow, enabled: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_setVerticalSyncEnabled".}
+  cdecl, importc: "sfRenderWindow_setVerticalSyncEnabled".}
   ## Enable / disable vertical synchronization on a render window
   ## 
   ## *Arguments*:
@@ -1944,7 +1929,7 @@ proc `verticalSyncEnabled=`*(renderWindow: RenderWindow, enabled: BoolInt) {.
   ## - ``enabled``:       True to enable v-sync, False to deactivate
 
 proc `keyRepeatEnabled=`*(renderWindow: RenderWindow, enabled: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_setKeyRepeatEnabled".}
+  cdecl, importc: "sfRenderWindow_setKeyRepeatEnabled".}
   ## Enable or disable automatic key-repeat for keydown events
   ## 
   ## Automatic key-repeat is enabled by default
@@ -1954,7 +1939,7 @@ proc `keyRepeatEnabled=`*(renderWindow: RenderWindow, enabled: BoolInt) {.
   ## - ``enabled``:       True to enable, False to disable
 
 proc `active=`*(renderWindow: RenderWindow, active: BoolInt): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_setActive".}
+  cdecl, importc: "sfRenderWindow_setActive".}
   ## Activate or deactivate a render window as the current target for rendering
   ## 
   ## *Arguments*:
@@ -1964,14 +1949,14 @@ proc `active=`*(renderWindow: RenderWindow, active: BoolInt): BoolInt {.
   ## *Returns:* True if operation was successful, false otherwise
 
 proc display*(renderWindow: RenderWindow) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_display".}
+  cdecl, importc: "sfRenderWindow_display".}
   ## Display a render window on screen
   ## 
   ## *Arguments*:
   ## - ``renderWindow``:  Render window object
 
 proc `framerateLimit=`*(renderWindow: RenderWindow, limit: cint) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_setFramerateLimit".}
+  cdecl, importc: "sfRenderWindow_setFramerateLimit".}
   ## Limit the framerate to a maximum fixed frequency for a render window
   ## 
   ## *Arguments*:
@@ -1979,7 +1964,7 @@ proc `framerateLimit=`*(renderWindow: RenderWindow, limit: cint) {.
   ## - ``limit``:         Framerate limit, in frames per seconds (use 0 to disable limit)
 
 proc `joystickThreshold=`*(renderWindow: RenderWindow, threshold: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_setJoystickThreshold".}
+  cdecl, importc: "sfRenderWindow_setJoystickThreshold".}
   ## Change the joystick threshold, ie. the value below which no move event will be generated
   ## 
   ## *Arguments*:
@@ -1987,7 +1972,7 @@ proc `joystickThreshold=`*(renderWindow: RenderWindow, threshold: cfloat) {.
   ## - ``threshold``:     New threshold, in range [0, 100]
 
 proc systemHandle*(renderWindow: RenderWindow): WindowHandle {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_getSystemHandle".}
+  cdecl, importc: "sfRenderWindow_getSystemHandle".}
   ## Retrieve the OS-specific handle of a render window
   ## 
   ## *Arguments*:
@@ -1996,7 +1981,7 @@ proc systemHandle*(renderWindow: RenderWindow): WindowHandle {.
   ## *Returns:* Window handle
 
 proc clear*(renderWindow: RenderWindow, color: Color) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_clear".}
+  cdecl, importc: "sfRenderWindow_clear".}
   ## Clear a render window with the given color
   ## 
   ## *Arguments*:
@@ -2004,7 +1989,7 @@ proc clear*(renderWindow: RenderWindow, color: Color) {.
   ## - ``color``:         Fill color
 
 proc `view=`*(renderWindow: RenderWindow, view: View) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_setView".}
+  cdecl, importc: "sfRenderWindow_setView".}
   ## Change the current active view of a render window
   ## 
   ## *Arguments*:
@@ -2012,7 +1997,7 @@ proc `view=`*(renderWindow: RenderWindow, view: View) {.
   ## - ``view``:          Pointer to the new view
 
 proc view*(renderWindow: RenderWindow): View {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_getView".}
+  cdecl, importc: "sfRenderWindow_getView".}
   ## Get the current active view of a render window
   ## 
   ## *Arguments*:
@@ -2021,7 +2006,7 @@ proc view*(renderWindow: RenderWindow): View {.
   ## *Returns:* Current active view
 
 proc defaultView*(renderWindow: RenderWindow): View {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_getDefaultView".}
+  cdecl, importc: "sfRenderWindow_getDefaultView".}
   ## Get the default view of a render window
   ## 
   ## *Arguments*:
@@ -2030,7 +2015,7 @@ proc defaultView*(renderWindow: RenderWindow): View {.
   ## *Returns:* Default view of the render window
 
 proc getViewport*(renderWindow: RenderWindow, view: View): IntRect {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_getViewport".}
+  cdecl, importc: "sfRenderWindow_getViewport".}
   ## Get the viewport of a view applied to this target
   ## 
   ## *Arguments*:
@@ -2040,7 +2025,7 @@ proc getViewport*(renderWindow: RenderWindow, view: View): IntRect {.
   ## *Returns:* Viewport rectangle, expressed in pixels in the current target
 
 proc mapPixelToCoords*(renderWindow: RenderWindow, point: Vector2i, view: View): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_mapPixelToCoords".}
+  cdecl, importc: "sfRenderWindow_mapPixelToCoords".}
   ## Convert a point from window coordinates to world coordinates
   ## 
   ## This function finds the 2D position that matches the
@@ -2069,7 +2054,7 @@ proc mapPixelToCoords*(renderWindow: RenderWindow, point: Vector2i, view: View):
   ## *Returns:* The converted point, in "world" units
 
 proc mapCoordsToPixel*(renderWindow: RenderWindow, point: Vector2f, view: View): Vector2i {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_mapCoordsToPixel".}
+  cdecl, importc: "sfRenderWindow_mapCoordsToPixel".}
   ## Convert a point from world coordinates to window coordinates
   ## 
   ## This function finds the pixel of the render-window that matches
@@ -2094,7 +2079,7 @@ proc mapCoordsToPixel*(renderWindow: RenderWindow, point: Vector2f, view: View):
   ## *Returns:* The converted point, in target coordinates (pixels)
 
 proc drawSprite*(renderWindow: RenderWindow, obj: Sprite, states: (var RenderStates){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_drawSprite".}
+  cdecl, importc: "sfRenderWindow_drawSprite".}
 proc drawSprite*(renderWindow: RenderWindow, obj: Sprite, states: RenderStates) =
   ## Draw a drawable object to the render-target
   ## 
@@ -2106,43 +2091,43 @@ proc drawSprite*(renderWindow: RenderWindow, obj: Sprite, states: RenderStates) 
   drawSprite(renderWindow, obj, Cstates)
 
 proc drawText*(renderWindow: RenderWindow, obj: Text, states: (var RenderStates){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_drawText".}
+  cdecl, importc: "sfRenderWindow_drawText".}
 proc drawText*(renderWindow: RenderWindow, obj: Text, states: RenderStates) =
   (var Cstates = states)
   drawText(renderWindow, obj, Cstates)
 
 proc drawShape*(renderWindow: RenderWindow, obj: Shape, states: (var RenderStates){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_drawShape".}
+  cdecl, importc: "sfRenderWindow_drawShape".}
 proc drawShape*(renderWindow: RenderWindow, obj: Shape, states: RenderStates) =
   (var Cstates = states)
   drawShape(renderWindow, obj, Cstates)
 
 proc drawCircleShape*(renderWindow: RenderWindow, obj: CircleShape, states: (var RenderStates){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_drawCircleShape".}
+  cdecl, importc: "sfRenderWindow_drawCircleShape".}
 proc drawCircleShape*(renderWindow: RenderWindow, obj: CircleShape, states: RenderStates) =
   (var Cstates = states)
   drawCircleShape(renderWindow, obj, Cstates)
 
 proc drawConvexShape*(renderWindow: RenderWindow, obj: ConvexShape, states: (var RenderStates){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_drawConvexShape".}
+  cdecl, importc: "sfRenderWindow_drawConvexShape".}
 proc drawConvexShape*(renderWindow: RenderWindow, obj: ConvexShape, states: RenderStates) =
   (var Cstates = states)
   drawConvexShape(renderWindow, obj, Cstates)
 
 proc drawRectangleShape*(renderWindow: RenderWindow, obj: RectangleShape, states: (var RenderStates){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_drawRectangleShape".}
+  cdecl, importc: "sfRenderWindow_drawRectangleShape".}
 proc drawRectangleShape*(renderWindow: RenderWindow, obj: RectangleShape, states: RenderStates) =
   (var Cstates = states)
   drawRectangleShape(renderWindow, obj, Cstates)
 
 proc drawVertexArray*(renderWindow: RenderWindow, obj: VertexArray, states: (var RenderStates){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_drawVertexArray".}
+  cdecl, importc: "sfRenderWindow_drawVertexArray".}
 proc drawVertexArray*(renderWindow: RenderWindow, obj: VertexArray, states: RenderStates) =
   (var Cstates = states)
   drawVertexArray(renderWindow, obj, Cstates)
 
 proc drawPrimitives*(renderWindow: RenderWindow, vertices: (var Vertex){lvalue}, vertexCount: cint, kind: PrimitiveType, states: (var RenderStates){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_drawPrimitives".}
+  cdecl, importc: "sfRenderWindow_drawPrimitives".}
 proc drawPrimitives*(renderWindow: RenderWindow, vertices: (var Vertex){lvalue}, vertexCount: cint, kind: PrimitiveType, states: RenderStates) =
   (var Cstates = states)
   drawPrimitives(renderWindow, vertices, vertexCount, kind, Cstates)
@@ -2162,7 +2147,7 @@ proc drawPrimitives*(renderWindow: RenderWindow, vertices: Vertex, vertexCount: 
   drawPrimitives(renderWindow, Cvertices, vertexCount, kind, Cstates)
 
 proc pushGLStates*(renderWindow: RenderWindow) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_pushGLStates".}
+  cdecl, importc: "sfRenderWindow_pushGLStates".}
   ## Save the current OpenGL render states and matrices
   ## 
   ## This function can be used when you mix SFML drawing
@@ -2184,7 +2169,7 @@ proc pushGLStates*(renderWindow: RenderWindow) {.
   ## - ``renderWindow``:  render window object
 
 proc popGLStates*(renderWindow: RenderWindow) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_popGLStates".}
+  cdecl, importc: "sfRenderWindow_popGLStates".}
   ## Restore the previously saved OpenGL render states and matrices
   ## 
   ## See the description of pushGLStates to get a detailed
@@ -2194,7 +2179,7 @@ proc popGLStates*(renderWindow: RenderWindow) {.
   ## - ``renderWindow``:  render window object
 
 proc resetGLStates*(renderWindow: RenderWindow) {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_resetGLStates".}
+  cdecl, importc: "sfRenderWindow_resetGLStates".}
   ## Reset the internal OpenGL states so that the target is ready for drawing
   ## 
   ## This function can be used when you mix SFML drawing
@@ -2207,7 +2192,7 @@ proc resetGLStates*(renderWindow: RenderWindow) {.
   ## - ``renderWindow``:  render window object
 
 proc capture*(renderWindow: RenderWindow): Image {.
-  cdecl, dynlib: lib, importc: "sfRenderWindow_capture".}
+  cdecl, importc: "sfRenderWindow_capture".}
   ## Copy the current contents of a render window to an image
   ## 
   ## This is a slow operation, whose main purpose is to make
@@ -2224,7 +2209,7 @@ proc capture*(renderWindow: RenderWindow): Image {.
   ## *Returns:* New image containing the captured contents
 
 proc mouse_getPositionRenderWindow*(relativeTo: RenderWindow): Vector2i {.
-  cdecl, dynlib: lib, importc: "sfMouse_getPositionRenderWindow".}
+  cdecl, importc: "sfMouse_getPositionRenderWindow".}
   ## Get the current position of the mouse relatively to a render-window
   ## 
   ## This function returns the current position of the mouse
@@ -2236,7 +2221,7 @@ proc mouse_getPositionRenderWindow*(relativeTo: RenderWindow): Vector2i {.
   ## *Returns:* Position of the mouse cursor, relative to the given render-window
 
 proc mouse_setPositionRenderWindow*(position: Vector2i, relativeTo: RenderWindow) {.
-  cdecl, dynlib: lib, importc: "sfMouse_setPositionRenderWindow".}
+  cdecl, importc: "sfMouse_setPositionRenderWindow".}
   ## Set the current position of the mouse relatively to a render-window
   ## 
   ## This function sets the current position of the mouse
@@ -2250,7 +2235,7 @@ proc mouse_setPositionRenderWindow*(position: Vector2i, relativeTo: RenderWindow
 #--- SFML/Graphics/RenderTexture ---#
 
 proc newRenderTexture*(width: cint, height: cint, depthBuffer: BoolInt): RenderTexture {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_create".}
+  cdecl, importc: "sfRenderTexture_create".}
   ## Construct a new render texture
   ## 
   ## *Arguments*:
@@ -2261,14 +2246,14 @@ proc newRenderTexture*(width: cint, height: cint, depthBuffer: BoolInt): RenderT
   ## *Returns:* A new RenderTexture object, or NULL if it failed
 
 proc destroy*(renderTexture: RenderTexture) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_destroy".}
+  override, cdecl, importc: "sfRenderTexture_destroy".}
   ## Destroy an existing render texture
   ## 
   ## *Arguments*:
   ## - ``renderTexture``:  Render texture to destroy
 
 proc size*(renderTexture: RenderTexture): Vector2i {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_getSize".}
+  cdecl, importc: "sfRenderTexture_getSize".}
   ## Get the size of the rendering region of a render texture
   ## 
   ## *Arguments*:
@@ -2277,7 +2262,7 @@ proc size*(renderTexture: RenderTexture): Vector2i {.
   ## *Returns:* Size in pixels
 
 proc `active=`*(renderTexture: RenderTexture, active: BoolInt): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_setActive".}
+  cdecl, importc: "sfRenderTexture_setActive".}
   ## Activate or deactivate a render texture as the current target for rendering
   ## 
   ## *Arguments*:
@@ -2287,14 +2272,14 @@ proc `active=`*(renderTexture: RenderTexture, active: BoolInt): BoolInt {.
   ## *Returns:* True if operation was successful, false otherwise
 
 proc display*(renderTexture: RenderTexture) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_display".}
+  cdecl, importc: "sfRenderTexture_display".}
   ## Update the contents of the target texture
   ## 
   ## *Arguments*:
   ## - ``renderTexture``:  Render texture object
 
 proc clear*(renderTexture: RenderTexture, color: Color) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_clear".}
+  cdecl, importc: "sfRenderTexture_clear".}
   ## Clear the rendertexture with the given color
   ## 
   ## *Arguments*:
@@ -2302,7 +2287,7 @@ proc clear*(renderTexture: RenderTexture, color: Color) {.
   ## - ``color``:          Fill color
 
 proc `view=`*(renderTexture: RenderTexture, view: View) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_setView".}
+  cdecl, importc: "sfRenderTexture_setView".}
   ## Change the current active view of a render texture
   ## 
   ## *Arguments*:
@@ -2310,7 +2295,7 @@ proc `view=`*(renderTexture: RenderTexture, view: View) {.
   ## - ``view``:           Pointer to the new view
 
 proc view*(renderTexture: RenderTexture): View {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_getView".}
+  cdecl, importc: "sfRenderTexture_getView".}
   ## Get the current active view of a render texture
   ## 
   ## *Arguments*:
@@ -2319,7 +2304,7 @@ proc view*(renderTexture: RenderTexture): View {.
   ## *Returns:* Current active view
 
 proc defaultView*(renderTexture: RenderTexture): View {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_getDefaultView".}
+  cdecl, importc: "sfRenderTexture_getDefaultView".}
   ## Get the default view of a render texture
   ## 
   ## *Arguments*:
@@ -2328,7 +2313,7 @@ proc defaultView*(renderTexture: RenderTexture): View {.
   ## *Returns:* Default view of the rendertexture
 
 proc getViewport*(renderTexture: RenderTexture, view: View): IntRect {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_getViewport".}
+  cdecl, importc: "sfRenderTexture_getViewport".}
   ## Get the viewport of a view applied to this target
   ## 
   ## *Arguments*:
@@ -2338,7 +2323,7 @@ proc getViewport*(renderTexture: RenderTexture, view: View): IntRect {.
   ## *Returns:* Viewport rectangle, expressed in pixels in the current target
 
 proc mapPixelToCoords*(renderTexture: RenderTexture, point: Vector2i, view: View): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_mapPixelToCoords".}
+  cdecl, importc: "sfRenderTexture_mapPixelToCoords".}
   ## Convert a point from texture coordinates to world coordinates
   ## 
   ## This function finds the 2D position that matches the
@@ -2364,7 +2349,7 @@ proc mapPixelToCoords*(renderTexture: RenderTexture, point: Vector2i, view: View
   ## *Returns:* The converted point, in "world" units
 
 proc mapCoordsToPixel*(renderTexture: RenderTexture, point: Vector2f, view: View): Vector2i {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_mapCoordsToPixel".}
+  cdecl, importc: "sfRenderTexture_mapCoordsToPixel".}
   ## Convert a point from world coordinates to texture coordinates
   ## 
   ## This function finds the pixel of the render-texture that matches
@@ -2389,7 +2374,7 @@ proc mapCoordsToPixel*(renderTexture: RenderTexture, point: Vector2f, view: View
   ## *Returns:* The converted point, in target coordinates (pixels)
 
 proc drawSprite*(renderTexture: RenderTexture, obj: Sprite, states: (var RenderStates){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_drawSprite".}
+  cdecl, importc: "sfRenderTexture_drawSprite".}
 proc drawSprite*(renderTexture: RenderTexture, obj: Sprite, states: RenderStates) =
   ## Draw a drawable object to the render-target
   ## 
@@ -2401,43 +2386,43 @@ proc drawSprite*(renderTexture: RenderTexture, obj: Sprite, states: RenderStates
   drawSprite(renderTexture, obj, Cstates)
 
 proc drawText*(renderTexture: RenderTexture, obj: Text, states: (var RenderStates){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_drawText".}
+  cdecl, importc: "sfRenderTexture_drawText".}
 proc drawText*(renderTexture: RenderTexture, obj: Text, states: RenderStates) =
   (var Cstates = states)
   drawText(renderTexture, obj, Cstates)
 
 proc drawShape*(renderTexture: RenderTexture, obj: Shape, states: (var RenderStates){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_drawShape".}
+  cdecl, importc: "sfRenderTexture_drawShape".}
 proc drawShape*(renderTexture: RenderTexture, obj: Shape, states: RenderStates) =
   (var Cstates = states)
   drawShape(renderTexture, obj, Cstates)
 
 proc drawCircleShape*(renderTexture: RenderTexture, obj: CircleShape, states: (var RenderStates){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_drawCircleShape".}
+  cdecl, importc: "sfRenderTexture_drawCircleShape".}
 proc drawCircleShape*(renderTexture: RenderTexture, obj: CircleShape, states: RenderStates) =
   (var Cstates = states)
   drawCircleShape(renderTexture, obj, Cstates)
 
 proc drawConvexShape*(renderTexture: RenderTexture, obj: ConvexShape, states: (var RenderStates){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_drawConvexShape".}
+  cdecl, importc: "sfRenderTexture_drawConvexShape".}
 proc drawConvexShape*(renderTexture: RenderTexture, obj: ConvexShape, states: RenderStates) =
   (var Cstates = states)
   drawConvexShape(renderTexture, obj, Cstates)
 
 proc drawRectangleShape*(renderTexture: RenderTexture, obj: RectangleShape, states: (var RenderStates){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_drawRectangleShape".}
+  cdecl, importc: "sfRenderTexture_drawRectangleShape".}
 proc drawRectangleShape*(renderTexture: RenderTexture, obj: RectangleShape, states: RenderStates) =
   (var Cstates = states)
   drawRectangleShape(renderTexture, obj, Cstates)
 
 proc drawVertexArray*(renderTexture: RenderTexture, obj: VertexArray, states: (var RenderStates){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_drawVertexArray".}
+  cdecl, importc: "sfRenderTexture_drawVertexArray".}
 proc drawVertexArray*(renderTexture: RenderTexture, obj: VertexArray, states: RenderStates) =
   (var Cstates = states)
   drawVertexArray(renderTexture, obj, Cstates)
 
 proc drawPrimitives*(renderTexture: RenderTexture, vertices: (var Vertex){lvalue}, vertexCount: cint, kind: PrimitiveType, states: (var RenderStates){lvalue}) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_drawPrimitives".}
+  cdecl, importc: "sfRenderTexture_drawPrimitives".}
 proc drawPrimitives*(renderTexture: RenderTexture, vertices: (var Vertex){lvalue}, vertexCount: cint, kind: PrimitiveType, states: RenderStates) =
   (var Cstates = states)
   drawPrimitives(renderTexture, vertices, vertexCount, kind, Cstates)
@@ -2457,7 +2442,7 @@ proc drawPrimitives*(renderTexture: RenderTexture, vertices: Vertex, vertexCount
   drawPrimitives(renderTexture, Cvertices, vertexCount, kind, Cstates)
 
 proc pushGLStates*(renderTexture: RenderTexture) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_pushGLStates".}
+  cdecl, importc: "sfRenderTexture_pushGLStates".}
   ## Save the current OpenGL render states and matrices
   ## 
   ## This function can be used when you mix SFML drawing
@@ -2479,7 +2464,7 @@ proc pushGLStates*(renderTexture: RenderTexture) {.
   ## - ``renderTexture``:  Render texture object
 
 proc popGLStates*(renderTexture: RenderTexture) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_popGLStates".}
+  cdecl, importc: "sfRenderTexture_popGLStates".}
   ## Restore the previously saved OpenGL render states and matrices
   ## 
   ## See the description of pushGLStates to get a detailed
@@ -2489,7 +2474,7 @@ proc popGLStates*(renderTexture: RenderTexture) {.
   ## - ``renderTexture``:  Render texture object
 
 proc resetGLStates*(renderTexture: RenderTexture) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_resetGLStates".}
+  cdecl, importc: "sfRenderTexture_resetGLStates".}
   ## Reset the internal OpenGL states so that the target is ready for drawing
   ## 
   ## This function can be used when you mix SFML drawing
@@ -2502,7 +2487,7 @@ proc resetGLStates*(renderTexture: RenderTexture) {.
   ## - ``renderTexture``:  Render texture object
 
 proc texture*(renderTexture: RenderTexture): Texture {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_getTexture".}
+  cdecl, importc: "sfRenderTexture_getTexture".}
   ## Get the target texture of a render texture
   ## 
   ## *Arguments*:
@@ -2511,7 +2496,7 @@ proc texture*(renderTexture: RenderTexture): Texture {.
   ## *Returns:* Pointer to the target texture
 
 proc `smooth=`*(renderTexture: RenderTexture, smooth: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_setSmooth".}
+  cdecl, importc: "sfRenderTexture_setSmooth".}
   ## Enable or disable the smooth filter on a render texture
   ## 
   ## *Arguments*:
@@ -2519,7 +2504,7 @@ proc `smooth=`*(renderTexture: RenderTexture, smooth: BoolInt) {.
   ## - ``smooth``:         True to enable smoothing, False to disable it
 
 proc smooth*(renderTexture: RenderTexture): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_isSmooth".}
+  cdecl, importc: "sfRenderTexture_isSmooth".}
   ## Tell whether the smooth filter is enabled or not for a render texture
   ## 
   ## *Arguments*:
@@ -2528,7 +2513,7 @@ proc smooth*(renderTexture: RenderTexture): BoolInt {.
   ## *Returns:* True if smoothing is enabled, False if it is disabled
 
 proc `repeated=`*(renderTexture: RenderTexture, repeated: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_setRepeated".}
+  cdecl, importc: "sfRenderTexture_setRepeated".}
   ## Enable or disable texture repeating
   ## 
   ## *Arguments*:
@@ -2536,7 +2521,7 @@ proc `repeated=`*(renderTexture: RenderTexture, repeated: BoolInt) {.
   ## - ``repeated``:       True to enable repeating, False to disable it
 
 proc repeated*(renderTexture: RenderTexture): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfRenderTexture_isRepeated".}
+  cdecl, importc: "sfRenderTexture_isRepeated".}
   ## Tell whether the texture is repeated or not
   ## 
   ## *Arguments*:
@@ -2548,7 +2533,7 @@ proc repeated*(renderTexture: RenderTexture): BoolInt {.
 #--- SFML/Graphics/Shader ---#
 
 proc newShader*(vertexShaderFilename: cstring, fragmentShaderFilename: cstring): Shader {.
-  cdecl, dynlib: lib, importc: "sfShader_createFromFile".}
+  cdecl, importc: "sfShader_createFromFile".}
   ## Load both the vertex and fragment shaders from files
   ## 
   ## This function can load both the vertex and the fragment
@@ -2566,7 +2551,7 @@ proc newShader*(vertexShaderFilename: cstring, fragmentShaderFilename: cstring):
   ## *Returns:* A new Shader object, or NULL if it failed
 
 proc newShader*(vertexShader: cstring, fragmentShader: cstring): Shader {.
-  cdecl, dynlib: lib, importc: "sfShader_createFromMemory".}
+  cdecl, importc: "sfShader_createFromMemory".}
   ## Load both the vertex and fragment shaders from source codes in memory
   ## 
   ## This function can load both the vertex and the fragment
@@ -2584,7 +2569,7 @@ proc newShader*(vertexShader: cstring, fragmentShader: cstring): Shader {.
   ## *Returns:* A new Shader object, or NULL if it failed
 
 proc newShader*(vertexShaderStream: var InputStream, fragmentShaderStream: var InputStream): Shader {.
-  cdecl, dynlib: lib, importc: "sfShader_createFromStream".}
+  cdecl, importc: "sfShader_createFromStream".}
   ## Load both the vertex and fragment shaders from custom streams
   ## 
   ## This function can load both the vertex and the fragment
@@ -2602,14 +2587,14 @@ proc newShader*(vertexShaderStream: var InputStream, fragmentShaderStream: var I
   ## *Returns:* A new Shader object, or NULL if it failed
 
 proc destroy*(shader: Shader) {.
-  cdecl, dynlib: lib, importc: "sfShader_destroy".}
+  override, cdecl, importc: "sfShader_destroy".}
   ## Destroy an existing shader
   ## 
   ## *Arguments*:
   ## - ``shader``:  Shader to delete
 
 proc setFloatParameter*(shader: Shader, name: cstring, x: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfShader_setFloatParameter".}
+  cdecl, importc: "sfShader_setFloatParameter".}
   ## Change a float parameter of a shader
   ## 
   ## ``name`` is the name of the variable to change in the shader.
@@ -2623,7 +2608,7 @@ proc setFloatParameter*(shader: Shader, name: cstring, x: cfloat) {.
   ## - ``x``:       Value to assign
 
 proc setFloat2Parameter*(shader: Shader, name: cstring, x: cfloat, y: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfShader_setFloat2Parameter".}
+  cdecl, importc: "sfShader_setFloat2Parameter".}
   ## Change a 2-components vector parameter of a shader
   ## 
   ## ``name`` is the name of the variable to change in the shader.
@@ -2638,7 +2623,7 @@ proc setFloat2Parameter*(shader: Shader, name: cstring, x: cfloat, y: cfloat) {.
   ## - ``y``:       Second component of the value to assign
 
 proc setFloat3Parameter*(shader: Shader, name: cstring, x: cfloat, y: cfloat, z: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfShader_setFloat3Parameter".}
+  cdecl, importc: "sfShader_setFloat3Parameter".}
   ## Change a 3-components vector parameter of a shader
   ## 
   ## ``name`` is the name of the variable to change in the shader.
@@ -2654,7 +2639,7 @@ proc setFloat3Parameter*(shader: Shader, name: cstring, x: cfloat, y: cfloat, z:
   ## - ``z``:       Third component of the value to assign
 
 proc setFloat4Parameter*(shader: Shader, name: cstring, x: cfloat, y: cfloat, z: cfloat, w: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfShader_setFloat4Parameter".}
+  cdecl, importc: "sfShader_setFloat4Parameter".}
   ## Change a 4-components vector parameter of a shader
   ## 
   ## ``name`` is the name of the variable to change in the shader.
@@ -2671,7 +2656,7 @@ proc setFloat4Parameter*(shader: Shader, name: cstring, x: cfloat, y: cfloat, z:
   ## - ``w``:       Fourth component of the value to assign
 
 proc setVector2Parameter*(shader: Shader, name: cstring, vector: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfShader_setVector2Parameter".}
+  cdecl, importc: "sfShader_setVector2Parameter".}
   ## Change a 2-components vector parameter of a shader
   ## 
   ## ``name`` is the name of the variable to change in the shader.
@@ -2685,7 +2670,7 @@ proc setVector2Parameter*(shader: Shader, name: cstring, vector: Vector2f) {.
   ## - ``vector``:  Vector to assign
 
 proc setVector3Parameter*(shader: Shader, name: cstring, vector: Vector3f) {.
-  cdecl, dynlib: lib, importc: "sfShader_setVector3Parameter".}
+  cdecl, importc: "sfShader_setVector3Parameter".}
   ## Change a 3-components vector parameter of a shader
   ## 
   ## ``name`` is the name of the variable to change in the shader.
@@ -2699,7 +2684,7 @@ proc setVector3Parameter*(shader: Shader, name: cstring, vector: Vector3f) {.
   ## - ``vector``:  Vector to assign
 
 proc setColorParameter*(shader: Shader, name: cstring, color: Color) {.
-  cdecl, dynlib: lib, importc: "sfShader_setColorParameter".}
+  cdecl, importc: "sfShader_setColorParameter".}
   ## Change a color parameter of a shader
   ## 
   ## ``name`` is the name of the variable to change in the shader.
@@ -2719,7 +2704,7 @@ proc setColorParameter*(shader: Shader, name: cstring, color: Color) {.
   ## - ``color``:   Color to assign
 
 proc setTransformParameter*(shader: Shader, name: cstring, transform: Transform) {.
-  cdecl, dynlib: lib, importc: "sfShader_setTransformParameter".}
+  cdecl, importc: "sfShader_setTransformParameter".}
   ## Change a matrix parameter of a shader
   ## 
   ## ``name`` is the name of the variable to change in the shader.
@@ -2733,7 +2718,7 @@ proc setTransformParameter*(shader: Shader, name: cstring, transform: Transform)
   ## - ``transform``:  Transform to assign
 
 proc setTextureParameter*(shader: Shader, name: cstring, texture: Texture) {.
-  cdecl, dynlib: lib, importc: "sfShader_setTextureParameter".}
+  cdecl, importc: "sfShader_setTextureParameter".}
   ## Change a texture parameter of a shader
   ## 
   ## ``name`` is the name of the variable to change in the shader.
@@ -2753,7 +2738,7 @@ proc setTextureParameter*(shader: Shader, name: cstring, texture: Texture) {.
   ## - ``texture``:  Texture to assign
 
 proc `currentTextureParameter=`*(shader: Shader, name: cstring) {.
-  cdecl, dynlib: lib, importc: "sfShader_setCurrentTextureParameter".}
+  cdecl, importc: "sfShader_setCurrentTextureParameter".}
   ## Change a texture parameter of a shader
   ## 
   ## This function maps a shader texture variable to the
@@ -2768,7 +2753,7 @@ proc `currentTextureParameter=`*(shader: Shader, name: cstring) {.
   ## - ``name``:    Name of the texture in the shader
 
 proc bindGL*(shader: Shader) {.
-  cdecl, dynlib: lib, importc: "sfShader_bind".}
+  cdecl, importc: "sfShader_bind".}
   ## Bind a shader for rendering (activate it)
   ## 
   ## This function is not part of the graphics API, it mustn't be
@@ -2780,7 +2765,7 @@ proc bindGL*(shader: Shader) {.
   ## - ``shader``:  Shader to bind, can be null to use no shader
 
 proc shader_isAvailable*(): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfShader_isAvailable".}
+  cdecl, importc: "sfShader_isAvailable".}
   ## Tell whether or not the system supports shaders
   ## 
   ## This function should always be called before using
@@ -2797,7 +2782,7 @@ type ShapeGetPointCountCallback* = proc(p1: pointer): cint {.cdecl.}
 type ShapeGetPointCallback* = proc(p1: cint; p2: pointer): Vector2f {.cdecl.}
 
 proc newShape*(getPointCount: ShapeGetPointCountCallback, getPoint: ShapeGetPointCallback, userData: pointer): Shape {.
-  cdecl, dynlib: lib, importc: "sfShape_create".}
+  cdecl, importc: "sfShape_create".}
   ## Create a new shape
   ## 
   ## *Arguments*:
@@ -2808,14 +2793,14 @@ proc newShape*(getPointCount: ShapeGetPointCountCallback, getPoint: ShapeGetPoin
   ## *Returns:* A new Shape object
 
 proc destroy*(shape: Shape) {.
-  cdecl, dynlib: lib, importc: "sfShape_destroy".}
+  override, cdecl, importc: "sfShape_destroy".}
   ## Destroy an existing shape
   ## 
   ## *Arguments*:
   ## - ``Shape``:  Shape to delete
 
 proc `position=`*(shape: Shape, position: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfShape_setPosition".}
+  cdecl, importc: "sfShape_setPosition".}
   ## Set the position of a shape
   ## 
   ## This function completely overwrites the previous position.
@@ -2827,7 +2812,7 @@ proc `position=`*(shape: Shape, position: Vector2f) {.
   ## - ``position``:  New position
 
 proc `rotation=`*(shape: Shape, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfShape_setRotation".}
+  cdecl, importc: "sfShape_setRotation".}
   ## Set the orientation of a shape
   ## 
   ## This function completely overwrites the previous rotation.
@@ -2839,7 +2824,7 @@ proc `rotation=`*(shape: Shape, angle: cfloat) {.
   ## - ``angle``:  New rotation, in degrees
 
 proc `scale=`*(shape: Shape, scale: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfShape_setScale".}
+  cdecl, importc: "sfShape_setScale".}
   ## Set the scale factors of a shape
   ## 
   ## This function completely overwrites the previous scale.
@@ -2851,7 +2836,7 @@ proc `scale=`*(shape: Shape, scale: Vector2f) {.
   ## - ``scale``:  New scale factors
 
 proc `origin=`*(shape: Shape, origin: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfShape_setOrigin".}
+  cdecl, importc: "sfShape_setOrigin".}
   ## Set the local origin of a shape
   ## 
   ## The origin of an object defines the center point for
@@ -2866,7 +2851,7 @@ proc `origin=`*(shape: Shape, origin: Vector2f) {.
   ## - ``origin``:  New origin
 
 proc position*(shape: Shape): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfShape_getPosition".}
+  cdecl, importc: "sfShape_getPosition".}
   ## Get the position of a shape
   ## 
   ## *Arguments*:
@@ -2875,7 +2860,7 @@ proc position*(shape: Shape): Vector2f {.
   ## *Returns:* Current position
 
 proc rotation*(shape: Shape): cfloat {.
-  cdecl, dynlib: lib, importc: "sfShape_getRotation".}
+  cdecl, importc: "sfShape_getRotation".}
   ## Get the orientation of a shape
   ## 
   ## The rotation is always in the range [0, 360].
@@ -2886,7 +2871,7 @@ proc rotation*(shape: Shape): cfloat {.
   ## *Returns:* Current rotation, in degrees
 
 proc scale*(shape: Shape): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfShape_getScale".}
+  cdecl, importc: "sfShape_getScale".}
   ## Get the current scale of a shape
   ## 
   ## *Arguments*:
@@ -2895,7 +2880,7 @@ proc scale*(shape: Shape): Vector2f {.
   ## *Returns:* Current scale factors
 
 proc origin*(shape: Shape): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfShape_getOrigin".}
+  cdecl, importc: "sfShape_getOrigin".}
   ## Get the local origin of a shape
   ## 
   ## *Arguments*:
@@ -2904,7 +2889,7 @@ proc origin*(shape: Shape): Vector2f {.
   ## *Returns:* Current origin
 
 proc move*(shape: Shape, offset: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfShape_move".}
+  cdecl, importc: "sfShape_move".}
   ## Move a shape by a given offset
   ## 
   ## This function adds to the current position of the object,
@@ -2915,7 +2900,7 @@ proc move*(shape: Shape, offset: Vector2f) {.
   ## - ``offset``:  Offset
 
 proc rotate*(shape: Shape, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfShape_rotate".}
+  cdecl, importc: "sfShape_rotate".}
   ## Rotate a shape
   ## 
   ## This function adds to the current rotation of the object,
@@ -2926,7 +2911,7 @@ proc rotate*(shape: Shape, angle: cfloat) {.
   ## - ``angle``:  Angle of rotation, in degrees
 
 proc scale*(shape: Shape, factors: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfShape_scale".}
+  cdecl, importc: "sfShape_scale".}
   ## Scale a shape
   ## 
   ## This function multiplies the current scale of the object,
@@ -2937,7 +2922,7 @@ proc scale*(shape: Shape, factors: Vector2f) {.
   ## - ``factors``:  Scale factors
 
 proc transform*(shape: Shape): Transform {.
-  cdecl, dynlib: lib, importc: "sfShape_getTransform".}
+  cdecl, importc: "sfShape_getTransform".}
   ## Get the combined transform of a shape
   ## 
   ## *Arguments*:
@@ -2946,7 +2931,7 @@ proc transform*(shape: Shape): Transform {.
   ## *Returns:* Transform combining the position/rotation/scale/origin of the object
 
 proc inverseTransform*(shape: Shape): Transform {.
-  cdecl, dynlib: lib, importc: "sfShape_getInverseTransform".}
+  cdecl, importc: "sfShape_getInverseTransform".}
   ## Get the inverse of the combined transform of a shape
   ## 
   ## *Arguments*:
@@ -2955,7 +2940,7 @@ proc inverseTransform*(shape: Shape): Transform {.
   ## *Returns:* Inverse of the combined transformations applied to the object
 
 proc setTexture*(shape: Shape, texture: Texture, resetRect: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfShape_setTexture".}
+  cdecl, importc: "sfShape_setTexture".}
   ## Change the source texture of a shape
   ## 
   ## The ``texture`` argument refers to a texture that must
@@ -2975,7 +2960,7 @@ proc setTexture*(shape: Shape, texture: Texture, resetRect: BoolInt) {.
   ## - ``resetRect``:  Should the texture rect be reset to the size of the new texture?
 
 proc `textureRect=`*(shape: Shape, rect: IntRect) {.
-  cdecl, dynlib: lib, importc: "sfShape_setTextureRect".}
+  cdecl, importc: "sfShape_setTextureRect".}
   ## Set the sub-rectangle of the texture that a shape will display
   ## 
   ## The texture rect is useful when you don't want to display
@@ -2987,7 +2972,7 @@ proc `textureRect=`*(shape: Shape, rect: IntRect) {.
   ## - ``rect``:   Rectangle defining the region of the texture to display
 
 proc `fillColor=`*(shape: Shape, color: Color) {.
-  cdecl, dynlib: lib, importc: "sfShape_setFillColor".}
+  cdecl, importc: "sfShape_setFillColor".}
   ## Set the fill color of a shape
   ## 
   ## This color is modulated (multiplied) with the shape's
@@ -3002,7 +2987,7 @@ proc `fillColor=`*(shape: Shape, color: Color) {.
   ## - ``color``:  New color of the shape
 
 proc `outlineColor=`*(shape: Shape, color: Color) {.
-  cdecl, dynlib: lib, importc: "sfShape_setOutlineColor".}
+  cdecl, importc: "sfShape_setOutlineColor".}
   ## Set the outline color of a shape
   ## 
   ## You can use Transparent to disable the outline.
@@ -3013,7 +2998,7 @@ proc `outlineColor=`*(shape: Shape, color: Color) {.
   ## - ``color``:  New outline color of the shape
 
 proc `outlineThickness=`*(shape: Shape, thickness: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfShape_setOutlineThickness".}
+  cdecl, importc: "sfShape_setOutlineThickness".}
   ## Set the thickness of a shape's outline
   ## 
   ## This number cannot be negative. Using zero disables
@@ -3025,7 +3010,7 @@ proc `outlineThickness=`*(shape: Shape, thickness: cfloat) {.
   ## - ``thickness``:  New outline thickness
 
 proc texture*(shape: Shape): Texture {.
-  cdecl, dynlib: lib, importc: "sfShape_getTexture".}
+  cdecl, importc: "sfShape_getTexture".}
   ## Get the source texture of a shape
   ## 
   ## If the shape has no source texture, a NULL pointer is returned.
@@ -3038,7 +3023,7 @@ proc texture*(shape: Shape): Texture {.
   ## *Returns:* Pointer to the shape's texture
 
 proc textureRect*(shape: Shape): IntRect {.
-  cdecl, dynlib: lib, importc: "sfShape_getTextureRect".}
+  cdecl, importc: "sfShape_getTextureRect".}
   ## Get the sub-rectangle of the texture displayed by a shape
   ## 
   ## *Arguments*:
@@ -3047,7 +3032,7 @@ proc textureRect*(shape: Shape): IntRect {.
   ## *Returns:* Texture rectangle of the shape
 
 proc fillColor*(shape: Shape): Color {.
-  cdecl, dynlib: lib, importc: "sfShape_getFillColor".}
+  cdecl, importc: "sfShape_getFillColor".}
   ## Get the fill color of a shape
   ## 
   ## *Arguments*:
@@ -3056,7 +3041,7 @@ proc fillColor*(shape: Shape): Color {.
   ## *Returns:* Fill color of the shape
 
 proc outlineColor*(shape: Shape): Color {.
-  cdecl, dynlib: lib, importc: "sfShape_getOutlineColor".}
+  cdecl, importc: "sfShape_getOutlineColor".}
   ## Get the outline color of a shape
   ## 
   ## *Arguments*:
@@ -3065,7 +3050,7 @@ proc outlineColor*(shape: Shape): Color {.
   ## *Returns:* Outline color of the shape
 
 proc outlineThickness*(shape: Shape): cfloat {.
-  cdecl, dynlib: lib, importc: "sfShape_getOutlineThickness".}
+  cdecl, importc: "sfShape_getOutlineThickness".}
   ## Get the outline thickness of a shape
   ## 
   ## *Arguments*:
@@ -3074,7 +3059,7 @@ proc outlineThickness*(shape: Shape): cfloat {.
   ## *Returns:* Outline thickness of the shape
 
 proc pointCount*(shape: Shape): cint {.
-  cdecl, dynlib: lib, importc: "sfShape_getPointCount".}
+  cdecl, importc: "sfShape_getPointCount".}
   ## Get the total number of points of a shape
   ## 
   ## *Arguments*:
@@ -3083,7 +3068,7 @@ proc pointCount*(shape: Shape): cint {.
   ## *Returns:* Number of points of the shape
 
 proc getPoint*(shape: Shape, index: cint): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfShape_getPoint".}
+  cdecl, importc: "sfShape_getPoint".}
   ## Get a point of a shape
   ## 
   ## The result is undefined if ``index`` is out of the valid range.
@@ -3095,7 +3080,7 @@ proc getPoint*(shape: Shape, index: cint): Vector2f {.
   ## *Returns:* Index-th point of the shape
 
 proc localBounds*(shape: Shape): FloatRect {.
-  cdecl, dynlib: lib, importc: "sfShape_getLocalBounds".}
+  cdecl, importc: "sfShape_getLocalBounds".}
   ## Get the local bounding rectangle of a shape
   ## 
   ## The returned rectangle is in local coordinates, which means
@@ -3110,7 +3095,7 @@ proc localBounds*(shape: Shape): FloatRect {.
   ## *Returns:* Local bounding rectangle of the entity
 
 proc globalBounds*(shape: Shape): FloatRect {.
-  cdecl, dynlib: lib, importc: "sfShape_getGlobalBounds".}
+  cdecl, importc: "sfShape_getGlobalBounds".}
   ## Get the global bounding rectangle of a shape
   ## 
   ## The returned rectangle is in global coordinates, which means
@@ -3125,7 +3110,7 @@ proc globalBounds*(shape: Shape): FloatRect {.
   ## *Returns:* Global bounding rectangle of the entity
 
 proc update*(shape: Shape) {.
-  cdecl, dynlib: lib, importc: "sfShape_update".}
+  cdecl, importc: "sfShape_update".}
   ## Recompute the internal geometry of a shape
   ## 
   ## This function must be called by specialized shape objects
@@ -3136,13 +3121,13 @@ proc update*(shape: Shape) {.
 #--- SFML/Graphics/Sprite ---#
 
 proc newSprite*(): Sprite {.
-  cdecl, dynlib: lib, importc: "sfSprite_create".}
+  cdecl, importc: "sfSprite_create".}
   ## Create a new sprite
   ## 
   ## *Returns:* A new Sprite object, or NULL if it failed
 
 proc copy*(sprite: Sprite): Sprite {.
-  cdecl, dynlib: lib, importc: "sfSprite_copy".}
+  cdecl, importc: "sfSprite_copy".}
   ## Copy an existing sprite
   ## 
   ## *Arguments*:
@@ -3151,14 +3136,14 @@ proc copy*(sprite: Sprite): Sprite {.
   ## *Returns:* Copied object
 
 proc destroy*(sprite: Sprite) {.
-  cdecl, dynlib: lib, importc: "sfSprite_destroy".}
+  override, cdecl, importc: "sfSprite_destroy".}
   ## Destroy an existing sprite
   ## 
   ## *Arguments*:
   ## - ``sprite``:  Sprite to delete
 
 proc `position=`*(sprite: Sprite, position: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfSprite_setPosition".}
+  cdecl, importc: "sfSprite_setPosition".}
   ## Set the position of a sprite
   ## 
   ## This function completely overwrites the previous position.
@@ -3170,7 +3155,7 @@ proc `position=`*(sprite: Sprite, position: Vector2f) {.
   ## - ``position``:  New position
 
 proc `rotation=`*(sprite: Sprite, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfSprite_setRotation".}
+  cdecl, importc: "sfSprite_setRotation".}
   ## Set the orientation of a sprite
   ## 
   ## This function completely overwrites the previous rotation.
@@ -3182,7 +3167,7 @@ proc `rotation=`*(sprite: Sprite, angle: cfloat) {.
   ## - ``angle``:   New rotation, in degrees
 
 proc `scale=`*(sprite: Sprite, scale: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfSprite_setScale".}
+  cdecl, importc: "sfSprite_setScale".}
   ## Set the scale factors of a sprite
   ## 
   ## This function completely overwrites the previous scale.
@@ -3194,7 +3179,7 @@ proc `scale=`*(sprite: Sprite, scale: Vector2f) {.
   ## - ``scale``:   New scale factors
 
 proc `origin=`*(sprite: Sprite, origin: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfSprite_setOrigin".}
+  cdecl, importc: "sfSprite_setOrigin".}
   ## Set the local origin of a sprite
   ## 
   ## The origin of an object defines the center point for
@@ -3209,7 +3194,7 @@ proc `origin=`*(sprite: Sprite, origin: Vector2f) {.
   ## - ``origin``:  New origin
 
 proc position*(sprite: Sprite): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfSprite_getPosition".}
+  cdecl, importc: "sfSprite_getPosition".}
   ## Get the position of a sprite
   ## 
   ## *Arguments*:
@@ -3218,7 +3203,7 @@ proc position*(sprite: Sprite): Vector2f {.
   ## *Returns:* Current position
 
 proc rotation*(sprite: Sprite): cfloat {.
-  cdecl, dynlib: lib, importc: "sfSprite_getRotation".}
+  cdecl, importc: "sfSprite_getRotation".}
   ## Get the orientation of a sprite
   ## 
   ## The rotation is always in the range [0, 360].
@@ -3229,7 +3214,7 @@ proc rotation*(sprite: Sprite): cfloat {.
   ## *Returns:* Current rotation, in degrees
 
 proc scale*(sprite: Sprite): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfSprite_getScale".}
+  cdecl, importc: "sfSprite_getScale".}
   ## Get the current scale of a sprite
   ## 
   ## *Arguments*:
@@ -3238,7 +3223,7 @@ proc scale*(sprite: Sprite): Vector2f {.
   ## *Returns:* Current scale factors
 
 proc origin*(sprite: Sprite): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfSprite_getOrigin".}
+  cdecl, importc: "sfSprite_getOrigin".}
   ## Get the local origin of a sprite
   ## 
   ## *Arguments*:
@@ -3247,7 +3232,7 @@ proc origin*(sprite: Sprite): Vector2f {.
   ## *Returns:* Current origin
 
 proc move*(sprite: Sprite, offset: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfSprite_move".}
+  cdecl, importc: "sfSprite_move".}
   ## Move a sprite by a given offset
   ## 
   ## This function adds to the current position of the object,
@@ -3258,7 +3243,7 @@ proc move*(sprite: Sprite, offset: Vector2f) {.
   ## - ``offset``:  Offset
 
 proc rotate*(sprite: Sprite, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfSprite_rotate".}
+  cdecl, importc: "sfSprite_rotate".}
   ## Rotate a sprite
   ## 
   ## This function adds to the current rotation of the object,
@@ -3269,7 +3254,7 @@ proc rotate*(sprite: Sprite, angle: cfloat) {.
   ## - ``angle``:   Angle of rotation, in degrees
 
 proc scale*(sprite: Sprite, factors: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfSprite_scale".}
+  cdecl, importc: "sfSprite_scale".}
   ## Scale a sprite
   ## 
   ## This function multiplies the current scale of the object,
@@ -3280,7 +3265,7 @@ proc scale*(sprite: Sprite, factors: Vector2f) {.
   ## - ``factors``:  Scale factors
 
 proc transform*(sprite: Sprite): Transform {.
-  cdecl, dynlib: lib, importc: "sfSprite_getTransform".}
+  cdecl, importc: "sfSprite_getTransform".}
   ## Get the combined transform of a sprite
   ## 
   ## *Arguments*:
@@ -3289,7 +3274,7 @@ proc transform*(sprite: Sprite): Transform {.
   ## *Returns:* Transform combining the position/rotation/scale/origin of the object
 
 proc inverseTransform*(sprite: Sprite): Transform {.
-  cdecl, dynlib: lib, importc: "sfSprite_getInverseTransform".}
+  cdecl, importc: "sfSprite_getInverseTransform".}
   ## Get the inverse of the combined transform of a sprite
   ## 
   ## *Arguments*:
@@ -3298,7 +3283,7 @@ proc inverseTransform*(sprite: Sprite): Transform {.
   ## *Returns:* Inverse of the combined transformations applied to the object
 
 proc setTexture*(sprite: Sprite, texture: Texture, resetRect: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfSprite_setTexture".}
+  cdecl, importc: "sfSprite_setTexture".}
   ## Change the source texture of a sprite
   ## 
   ## The ``texture`` argument refers to a texture that must
@@ -3317,7 +3302,7 @@ proc setTexture*(sprite: Sprite, texture: Texture, resetRect: BoolInt) {.
   ## - ``resetRect``:  Should the texture rect be reset to the size of the new texture?
 
 proc `textureRect=`*(sprite: Sprite, rectangle: IntRect) {.
-  cdecl, dynlib: lib, importc: "sfSprite_setTextureRect".}
+  cdecl, importc: "sfSprite_setTextureRect".}
   ## Set the sub-rectangle of the texture that a sprite will display
   ## 
   ## The texture rect is useful when you don't want to display
@@ -3329,7 +3314,7 @@ proc `textureRect=`*(sprite: Sprite, rectangle: IntRect) {.
   ## - ``rectangle``:  Rectangle defining the region of the texture to display
 
 proc `color=`*(sprite: Sprite, color: Color) {.
-  cdecl, dynlib: lib, importc: "sfSprite_setColor".}
+  cdecl, importc: "sfSprite_setColor".}
   ## Set the global color of a sprite
   ## 
   ## This color is modulated (multiplied) with the sprite's
@@ -3342,7 +3327,7 @@ proc `color=`*(sprite: Sprite, color: Color) {.
   ## - ``color``:   New color of the sprite
 
 proc texture*(sprite: Sprite): Texture {.
-  cdecl, dynlib: lib, importc: "sfSprite_getTexture".}
+  cdecl, importc: "sfSprite_getTexture".}
   ## Get the source texture of a sprite
   ## 
   ## If the sprite has no source texture, a NULL pointer is returned.
@@ -3355,7 +3340,7 @@ proc texture*(sprite: Sprite): Texture {.
   ## *Returns:* Pointer to the sprite's texture
 
 proc textureRect*(sprite: Sprite): IntRect {.
-  cdecl, dynlib: lib, importc: "sfSprite_getTextureRect".}
+  cdecl, importc: "sfSprite_getTextureRect".}
   ## Get the sub-rectangle of the texture displayed by a sprite
   ## 
   ## *Arguments*:
@@ -3364,7 +3349,7 @@ proc textureRect*(sprite: Sprite): IntRect {.
   ## *Returns:* Texture rectangle of the sprite
 
 proc color*(sprite: Sprite): Color {.
-  cdecl, dynlib: lib, importc: "sfSprite_getColor".}
+  cdecl, importc: "sfSprite_getColor".}
   ## Get the global color of a sprite
   ## 
   ## *Arguments*:
@@ -3373,7 +3358,7 @@ proc color*(sprite: Sprite): Color {.
   ## *Returns:* Global color of the sprite
 
 proc localBounds*(sprite: Sprite): FloatRect {.
-  cdecl, dynlib: lib, importc: "sfSprite_getLocalBounds".}
+  cdecl, importc: "sfSprite_getLocalBounds".}
   ## Get the local bounding rectangle of a sprite
   ## 
   ## The returned rectangle is in local coordinates, which means
@@ -3388,7 +3373,7 @@ proc localBounds*(sprite: Sprite): FloatRect {.
   ## *Returns:* Local bounding rectangle of the entity
 
 proc globalBounds*(sprite: Sprite): FloatRect {.
-  cdecl, dynlib: lib, importc: "sfSprite_getGlobalBounds".}
+  cdecl, importc: "sfSprite_getGlobalBounds".}
   ## Get the global bounding rectangle of a sprite
   ## 
   ## The returned rectangle is in global coordinates, which means
@@ -3409,13 +3394,13 @@ type TextStyle* {.pure, size: sizeof(cint).} = enum
   Regular = 0, Bold = 1, Italic = 2, Underlined = 4
 
 proc newText*(): Text {.
-  cdecl, dynlib: lib, importc: "sfText_create".}
+  cdecl, importc: "sfText_create".}
   ## Create a new text
   ## 
   ## *Returns:* A new Text object, or NULL if it failed
 
 proc copy*(text: Text): Text {.
-  cdecl, dynlib: lib, importc: "sfText_copy".}
+  cdecl, importc: "sfText_copy".}
   ## Copy an existing text
   ## 
   ## *Arguments*:
@@ -3424,14 +3409,14 @@ proc copy*(text: Text): Text {.
   ## *Returns:* Copied object
 
 proc destroy*(text: Text) {.
-  cdecl, dynlib: lib, importc: "sfText_destroy".}
+  override, cdecl, importc: "sfText_destroy".}
   ## Destroy an existing text
   ## 
   ## *Arguments*:
   ## - ``text``:  Text to delete
 
 proc `position=`*(text: Text, position: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfText_setPosition".}
+  cdecl, importc: "sfText_setPosition".}
   ## Set the position of a text
   ## 
   ## This function completely overwrites the previous position.
@@ -3443,7 +3428,7 @@ proc `position=`*(text: Text, position: Vector2f) {.
   ## - ``position``:  New position
 
 proc `rotation=`*(text: Text, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfText_setRotation".}
+  cdecl, importc: "sfText_setRotation".}
   ## Set the orientation of a text
   ## 
   ## This function completely overwrites the previous rotation.
@@ -3455,7 +3440,7 @@ proc `rotation=`*(text: Text, angle: cfloat) {.
   ## - ``angle``:  New rotation, in degrees
 
 proc `scale=`*(text: Text, scale: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfText_setScale".}
+  cdecl, importc: "sfText_setScale".}
   ## Set the scale factors of a text
   ## 
   ## This function completely overwrites the previous scale.
@@ -3467,7 +3452,7 @@ proc `scale=`*(text: Text, scale: Vector2f) {.
   ## - ``scale``:  New scale factors
 
 proc `origin=`*(text: Text, origin: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfText_setOrigin".}
+  cdecl, importc: "sfText_setOrigin".}
   ## Set the local origin of a text
   ## 
   ## The origin of an object defines the center point for
@@ -3482,7 +3467,7 @@ proc `origin=`*(text: Text, origin: Vector2f) {.
   ## - ``origin``:  New origin
 
 proc position*(text: Text): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfText_getPosition".}
+  cdecl, importc: "sfText_getPosition".}
   ## Get the position of a text
   ## 
   ## *Arguments*:
@@ -3491,7 +3476,7 @@ proc position*(text: Text): Vector2f {.
   ## *Returns:* Current position
 
 proc rotation*(text: Text): cfloat {.
-  cdecl, dynlib: lib, importc: "sfText_getRotation".}
+  cdecl, importc: "sfText_getRotation".}
   ## Get the orientation of a text
   ## 
   ## The rotation is always in the range [0, 360].
@@ -3502,7 +3487,7 @@ proc rotation*(text: Text): cfloat {.
   ## *Returns:* Current rotation, in degrees
 
 proc scale*(text: Text): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfText_getScale".}
+  cdecl, importc: "sfText_getScale".}
   ## Get the current scale of a text
   ## 
   ## *Arguments*:
@@ -3511,7 +3496,7 @@ proc scale*(text: Text): Vector2f {.
   ## *Returns:* Current scale factors
 
 proc origin*(text: Text): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfText_getOrigin".}
+  cdecl, importc: "sfText_getOrigin".}
   ## Get the local origin of a text
   ## 
   ## *Arguments*:
@@ -3520,7 +3505,7 @@ proc origin*(text: Text): Vector2f {.
   ## *Returns:* Current origin
 
 proc move*(text: Text, offset: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfText_move".}
+  cdecl, importc: "sfText_move".}
   ## Move a text by a given offset
   ## 
   ## This function adds to the current position of the object,
@@ -3531,7 +3516,7 @@ proc move*(text: Text, offset: Vector2f) {.
   ## - ``offset``:  Offset
 
 proc rotate*(text: Text, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfText_rotate".}
+  cdecl, importc: "sfText_rotate".}
   ## Rotate a text
   ## 
   ## This function adds to the current rotation of the object,
@@ -3542,7 +3527,7 @@ proc rotate*(text: Text, angle: cfloat) {.
   ## - ``angle``:  Angle of rotation, in degrees
 
 proc scale*(text: Text, factors: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfText_scale".}
+  cdecl, importc: "sfText_scale".}
   ## Scale a text
   ## 
   ## This function multiplies the current scale of the object,
@@ -3553,7 +3538,7 @@ proc scale*(text: Text, factors: Vector2f) {.
   ## - ``factors``:  Scale factors
 
 proc transform*(text: Text): Transform {.
-  cdecl, dynlib: lib, importc: "sfText_getTransform".}
+  cdecl, importc: "sfText_getTransform".}
   ## Get the combined transform of a text
   ## 
   ## *Arguments*:
@@ -3562,7 +3547,7 @@ proc transform*(text: Text): Transform {.
   ## *Returns:* Transform combining the position/rotation/scale/origin of the object
 
 proc inverseTransform*(text: Text): Transform {.
-  cdecl, dynlib: lib, importc: "sfText_getInverseTransform".}
+  cdecl, importc: "sfText_getInverseTransform".}
   ## Get the inverse of the combined transform of a text
   ## 
   ## *Arguments*:
@@ -3570,8 +3555,8 @@ proc inverseTransform*(text: Text): Transform {.
   ## 
   ## *Returns:* Inverse of the combined transformations applied to the object
 
-proc `str_C=`*(text: Text, str: cstring) {.
-  cdecl, dynlib: lib, importc: "sfText_setString".}
+proc `strC=`*(text: Text, str: cstring) {.
+  cdecl, importc: "sfText_setString".}
   ## Set the string of a text (from an ANSI string)
   ## 
   ## A text's string is empty by default.
@@ -3581,7 +3566,7 @@ proc `str_C=`*(text: Text, str: cstring) {.
   ## - ``string``:  New string
 
 proc `str_U32=`(text: Text, str: StringU32) {.
-  cdecl, dynlib: lib, importc: "sfText_setUnicodeString".}
+  cdecl, importc: "sfText_setUnicodeString".}
   ## Set the string of a text (from a unicode string)
   ## 
   ## *Arguments*:
@@ -3589,7 +3574,7 @@ proc `str_U32=`(text: Text, str: StringU32) {.
   ## - ``string``:  New string
 
 proc `font=`*(text: Text, font: Font) {.
-  cdecl, dynlib: lib, importc: "sfText_setFont".}
+  cdecl, importc: "sfText_setFont".}
   ## Set the font of a text
   ## 
   ## The ``font`` argument refers to a texture that must
@@ -3604,7 +3589,7 @@ proc `font=`*(text: Text, font: Font) {.
   ## - ``font``:  New font
 
 proc `characterSize=`*(text: Text, size: cint) {.
-  cdecl, dynlib: lib, importc: "sfText_setCharacterSize".}
+  cdecl, importc: "sfText_setCharacterSize".}
   ## Set the character size of a text
   ## 
   ## The default size is 30.
@@ -3614,7 +3599,7 @@ proc `characterSize=`*(text: Text, size: cint) {.
   ## - ``size``:  New character size, in pixels
 
 proc `style=`*(text: Text, style: BitMaskU32) {.
-  cdecl, dynlib: lib, importc: "sfText_setStyle".}
+  cdecl, importc: "sfText_setStyle".}
   ## Set the style of a text
   ## 
   ## You can pass a combination of one or more styles, for
@@ -3626,7 +3611,7 @@ proc `style=`*(text: Text, style: BitMaskU32) {.
   ## - ``style``:  New style
 
 proc `color=`*(text: Text, color: Color) {.
-  cdecl, dynlib: lib, importc: "sfText_setColor".}
+  cdecl, importc: "sfText_setColor".}
   ## Set the global color of a text
   ## 
   ## By default, the text's color is opaque white.
@@ -3635,8 +3620,8 @@ proc `color=`*(text: Text, color: Color) {.
   ## - ``text``:   Text object
   ## - ``color``:  New color of the text
 
-proc str_C*(text: Text): cstring {.
-  cdecl, dynlib: lib, importc: "sfText_getString".}
+proc strC*(text: Text): cstring {.
+  cdecl, importc: "sfText_getString".}
   ## Get the string of a text (returns an ANSI string)
   ## 
   ## *Arguments*:
@@ -3645,7 +3630,7 @@ proc str_C*(text: Text): cstring {.
   ## *Returns:* String as a locale-dependant ANSI string
 
 proc str_U32(text: Text): StringU32 {.
-  cdecl, dynlib: lib, importc: "sfText_getUnicodeString".}
+  cdecl, importc: "sfText_getUnicodeString".}
   ## Get the string of a text (returns a unicode string)
   ## 
   ## *Arguments*:
@@ -3654,7 +3639,7 @@ proc str_U32(text: Text): StringU32 {.
   ## *Returns:* String as UTF-32
 
 proc font*(text: Text): Font {.
-  cdecl, dynlib: lib, importc: "sfText_getFont".}
+  cdecl, importc: "sfText_getFont".}
   ## Get the font used by a text
   ## 
   ## If the text has no font attached, a NULL pointer is returned.
@@ -3667,7 +3652,7 @@ proc font*(text: Text): Font {.
   ## *Returns:* Pointer to the font
 
 proc characterSize*(text: Text): cint {.
-  cdecl, dynlib: lib, importc: "sfText_getCharacterSize".}
+  cdecl, importc: "sfText_getCharacterSize".}
   ## Get the size of the characters of a text
   ## 
   ## *Arguments*:
@@ -3676,7 +3661,7 @@ proc characterSize*(text: Text): cint {.
   ## *Returns:* Size of the characters
 
 proc style*(text: Text): BitMaskU32 {.
-  cdecl, dynlib: lib, importc: "sfText_getStyle".}
+  cdecl, importc: "sfText_getStyle".}
   ## Get the style of a text
   ## 
   ## *Arguments*:
@@ -3685,7 +3670,7 @@ proc style*(text: Text): BitMaskU32 {.
   ## *Returns:* Current string style (see TextStyle enum)
 
 proc color*(text: Text): Color {.
-  cdecl, dynlib: lib, importc: "sfText_getColor".}
+  cdecl, importc: "sfText_getColor".}
   ## Get the global color of a text
   ## 
   ## *Arguments*:
@@ -3694,7 +3679,7 @@ proc color*(text: Text): Color {.
   ## *Returns:* Global color of the text
 
 proc findCharacterPos*(text: Text, index: int): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfText_findCharacterPos".}
+  cdecl, importc: "sfText_findCharacterPos".}
   ## Return the position of the ``index``-th character in a text
   ## 
   ## This function computes the visual position of a character
@@ -3711,7 +3696,7 @@ proc findCharacterPos*(text: Text, index: int): Vector2f {.
   ## *Returns:* Position of the character
 
 proc localBounds*(text: Text): FloatRect {.
-  cdecl, dynlib: lib, importc: "sfText_getLocalBounds".}
+  cdecl, importc: "sfText_getLocalBounds".}
   ## Get the local bounding rectangle of a text
   ## 
   ## The returned rectangle is in local coordinates, which means
@@ -3726,7 +3711,7 @@ proc localBounds*(text: Text): FloatRect {.
   ## *Returns:* Local bounding rectangle of the entity
 
 proc globalBounds*(text: Text): FloatRect {.
-  cdecl, dynlib: lib, importc: "sfText_getGlobalBounds".}
+  cdecl, importc: "sfText_getGlobalBounds".}
   ## Get the global bounding rectangle of a text
   ## 
   ## The returned rectangle is in global coordinates, which means
@@ -3744,7 +3729,7 @@ proc globalBounds*(text: Text): FloatRect {.
 #--- SFML/Graphics/Texture ---#
 
 proc newTexture*(width: cint, height: cint): Texture {.
-  cdecl, dynlib: lib, importc: "sfTexture_create".}
+  cdecl, importc: "sfTexture_create".}
   ## Create a new texture
   ## 
   ## *Arguments*:
@@ -3754,7 +3739,7 @@ proc newTexture*(width: cint, height: cint): Texture {.
   ## *Returns:* A new Texture object, or NULL if it failed
 
 proc newTexture*(filename: cstring, area: (var IntRect){lvalue}): Texture {.
-  cdecl, dynlib: lib, importc: "sfTexture_createFromFile".}
+  cdecl, importc: "sfTexture_createFromFile".}
 proc newTexture*(filename: cstring, area: IntRect): Texture =
   ## Create a new texture from a file
   ## 
@@ -3767,7 +3752,7 @@ proc newTexture*(filename: cstring, area: IntRect): Texture =
   newTexture(filename, Carea)
 
 proc newTexture*(data: pointer, sizeInBytes: int, area: (var IntRect){lvalue}): Texture {.
-  cdecl, dynlib: lib, importc: "sfTexture_createFromMemory".}
+  cdecl, importc: "sfTexture_createFromMemory".}
 proc newTexture*(data: pointer, sizeInBytes: int, area: IntRect): Texture =
   ## Create a new texture from a file in memory
   ## 
@@ -3781,7 +3766,7 @@ proc newTexture*(data: pointer, sizeInBytes: int, area: IntRect): Texture =
   newTexture(data, sizeInBytes, Carea)
 
 proc newTexture*(stream: var InputStream, area: (var IntRect){lvalue}): Texture {.
-  cdecl, dynlib: lib, importc: "sfTexture_createFromStream".}
+  cdecl, importc: "sfTexture_createFromStream".}
 proc newTexture*(stream: var InputStream, area: IntRect): Texture =
   ## Create a new texture from a custom stream
   ## 
@@ -3794,7 +3779,7 @@ proc newTexture*(stream: var InputStream, area: IntRect): Texture =
   newTexture(stream, Carea)
 
 proc newTexture*(image: Image, area: (var IntRect){lvalue}): Texture {.
-  cdecl, dynlib: lib, importc: "sfTexture_createFromImage".}
+  cdecl, importc: "sfTexture_createFromImage".}
 proc newTexture*(image: Image, area: IntRect): Texture =
   ## Create a new texture from an image
   ## 
@@ -3807,7 +3792,7 @@ proc newTexture*(image: Image, area: IntRect): Texture =
   newTexture(image, Carea)
 
 proc copy*(texture: Texture): Texture {.
-  cdecl, dynlib: lib, importc: "sfTexture_copy".}
+  cdecl, importc: "sfTexture_copy".}
   ## Copy an existing texture
   ## 
   ## *Arguments*:
@@ -3816,14 +3801,14 @@ proc copy*(texture: Texture): Texture {.
   ## *Returns:* Copied object
 
 proc destroy*(texture: Texture) {.
-  cdecl, dynlib: lib, importc: "sfTexture_destroy".}
+  override, cdecl, importc: "sfTexture_destroy".}
   ## Destroy an existing texture
   ## 
   ## *Arguments*:
   ## - ``texture``:  Texture to delete
 
 proc size*(texture: Texture): Vector2i {.
-  cdecl, dynlib: lib, importc: "sfTexture_getSize".}
+  cdecl, importc: "sfTexture_getSize".}
   ## Return the size of the texture
   ## 
   ## *Arguments*:
@@ -3832,7 +3817,7 @@ proc size*(texture: Texture): Vector2i {.
   ## *Returns:* Size in pixels
 
 proc copyToImage*(texture: Texture): Image {.
-  cdecl, dynlib: lib, importc: "sfTexture_copyToImage".}
+  cdecl, importc: "sfTexture_copyToImage".}
   ## Copy a texture's pixels to an image
   ## 
   ## *Arguments*:
@@ -3840,8 +3825,8 @@ proc copyToImage*(texture: Texture): Image {.
   ## 
   ## *Returns:* Image containing the texture's pixels
 
-proc updateFromPixels_Ptr*(texture: Texture, pixels: ptr uint8, width: cint, height: cint, x: cint, y: cint) {.
-  cdecl, dynlib: lib, importc: "sfTexture_updateFromPixels".}
+proc updateFromPixels*(texture: Texture, pixels: ptr uint8, width: cint, height: cint, x: cint, y: cint) {.
+  cdecl, importc: "sfTexture_updateFromPixels".}
   ## Update a texture from an array of pixels
   ## 
   ## *Arguments*:
@@ -3853,7 +3838,7 @@ proc updateFromPixels_Ptr*(texture: Texture, pixels: ptr uint8, width: cint, hei
   ## - ``y``:        Y offset in the texture where to copy the source pixels
 
 proc updateFromImage*(texture: Texture, image: Image, x: cint, y: cint) {.
-  cdecl, dynlib: lib, importc: "sfTexture_updateFromImage".}
+  cdecl, importc: "sfTexture_updateFromImage".}
   ## Update a texture from an image
   ## 
   ## *Arguments*:
@@ -3863,7 +3848,7 @@ proc updateFromImage*(texture: Texture, image: Image, x: cint, y: cint) {.
   ## - ``y``:        Y offset in the texture where to copy the source pixels
 
 proc updateFromWindow*(texture: Texture, window: Window, x: cint, y: cint) {.
-  cdecl, dynlib: lib, importc: "sfTexture_updateFromWindow".}
+  cdecl, importc: "sfTexture_updateFromWindow".}
   ## Update a texture from the contents of a window
   ## 
   ## *Arguments*:
@@ -3873,7 +3858,7 @@ proc updateFromWindow*(texture: Texture, window: Window, x: cint, y: cint) {.
   ## - ``y``:        Y offset in the texture where to copy the source pixels
 
 proc updateFromRenderWindow*(texture: Texture, renderWindow: RenderWindow, x: cint, y: cint) {.
-  cdecl, dynlib: lib, importc: "sfTexture_updateFromRenderWindow".}
+  cdecl, importc: "sfTexture_updateFromRenderWindow".}
   ## Update a texture from the contents of a render-window
   ## 
   ## *Arguments*:
@@ -3883,7 +3868,7 @@ proc updateFromRenderWindow*(texture: Texture, renderWindow: RenderWindow, x: ci
   ## - ``y``:             Y offset in the texture where to copy the source pixels
 
 proc `smooth=`*(texture: Texture, smooth: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfTexture_setSmooth".}
+  cdecl, importc: "sfTexture_setSmooth".}
   ## Enable or disable the smooth filter on a texture
   ## 
   ## *Arguments*:
@@ -3891,7 +3876,7 @@ proc `smooth=`*(texture: Texture, smooth: BoolInt) {.
   ## - ``smooth``:   True to enable smoothing, False to disable it
 
 proc smooth*(texture: Texture): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfTexture_isSmooth".}
+  cdecl, importc: "sfTexture_isSmooth".}
   ## Tell whether the smooth filter is enabled or not for a texture
   ## 
   ## *Arguments*:
@@ -3900,7 +3885,7 @@ proc smooth*(texture: Texture): BoolInt {.
   ## *Returns:* True if smoothing is enabled, False if it is disabled
 
 proc `repeated=`*(texture: Texture, repeated: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfTexture_setRepeated".}
+  cdecl, importc: "sfTexture_setRepeated".}
   ## Enable or disable repeating for a texture
   ## 
   ## Repeating is involved when using texture coordinates
@@ -3922,7 +3907,7 @@ proc `repeated=`*(texture: Texture, repeated: BoolInt) {.
   ## - ``repeated``:  True to repeat the texture, false to disable repeating
 
 proc repeated*(texture: Texture): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfTexture_isRepeated".}
+  cdecl, importc: "sfTexture_isRepeated".}
   ## Tell whether a texture is repeated or not
   ## 
   ## *Arguments*:
@@ -3931,7 +3916,7 @@ proc repeated*(texture: Texture): BoolInt {.
   ## *Returns:* True if repeat mode is enabled, False if it is disabled
 
 proc bindGL*(texture: Texture) {.
-  cdecl, dynlib: lib, importc: "sfTexture_bind".}
+  cdecl, importc: "sfTexture_bind".}
   ## Bind a texture for rendering
   ## 
   ## This function is not part of the graphics API, it mustn't be
@@ -3943,7 +3928,7 @@ proc bindGL*(texture: Texture) {.
   ## - ``texture``:  Pointer to the texture to bind, can be null to use no texture
 
 proc texture_getMaximumSize*(): cint {.
-  cdecl, dynlib: lib, importc: "sfTexture_getMaximumSize".}
+  cdecl, importc: "sfTexture_getMaximumSize".}
   ## Get the maximum texture size allowed
   ## 
   ## *Returns:* Maximum size allowed for textures, in pixels
@@ -3952,13 +3937,13 @@ proc texture_getMaximumSize*(): cint {.
 #--- SFML/Graphics/Transformable ---#
 
 proc newTransformable*(): Transformable {.
-  cdecl, dynlib: lib, importc: "sfTransformable_create".}
+  cdecl, importc: "sfTransformable_create".}
   ## Create a new transformable
   ## 
   ## *Returns:* A new Transformable object
 
 proc copy*(transformable: Transformable): Transformable {.
-  cdecl, dynlib: lib, importc: "sfTransformable_copy".}
+  cdecl, importc: "sfTransformable_copy".}
   ## Copy an existing transformable
   ## 
   ## *Arguments*:
@@ -3967,14 +3952,14 @@ proc copy*(transformable: Transformable): Transformable {.
   ## *Returns:* Copied object
 
 proc destroy*(transformable: Transformable) {.
-  cdecl, dynlib: lib, importc: "sfTransformable_destroy".}
+  override, cdecl, importc: "sfTransformable_destroy".}
   ## Destroy an existing transformable
   ## 
   ## *Arguments*:
   ## - ``transformable``:  Transformable to delete
 
 proc `position=`*(transformable: Transformable, position: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfTransformable_setPosition".}
+  cdecl, importc: "sfTransformable_setPosition".}
   ## Set the position of a transformable
   ## 
   ## This function completely overwrites the previous position.
@@ -3986,7 +3971,7 @@ proc `position=`*(transformable: Transformable, position: Vector2f) {.
   ## - ``position``:       New position
 
 proc `rotation=`*(transformable: Transformable, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfTransformable_setRotation".}
+  cdecl, importc: "sfTransformable_setRotation".}
   ## Set the orientation of a transformable
   ## 
   ## This function completely overwrites the previous rotation.
@@ -3998,7 +3983,7 @@ proc `rotation=`*(transformable: Transformable, angle: cfloat) {.
   ## - ``angle``:          New rotation, in degrees
 
 proc `scale=`*(transformable: Transformable, scale: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfTransformable_setScale".}
+  cdecl, importc: "sfTransformable_setScale".}
   ## Set the scale factors of a transformable
   ## 
   ## This function completely overwrites the previous scale.
@@ -4010,7 +3995,7 @@ proc `scale=`*(transformable: Transformable, scale: Vector2f) {.
   ## - ``scale``:          New scale factors
 
 proc `origin=`*(transformable: Transformable, origin: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfTransformable_setOrigin".}
+  cdecl, importc: "sfTransformable_setOrigin".}
   ## Set the local origin of a transformable
   ## 
   ## The origin of an object defines the center point for
@@ -4025,7 +4010,7 @@ proc `origin=`*(transformable: Transformable, origin: Vector2f) {.
   ## - ``origin``:         New origin
 
 proc position*(transformable: Transformable): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfTransformable_getPosition".}
+  cdecl, importc: "sfTransformable_getPosition".}
   ## Get the position of a transformable
   ## 
   ## *Arguments*:
@@ -4034,7 +4019,7 @@ proc position*(transformable: Transformable): Vector2f {.
   ## *Returns:* Current position
 
 proc rotation*(transformable: Transformable): cfloat {.
-  cdecl, dynlib: lib, importc: "sfTransformable_getRotation".}
+  cdecl, importc: "sfTransformable_getRotation".}
   ## Get the orientation of a transformable
   ## 
   ## The rotation is always in the range [0, 360].
@@ -4045,7 +4030,7 @@ proc rotation*(transformable: Transformable): cfloat {.
   ## *Returns:* Current rotation, in degrees
 
 proc scale*(transformable: Transformable): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfTransformable_getScale".}
+  cdecl, importc: "sfTransformable_getScale".}
   ## Get the current scale of a transformable
   ## 
   ## *Arguments*:
@@ -4054,7 +4039,7 @@ proc scale*(transformable: Transformable): Vector2f {.
   ## *Returns:* Current scale factors
 
 proc origin*(transformable: Transformable): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfTransformable_getOrigin".}
+  cdecl, importc: "sfTransformable_getOrigin".}
   ## Get the local origin of a transformable
   ## 
   ## *Arguments*:
@@ -4063,7 +4048,7 @@ proc origin*(transformable: Transformable): Vector2f {.
   ## *Returns:* Current origin
 
 proc move*(transformable: Transformable, offset: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfTransformable_move".}
+  cdecl, importc: "sfTransformable_move".}
   ## Move a transformable by a given offset
   ## 
   ## This function adds to the current position of the object,
@@ -4074,7 +4059,7 @@ proc move*(transformable: Transformable, offset: Vector2f) {.
   ## - ``offset``:         Offset
 
 proc rotate*(transformable: Transformable, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfTransformable_rotate".}
+  cdecl, importc: "sfTransformable_rotate".}
   ## Rotate a transformable
   ## 
   ## This function adds to the current rotation of the object,
@@ -4085,7 +4070,7 @@ proc rotate*(transformable: Transformable, angle: cfloat) {.
   ## - ``angle``:          Angle of rotation, in degrees
 
 proc scale*(transformable: Transformable, factors: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfTransformable_scale".}
+  cdecl, importc: "sfTransformable_scale".}
   ## Scale a transformable
   ## 
   ## This function multiplies the current scale of the object,
@@ -4096,7 +4081,7 @@ proc scale*(transformable: Transformable, factors: Vector2f) {.
   ## - ``factors``:        Scale factors
 
 proc transform*(transformable: Transformable): Transform {.
-  cdecl, dynlib: lib, importc: "sfTransformable_getTransform".}
+  cdecl, importc: "sfTransformable_getTransform".}
   ## Get the combined transform of a transformable
   ## 
   ## *Arguments*:
@@ -4105,7 +4090,7 @@ proc transform*(transformable: Transformable): Transform {.
   ## *Returns:* Transform combining the position/rotation/scale/origin of the object
 
 proc inverseTransform*(transformable: Transformable): Transform {.
-  cdecl, dynlib: lib, importc: "sfTransformable_getInverseTransform".}
+  cdecl, importc: "sfTransformable_getInverseTransform".}
   ## Get the inverse of the combined transform of a transformable
   ## 
   ## *Arguments*:
@@ -4117,13 +4102,13 @@ proc inverseTransform*(transformable: Transformable): Transform {.
 #--- SFML/Graphics/VertexArray ---#
 
 proc newVertexArray*(): VertexArray {.
-  cdecl, dynlib: lib, importc: "sfVertexArray_create".}
+  cdecl, importc: "sfVertexArray_create".}
   ## Create a new vertex array
   ## 
   ## *Returns:* A new VertexArray object
 
 proc copy*(vertexArray: VertexArray): VertexArray {.
-  cdecl, dynlib: lib, importc: "sfVertexArray_copy".}
+  cdecl, importc: "sfVertexArray_copy".}
   ## Copy an existing vertex array
   ## 
   ## *Arguments*:
@@ -4132,14 +4117,14 @@ proc copy*(vertexArray: VertexArray): VertexArray {.
   ## *Returns:* Copied object
 
 proc destroy*(vertexArray: VertexArray) {.
-  cdecl, dynlib: lib, importc: "sfVertexArray_destroy".}
+  override, cdecl, importc: "sfVertexArray_destroy".}
   ## Destroy an existing vertex array
   ## 
   ## *Arguments*:
   ## - ``vertexArray``:  Vertex array to delete
 
 proc vertexCount*(vertexArray: VertexArray): cint {.
-  cdecl, dynlib: lib, importc: "sfVertexArray_getVertexCount".}
+  cdecl, importc: "sfVertexArray_getVertexCount".}
   ## Return the vertex count of a vertex array
   ## 
   ## *Arguments*:
@@ -4147,8 +4132,8 @@ proc vertexCount*(vertexArray: VertexArray): cint {.
   ## 
   ## *Returns:* Number of vertices in the array
 
-proc getVertex_Ptr*(vertexArray: VertexArray, index: cint): ptr Vertex {.
-  cdecl, dynlib: lib, importc: "sfVertexArray_getVertex".}
+proc getVertex*(vertexArray: VertexArray, index: cint): ptr Vertex {.
+  cdecl, importc: "sfVertexArray_getVertex".}
   ## Get access to a vertex by its index
   ## 
   ## This function doesn't check ``index``, it must be in range
@@ -4162,7 +4147,7 @@ proc getVertex_Ptr*(vertexArray: VertexArray, index: cint): ptr Vertex {.
   ## *Returns:* Pointer to the index-th vertex
 
 proc clear*(vertexArray: VertexArray) {.
-  cdecl, dynlib: lib, importc: "sfVertexArray_clear".}
+  cdecl, importc: "sfVertexArray_clear".}
   ## Clear a vertex array
   ## 
   ## This function removes all the vertices from the array.
@@ -4174,7 +4159,7 @@ proc clear*(vertexArray: VertexArray) {.
   ## - ``vertexArray``:  Vertex array object
 
 proc resize*(vertexArray: VertexArray, vertexCount: cint) {.
-  cdecl, dynlib: lib, importc: "sfVertexArray_resize".}
+  cdecl, importc: "sfVertexArray_resize".}
   ## Resize the vertex array
   ## 
   ## If ``vertexCount`` is greater than the current size, the previous
@@ -4188,7 +4173,7 @@ proc resize*(vertexArray: VertexArray, vertexCount: cint) {.
   ## - ``vertexCount``:  New size of the array (number of vertices)
 
 proc append*(vertexArray: VertexArray, vertex: Vertex) {.
-  cdecl, dynlib: lib, importc: "sfVertexArray_append".}
+  cdecl, importc: "sfVertexArray_append".}
   ## Add a vertex to a vertex array array
   ## 
   ## *Arguments*:
@@ -4196,7 +4181,7 @@ proc append*(vertexArray: VertexArray, vertex: Vertex) {.
   ## - ``vertex``:       Vertex to add
 
 proc `primitiveType=`*(vertexArray: VertexArray, kind: PrimitiveType) {.
-  cdecl, dynlib: lib, importc: "sfVertexArray_setPrimitiveType".}
+  cdecl, importc: "sfVertexArray_setPrimitiveType".}
   ## Set the type of primitives of a vertex array
   ## 
   ## This function defines how the vertices must be interpreted
@@ -4212,7 +4197,7 @@ proc `primitiveType=`*(vertexArray: VertexArray, kind: PrimitiveType) {.
   ## - ``type``:         Type of primitive
 
 proc primitiveType*(vertexArray: VertexArray): PrimitiveType {.
-  cdecl, dynlib: lib, importc: "sfVertexArray_getPrimitiveType".}
+  cdecl, importc: "sfVertexArray_getPrimitiveType".}
   ## Get the type of primitives drawn by a vertex array
   ## 
   ## *Arguments*:
@@ -4221,7 +4206,7 @@ proc primitiveType*(vertexArray: VertexArray): PrimitiveType {.
   ## *Returns:* Primitive type
 
 proc bounds*(vertexArray: VertexArray): FloatRect {.
-  cdecl, dynlib: lib, importc: "sfVertexArray_getBounds".}
+  cdecl, importc: "sfVertexArray_getBounds".}
   ## Compute the bounding rectangle of a vertex array
   ## 
   ## This function returns the axis-aligned rectangle that
@@ -4236,7 +4221,7 @@ proc bounds*(vertexArray: VertexArray): FloatRect {.
 #--- SFML/Graphics/View ---#
 
 proc newView*(): View {.
-  cdecl, dynlib: lib, importc: "sfView_create".}
+  cdecl, importc: "sfView_create".}
   ## Create a default view
   ## 
   ## This function creates a default view of (0, 0, 1000, 1000)
@@ -4244,7 +4229,7 @@ proc newView*(): View {.
   ## *Returns:* A new View object
 
 proc newView*(rectangle: FloatRect): View {.
-  cdecl, dynlib: lib, importc: "sfView_createFromRect".}
+  cdecl, importc: "sfView_createFromRect".}
   ## Construct a view from a rectangle
   ## 
   ## *Arguments*:
@@ -4253,7 +4238,7 @@ proc newView*(rectangle: FloatRect): View {.
   ## *Returns:* A new View object
 
 proc copy*(view: View): View {.
-  cdecl, dynlib: lib, importc: "sfView_copy".}
+  cdecl, importc: "sfView_copy".}
   ## Copy an existing view
   ## 
   ## *Arguments*:
@@ -4262,14 +4247,14 @@ proc copy*(view: View): View {.
   ## *Returns:* Copied object
 
 proc destroy*(view: View) {.
-  cdecl, dynlib: lib, importc: "sfView_destroy".}
+  override, cdecl, importc: "sfView_destroy".}
   ## Destroy an existing view
   ## 
   ## *Arguments*:
   ## - ``view``:  View to destroy
 
 proc `center=`*(view: View, center: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfView_setCenter".}
+  cdecl, importc: "sfView_setCenter".}
   ## Set the center of a view
   ## 
   ## *Arguments*:
@@ -4277,7 +4262,7 @@ proc `center=`*(view: View, center: Vector2f) {.
   ## - ``center``:  New center
 
 proc `size=`*(view: View, size: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfView_setSize".}
+  cdecl, importc: "sfView_setSize".}
   ## Set the size of a view
   ## 
   ## *Arguments*:
@@ -4285,7 +4270,7 @@ proc `size=`*(view: View, size: Vector2f) {.
   ## - ``size``:  New size of the view
 
 proc `rotation=`*(view: View, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfView_setRotation".}
+  cdecl, importc: "sfView_setRotation".}
   ## Set the orientation of a view
   ## 
   ## The default rotation of a view is 0 degree.
@@ -4295,7 +4280,7 @@ proc `rotation=`*(view: View, angle: cfloat) {.
   ## - ``angle``:  New angle, in degrees
 
 proc `viewport=`*(view: View, viewport: FloatRect) {.
-  cdecl, dynlib: lib, importc: "sfView_setViewport".}
+  cdecl, importc: "sfView_setViewport".}
   ## Set the target viewport of a view
   ## 
   ## The viewport is the rectangle into which the contents of the
@@ -4310,7 +4295,7 @@ proc `viewport=`*(view: View, viewport: FloatRect) {.
   ## - ``viewport``:  New viewport rectangle
 
 proc reset*(view: View, rectangle: FloatRect) {.
-  cdecl, dynlib: lib, importc: "sfView_reset".}
+  cdecl, importc: "sfView_reset".}
   ## Reset a view to the given rectangle
   ## 
   ## Note that this function resets the rotation angle to 0.
@@ -4320,7 +4305,7 @@ proc reset*(view: View, rectangle: FloatRect) {.
   ## - ``rectangle``:  Rectangle defining the zone to display
 
 proc center*(view: View): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfView_getCenter".}
+  cdecl, importc: "sfView_getCenter".}
   ## Get the center of a view
   ## 
   ## *Arguments*:
@@ -4329,7 +4314,7 @@ proc center*(view: View): Vector2f {.
   ## *Returns:* Center of the view
 
 proc size*(view: View): Vector2f {.
-  cdecl, dynlib: lib, importc: "sfView_getSize".}
+  cdecl, importc: "sfView_getSize".}
   ## Get the size of a view
   ## 
   ## *Arguments*:
@@ -4338,7 +4323,7 @@ proc size*(view: View): Vector2f {.
   ## *Returns:* Size of the view
 
 proc rotation*(view: View): cfloat {.
-  cdecl, dynlib: lib, importc: "sfView_getRotation".}
+  cdecl, importc: "sfView_getRotation".}
   ## Get the current orientation of a view
   ## 
   ## *Arguments*:
@@ -4347,7 +4332,7 @@ proc rotation*(view: View): cfloat {.
   ## *Returns:* Rotation angle of the view, in degrees
 
 proc viewport*(view: View): FloatRect {.
-  cdecl, dynlib: lib, importc: "sfView_getViewport".}
+  cdecl, importc: "sfView_getViewport".}
   ## Get the target viewport rectangle of a view
   ## 
   ## *Arguments*:
@@ -4356,7 +4341,7 @@ proc viewport*(view: View): FloatRect {.
   ## *Returns:* Viewport rectangle, expressed as a factor of the target size
 
 proc move*(view: View, offset: Vector2f) {.
-  cdecl, dynlib: lib, importc: "sfView_move".}
+  cdecl, importc: "sfView_move".}
   ## Move a view relatively to its current position
   ## 
   ## *Arguments*:
@@ -4364,7 +4349,7 @@ proc move*(view: View, offset: Vector2f) {.
   ## - ``offset``:  Offset
 
 proc rotate*(view: View, angle: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfView_rotate".}
+  cdecl, importc: "sfView_rotate".}
   ## Rotate a view relatively to its current orientation
   ## 
   ## *Arguments*:
@@ -4372,7 +4357,7 @@ proc rotate*(view: View, angle: cfloat) {.
   ## - ``angle``:  Angle to rotate, in degrees
 
 proc zoom*(view: View, factor: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfView_zoom".}
+  cdecl, importc: "sfView_zoom".}
   ## Resize a view rectangle relatively to its current size
   ## 
   ## Resizing the view simulates a zoom, as the zone displayed on

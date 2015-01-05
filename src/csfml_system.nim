@@ -18,17 +18,22 @@
 #    misrepresented as being the original software.
 # 3. This notice may not be removed or altered from any source distribution.
 
-{.deadCodeElim: on.}
+{.deadCodeElim: on, experimental.}
 
 when defined(windows):
-  const lib = "csfml-system-(2|2.0|2.1|2.2|2.3).dll"
+  const lib = "csfml-system-2.dll"
+elif defined(mac):
+  const lib = "libcsfml-system.dylib"
 else:
   const lib = "libcsfml-system.so"
 
 import csfml_util
+export csfml_util
 
 
+{.push dynlib: lib.}
 include csfml_system_gen
+{.pop.}
 
 
 proc vec2*(x, y: cint): Vector2i =

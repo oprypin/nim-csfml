@@ -8,8 +8,7 @@ window.vertical_sync_enabled = true
 
 let bird_texture = new_Texture("bird.png", rect(0, 0, 0, 0))
 
-var bird = new_Sprite()
-bird.set_texture(bird_texture, reset_rect=true)
+var bird = new_Sprite(bird_texture)
 
 let sz = bird_texture.size
 bird.origin = vec2(sz.x/2, sz.y/2)

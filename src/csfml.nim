@@ -18,10 +18,8 @@
 #    misrepresented as being the original software.
 # 3. This notice may not be removed or altered from any source distribution.
 
-{.deadCodeElim: on.}
 
 import csfml_system, csfml_window, csfml_graphics
 export csfml_system, csfml_window, csfml_graphics
-
 import csfml_util
 export csfml_util

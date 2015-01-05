@@ -5,12 +5,11 @@ import unicode
 var window = new_RenderWindow(video_mode(800, 600), "Typing")
 window.vertical_sync_enabled = true
 
-var str = newSeq[Rune]()
+var str = new_seq[Rune]()
 
 var font = new_Font("sansation.ttf")
 
-var text = new_Text()
-text.font = font
+var text = new_Text("_", font)
 text.color = Black
 
 while window.open:
@@ -24,11 +23,14 @@ while window.open:
             if event.key.code == KeyCode.Back:
                 if str.len > 0:
                     discard str.pop()
-                    text.str = $str
+                    text.str = $str & "_"
+            if event.key.code == KeyCode.Return:
+                str.add Rune(10)
+                text.str = $str & "_"
         if event.kind == EventType.TextEntered:
             if ord(event.text.unicode) >= ord(' '):
                 str.add event.text.unicode
-                text.str = $str
+                text.str = $str & "_"
 
     window.clear White
     window.draw text

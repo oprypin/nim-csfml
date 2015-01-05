@@ -18,18 +18,22 @@
 #    misrepresented as being the original software.
 # 3. This notice may not be removed or altered from any source distribution.
 
-{.deadCodeElim: on.}
+{.deadCodeElim: on, experimental.}
 
 when defined(windows):
-  const lib = "csfml-audio-(2|2.0|2.1|2.2|2.3).dll"
+  const lib = "csfml-audio-2.dll"
+elif defined(mac):
+  const lib = "libcsfml-audio.dylib"
 else:
   const lib = "libcsfml-audio.so"
 
 import csfml_system
 import csfml_util
+export csfml_util
 
-
+{.push dynlib: lib.}
 include csfml_audio_gen
+{.pop.}
 
 
 proc newSound*(buffer: SoundBuffer): Sound =

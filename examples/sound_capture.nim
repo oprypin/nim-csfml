@@ -35,8 +35,7 @@ if choice == "s":
   discard buffer.saveToFile filename
 
 else:
-  var sound = newSound()
-  sound.buffer = buffer
+  var sound = newSound(buffer)
   sound.play()
 
   while sound.status == SoundStatus.Playing:

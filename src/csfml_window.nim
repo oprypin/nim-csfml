@@ -18,15 +18,18 @@
 #    misrepresented as being the original software.
 # 3. This notice may not be removed or altered from any source distribution.
 
-{.deadCodeElim: on.}
+{.deadCodeElim: on, experimental.}
 
 when defined(windows):
-  const lib = "csfml-window-(2|2.0|2.1|2.2|2.3).dll"
+  const lib = "csfml-window-2.dll"
+elif defined(mac):
+  const lib = "libcsfml-window.dylib"
 else:
   const lib = "libcsfml-window.so"
 
 import csfml_system
 import csfml_util
+export csfml_util
 
 
 when defined(windows) or defined(mac):
@@ -34,7 +37,9 @@ when defined(windows) or defined(mac):
 else:
   type WindowHandle* = culong
 
+{.push dynlib: lib.}
 include csfml_window_gen
+{.pop.}
 
 
 proc contextSettings*(depth: cint = 0, stencil: cint = 0, antialiasing: cint = 0, major: cint = 2, minor: cint = 0): ContextSettings =
@@ -91,7 +96,7 @@ proc videoMode_getFullscreenModes*(): seq[VideoMode] =
   ##
   ## *Returns:* seq containing all the supported fullscreen modes
   var count: int
-  var p = cast[int](videoMode_getFullscreenModes_Ptr(addr count))
+  var p = cast[int](videoMode_getFullscreenModes(addr count))
   result = newSeq[VideoMode](count)
   for i in result.low..result.high:
     result[i] = cast[ptr VideoMode](p)[]

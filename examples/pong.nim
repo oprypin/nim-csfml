@@ -20,8 +20,8 @@ var window = newRenderWindow(
 window.verticalSyncEnabled = true
 
 # Load the sounds used in the game
-var ballSound = newSound()
-ballSound.buffer = newSoundBuffer("ball.wav")
+var ballSoundBuffer = newSoundBuffer("ball.wav")
+var ballSound = newSound(ballSoundBuffer)
 
 # Create the left paddle
 var leftPaddle = newRectangleShape(size = paddleSize - vec2(3, 3))
@@ -48,12 +48,9 @@ ball.origin = vec2(ballRadius / 2, ballRadius / 2)
 var font = newFont("sansation.ttf")
 
 # Initialize the pause message
-var pauseMessage = newText()
-pauseMessage.font = font
-pauseMessage.characterSize = 40
+var pauseMessage = newText("Welcome to SFML pong!\nPress space to start the game", font, 40)
 pauseMessage.position = vec2(170.0, 150.0)
 pauseMessage.color = White
-pauseMessage.str = "Welcome to SFML pong!\nPress space to start the game"
 
 # Define the paddles properties
 var AITimer = newClock()

@@ -135,7 +135,7 @@ def handle_struct(name, items):
     if name=='sfVector2u':
         return
     name = rename_type(name)
-    yield 'type {}* {{.pure, final.}} = object'.format(name)
+    yield 'type {}* = object'.format(name)
     d = get_doc()
     if d: yield d
 
@@ -152,7 +152,7 @@ classes = set()
 def handle_class(name):
     pname = rename_sf(name)
     classes.add(pname)
-    yield 'type\n  {0}* = ptr T{0}\n  T{0} {{.pure, final.}} = object'.format(pname)
+    yield 'type\n  {0}* = ptr object'.format(pname)
     d = get_doc()
     if d: yield d
 
@@ -176,7 +176,9 @@ def handle_function(main, params):
     nftype = rename_type(ftype).replace('var ', 'ptr ')
     main_sgn = 'proc {nfname}{public}({sparams}): {nftype}'
     main_fn = '{nfname}'
-    cimp = ' {{.\n  cdecl, dynlib: lib, importc: "{}".}}'.format(fname)
+    pragmas = []
+    if nfname=='destroy':
+        pragmas.append('override')
     if nfname.startswith('get') and nfname[3].isupper() and len(params)==1:
         nfname = nfname[3].lower()+nfname[4:]
     elif nfname.startswith('is') and nfname[2].isupper() and len(params)==1:
@@ -190,16 +192,15 @@ def handle_function(main, params):
     if nftype=='void':
         main_sgn = main_sgn[:-10]
     if nftype=='cstring' and nfname in ['str', 'title']:
-        nfname += '_C'
+        nfname += 'C'
     if nftype=='ptr uint32':
         nftype = 'StringU32'
         public = ''
     if nftype=='uint32':
         if nfname in ['style']: nftype = 'BitMaskU32'
         else: nftype = 'RuneU32'
-    if nftype.startswith('ptr '):
-        if 'Ptr' not in nfname:
-            nfname += '_Ptr'
+    #if nftype.startswith('ptr ') or nftype=='pointer':
+        #public = ''
     r = []
     for repl in itertools.product((False, True), repeat=len(params)):
         aparams = []
@@ -209,8 +210,8 @@ def handle_function(main, params):
             rtype = rename_type(ptype)
             rname = rename_identifier(pname) or 'p{}'.format(i)
             if rtype=='cstring' and rname in ['str', 'title']:
-                if '_C' not in nfname:
-                    nfname += '_C'
+                if not nfname.endswith('C'):
+                    nfname += 'C'
             if rtype=='ptr uint32':
                 rtype = 'StringU32'
                 public = ''
@@ -225,13 +226,13 @@ def handle_function(main, params):
                     rrtype = '({}){{lvalue}}'.format(rtype)
             else:
                 rrtype = rtype
-            if rtype.startswith('ptr '):
-                if 'Ptr' not in nfname:
-                    nfname += '_Ptr'
+            #if rtype.startswith('ptr ') or rtype=='pointer':
+                #public = ''
             aparams.append((rname, rrtype))
         sparams = ', '.join('{}: {}'.format(*p) for p in aparams)
         if replv:
-            s = sgn.format(**locals())+' ='
+            pr = ' {{.\n  {}.}}'.format(', '.join(pragmas)) if pragmas else ''
+            s = sgn.format(**locals())+pr+' ='
             s += '\n  ('+'; '.join('var C{0} = {0}'.format(rname) for rname in replv)
             s += ')\n  '
             s += main_fn.format(**locals())
@@ -239,7 +240,9 @@ def handle_function(main, params):
             if s not in r:
                 r.append(s)
         else:
-            s = sgn.format(**locals())+cimp
+            pr = pragmas+['cdecl', 'importc: "{}"'.format(fname)]
+            pr = ' {{.\n  {}.}}'.format(', '.join(pr))
+            s = sgn.format(**locals())+pr
             if s not in r:
                 r.append(s)
     d = get_doc()

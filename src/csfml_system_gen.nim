@@ -7,12 +7,12 @@
 
 #--- SFML/System/Time ---#
 
-type Time* {.pure, final.} = object
+type Time* = object
   ## Represents a time value
   microseconds*: int64
 
 proc asSeconds*(time: Time): cfloat {.
-  cdecl, dynlib: lib, importc: "sfTime_asSeconds".}
+  cdecl, importc: "sfTime_asSeconds".}
   ## Return a time value as a number of seconds
   ## 
   ## *Arguments*:
@@ -21,7 +21,7 @@ proc asSeconds*(time: Time): cfloat {.
   ## *Returns:* Time in seconds
 
 proc asMilliseconds*(time: Time): int32 {.
-  cdecl, dynlib: lib, importc: "sfTime_asMilliseconds".}
+  cdecl, importc: "sfTime_asMilliseconds".}
   ## Return a time value as a number of milliseconds
   ## 
   ## *Arguments*:
@@ -30,7 +30,7 @@ proc asMilliseconds*(time: Time): int32 {.
   ## *Returns:* Time in milliseconds
 
 proc asMicroseconds*(time: Time): int64 {.
-  cdecl, dynlib: lib, importc: "sfTime_asMicroseconds".}
+  cdecl, importc: "sfTime_asMicroseconds".}
   ## Return a time value as a number of microseconds
   ## 
   ## *Arguments*:
@@ -39,7 +39,7 @@ proc asMicroseconds*(time: Time): int64 {.
   ## *Returns:* Time in microseconds
 
 proc seconds*(amount: cfloat): Time {.
-  cdecl, dynlib: lib, importc: "sfSeconds".}
+  cdecl, importc: "sfSeconds".}
   ## Construct a time value from a number of seconds
   ## 
   ## *Arguments*:
@@ -48,7 +48,7 @@ proc seconds*(amount: cfloat): Time {.
   ## *Returns:* Time value constructed from the amount of seconds
 
 proc milliseconds*(amount: int32): Time {.
-  cdecl, dynlib: lib, importc: "sfMilliseconds".}
+  cdecl, importc: "sfMilliseconds".}
   ## Construct a time value from a number of milliseconds
   ## 
   ## *Arguments*:
@@ -57,7 +57,7 @@ proc milliseconds*(amount: int32): Time {.
   ## *Returns:* Time value constructed from the amount of milliseconds
 
 proc microseconds*(amount: int64): Time {.
-  cdecl, dynlib: lib, importc: "sfMicroseconds".}
+  cdecl, importc: "sfMicroseconds".}
   ## Construct a time value from a number of microseconds
   ## 
   ## *Arguments*:
@@ -69,25 +69,22 @@ proc microseconds*(amount: int64): Time {.
 #--- SFML/System/Types ---#
 
 type
-  Clock* = ptr TClock
-  TClock {.pure, final.} = object
+  Clock* = ptr object
 
 type
-  Mutex* = ptr TMutex
-  TMutex {.pure, final.} = object
+  Mutex* = ptr object
 
 type
-  Thread* = ptr TThread
-  TThread {.pure, final.} = object
+  Thread* = ptr object
 
 proc newClock*(): Clock {.
-  cdecl, dynlib: lib, importc: "sfClock_create".}
+  cdecl, importc: "sfClock_create".}
   ## Create a new clock and start it
   ## 
   ## *Returns:* A new Clock object
 
 proc copy*(clock: Clock): Clock {.
-  cdecl, dynlib: lib, importc: "sfClock_copy".}
+  cdecl, importc: "sfClock_copy".}
   ## Create a new clock by copying an existing one
   ## 
   ## *Arguments*:
@@ -96,14 +93,14 @@ proc copy*(clock: Clock): Clock {.
   ## *Returns:* A new Clock object which is a copy of ``clock``
 
 proc destroy*(clock: Clock) {.
-  cdecl, dynlib: lib, importc: "sfClock_destroy".}
+  override, cdecl, importc: "sfClock_destroy".}
   ## Destroy a clock
   ## 
   ## *Arguments*:
   ## - ``clock``:  Clock to destroy
 
 proc elapsedTime*(clock: Clock): Time {.
-  cdecl, dynlib: lib, importc: "sfClock_getElapsedTime".}
+  cdecl, importc: "sfClock_getElapsedTime".}
   ## Get the time elapsed in a clock
   ## 
   ## This function returns the time elapsed since the last call
@@ -116,7 +113,7 @@ proc elapsedTime*(clock: Clock): Time {.
   ## *Returns:* Time elapsed
 
 proc restart*(clock: Clock): Time {.
-  cdecl, dynlib: lib, importc: "sfClock_restart".}
+  cdecl, importc: "sfClock_restart".}
   ## Restart a clock
   ## 
   ## This function puts the time counter back to zero.
@@ -138,7 +135,7 @@ type InputStreamTellFunc* = proc(userData: pointer): int64 {.cdecl.}
 
 type InputStreamGetSizeFunc* = proc(userData: pointer): int64 {.cdecl.}
 
-type InputStream* {.pure, final.} = object
+type InputStream* = object
   ## Set of callbacks that allow users to define custom file streams
   read*: InputStreamReadFunc
   seek*: InputStreamSeekFunc
@@ -150,7 +147,7 @@ type InputStream* {.pure, final.} = object
 #--- SFML/System/Sleep ---#
 
 proc sleep*(duration: Time) {.
-  cdecl, dynlib: lib, importc: "sfSleep".}
+  cdecl, importc: "sfSleep".}
   ## Make the current thread sleep for a given duration
   ## 
   ## Sleep is the best way to block a program or one of its
@@ -162,12 +159,12 @@ proc sleep*(duration: Time) {.
 
 #--- SFML/System/Vector2 ---#
 
-type Vector2i* {.pure, final.} = object
+type Vector2i* = object
   ## 2-component vector of integers
   x*: cint
   y*: cint
 
-type Vector2f* {.pure, final.} = object
+type Vector2f* = object
   ## 2-component vector of floats
   x*: cfloat
   y*: cfloat
@@ -175,7 +172,7 @@ type Vector2f* {.pure, final.} = object
 
 #--- SFML/System/Vector3 ---#
 
-type Vector3f* {.pure, final.} = object
+type Vector3f* = object
   ## 3-component vector of floats
   x*: cfloat
   y*: cfloat

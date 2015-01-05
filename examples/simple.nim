@@ -7,4 +7,4 @@ while window.open:
   while window.pollEvent event:
     if event.kind == EventType.Closed:
       window.close()
-    window.display()
+  window.display()

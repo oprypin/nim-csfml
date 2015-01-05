@@ -8,15 +8,13 @@
 #--- SFML/Window/Types ---#
 
 type
-  Context* = ptr TContext
-  TContext {.pure, final.} = object
+  Context* = ptr object
 
 type
-  Window* = ptr TWindow
-  TWindow {.pure, final.} = object
+  Window* = ptr object
 
 proc newContext*(): Context {.
-  cdecl, dynlib: lib, importc: "sfContext_create".}
+  cdecl, importc: "sfContext_create".}
   ## Create a new context
   ## 
   ## This function activates the new context.
@@ -24,14 +22,14 @@ proc newContext*(): Context {.
   ## *Returns:* New Context object
 
 proc destroy*(context: Context) {.
-  cdecl, dynlib: lib, importc: "sfContext_destroy".}
+  override, cdecl, importc: "sfContext_destroy".}
   ## Destroy a context
   ## 
   ## *Arguments*:
   ## - ``context``:  Context to destroy
 
 proc `active=`*(context: Context, active: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfContext_setActive".}
+  cdecl, importc: "sfContext_setActive".}
   ## Activate or deactivate explicitely a context
   ## 
   ## *Arguments*:
@@ -53,7 +51,7 @@ type JoystickAxis* {.pure, size: sizeof(cint).} = enum  ## Axes supported by SFM
   X, Y, Z, R, U, V, PovX, PovY
 
 proc joystick_isConnected*(joystick: cint): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfJoystick_isConnected".}
+  cdecl, importc: "sfJoystick_isConnected".}
   ## Check if a joystick is connected
   ## 
   ## *Arguments*:
@@ -62,7 +60,7 @@ proc joystick_isConnected*(joystick: cint): BoolInt {.
   ## *Returns:* True if the joystick is connected, False otherwise
 
 proc joystick_getButtonCount*(joystick: cint): cint {.
-  cdecl, dynlib: lib, importc: "sfJoystick_getButtonCount".}
+  cdecl, importc: "sfJoystick_getButtonCount".}
   ## Return the number of buttons supported by a joystick
   ## 
   ## If the joystick is not connected, this function returns 0.
@@ -73,7 +71,7 @@ proc joystick_getButtonCount*(joystick: cint): cint {.
   ## *Returns:* Number of buttons supported by the joystick
 
 proc joystick_hasAxis*(joystick: cint, axis: JoystickAxis): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfJoystick_hasAxis".}
+  cdecl, importc: "sfJoystick_hasAxis".}
   ## Check if a joystick supports a given axis
   ## 
   ## If the joystick is not connected, this function returns false.
@@ -85,7 +83,7 @@ proc joystick_hasAxis*(joystick: cint, axis: JoystickAxis): BoolInt {.
   ## *Returns:* True if the joystick supports the axis, False otherwise
 
 proc joystick_isButtonPressed*(joystick: cint, button: cint): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfJoystick_isButtonPressed".}
+  cdecl, importc: "sfJoystick_isButtonPressed".}
   ## Check if a joystick button is pressed
   ## 
   ## If the joystick is not connected, this function returns false.
@@ -97,7 +95,7 @@ proc joystick_isButtonPressed*(joystick: cint, button: cint): BoolInt {.
   ## *Returns:* True if the button is pressed, False otherwise
 
 proc joystick_getAxisPosition*(joystick: cint, axis: JoystickAxis): cfloat {.
-  cdecl, dynlib: lib, importc: "sfJoystick_getAxisPosition".}
+  cdecl, importc: "sfJoystick_getAxisPosition".}
   ## Get the current position of a joystick axis
   ## 
   ## If the joystick is not connected, this function returns 0.
@@ -109,7 +107,7 @@ proc joystick_getAxisPosition*(joystick: cint, axis: JoystickAxis): cfloat {.
   ## *Returns:* Current position of the axis, in range [-100 .. 100]
 
 proc joystick_update*() {.
-  cdecl, dynlib: lib, importc: "sfJoystick_update".}
+  cdecl, importc: "sfJoystick_update".}
   ## Update the states of all joysticks
   ## 
   ## This function is used internally by SFML, so you normally
@@ -132,7 +130,7 @@ type KeyCode* {.pure, size: sizeof(cint).} = enum  ## Key codes
   F15, Pause, Count
 
 proc keyboard_isKeyPressed*(key: KeyCode): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfKeyboard_isKeyPressed".}
+  cdecl, importc: "sfKeyboard_isKeyPressed".}
   ## Check if a key is pressed
   ## 
   ## *Arguments*:
@@ -147,7 +145,7 @@ type MouseButton* {.pure, size: sizeof(cint).} = enum  ## Mouse buttons
   Left, Right, Middle, XButton1, XButton2, Count
 
 proc mouse_isButtonPressed*(button: MouseButton): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfMouse_isButtonPressed".}
+  cdecl, importc: "sfMouse_isButtonPressed".}
   ## Check if a mouse button is pressed
   ## 
   ## *Arguments*:
@@ -156,7 +154,7 @@ proc mouse_isButtonPressed*(button: MouseButton): BoolInt {.
   ## *Returns:* True if the button is pressed, False otherwise
 
 proc mouse_getPosition*(relativeTo: Window): Vector2i {.
-  cdecl, dynlib: lib, importc: "sfMouse_getPosition".}
+  cdecl, importc: "sfMouse_getPosition".}
   ## Get the current position of the mouse
   ## 
   ## This function returns the current position of the mouse
@@ -168,7 +166,7 @@ proc mouse_getPosition*(relativeTo: Window): Vector2i {.
   ## *Returns:* Position of the mouse cursor, relative to the given window
 
 proc mouse_setPosition*(position: Vector2i, relativeTo: Window) {.
-  cdecl, dynlib: lib, importc: "sfMouse_setPosition".}
+  cdecl, importc: "sfMouse_setPosition".}
   ## Set the current position of the mouse
   ## 
   ## This function sets the current position of the mouse
@@ -184,7 +182,7 @@ type EventType* {.pure, size: sizeof(cint).} = enum  ## Definition of all the ev
   MouseEntered, MouseLeft, JoystickButtonPressed, JoystickButtonReleased,
   JoystickMoved, JoystickConnected, JoystickDisconnected
 
-type KeyEvent* {.pure, final.} = object
+type KeyEvent* = object
   ## Keyboard event parameters
   code*: KeyCode
   alt*: BoolInt
@@ -192,43 +190,43 @@ type KeyEvent* {.pure, final.} = object
   shift*: BoolInt
   system*: BoolInt
 
-type TextEvent* {.pure, final.} = object
+type TextEvent* = object
   ## Text event parameters
   unicode*: RuneU32
 
-type MouseMoveEvent* {.pure, final.} = object
+type MouseMoveEvent* = object
   ## Mouse move event parameters
   x*: cint
   y*: cint
 
-type MouseButtonEvent* {.pure, final.} = object
+type MouseButtonEvent* = object
   ## Mouse buttons events parameters
   button*: MouseButton
   x*: cint
   y*: cint
 
-type MouseWheelEvent* {.pure, final.} = object
+type MouseWheelEvent* = object
   ## Mouse wheel events parameters
   delta*: cint
   x*: cint
   y*: cint
 
-type JoystickMoveEvent* {.pure, final.} = object
+type JoystickMoveEvent* = object
   ## Joystick axis move event parameters
   joystickId*: cint
   axis*: JoystickAxis
   position*: cfloat
 
-type JoystickButtonEvent* {.pure, final.} = object
+type JoystickButtonEvent* = object
   ## Joystick buttons events parameters
   joystickId*: cint
   button*: cint
 
-type JoystickConnectEvent* {.pure, final.} = object
+type JoystickConnectEvent* = object
   ## Joystick connection/disconnection event parameters
   joystickId*: cint
 
-type SizeEvent* {.pure, final.} = object
+type SizeEvent* = object
   ## Size events parameters
   width*: cint
   height*: cint
@@ -238,7 +236,7 @@ include csfml_union_event
 
 #--- SFML/Window/VideoMode ---#
 
-type VideoMode* {.pure, final.} = object
+type VideoMode* = object
   ## VideoMode defines a video mode (width, height, bpp, frequency)
   ## and provides functions for getting modes supported
   ## by the display device
@@ -247,13 +245,13 @@ type VideoMode* {.pure, final.} = object
   bitsPerPixel*: cint
 
 proc videoMode_getDesktopMode*(): VideoMode {.
-  cdecl, dynlib: lib, importc: "sfVideoMode_getDesktopMode".}
+  cdecl, importc: "sfVideoMode_getDesktopMode".}
   ## Get the current desktop video mode
   ## 
   ## *Returns:* Current desktop video mode
 
-proc videoMode_getFullscreenModes_Ptr*(count: ptr int): ptr VideoMode {.
-  cdecl, dynlib: lib, importc: "sfVideoMode_getFullscreenModes".}
+proc videoMode_getFullscreenModes*(count: ptr int): ptr VideoMode {.
+  cdecl, importc: "sfVideoMode_getFullscreenModes".}
   ## Retrieve all the video modes supported in fullscreen mode
   ## 
   ## When creating a fullscreen window, the video mode is restricted
@@ -270,7 +268,7 @@ proc videoMode_getFullscreenModes_Ptr*(count: ptr int): ptr VideoMode {.
   ## *Returns:* Pointer to an array containing all the supported fullscreen modes
 
 proc valid*(mode: VideoMode): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfVideoMode_isValid".}
+  cdecl, importc: "sfVideoMode_isValid".}
   ## Tell whether or not a video mode is valid
   ## 
   ## The validity of video modes is only relevant when using
@@ -291,7 +289,7 @@ proc valid*(mode: VideoMode): BoolInt {.
 type WindowStyle* {.pure, size: sizeof(cint).} = enum  ## Enumeration of window creation styles
   None = 0, Titlebar = 1, Resize = 2, Close = 4, Default = 7, Fullscreen = 8
 
-type ContextSettings* {.pure, final.} = object
+type ContextSettings* = object
   ## Structure defining the window's creation settings
   depthBits*: cint
   stencilBits*: cint
@@ -299,9 +297,9 @@ type ContextSettings* {.pure, final.} = object
   majorVersion*: cint
   minorVersion*: cint
 
-proc newWindow_C*(mode: VideoMode, title: cstring, style: BitMaskU32, settings: (var ContextSettings){lvalue}): Window {.
-  cdecl, dynlib: lib, importc: "sfWindow_create".}
-proc newWindow_C*(mode: VideoMode, title: cstring, style: BitMaskU32, settings: ContextSettings): Window =
+proc newWindowC*(mode: VideoMode, title: cstring, style: BitMaskU32, settings: (var ContextSettings){lvalue}): Window {.
+  cdecl, importc: "sfWindow_create".}
+proc newWindowC*(mode: VideoMode, title: cstring, style: BitMaskU32, settings: ContextSettings): Window =
   ## Construct a new window
   ## 
   ## This function creates the window with the size and pixel
@@ -322,10 +320,10 @@ proc newWindow_C*(mode: VideoMode, title: cstring, style: BitMaskU32, settings: 
   ## 
   ## *Returns:* A new Window object
   (var Csettings = settings)
-  newWindow_C(mode, title, style, Csettings)
+  newWindowC(mode, title, style, Csettings)
 
 proc newWindow_U32(mode: VideoMode, title: StringU32, style: BitMaskU32, settings: (var ContextSettings){lvalue}): Window {.
-  cdecl, dynlib: lib, importc: "sfWindow_createUnicode".}
+  cdecl, importc: "sfWindow_createUnicode".}
 proc newWindow_U32(mode: VideoMode, title: StringU32, style: BitMaskU32, settings: ContextSettings): Window =
   ## Construct a new window (with a UTF-32 title)
   ## 
@@ -350,7 +348,7 @@ proc newWindow_U32(mode: VideoMode, title: StringU32, style: BitMaskU32, setting
   newWindow_U32(mode, title, style, Csettings)
 
 proc newWindow*(handle: WindowHandle, settings: (var ContextSettings){lvalue}): Window {.
-  cdecl, dynlib: lib, importc: "sfWindow_createFromHandle".}
+  cdecl, importc: "sfWindow_createFromHandle".}
 proc newWindow*(handle: WindowHandle, settings: ContextSettings): Window =
   ## Construct a window from an existing control
   ## 
@@ -370,14 +368,14 @@ proc newWindow*(handle: WindowHandle, settings: ContextSettings): Window =
   newWindow(handle, Csettings)
 
 proc destroy*(window: Window) {.
-  cdecl, dynlib: lib, importc: "sfWindow_destroy".}
+  override, cdecl, importc: "sfWindow_destroy".}
   ## Destroy a window
   ## 
   ## *Arguments*:
   ## - ``window``:  Window to destroy
 
 proc close*(window: Window) {.
-  cdecl, dynlib: lib, importc: "sfWindow_close".}
+  cdecl, importc: "sfWindow_close".}
   ## Close a window and destroy all the attached resources
   ## 
   ## After calling this function, the Window object remains
@@ -390,7 +388,7 @@ proc close*(window: Window) {.
   ## - ``window``:  Window object
 
 proc open*(window: Window): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfWindow_isOpen".}
+  cdecl, importc: "sfWindow_isOpen".}
   ## Tell whether or not a window is opened
   ## 
   ## This function returns whether or not the window exists.
@@ -403,7 +401,7 @@ proc open*(window: Window): BoolInt {.
   ## *Returns:* True if the window is opened, False if it has been closed
 
 proc settings*(window: Window): ContextSettings {.
-  cdecl, dynlib: lib, importc: "sfWindow_getSettings".}
+  cdecl, importc: "sfWindow_getSettings".}
   ## Get the settings of the OpenGL context of a window
   ## 
   ## Note that these settings may be different from what was
@@ -417,7 +415,7 @@ proc settings*(window: Window): ContextSettings {.
   ## *Returns:* Structure containing the OpenGL context settings
 
 proc pollEvent*(window: Window, event: var Event): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfWindow_pollEvent".}
+  cdecl, importc: "sfWindow_pollEvent".}
   ## Pop the event on top of event queue, if any, and return it
   ## 
   ## This function is not blocking: if there's no pending event then
@@ -433,7 +431,7 @@ proc pollEvent*(window: Window, event: var Event): BoolInt {.
   ## *Returns:* True if an event was returned, or False if the event queue was empty
 
 proc waitEvent*(window: Window, event: var Event): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfWindow_waitEvent".}
+  cdecl, importc: "sfWindow_waitEvent".}
   ## Wait for an event and return it
   ## 
   ## This function is blocking: if there's no pending event then
@@ -451,7 +449,7 @@ proc waitEvent*(window: Window, event: var Event): BoolInt {.
   ## *Returns:* False if any error occured
 
 proc position*(window: Window): Vector2i {.
-  cdecl, dynlib: lib, importc: "sfWindow_getPosition".}
+  cdecl, importc: "sfWindow_getPosition".}
   ## Get the position of a window
   ## 
   ## *Arguments*:
@@ -460,7 +458,7 @@ proc position*(window: Window): Vector2i {.
   ## *Returns:* Position in pixels
 
 proc `position=`*(window: Window, position: Vector2i) {.
-  cdecl, dynlib: lib, importc: "sfWindow_setPosition".}
+  cdecl, importc: "sfWindow_setPosition".}
   ## Change the position of a window on screen
   ## 
   ## This function only works for top-level windows
@@ -472,7 +470,7 @@ proc `position=`*(window: Window, position: Vector2i) {.
   ## - ``position``:  New position of the window, in pixels
 
 proc size*(window: Window): Vector2i {.
-  cdecl, dynlib: lib, importc: "sfWindow_getSize".}
+  cdecl, importc: "sfWindow_getSize".}
   ## Get the size of the rendering region of a window
   ## 
   ## The size doesn't include the titlebar and borders
@@ -484,15 +482,15 @@ proc size*(window: Window): Vector2i {.
   ## *Returns:* Size in pixels
 
 proc `size=`*(window: Window, size: Vector2i) {.
-  cdecl, dynlib: lib, importc: "sfWindow_setSize".}
+  cdecl, importc: "sfWindow_setSize".}
   ## Change the size of the rendering region of a window
   ## 
   ## *Arguments*:
   ## - ``window``:  Window object
   ## - ``size``:    New size, in pixels
 
-proc `title_C=`*(window: Window, title: cstring) {.
-  cdecl, dynlib: lib, importc: "sfWindow_setTitle".}
+proc `titleC=`*(window: Window, title: cstring) {.
+  cdecl, importc: "sfWindow_setTitle".}
   ## Change the title of a window
   ## 
   ## *Arguments*:
@@ -500,15 +498,15 @@ proc `title_C=`*(window: Window, title: cstring) {.
   ## - ``title``:   New title
 
 proc `title_U32=`(window: Window, title: StringU32) {.
-  cdecl, dynlib: lib, importc: "sfWindow_setUnicodeTitle".}
+  cdecl, importc: "sfWindow_setUnicodeTitle".}
   ## Change the title of a window (with a UTF-32 string)
   ## 
   ## *Arguments*:
   ## - ``window``:  Window object
   ## - ``title``:   New title
 
-proc setIcon_Ptr*(window: Window, width: cint, height: cint, pixels: ptr uint8) {.
-  cdecl, dynlib: lib, importc: "sfWindow_setIcon".}
+proc setIcon*(window: Window, width: cint, height: cint, pixels: ptr uint8) {.
+  cdecl, importc: "sfWindow_setIcon".}
   ## Change a window's icon
   ## 
   ## ``pixels`` must be an array of ``width`` x ``height`` pixels
@@ -521,7 +519,7 @@ proc setIcon_Ptr*(window: Window, width: cint, height: cint, pixels: ptr uint8) 
   ## - ``pixels``:  Pointer to the array of pixels in memory
 
 proc `visible=`*(window: Window, visible: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfWindow_setVisible".}
+  cdecl, importc: "sfWindow_setVisible".}
   ## Show or hide a window
   ## 
   ## *Arguments*:
@@ -529,7 +527,7 @@ proc `visible=`*(window: Window, visible: BoolInt) {.
   ## - ``visible``:  True to show the window, False to hide it
 
 proc `mouseCursorVisible=`*(window: Window, visible: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfWindow_setMouseCursorVisible".}
+  cdecl, importc: "sfWindow_setMouseCursorVisible".}
   ## Show or hide the mouse cursor
   ## 
   ## *Arguments*:
@@ -537,7 +535,7 @@ proc `mouseCursorVisible=`*(window: Window, visible: BoolInt) {.
   ## - ``visible``:  True to show, False to hide
 
 proc `verticalSyncEnabled=`*(window: Window, enabled: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfWindow_setVerticalSyncEnabled".}
+  cdecl, importc: "sfWindow_setVerticalSyncEnabled".}
   ## Enable or disable vertical synchronization
   ## 
   ## Activating vertical synchronization will limit the number
@@ -550,7 +548,7 @@ proc `verticalSyncEnabled=`*(window: Window, enabled: BoolInt) {.
   ## - ``enabled``:  True to enable v-sync, False to deactivate
 
 proc `keyRepeatEnabled=`*(window: Window, enabled: BoolInt) {.
-  cdecl, dynlib: lib, importc: "sfWindow_setKeyRepeatEnabled".}
+  cdecl, importc: "sfWindow_setKeyRepeatEnabled".}
   ## Enable or disable automatic key-repeat
   ## 
   ## If key repeat is enabled, you will receive repeated
@@ -564,7 +562,7 @@ proc `keyRepeatEnabled=`*(window: Window, enabled: BoolInt) {.
   ## - ``enabled``:  True to enable, False to disable
 
 proc `active=`*(window: Window, active: BoolInt): BoolInt {.
-  cdecl, dynlib: lib, importc: "sfWindow_setActive".}
+  cdecl, importc: "sfWindow_setActive".}
   ## Activate or deactivate a window as the current target
   ## for OpenGL rendering
   ## 
@@ -581,7 +579,7 @@ proc `active=`*(window: Window, active: BoolInt): BoolInt {.
   ## *Returns:* True if operation was successful, False otherwise
 
 proc display*(window: Window) {.
-  cdecl, dynlib: lib, importc: "sfWindow_display".}
+  cdecl, importc: "sfWindow_display".}
   ## Display on screen what has been rendered to the
   ## window so far
   ## 
@@ -593,7 +591,7 @@ proc display*(window: Window) {.
   ## - ``window``:  Window object
 
 proc `framerateLimit=`*(window: Window, limit: cint) {.
-  cdecl, dynlib: lib, importc: "sfWindow_setFramerateLimit".}
+  cdecl, importc: "sfWindow_setFramerateLimit".}
   ## Limit the framerate to a maximum fixed frequency
   ## 
   ## If a limit is set, the window will use a small delay after
@@ -605,7 +603,7 @@ proc `framerateLimit=`*(window: Window, limit: cint) {.
   ## - ``limit``:   Framerate limit, in frames per seconds (use 0 to disable limit)
 
 proc `joystickThreshold=`*(window: Window, threshold: cfloat) {.
-  cdecl, dynlib: lib, importc: "sfWindow_setJoystickThreshold".}
+  cdecl, importc: "sfWindow_setJoystickThreshold".}
   ## Change the joystick threshold
   ## 
   ## The joystick threshold is the value below which
@@ -616,7 +614,7 @@ proc `joystickThreshold=`*(window: Window, threshold: cfloat) {.
   ## - ``threshold``:  New threshold, in the range [0, 100]
 
 proc systemHandle*(window: Window): WindowHandle {.
-  cdecl, dynlib: lib, importc: "sfWindow_getSystemHandle".}
+  cdecl, importc: "sfWindow_getSystemHandle".}
   ## Get the OS-specific handle of the window
   ## 
   ## The type of the returned handle is WindowHandle,

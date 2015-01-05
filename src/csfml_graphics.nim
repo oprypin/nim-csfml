@@ -18,18 +18,23 @@
 #    misrepresented as being the original software.
 # 3. This notice may not be removed or altered from any source distribution.
 
-{.deadCodeElim: on.}
+{.deadCodeElim: on, experimental.}
 
 when defined(windows):
-  const lib = "csfml-graphics-(2|2.0|2.1|2.2|2.3).dll"
+  const lib = "csfml-graphics-2.dll"
+elif defined(mac):
+  const lib = "libcsfml-graphics.dylib"
 else:
   const lib = "libcsfml-graphics.so"
 
 import csfml_system, csfml_window
 import csfml_util
+export csfml_util
 
 
+{.push dynlib: lib.}
 include csfml_graphics_gen
+{.pop.}
 
 
 import unsigned, unicode
@@ -283,6 +288,15 @@ proc newSprite*(texture: Texture, rectangle: IntRect): Sprite =
   result.textureRect = rectangle
 
 
+proc newText*(str: string, font: Font, characterSize = 30): Text =
+  ## *Returns*: Text with these members
+  result = newText()
+  if result == nil: return nil
+  result.str = str
+  result.font = font
+  result.characterSize = cint characterSize
+
+
 proc vertex*(position = vec2(0.0, 0.0), color = White, texCoords = vec2(0.0, 0.0)): Vertex =
   ## *Returns*: Vertex with these members
   result.position = position
@@ -290,14 +304,11 @@ proc vertex*(position = vec2(0.0, 0.0), color = White, texCoords = vec2(0.0, 0.0
   result.texCoords = texCoords
 
 
-proc resize(vertexArray: VertexArray, size: int) =
-  vertexArray.resize(cint(size))
-
 proc newVertexArray*(primitiveType: PrimitiveType, vertexCount = 0): VertexArray =
   ## *Returns*: VertexArray with this type of primitives and initial number of vertices
   result = newVertexArray()
   result.primitiveType = primitiveType
-  result.resize(vertexCount)
+  result.resize(cint(vertexCount))
 
 proc `[]`*(vertexArray: VertexArray, index: int): Vertex =
   ## Get a vertex by its index
@@ -307,14 +318,14 @@ proc `[]`*(vertexArray: VertexArray, index: int): Vertex =
   ## otherwise.
   ##
   ## *Returns:* The index-th vertex
-  vertexArray.getVertex_Ptr(cint(index))[]
+  vertexArray.getVertex(cint(index))[]
 proc `[]=`*(vertexArray: VertexArray, index: int, vertex: Vertex): Vertex =
   ## Set a vertex by its index
   ##
   ## This function doesn't check ``index``, it must be in range
   ## [0, vertex count - 1]. The behaviour is undefined
   ## otherwise.
-  vertexArray.getVertex_Ptr(cint(index))[] = vertex
+  vertexArray.getVertex(cint(index))[] = vertex
 
 
 proc newView*(center: Vector2f, size: Vector2f): View =
@@ -322,3 +333,9 @@ proc newView*(center: Vector2f, size: Vector2f): View =
   result = newView()
   result.center = center
   result.size = size
+
+
+proc newRenderTexture*(width: int, height: int): RenderTexture =
+  ## *Returns:* A new RenderTexture object with this size and depthBuffer = false,
+  ## or nil if it failed
+  newRenderTexture(cint(width), cint(height), false)
