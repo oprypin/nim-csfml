@@ -335,7 +335,7 @@ proc newView*(center: Vector2f, size: Vector2f): View =
   result.size = size
 
 
-proc newRenderTexture*(width: int, height: int): RenderTexture =
+proc newRenderTexture*(width: cint, height: cint): RenderTexture =
   ## *Returns:* A new RenderTexture object with this size and depthBuffer = false,
   ## or nil if it failed
-  newRenderTexture(cint(width), cint(height), false)
+  newRenderTexture(width, height, false)

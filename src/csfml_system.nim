@@ -36,114 +36,60 @@ include csfml_system_gen
 {.pop.}
 
 
-proc vec2*(x, y: cint): Vector2i =
+proc vec2*(x, y: cint): Vector2i = Vector2i(x: x, y: y)
   ## *Returns*: Vector2i with these coordinates
-  result.x = x
-  result.y = y
-proc vec2*(x, y: int): Vector2i =
+proc vec2*(x, y: int): Vector2i = vec2(cint(x), cint(y))
   ## *Returns*: Vector2i with these coordinates
-  result.x = cint x
-  result.y = cint y
-proc vec2*(x, y: cfloat): Vector2f =
+proc vec2*(x, y: cfloat): Vector2f = Vector2f(x: x, y: y)
   ## *Returns*: Vector2f with these coordinates
-  result.x = x
-  result.y = y
-proc vec2*(x, y: float): Vector2f =
+proc vec2*(x, y: float): Vector2f = vec2(cfloat(x), cfloat(y))
   ## *Returns*: Vector2f with these coordinates
-  result.x = cfloat x
-  result.y = cfloat y
-converter vec2*(v: Vector2i): Vector2f =
+converter vec2*(a: Vector2i): Vector2f = vec2(cfloat(a.x), cfloat(a.y))
   ## Conversion from Vector2i to Vector2f
-  result.x = cfloat v.x
-  result.y = cfloat v.y
 
-proc vec3*(x, y, z: cfloat): Vector3f =
+proc vec3*(x, y, z: cfloat): Vector3f = Vector3f(x: x, y: y, z: y)
   ## *Returns*: Vector3f with these coordinates
-  result.x = x
-  result.y = y
-  result.z = z
-proc vec3*(x, y, z: float): Vector3f =
+proc vec3*(x, y, z: float): Vector3f = vec3(cfloat(x), cfloat(y), cfloat(z))
   ## *Returns*: Vector3f with these coordinates
-  result.x = cfloat x
-  result.y = cfloat y
-  result.z = cfloat z
 
-proc `+`*(a, b: Vector2f): Vector2f =
+proc `+`*(a, b: Vector2f): Vector2f = vec2(a.x+b.x, a.y+b.y)
   ## *Returns*: memberwise addition
-  result.x = a.x+b.x
-  result.y = a.y+b.y
-proc `-`*(a, b: Vector2f): Vector2f =
+proc `-`*(a, b: Vector2f): Vector2f = vec2(a.x-b.x, a.y-b.y)
   ## *Returns*: memberwise subtraction
-  result.x = a.x-b.x
-  result.y = a.y-b.y
-proc `*`*(a: Vector2f, b: cfloat): Vector2f =
+proc `*`*(a: Vector2f, b: cfloat): Vector2f = vec2(a.x*b, a.y*b)
   ## *Returns*: memberwise multiplication by ``b``
-  result.x = a.x*b
-  result.y = a.y*b
-proc `/`*(a: Vector2f, b: cfloat): Vector2f =
+proc `/`*(a: Vector2f, b: cfloat): Vector2f = vec2(a.x/b, a.y/b)
   ## *Returns*: memberwise division by ``b``
-  result.x = a.x/b
-  result.y = a.y/b
-proc `-`*(a: Vector2f): Vector2f =
+proc `-`*(a: Vector2f): Vector2f = vec2(-a.x, -a.y)
   ## *Returns*: memberwise opposite
-  result.x = -a.x
-  result.y = -a.y
-proc `==`*(a, b: Vector2f): bool =
+proc `==`*(a, b: Vector2f): bool = a.x==b.x and a.y==b.y
   ## *Returns*: whether corresponding members of two Vector2fs are equal
-  return a.x==b.x and a.y==b.y
 
-proc `+`*(a, b: Vector2i): Vector2i =
+proc `+`*(a, b: Vector2i): Vector2i = vec2(a.x+b.x, a.y+b.y)
   ## *Returns*: memberwise addition
-  result.x = a.x+b.x
-  result.y = a.y+b.y
-proc `-`*(a, b: Vector2i): Vector2i =
+proc `-`*(a, b: Vector2i): Vector2i = vec2(a.x-b.x, a.y-b.y)
   ## *Returns*: memberwise subtraction
-  result.x = a.x-b.x
-  result.y = a.y-b.y
-proc `*`*(a: Vector2i, b: cint): Vector2i =
+proc `*`*(a: Vector2i, b: cint): Vector2i = vec2(a.x*b, a.y*b)
   ## *Returns*: memberwise multiplication by ``b``
-  result.x = a.x*b
-  result.y = a.y*b
-proc `/`*(a: Vector2i, b: cint): Vector2i =
+proc `div`*(a: Vector2i, b: cint): Vector2i = vec2(a.x div b, a.y div b)
   ## *Returns*: memberwise integer division by ``b``
-  result.x = a.x div b
-  result.y = a.y div b
-proc `-`*(a: Vector2i): Vector2i =
+proc `-`*(a: Vector2i): Vector2i = vec2(-a.x, -a.y)
   ## *Returns*: memberwise opposite
-  result.x = -a.x
-  result.y = -a.y
-proc `==`*(a, b: Vector2i): bool =
+proc `==`*(a, b: Vector2i): bool = a.x==b.x and a.y==b.y
   ## *Returns*: whether corresponding members of two Vector2is are equal
-  return a.x==b.x and a.y==b.y
 
-proc `+`*(a, b: Vector3f): Vector3f =
+proc `+`*(a, b: Vector3f): Vector3f = vec3(a.x+b.x, a.y+b.y, a.z+b.z)
   ## *Returns*: memberwise addition
-  result.x = a.x+b.x
-  result.y = a.y+b.y
-  result.z = a.z+b.z
-proc `-`*(a, b: Vector3f): Vector3f =
+proc `-`*(a, b: Vector3f): Vector3f = vec3(a.x-b.x, a.y-b.y, a.z-b.z)
   ## *Returns*: memberwise subtraction
-  result.x = a.x-b.x
-  result.y = a.y-b.y
-  result.z = a.z-b.z
-proc `*`*(a: Vector3f, b: cfloat): Vector3f =
+proc `*`*(a: Vector3f, b: cfloat): Vector3f = vec3(a.x*b, a.y*b, a.z*b)
   ## *Returns*: memberwise multiplication by ``b``
-  result.x = a.x*b
-  result.y = a.y*b
-  result.z = a.z*b
-proc `/`*(a: Vector3f, b: cfloat): Vector3f =
+proc `/`*(a: Vector3f, b: cfloat): Vector3f = vec3(a.x/b, a.y/b, a.z/b)
   ## *Returns*: memberwise division by ``b``
-  result.x = a.x/b
-  result.y = a.y/b
-  result.z = a.z/b
-proc `-`*(a: Vector3f): Vector3f =
+proc `-`*(a: Vector3f): Vector3f = vec3(-a.x, -a.y, -a.z)
   ## *Returns*: memberwise opposite
-  result.x = -a.x
-  result.y = -a.y
-  result.z = -a.z
-proc `==`*(a, b: Vector3f): bool =
+proc `==`*(a, b: Vector3f): bool = a.x==b.x and a.y==b.y and a.z==b.z
   ## *Returns*: whether corresponding members of two Vector3fs are equal
-  return a.x==b.x and a.y==b.y and a.z==b.z
 
 
 proc `==`*(a, b: Time): bool = a.microseconds == b.microseconds
@@ -152,3 +98,9 @@ proc `<=`*(a, b: Time): bool = a.microseconds <= b.microseconds
   ## *Returns*: whether ``a`` is not later than ``b``
 proc `<`*(a, b: Time): bool = a.microseconds < b.microseconds
   ## *Returns*: whether ``a`` is earlier than ``b``
+proc `-`*(a: Time): Time = microseconds(-a.microseconds)
+  ## *Returns*: negated Time value
+proc `+`*(a, b: Time): Time = microseconds(a.microseconds+b.microseconds)
+  ## *Returns*: sum of the two Time values
+proc `-`*(a, b: Time): Time = microseconds(a.microseconds+b.microseconds)
+  ## *Returns*: difference of the two Time values
