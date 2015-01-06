@@ -1254,8 +1254,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="`-`(a, b: Vector2i): Vector2i"><wbr />`-`</a></li>
   <li><a class="reference" href="#*,Vector2i,cint"
     title="`*`(a: Vector2i; b: cint): Vector2i"><wbr />`*`</a></li>
-  <li><a class="reference" href="#/,Vector2i,cint"
-    title="`&#x2F;`(a: Vector2i; b: cint): Vector2i"><wbr />`/`</a></li>
+  <li><a class="reference" href="#div,Vector2i,cint"
+    title="`div`(a: Vector2i; b: cint): Vector2i"><wbr />`div`</a></li>
   <li><a class="reference" href="#-,Vector2i"
     title="`-`(a: Vector2i): Vector2i"><wbr />`-`</a></li>
   <li><a class="reference" href="#==,Vector2i,Vector2i"
@@ -1278,6 +1278,12 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="`&lt;=`(a, b: Time): bool"><wbr />`&lt;=`</a></li>
   <li><a class="reference" href="#<,Time,Time"
     title="`&lt;`(a, b: Time): bool"><wbr />`&lt;`</a></li>
+  <li><a class="reference" href="#-,Time"
+    title="`-`(a: Time): Time"><wbr />`-`</a></li>
+  <li><a class="reference" href="#+,Time,Time"
+    title="`+`(a, b: Time): Time"><wbr />`+`</a></li>
+  <li><a class="reference" href="#-,Time,Time"
+    title="`-`(a, b: Time): Time"><wbr />`-`</a></li>
 
   </ul>
 </li>
@@ -1285,7 +1291,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <a class="reference reference-toplevel" href="#16" id="66">Converters</a>
   <ul class="simple simple-toc-section">
       <li><a class="reference" href="#vec2.c,Vector2i"
-    title="vec2(v: Vector2i): Vector2f"><wbr />vec2</a></li>
+    title="vec2(a: Vector2i): Vector2f"><wbr />vec2</a></li>
 
   </ul>
 </li>
@@ -1580,7 +1586,7 @@ Set of callbacks that allow users to define custom file streams
 <em>Returns</em>: memberwise multiplication by <tt class="docutils literal"><span class="pre">b</span></tt>
 
 </dd>
-<dt id="/"><a name="/,Vector2i,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`/`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="div"><a name="div,Vector2i,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`div`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 <em>Returns</em>: memberwise integer division by <tt class="docutils literal"><span class="pre">b</span></tt>
 
@@ -1640,12 +1646,27 @@ Set of callbacks that allow users to define custom file streams
 <em>Returns</em>: whether <tt class="docutils literal"><span class="pre">a</span></tt> is earlier than <tt class="docutils literal"><span class="pre">b</span></tt>
 
 </dd>
+<dt id="-"><a name="-,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Time</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<em>Returns</em>: negated Time value
+
+</dd>
+<dt id="+"><a name="+,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`+`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Time</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<em>Returns</em>: sum of the two Time values
+
+</dd>
+<dt id="-"><a name="-,Time,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`-`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Time</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dd>
+<em>Returns</em>: difference of the two Time values
+
+</dd>
 
 </dl></div>
 <div class="section" id="16">
 <h1><a class="toc-backref" href="#16">Converters</a></h1>
 <dl class="item">
-<dt id="vec2"><a name="vec2.c,Vector2i"></a><pre><span class="Keyword">converter</span> <span class="Identifier">vec2</span><span class="Other">(</span><span class="Identifier">v</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="vec2"><a name="vec2.c,Vector2i"></a><pre><span class="Keyword">converter</span> <span class="Identifier">vec2</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 Conversion from Vector2i to Vector2f
 
@@ -1660,7 +1681,7 @@ Conversion from Vector2i to Vector2f
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-05 16:22:01 UTC</small>
+        <small>Made with Nim. Generated: 2015-01-06 15:00:57 UTC</small>
       </div>
     </div>
   </div>

@@ -2240,6 +2240,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="draw[T](renderTarget: T; obj: Text; states = renderStates())"><wbr />draw</a></li>
   <li><a class="reference" href="#draw,T,VertexArray"
     title="draw[T](renderTarget: T; obj: VertexArray; states = renderStates())"><wbr />draw</a></li>
+  <li><a class="reference" href="#draw,T,O"
+    title="draw[T, O](renderTarget: T; obj: O; states = renderStates())"><wbr />draw</a></li>
   <li><a class="reference" href="#newCircleShape,cfloat,cint"
     title="newCircleShape(radius: cfloat; pointCount: cint = 30): CircleShape"><wbr />new<wbr />Circle<wbr />Shape</a></li>
   <li><a class="reference" href="#newRectangleShape,Vector2f"
@@ -2264,8 +2266,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="`[]=`(vertexArray: VertexArray; index: int; vertex: Vertex): Vertex"><wbr />`[]=`</a></li>
   <li><a class="reference" href="#newView,Vector2f,Vector2f"
     title="newView(center: Vector2f; size: Vector2f): View"><wbr />new<wbr />View</a></li>
-  <li><a class="reference" href="#newRenderTexture,int,int"
-    title="newRenderTexture(width: int; height: int): RenderTexture"><wbr />new<wbr />Render<wbr />Texture</a></li>
+  <li><a class="reference" href="#newRenderTexture,cint,cint"
+    title="newRenderTexture(width: cint; height: cint): RenderTexture"><wbr />new<wbr />Render<wbr />Texture</a></li>
 
   </ul>
 </li>
@@ -2276,14 +2278,6 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="rect(r: IntRect): FloatRect"><wbr />rect</a></li>
   <li><a class="reference" href="#toBitMaskU32.c,TextStyle"
     title="toBitMaskU32(a: TextStyle): BitMaskU32"><wbr />to<wbr />Bit<wbr />Mask<wbr />U32</a></li>
-
-  </ul>
-</li>
-<li>
-  <a class="reference reference-toplevel" href="#18" id="68">Templates</a>
-  <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#draw.t,T,O"
-    title="draw[T, O](renderTarget: T; obj: O; states = renderStates()): stmt"><wbr />draw</a></li>
 
   </ul>
 </li>
@@ -7202,6 +7196,11 @@ Wrapper proc that converts Nim's strings correctly
 
 
 </dd>
+<dt id="draw"><a name="draw,T,O"></a><pre><span class="Keyword">proc</span> <span class="Identifier">draw</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">,</span> <span class="Identifier">O</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">renderTarget</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">O</span><span class="Other">;</span> <span class="Identifier">states</span> <span class="Other">=</span> <span class="Identifier">renderStates</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span></pre></dt>
+<dd>
+Allows the syntax <tt class="docutils literal"><span class="pre">renderTarget.draw(drawable[, states])</span></tt> by turning it into <tt class="docutils literal"><span class="pre">drawable.draw(renderTarget, states)</span></tt>
+
+</dd>
 <dt id="newCircleShape"><a name="newCircleShape,cfloat,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newCircleShape</span><span class="Other">(</span><span class="Identifier">radius</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">pointCount</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">30</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">CircleShape</span> <span class="Other">{.</span>
     <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
@@ -7272,7 +7271,7 @@ Change the source texture of a sprite without resetting textureRect
 <em>Returns</em>: View with these members
 
 </dd>
-<dt id="newRenderTexture"><a name="newRenderTexture,int,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderTexture</span><span class="Other">(</span><span class="Identifier">width</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> 
+<dt id="newRenderTexture"><a name="newRenderTexture,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderTexture</span><span class="Other">(</span><span class="Identifier">width</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> 
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
 <dd>
 
@@ -7295,16 +7294,6 @@ Allows TextStyle values to be combined using the | operator and be used in funct
 </dd>
 
 </dl></div>
-<div class="section" id="18">
-<h1><a class="toc-backref" href="#18">Templates</a></h1>
-<dl class="item">
-<dt id="draw"><a name="draw.t,T,O"></a><pre><span class="Keyword">template</span> <span class="Identifier">draw</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">,</span> <span class="Identifier">O</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">renderTarget</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">O</span><span class="Other">;</span> <span class="Identifier">states</span> <span class="Other">=</span> <span class="Identifier">renderStates</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">stmt</span></pre></dt>
-<dd>
-Allows the syntax <tt class="docutils literal"><span class="pre">renderTarget.draw(drawable[, states])</span></tt> by turning it into <tt class="docutils literal"><span class="pre">drawable.draw(renderTarget, states)</span></tt>
-
-</dd>
-
-</dl></div>
 
   </div>
 </div>
@@ -7313,7 +7302,7 @@ Allows the syntax <tt class="docutils literal"><span class="pre">renderTarget.dr
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-05 16:22:01 UTC</small>
+        <small>Made with Nim. Generated: 2015-01-06 15:00:57 UTC</small>
       </div>
     </div>
   </div>
