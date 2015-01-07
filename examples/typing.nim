@@ -1,6 +1,5 @@
-import csfml
-
 import unicode
+import csfml
 
 var window = new_RenderWindow(video_mode(800, 600), "Typing")
 window.vertical_sync_enabled = true
@@ -15,22 +14,24 @@ text.color = Black
 while window.open:
     var event: Event
     while window.poll_event(event):
-        if event.kind == EventType.Closed:
-            window.close()
-        if event.kind == EventType.KeyPressed:
-            if event.key.code == KeyCode.Escape:
+        case event.kind
+        of EventType.KeyPressed:
+            case event.key.code
+            of KeyCode.Escape:
                 window.close()
-            if event.key.code == KeyCode.Back:
+            of KeyCode.Back:
                 if str.len > 0:
                     discard str.pop()
-                    text.str = $str & "_"
-            if event.key.code == KeyCode.Return:
+            of KeyCode.Return:
                 str.add Rune(10)
-                text.str = $str & "_"
-        if event.kind == EventType.TextEntered:
+            else: discard
+        of EventType.TextEntered:
             if ord(event.text.unicode) >= ord(' '):
                 str.add event.text.unicode
-                text.str = $str & "_"
+            text.str = $str & "_"
+        of EventType.Closed:
+            window.close()
+        else: discard
 
     window.clear White
     window.draw text

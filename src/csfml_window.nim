@@ -49,7 +49,6 @@ proc contextSettings*(depth: cint = 0, stencil: cint = 0, antialiasing: cint = 0
   ## ``antialiasing``: Antialiasing level
   ## ``major``: Major number of the context version
   ## ``minor``: Minor number of the context version
-  ##
   ## *Returns*: ContextSettings with these members
   result.depthBits = depth
   result.stencilBits = stencil
@@ -75,7 +74,6 @@ proc videoMode*(modeWidth, modeHeight: cint, bitsPerPixel: cint = 32): VideoMode
   ## - ``modeWidth``: Width in pixels
   ## - ``modeHeight``: Height in pixels
   ## - ``modeBitsPerPixel``: Pixel depths in bits per pixel
-  ## 
   ## *Returns*: a VideoMode with these members
   result.width = modeWidth
   result.height = modeHeight
@@ -107,12 +105,33 @@ converter toBitMaskU32*(a: WindowStyle): BitMaskU32 = BitMaskU32 a
   ## Allows WindowStyle values to be combined using the | operator and be used in functions
 
 proc `title=`*(window: Window, title: string) =
-  ## Wrapper proc that converts Nim's strings correctly
+  ## Change the title of a window (with a normal UTF-8 string)
+  ##
+  ## *Arguments*:
+  ## - ``window``: Window object
+  ## - ``title``: New title
   var t = utf8to32(title)
   window.title_U32 = addr(t[0])
 
 proc newWindow*(mode: VideoMode, title: string, style: BitMaskU32 = WindowStyle.Default,
                 settings = contextSettings()): Window =
-  ## Wrapper proc that converts Nim's strings correctly
+  ## Construct a new window (with a UTF-8 title)
+  ##
+  ## This function creates the window with the size and pixel
+  ## depth defined in ``mode``. An optional style can be passed to
+  ## customize the look and behaviour of the window (borders,
+  ## title bar, resizable, closable, ...). If ``style`` contains
+  ## Fullscreen, then ``mode`` must be a valid video mode.
+  ##
+  ## The fourth parameter is a pointer to a structure specifying
+  ## advanced OpenGL context settings such as antialiasing,
+  ## depth-buffer bits, etc.
+  ##
+  ## *Arguments*:
+  ## - ``mode``: Video mode to use (defines the width, height and depth of the rendering area of the window)
+  ## - ``title``: Title of the window (normal UTF-8 string)
+  ## - ``style``: Window style
+  ## - ``settings``: Additional settings for the underlying OpenGL context
+  ## *Returns:* A new Window object
   var t = utf8to32(title)
   newWindow_U32(mode, addr(t[0]), style, settings)

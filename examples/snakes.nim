@@ -19,7 +19,7 @@ let directions = [Left, Up, Right, Down]
 randomize()
 
 proc random_color(): Color =
-    return color(random(128)+128, random(128)+128, random(128)+128)
+    color(random(128)+128, random(128)+128, random(128)+128)
 
 proc modulo[T](a, b: T): T =
     ## mod with wraparound: modulo(-7, 5)==3
@@ -89,7 +89,7 @@ proc collide(self: Snake, other: Snake): bool =
     return false
 
 proc collide(self: Snake, food: Food): bool =
-    return self.body[0] == food.position
+    self.body[0] == food.position
 
 proc collide(self: Snake): bool =
     var first = true

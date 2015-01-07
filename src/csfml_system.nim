@@ -47,7 +47,7 @@ proc vec2*(x, y: float): Vector2f = vec2(cfloat(x), cfloat(y))
 converter vec2*(a: Vector2i): Vector2f = vec2(cfloat(a.x), cfloat(a.y))
   ## Conversion from Vector2i to Vector2f
 
-proc vec3*(x, y, z: cfloat): Vector3f = Vector3f(x: x, y: y, z: y)
+proc vec3*(x, y, z: cfloat): Vector3f = Vector3f(x: x, y: y, z: z)
   ## *Returns*: Vector3f with these coordinates
 proc vec3*(x, y, z: float): Vector3f = vec3(cfloat(x), cfloat(y), cfloat(z))
   ## *Returns*: Vector3f with these coordinates
@@ -102,5 +102,5 @@ proc `-`*(a: Time): Time = microseconds(-a.microseconds)
   ## *Returns*: negated Time value
 proc `+`*(a, b: Time): Time = microseconds(a.microseconds+b.microseconds)
   ## *Returns*: sum of the two Time values
-proc `-`*(a, b: Time): Time = microseconds(a.microseconds+b.microseconds)
+proc `-`*(a, b: Time): Time = microseconds(a.microseconds-b.microseconds)
   ## *Returns*: difference of the two Time values

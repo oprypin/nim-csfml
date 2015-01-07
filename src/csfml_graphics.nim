@@ -44,9 +44,8 @@ proc color*(red, green, blue: int, alpha: int = 255): Color =
   ## *Arguments*:
   ## - ``red``: Red component (in the range [0, 255])
   ## - ``green``: Green component (in the range [0, 255])
-  ## - ``blue``:  Blue component (in the range [0, 255])
+  ## - ``blue``: Blue component (in the range [0, 255])
   ## - ``alpha``: Alpha (opacity) component (in the range [0, 255]) 
-  ##
   ## *Returns*: Color from its 4 RGBA components
   result.r = uint8 red
   result.g = uint8 green
@@ -87,16 +86,12 @@ proc `+`*(a, b: Color): Color =
   ##
   ## *Returns:* The component-wise sum of two colors. Components that exceed 255 are clamped to 255.
   add(a, b)
-proc `+=`*(a: var Color, b: Color) =
-  a = a+b
 proc `*`*(a, b: Color): Color =
   ## Alias for modulate
   ##
   ## *Returns:* The component-wise multiplication (also called "modulation") of two colors.
   ## Components are then divided by 255 so that the result is still in the range [0, 255].
   modulate(a, b)
-proc `*=`*(a: var Color, b: Color) =
-  a = a*b
 proc `-`*(a, b: Color): Color =
   ## *Returns:* The component-wise subtraction of two colors. Components below 0 are clamped to 0.
   if a.r <= b.r: result.r = 0
@@ -107,8 +102,6 @@ proc `-`*(a, b: Color): Color =
   else: result.b = a.b-b.b
   if a.a <= b.a: result.a = 0
   else: result.a = a.a-b.a
-proc `-=`*(a: var Color, b: Color) =
-  a = a-b
 
 let
   Black* = color(0, 0, 0)
@@ -127,25 +120,16 @@ proc rect*(left, top, width, height: cint): IntRect =
   IntRect(left: left, top: top, width: width, height: height)
 proc rect*(left, top, width, height: int): IntRect =
   ## *Returns*: IntRect with these members
-  result.left = cint left
-  result.top = cint top
-  result.width = cint width
-  result.height = cint height
+  rect(cint(left), cint(top), cint(width), cint(height))
 proc rect*(left, top, width, height: cfloat): FloatRect =
   ## *Returns*: FloatRect with these members
   FloatRect(left: left, top: top, width: width, height: height)
 proc rect*(left, top, width, height: float): FloatRect =
   ## *Returns*: FloatRect with these members
-  result.left = cfloat left
-  result.top = cfloat top
-  result.width = cfloat width
-  result.height = cfloat height
+  rect(cfloat(left), cfloat(top), cfloat(width), cfloat(height))
 converter rect*(r: IntRect): FloatRect =
   ## Conversion from IntRect to FloatRect
-  result.left = cfloat r.left
-  result.top = cfloat r.top
-  result.width = cfloat r.width
-  result.height = cfloat r.height
+  rect(cfloat(r.left), cfloat(r.top), cfloat(r.width), cfloat(r.height))
 
 proc `==`*(a, b: IntRect): bool =
   ## *Returns*: whether corresponding members of two IntRects are equal
@@ -187,6 +171,16 @@ proc `*=`*(a: var Transform, b: Transform) =
 proc `*`*(a: Transform, b: Vector2f): Vector2f =
   a.transformPoint(b)
 
+proc matrixGL*(transform: Transform): array[0..15, cfloat] =
+  ## This function fills an array of 16 floats with the transform
+  ## converted as a 4x4 matrix, which is directly compatible with
+  ## OpenGL functions.
+  ##
+  ## *Arguments*:
+  ## - ``transform``: Transform object
+  ## *Returns*: 16-element array
+  transform.getMatrix(addr(result[0]))
+
 
 proc renderStates*(blendMode = BlendMode.Alpha, transform = Identity,
                    texture: Texture = nil, shader: Shader = nil): RenderStates =
@@ -198,18 +192,33 @@ proc renderStates*(blendMode = BlendMode.Alpha, transform = Identity,
 
 
 proc `title=`*(window: RenderWindow, title: string) =
-  ## Wrapper proc that converts Nim's strings correctly
+  ## Change the title of a render window (with a normal UTF-8 string)
+  ##
+  ## *Arguments*:
+  ## - ``renderWindow``: Render window object
+  ## - ``title``: New title
   var t = utf8to32(title)
   window.title_U32 = addr(t[0])
 proc newRenderWindow*(mode: VideoMode, title: string, style: BitMaskU32 = WindowStyle.Default,
                       settings = contextSettings()): RenderWindow =
-  ## Wrapper proc that converts Nim's strings correctly
+  ## Construct a new render window (with a UTF-8 title)
+  ##
+  ## *Arguments*:
+  ## - ``mode``: Video mode to use
+  ## - ``title``: Title of the window (UTF-8)
+  ## - ``style``: Window style
+  ## - ``settings``: Creation settings
   var t = utf8to32(title)
   newRenderWindow_U32(mode, addr(t[0]), style, settings)
 
 
 proc str*(text: Text): string =
-  ## Wrapper proc that converts to Nim's strings correctly
+  ## Get the string of a text
+  ##
+  ## *Arguments*:
+  ## - ``text``: Text object
+  ##
+  ## *Returns:* String as UTF-8
   var ip = cast[int](text.str_U32)
   var r = newSeq[Rune]()
   while true:
@@ -220,7 +229,11 @@ proc str*(text: Text): string =
     ip += sizeof(RuneU32)
   $r
 proc `str=`*(text: Text, str: string) =
-  ## Wrapper proc that converts Nim's strings correctly
+  ## Set the string of a text (from a normal UTF-8 string)
+  ##
+  ## *Arguments*:
+  ## - ``text``: Text object
+  ## - ``str``: New string
   var t = utf8to32(str)
   text.str_U32 = addr(t[0])
 
@@ -319,7 +332,7 @@ proc `[]`*(vertexArray: VertexArray, index: int): Vertex =
   ##
   ## *Returns:* The index-th vertex
   vertexArray.getVertex(cint(index))[]
-proc `[]=`*(vertexArray: VertexArray, index: int, vertex: Vertex): Vertex =
+proc `[]=`*(vertexArray: VertexArray, index: int, vertex: Vertex) =
   ## Set a vertex by its index
   ##
   ## This function doesn't check ``index``, it must be in range

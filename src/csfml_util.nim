@@ -19,6 +19,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 
+## Types and conversions exported by all modules of nim-csfml
 
 import unicode, unsigned
 
@@ -31,7 +32,7 @@ type
 proc utf8to32*(s: string): seq[RuneU32] =
   ## Converts a UTF-8 string to a zero-terminated sequence of Runes
   result = @[]
-  for c in runes(s):
+  for c in s.runes:
     result.add RuneU32(c)
   result.add RuneU32(0)
 
