@@ -26,7 +26,7 @@ Introduction
 The API attempts to be very similar to SFML's, but some general changes are present:
 
 - To construct an object (`sf::SomeType x(param)`), use a corresponding procedure (there are 2 variations):
-    - `var x = newSomeType(param)`, which means it is a `ref object`.
+    - `var x = newSomeType(param)`, which means it is a `ptr object`.
         - Such objects have [destructors][nim-destructors] associated with them (no need to call `destroy` manually).
         - Never create them using `new`.
     - `var x = someType(param)`, which means it is an `object` (in CSFML it corresponds to a simple `struct`).
@@ -50,7 +50,7 @@ The API attempts to be very similar to SFML's, but some general changes are pres
     - `unsigned int` is mapped as `cint`, etc., so you don't have to bother with unsigned conversions. This shouldn't cause problems, but it might.
     - The *util* module contains some types that provide implicit conversions.
         - For example `sfBool` which is defined as `int`, is mapped to the `IntBool` type with conversions to Nim's `bool`.
-- If you want to use some particular CSFML function but don't know what it maps to in *nim-csml*, you can just search for its name in the [documentation][].
+- If you want to use some particular CSFML function but don't know what it maps to in *nim-csfml*, you can just search for its name in the [documentation][].
 - Most of the [documentation][] is taken directly from CSFML, so don't be surprised if it talks in C/C++ terms.
 
 See [examples](examples) to learn more.
