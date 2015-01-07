@@ -46,6 +46,7 @@ proc color*(red, green, blue: int, alpha: int = 255): Color =
   ## - ``green``: Green component (in the range [0, 255])
   ## - ``blue``: Blue component (in the range [0, 255])
   ## - ``alpha``: Alpha (opacity) component (in the range [0, 255]) 
+  ##
   ## *Returns*: Color from its 4 RGBA components
   result.r = uint8 red
   result.g = uint8 green
@@ -178,6 +179,7 @@ proc matrixGL*(transform: Transform): array[0..15, cfloat] =
   ##
   ## *Arguments*:
   ## - ``transform``: Transform object
+  ##
   ## *Returns*: 16-element array
   transform.getMatrix(addr(result[0]))
 

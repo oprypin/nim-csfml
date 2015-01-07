@@ -49,6 +49,7 @@ proc contextSettings*(depth: cint = 0, stencil: cint = 0, antialiasing: cint = 0
   ## ``antialiasing``: Antialiasing level
   ## ``major``: Major number of the context version
   ## ``minor``: Minor number of the context version
+  ##
   ## *Returns*: ContextSettings with these members
   result.depthBits = depth
   result.stencilBits = stencil
@@ -74,6 +75,7 @@ proc videoMode*(modeWidth, modeHeight: cint, bitsPerPixel: cint = 32): VideoMode
   ## - ``modeWidth``: Width in pixels
   ## - ``modeHeight``: Height in pixels
   ## - ``modeBitsPerPixel``: Pixel depths in bits per pixel
+  ##
   ## *Returns*: a VideoMode with these members
   result.width = modeWidth
   result.height = modeHeight
@@ -132,6 +134,7 @@ proc newWindow*(mode: VideoMode, title: string, style: BitMaskU32 = WindowStyle.
   ## - ``title``: Title of the window (normal UTF-8 string)
   ## - ``style``: Window style
   ## - ``settings``: Additional settings for the underlying OpenGL context
+  ##
   ## *Returns:* A new Window object
   var t = utf8to32(title)
   newWindow_U32(mode, addr(t[0]), style, settings)

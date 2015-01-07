@@ -37,7 +37,7 @@ include csfml_audio_gen
 
 
 proc newSound*(buffer: SoundBuffer): Sound =
-  ## *Returns:* A new Sound with this buffer
+  ## *Returns*: A new Sound with this buffer
   result = newSound()
   if result == nil: return nil
   result.buffer = buffer
