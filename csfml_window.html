@@ -1817,7 +1817,7 @@ Structure defining the window's creation settings
 
 </dd>
 <dt id="newWindowC"><a name="newWindowC,VideoMode,cstring,BitMaskU32,ContextSettings"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newWindowC</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span><span class="Other">;</span> 
-                <span class="Identifier">settings</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Window</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+                <span class="Identifier">settings</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Window</span> <span class="Other"></span></pre></dt>
 <dd>
 
 
@@ -1828,8 +1828,7 @@ Structure defining the window's creation settings
 
 
 </dd>
-<dt id="newWindow"><a name="newWindow,WindowHandle,ContextSettings"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newWindow</span><span class="Other">(</span><span class="Identifier">handle</span><span class="Other">:</span> <span class="Identifier">WindowHandle</span><span class="Other">;</span> <span class="Identifier">settings</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Window</span> <span class="Other">{.</span>
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="newWindow"><a name="newWindow,WindowHandle,ContextSettings"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newWindow</span><span class="Other">(</span><span class="Identifier">handle</span><span class="Other">:</span> <span class="Identifier">WindowHandle</span><span class="Other">;</span> <span class="Identifier">settings</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Window</span> <span class="Other"></span></pre></dt>
 <dd>
 
 
@@ -2077,20 +2076,19 @@ Structure defining the window's creation settings
 
 </dd>
 <dt id="contextSettings"><a name="contextSettings,cint,cint,cint,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">contextSettings</span><span class="Other">(</span><span class="Identifier">depth</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> <span class="Identifier">stencil</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> <span class="Identifier">antialiasing</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> 
-                     <span class="Identifier">major</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">2</span><span class="Other">;</span> <span class="Identifier">minor</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span> <span class="Other">{.</span>
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+                     <span class="Identifier">major</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">2</span><span class="Other">;</span> <span class="Identifier">minor</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span> <span class="Other"></span></pre></dt>
 <dd>
 <p><em>Arguments</em>: <tt class="docutils literal"><span class="pre">depth</span></tt>: Depth buffer bits <tt class="docutils literal"><span class="pre">stencil</span></tt>: Stencil buffer bits <tt class="docutils literal"><span class="pre">antialiasing</span></tt>: Antialiasing level <tt class="docutils literal"><span class="pre">major</span></tt>: Major number of the context version <tt class="docutils literal"><span class="pre">minor</span></tt>: Minor number of the context version</p>
 <p><em>Returns</em>: ContextSettings with these members</p>
 
 
 </dd>
-<dt id="mouse_getPosition"><a name="mouse_getPosition,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouse_getPosition</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="mouse_getPosition"><a name="mouse_getPosition,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouse_getPosition</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other"></span></pre></dt>
 <dd>
 <em>Returns</em>: The current position of mouse cursor relative to desktop
 
 </dd>
-<dt id="mouse_setPosition"><a name="mouse_setPosition,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouse_setPosition</span><span class="Other">(</span><span class="Identifier">position</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="mouse_setPosition"><a name="mouse_setPosition,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouse_setPosition</span><span class="Other">(</span><span class="Identifier">position</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
 <dd>
 <p>Set the current position of the mouse relative to desktop</p>
 <p><em>Arguments</em>:</p>
@@ -2099,13 +2097,12 @@ Structure defining the window's creation settings
 
 
 </dd>
-<dt id="videoMode"><a name="videoMode,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">videoMode</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">VideoMode</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="videoMode"><a name="videoMode,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">videoMode</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">VideoMode</span> <span class="Other"></span></pre></dt>
 <dd>
 <em>Returns</em>: a VideoMode with all members set to 0
 
 </dd>
-<dt id="videoMode"><a name="videoMode,cint,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">videoMode</span><span class="Other">(</span><span class="Identifier">modeWidth</span><span class="Other">,</span> <span class="Identifier">modeHeight</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">bitsPerPixel</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">32</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">VideoMode</span> <span class="Other">{.</span>
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="videoMode"><a name="videoMode,cint,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">videoMode</span><span class="Other">(</span><span class="Identifier">modeWidth</span><span class="Other">,</span> <span class="Identifier">modeHeight</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">bitsPerPixel</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">32</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">VideoMode</span> <span class="Other"></span></pre></dt>
 <dd>
 <em>Arguments</em>:<ul class="simple"><li><tt class="docutils literal"><span class="pre">modeWidth</span></tt>: Width in pixels</li>
 <li><tt class="docutils literal"><span class="pre">modeHeight</span></tt>: Height in pixels</li>
@@ -2115,36 +2112,41 @@ Structure defining the window's creation settings
 
 
 </dd>
-<dt id="=="><a name="==,VideoMode,VideoMode"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="=="><a name="==,VideoMode,VideoMode"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other"></span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="<"><a name="<,VideoMode,VideoMode"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`&lt;`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="<"><a name="<,VideoMode,VideoMode"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`&lt;`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other"></span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="<="><a name="<=,VideoMode,VideoMode"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`&lt;=`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="<="><a name="<=,VideoMode,VideoMode"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`&lt;=`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other"></span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="videoMode_getFullscreenModes"><a name="videoMode_getFullscreenModes,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">videoMode_getFullscreenModes</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">VideoMode</span><span class="Other">]</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="videoMode_getFullscreenModes"><a name="videoMode_getFullscreenModes,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">videoMode_getFullscreenModes</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">VideoMode</span><span class="Other">]</span> <span class="Other"></span></pre></dt>
 <dd>
 <p>Wrapper proc that returns a seq instead of exposing pointers</p>
 <p><em>Returns:</em> seq containing all the supported fullscreen modes</p>
 
 
 </dd>
-<dt id="title="><a name="title=,Window,string"></a><pre><span class="Keyword">proc</span> <span class="Identifier">title=</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">Window</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="title="><a name="title=,Window,string"></a><pre><span class="Keyword">proc</span> <span class="Identifier">title=</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">Window</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
 <dd>
-Wrapper proc that converts Nim's strings correctly
+<p>Change the title of a window (with a normal UTF-8 string)</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">window</span></tt>: Window object</li>
+<li><tt class="docutils literal"><span class="pre">title</span></tt>: New title</li>
+</ul>
+
 
 </dd>
 <dt id="newWindow"><a name="newWindow,VideoMode,string,BitMaskU32"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newWindow</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> 
                <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span> <span class="Other">=</span> <span class="Identifier">WindowStyle</span><span class="Other">.</span><span class="Identifier">Default</span><span class="Other">;</span> 
-               <span class="Identifier">settings</span> <span class="Other">=</span> <span class="Identifier">contextSettings</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Window</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+               <span class="Identifier">settings</span> <span class="Other">=</span> <span class="Identifier">contextSettings</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Window</span> <span class="Other"></span></pre></dt>
 <dd>
 
 
@@ -2154,7 +2156,7 @@ Wrapper proc that converts Nim's strings correctly
 <div class="section" id="16">
 <h1><a class="toc-backref" href="#16">Converters</a></h1>
 <dl class="item">
-<dt id="toBitMaskU32"><a name="toBitMaskU32.c,WindowStyle"></a><pre><span class="Keyword">converter</span> <span class="Identifier">toBitMaskU32</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">WindowStyle</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span> <span class="Other">{.</span><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">.}</span></pre></dt>
+<dt id="toBitMaskU32"><a name="toBitMaskU32.c,WindowStyle"></a><pre><span class="Keyword">converter</span> <span class="Identifier">toBitMaskU32</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">WindowStyle</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span> <span class="Other"></span></pre></dt>
 <dd>
 Allows WindowStyle values to be combined using the | operator and be used in functions
 
@@ -2169,7 +2171,7 @@ Allows WindowStyle values to be combined using the | operator and be used in fun
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-06 15:00:57 UTC</small>
+        <small>Made with Nim. Generated: 2015-01-07 15:58:58 UTC</small>
       </div>
     </div>
   </div>
