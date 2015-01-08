@@ -7,11 +7,9 @@
 
 #--- SFML/Window/Types ---#
 
-type
-  Context* = ptr object
+type Context* = ptr object
 
-type
-  Window* = ptr object
+type Window* = ptr object
 
 proc newContext*(): Context {.
   cdecl, importc: "sfContext_create".}
@@ -182,7 +180,7 @@ type EventType* {.pure, size: sizeof(cint).} = enum  ## Definition of all the ev
   MouseEntered, MouseLeft, JoystickButtonPressed, JoystickButtonReleased,
   JoystickMoved, JoystickConnected, JoystickDisconnected
 
-type KeyEvent* = object
+type KeyEvent* {.bycopy.} = object
   ## Keyboard event parameters
   code*: KeyCode
   alt*: BoolInt
@@ -190,43 +188,43 @@ type KeyEvent* = object
   shift*: BoolInt
   system*: BoolInt
 
-type TextEvent* = object
+type TextEvent* {.bycopy.} = object
   ## Text event parameters
   unicode*: RuneU32
 
-type MouseMoveEvent* = object
+type MouseMoveEvent* {.bycopy.} = object
   ## Mouse move event parameters
   x*: cint
   y*: cint
 
-type MouseButtonEvent* = object
+type MouseButtonEvent* {.bycopy.} = object
   ## Mouse buttons events parameters
   button*: MouseButton
   x*: cint
   y*: cint
 
-type MouseWheelEvent* = object
+type MouseWheelEvent* {.bycopy.} = object
   ## Mouse wheel events parameters
   delta*: cint
   x*: cint
   y*: cint
 
-type JoystickMoveEvent* = object
+type JoystickMoveEvent* {.bycopy.} = object
   ## Joystick axis move event parameters
   joystickId*: cint
   axis*: JoystickAxis
   position*: cfloat
 
-type JoystickButtonEvent* = object
+type JoystickButtonEvent* {.bycopy.} = object
   ## Joystick buttons events parameters
   joystickId*: cint
   button*: cint
 
-type JoystickConnectEvent* = object
+type JoystickConnectEvent* {.bycopy.} = object
   ## Joystick connection/disconnection event parameters
   joystickId*: cint
 
-type SizeEvent* = object
+type SizeEvent* {.bycopy.} = object
   ## Size events parameters
   width*: cint
   height*: cint
@@ -236,7 +234,7 @@ include csfml_union_event
 
 #--- SFML/Window/VideoMode ---#
 
-type VideoMode* = object
+type VideoMode* {.bycopy.} = object
   ## VideoMode defines a video mode (width, height, bpp, frequency)
   ## and provides functions for getting modes supported
   ## by the display device
@@ -289,7 +287,7 @@ proc valid*(mode: VideoMode): BoolInt {.
 type WindowStyle* {.pure, size: sizeof(cint).} = enum  ## Enumeration of window creation styles
   None = 0, Titlebar = 1, Resize = 2, Close = 4, Default = 7, Fullscreen = 8
 
-type ContextSettings* = object
+type ContextSettings* {.bycopy.} = object
   ## Structure defining the window's creation settings
   depthBits*: cint
   stencilBits*: cint

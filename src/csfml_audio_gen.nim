@@ -66,23 +66,17 @@ type SoundStatus* {.pure, size: sizeof(cint).} = enum  ## Enumeration of statuse
 
 #--- SFML/Audio/Types ---#
 
-type
-  Music* = ptr object
+type Music* = ptr object
 
-type
-  Sound* = ptr object
+type Sound* = ptr object
 
-type
-  SoundBuffer* = ptr object
+type SoundBuffer* = ptr object
 
-type
-  SoundBufferRecorder* = ptr object
+type SoundBufferRecorder* = ptr object
 
-type
-  SoundRecorder* = ptr object
+type SoundRecorder* = ptr object
 
-type
-  SoundStream* = ptr object
+type SoundStream* = ptr object
 
 proc newMusic*(filename: cstring): Music {.
   cdecl, importc: "sfMusic_createFromFile".}

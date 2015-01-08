@@ -13,7 +13,7 @@ type BlendMode* {.pure, size: sizeof(cint).} = enum  ## Available blending modes
 
 #--- SFML/Graphics/Color ---#
 
-type Color* = object
+type Color* {.bycopy.} = object
   ## Utility class for manpulating RGBA colors
   r*: uint8
   g*: uint8
@@ -66,13 +66,13 @@ proc modulate*(color1: Color, color2: Color): Color {.
 
 #--- SFML/Graphics/Rect ---#
 
-type FloatRect* = object
+type FloatRect* {.bycopy.} = object
   left*: cfloat
   top*: cfloat
   width*: cfloat
   height*: cfloat
 
-type IntRect* = object
+type IntRect* {.bycopy.} = object
   left*: cint
   top*: cint
   width*: cint
@@ -136,52 +136,37 @@ proc intersects*(rect1: IntRect, rect2: IntRect, intersection: var IntRect): Boo
 
 #--- SFML/Graphics/Types ---#
 
-type
-  CircleShape* = ptr object
+type CircleShape* = ptr object
 
-type
-  ConvexShape* = ptr object
+type ConvexShape* = ptr object
 
-type
-  Font* = ptr object
+type Font* = ptr object
 
-type
-  Image* = ptr object
+type Image* = ptr object
 
-type
-  Shader* = ptr object
+type Shader* = ptr object
 
-type
-  RectangleShape* = ptr object
+type RectangleShape* = ptr object
 
-type
-  RenderTexture* = ptr object
+type RenderTexture* = ptr object
 
-type
-  RenderWindow* = ptr object
+type RenderWindow* = ptr object
 
-type
-  Shape* = ptr object
+type Shape* = ptr object
 
-type
-  Sprite* = ptr object
+type Sprite* = ptr object
 
-type
-  Text* = ptr object
+type Text* = ptr object
 
-type
-  Texture* = ptr object
+type Texture* = ptr object
 
-type
-  Transformable* = ptr object
+type Transformable* = ptr object
 
-type
-  VertexArray* = ptr object
+type VertexArray* = ptr object
 
-type
-  View* = ptr object
+type View* = ptr object
 
-type Transform* = object
+type Transform* {.bycopy.} = object
   ## Encapsulate a 3x3 transform matrix
   matrix*: array[0..8, cfloat]
 
@@ -1059,7 +1044,7 @@ proc globalBounds*(shape: ConvexShape): FloatRect {.
 
 #--- SFML/Graphics/Glyph ---#
 
-type Glyph* = object
+type Glyph* {.bycopy.} = object
   ## Glyph describes a glyph (a visual character)
   advance*: cint
   bounds*: IntRect
@@ -1737,7 +1722,7 @@ proc globalBounds*(shape: RectangleShape): FloatRect {.
 
 #--- SFML/Graphics/RenderStates ---#
 
-type RenderStates* = object
+type RenderStates* {.bycopy.} = object
   ## Define the states used for drawing to a RenderTarget
   blendMode*: BlendMode
   transform*: Transform
@@ -1750,7 +1735,7 @@ type RenderStates* = object
 
 #--- SFML/Graphics/Vertex ---#
 
-type Vertex* = object
+type Vertex* {.bycopy.} = object
   position*: Vector2f
   color*: Color
   texCoords*: Vector2f

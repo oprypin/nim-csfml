@@ -135,7 +135,7 @@ def handle_struct(name, items):
     if name=='sfVector2u':
         return
     name = rename_type(name)
-    yield 'type {}* = object'.format(name)
+    yield 'type {}* {{.bycopy.}} = object'.format(name)
     d = get_doc()
     if d: yield d
 
@@ -152,7 +152,7 @@ classes = set()
 def handle_class(name):
     pname = rename_sf(name)
     classes.add(pname)
-    yield 'type\n  {0}* = ptr object'.format(pname)
+    yield 'type {0}* = ptr object'.format(pname)
     d = get_doc()
     if d: yield d
 

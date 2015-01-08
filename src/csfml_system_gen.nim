@@ -7,7 +7,7 @@
 
 #--- SFML/System/Time ---#
 
-type Time* = object
+type Time* {.bycopy.} = object
   ## Represents a time value
   microseconds*: int64
 
@@ -68,14 +68,11 @@ proc microseconds*(amount: int64): Time {.
 
 #--- SFML/System/Types ---#
 
-type
-  Clock* = ptr object
+type Clock* = ptr object
 
-type
-  Mutex* = ptr object
+type Mutex* = ptr object
 
-type
-  Thread* = ptr object
+type Thread* = ptr object
 
 proc newClock*(): Clock {.
   cdecl, importc: "sfClock_create".}
@@ -135,7 +132,7 @@ type InputStreamTellFunc* = proc(userData: pointer): int64 {.cdecl.}
 
 type InputStreamGetSizeFunc* = proc(userData: pointer): int64 {.cdecl.}
 
-type InputStream* = object
+type InputStream* {.bycopy.} = object
   ## Set of callbacks that allow users to define custom file streams
   read*: InputStreamReadFunc
   seek*: InputStreamSeekFunc
@@ -159,12 +156,12 @@ proc sleep*(duration: Time) {.
 
 #--- SFML/System/Vector2 ---#
 
-type Vector2i* = object
+type Vector2i* {.bycopy.} = object
   ## 2-component vector of integers
   x*: cint
   y*: cint
 
-type Vector2f* = object
+type Vector2f* {.bycopy.} = object
   ## 2-component vector of floats
   x*: cfloat
   y*: cfloat
@@ -172,7 +169,7 @@ type Vector2f* = object
 
 #--- SFML/System/Vector3 ---#
 
-type Vector3f* = object
+type Vector3f* {.bycopy.} = object
   ## 3-component vector of floats
   x*: cfloat
   y*: cfloat
