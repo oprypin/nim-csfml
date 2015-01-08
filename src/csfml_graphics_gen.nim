@@ -2111,15 +2111,9 @@ proc drawVertexArray*(renderWindow: RenderWindow, obj: VertexArray, states: Rend
   (var Cstates = states)
   drawVertexArray(renderWindow, obj, Cstates)
 
-proc drawPrimitives*(renderWindow: RenderWindow, vertices: (var Vertex){lvalue}, vertexCount: cint, kind: PrimitiveType, states: (var RenderStates){lvalue}) {.
+proc drawPrimitives*(renderWindow: RenderWindow, vertices: ptr Vertex, vertexCount: cint, kind: PrimitiveType, states: (var RenderStates){lvalue}) {.
   cdecl, importc: "sfRenderWindow_drawPrimitives".}
-proc drawPrimitives*(renderWindow: RenderWindow, vertices: (var Vertex){lvalue}, vertexCount: cint, kind: PrimitiveType, states: RenderStates) =
-  (var Cstates = states)
-  drawPrimitives(renderWindow, vertices, vertexCount, kind, Cstates)
-proc drawPrimitives*(renderWindow: RenderWindow, vertices: Vertex, vertexCount: cint, kind: PrimitiveType, states: (var RenderStates){lvalue}) =
-  (var Cvertices = vertices)
-  drawPrimitives(renderWindow, Cvertices, vertexCount, kind, states)
-proc drawPrimitives*(renderWindow: RenderWindow, vertices: Vertex, vertexCount: cint, kind: PrimitiveType, states: RenderStates) =
+proc drawPrimitives*(renderWindow: RenderWindow, vertices: ptr Vertex, vertexCount: cint, kind: PrimitiveType, states: RenderStates) =
   ## Draw primitives defined by an array of vertices to a render window
   ## 
   ## *Arguments*:
@@ -2128,8 +2122,8 @@ proc drawPrimitives*(renderWindow: RenderWindow, vertices: Vertex, vertexCount: 
   ## - ``vertexCount``:   Number of vertices in the array
   ## - ``type``:          Type of primitives to draw
   ## - ``states``:        Render states to use for drawing (NULL to use the default states)
-  (var Cvertices = vertices; var Cstates = states)
-  drawPrimitives(renderWindow, Cvertices, vertexCount, kind, Cstates)
+  (var Cstates = states)
+  drawPrimitives(renderWindow, vertices, vertexCount, kind, Cstates)
 
 proc pushGLStates*(renderWindow: RenderWindow) {.
   cdecl, importc: "sfRenderWindow_pushGLStates".}
@@ -2406,15 +2400,9 @@ proc drawVertexArray*(renderTexture: RenderTexture, obj: VertexArray, states: Re
   (var Cstates = states)
   drawVertexArray(renderTexture, obj, Cstates)
 
-proc drawPrimitives*(renderTexture: RenderTexture, vertices: (var Vertex){lvalue}, vertexCount: cint, kind: PrimitiveType, states: (var RenderStates){lvalue}) {.
+proc drawPrimitives*(renderTexture: RenderTexture, vertices: ptr Vertex, vertexCount: cint, kind: PrimitiveType, states: (var RenderStates){lvalue}) {.
   cdecl, importc: "sfRenderTexture_drawPrimitives".}
-proc drawPrimitives*(renderTexture: RenderTexture, vertices: (var Vertex){lvalue}, vertexCount: cint, kind: PrimitiveType, states: RenderStates) =
-  (var Cstates = states)
-  drawPrimitives(renderTexture, vertices, vertexCount, kind, Cstates)
-proc drawPrimitives*(renderTexture: RenderTexture, vertices: Vertex, vertexCount: cint, kind: PrimitiveType, states: (var RenderStates){lvalue}) =
-  (var Cvertices = vertices)
-  drawPrimitives(renderTexture, Cvertices, vertexCount, kind, states)
-proc drawPrimitives*(renderTexture: RenderTexture, vertices: Vertex, vertexCount: cint, kind: PrimitiveType, states: RenderStates) =
+proc drawPrimitives*(renderTexture: RenderTexture, vertices: ptr Vertex, vertexCount: cint, kind: PrimitiveType, states: RenderStates) =
   ## Draw primitives defined by an array of vertices to a render texture
   ## 
   ## *Arguments*:
@@ -2423,8 +2411,8 @@ proc drawPrimitives*(renderTexture: RenderTexture, vertices: Vertex, vertexCount
   ## - ``vertexCount``:    Number of vertices in the array
   ## - ``type``:           Type of primitives to draw
   ## - ``states``:         Render states to use for drawing (NULL to use the default states)
-  (var Cvertices = vertices; var Cstates = states)
-  drawPrimitives(renderTexture, Cvertices, vertexCount, kind, Cstates)
+  (var Cstates = states)
+  drawPrimitives(renderTexture, vertices, vertexCount, kind, Cstates)
 
 proc pushGLStates*(renderTexture: RenderTexture) {.
   cdecl, importc: "sfRenderTexture_pushGLStates".}

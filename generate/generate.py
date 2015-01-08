@@ -39,7 +39,7 @@ def rename_sf(name):
         raise ValueError(name)
     return name[2:]
 
-def rename_type(name):
+def rename_type(name, var=''):
     orname = name
     m = re.match('^(.+) *\[([0-9]+)\]$', name)
     if m:
@@ -64,8 +64,10 @@ def rename_type(name):
         ptr -= 1
         name = 'pointer'
     if ptr and 'sf' in name:
-        ptr -= 1
-        if rename_sf(name) not in classes:
+        if rename_sf(name) in classes:
+            ptr -= 1
+        if rename_sf(name) not in classes and not (var.endswith('s') and var[-2:]!=name[-2:]):
+            ptr -= 1
             name = 'var {}'.format(rename_sf(name))
     try:
         name = rename_sf(name)
@@ -207,7 +209,7 @@ def handle_function(main, params):
         replv = []
         sgn = main_sgn
         for i, (repl, (ptype, pname)) in enumerate(zip(repl, params), 1):
-            rtype = rename_type(ptype)
+            rtype = rename_type(ptype, pname)
             rname = rename_identifier(pname) or 'p{}'.format(i)
             if rtype=='cstring' and rname in ['str', 'title']:
                 if not nfname.endswith('C'):
