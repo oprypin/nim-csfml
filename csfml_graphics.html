@@ -1693,19 +1693,13 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#drawVertexArray,RenderWindow,VertexArray,RenderStates"
     title="drawVertexArray(renderWindow: RenderWindow; obj: VertexArray; 
                 states: RenderStates)"><wbr />draw<wbr />Vertex<wbr />Array</a></li>
-  <li><a class="reference" href="#drawPrimitives,RenderWindow,,cint,PrimitiveType,"
-    title="drawPrimitives(renderWindow: RenderWindow; vertices: (var Vertex){lvalue}; 
+  <li><a class="reference" href="#drawPrimitives,RenderWindow,ptr.Vertex,cint,PrimitiveType,"
+    title="drawPrimitives(renderWindow: RenderWindow; vertices: ptr Vertex; 
                vertexCount: cint; kind: PrimitiveType; 
                states: (var RenderStates){lvalue})"><wbr />draw<wbr />Primitives</a></li>
-  <li><a class="reference" href="#drawPrimitives,RenderWindow,,cint,PrimitiveType,RenderStates"
-    title="drawPrimitives(renderWindow: RenderWindow; vertices: (var Vertex){lvalue}; 
+  <li><a class="reference" href="#drawPrimitives,RenderWindow,ptr.Vertex,cint,PrimitiveType,RenderStates"
+    title="drawPrimitives(renderWindow: RenderWindow; vertices: ptr Vertex; 
                vertexCount: cint; kind: PrimitiveType; states: RenderStates)"><wbr />draw<wbr />Primitives</a></li>
-  <li><a class="reference" href="#drawPrimitives,RenderWindow,Vertex,cint,PrimitiveType,"
-    title="drawPrimitives(renderWindow: RenderWindow; vertices: Vertex; vertexCount: cint; 
-               kind: PrimitiveType; states: (var RenderStates){lvalue})"><wbr />draw<wbr />Primitives</a></li>
-  <li><a class="reference" href="#drawPrimitives,RenderWindow,Vertex,cint,PrimitiveType,RenderStates"
-    title="drawPrimitives(renderWindow: RenderWindow; vertices: Vertex; vertexCount: cint; 
-               kind: PrimitiveType; states: RenderStates)"><wbr />draw<wbr />Primitives</a></li>
   <li><a class="reference" href="#pushGLStates,RenderWindow"
     title="pushGLStates(renderWindow: RenderWindow)"><wbr />push<wbr />GLStates</a></li>
   <li><a class="reference" href="#popGLStates,RenderWindow"
@@ -1781,19 +1775,12 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#drawVertexArray,RenderTexture,VertexArray,RenderStates"
     title="drawVertexArray(renderTexture: RenderTexture; obj: VertexArray; 
                 states: RenderStates)"><wbr />draw<wbr />Vertex<wbr />Array</a></li>
-  <li><a class="reference" href="#drawPrimitives,RenderTexture,,cint,PrimitiveType,"
-    title="drawPrimitives(renderTexture: RenderTexture; vertices: (var Vertex){lvalue}; 
+  <li><a class="reference" href="#drawPrimitives,RenderTexture,ptr.Vertex,cint,PrimitiveType,"
+    title="drawPrimitives(renderTexture: RenderTexture; vertices: ptr Vertex; 
                vertexCount: cint; kind: PrimitiveType; 
                states: (var RenderStates){lvalue})"><wbr />draw<wbr />Primitives</a></li>
-  <li><a class="reference" href="#drawPrimitives,RenderTexture,,cint,PrimitiveType,RenderStates"
-    title="drawPrimitives(renderTexture: RenderTexture; vertices: (var Vertex){lvalue}; 
-               vertexCount: cint; kind: PrimitiveType; states: RenderStates)"><wbr />draw<wbr />Primitives</a></li>
-  <li><a class="reference" href="#drawPrimitives,RenderTexture,Vertex,cint,PrimitiveType,"
-    title="drawPrimitives(renderTexture: RenderTexture; vertices: Vertex; 
-               vertexCount: cint; kind: PrimitiveType; 
-               states: (var RenderStates){lvalue})"><wbr />draw<wbr />Primitives</a></li>
-  <li><a class="reference" href="#drawPrimitives,RenderTexture,Vertex,cint,PrimitiveType,RenderStates"
-    title="drawPrimitives(renderTexture: RenderTexture; vertices: Vertex; 
+  <li><a class="reference" href="#drawPrimitives,RenderTexture,ptr.Vertex,cint,PrimitiveType,RenderStates"
+    title="drawPrimitives(renderTexture: RenderTexture; vertices: ptr Vertex; 
                vertexCount: cint; kind: PrimitiveType; states: RenderStates)"><wbr />draw<wbr />Primitives</a></li>
   <li><a class="reference" href="#pushGLStates,RenderTexture"
     title="pushGLStates(renderTexture: RenderTexture)"><wbr />push<wbr />GLStates</a></li>
@@ -2244,6 +2231,10 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="newRectangleShape(size: Vector2f): RectangleShape"><wbr />new<wbr />Rectangle<wbr />Shape</a></li>
   <li><a class="reference" href="#newConvexShape,cint"
     title="newConvexShape(pointCount: cint): ConvexShape"><wbr />new<wbr />Convex<wbr />Shape</a></li>
+  <li><a class="reference" href="#[],ConvexShape,int"
+    title="`[]`(shape: ConvexShape; index: int): Vector2f"><wbr />`[]`</a></li>
+  <li><a class="reference" href="#[]=,ConvexShape,int,Vector2f"
+    title="`[]=`(shape: ConvexShape; index: int; point: Vector2f)"><wbr />`[]=`</a></li>
   <li><a class="reference" href="#texture=,Sprite,Texture"
     title="texture=(sprite: Sprite; texture: Texture)"><wbr />texture=</a></li>
   <li><a class="reference" href="#newSprite,Texture"
@@ -4658,7 +4649,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="drawPrimitives"><a name="drawPrimitives,RenderWindow,,cint,PrimitiveType,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">Vertex</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> 
+<dt id="drawPrimitives"><a name="drawPrimitives,RenderWindow,ptr.Vertex,cint,PrimitiveType,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Vertex</span><span class="Other">;</span> 
                     <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> 
                     <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_drawPrimitives&quot;</span><span class="Other">.}</span></pre></dt>
@@ -4666,20 +4657,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="drawPrimitives"><a name="drawPrimitives,RenderWindow,,cint,PrimitiveType,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">Vertex</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> 
-                    <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawPrimitives"><a name="drawPrimitives,RenderWindow,Vertex,cint,PrimitiveType,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Identifier">Vertex</span><span class="Other">;</span> 
-                    <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> 
-                    <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawPrimitives"><a name="drawPrimitives,RenderWindow,Vertex,cint,PrimitiveType,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Identifier">Vertex</span><span class="Other">;</span> 
+<dt id="drawPrimitives"><a name="drawPrimitives,RenderWindow,ptr.Vertex,cint,PrimitiveType,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Vertex</span><span class="Other">;</span> 
                     <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
 <dd>
 <p>Draw primitives defined by an array of vertices to a render window</p>
@@ -5004,29 +4982,15 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="drawPrimitives"><a name="drawPrimitives,RenderTexture,,cint,PrimitiveType,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> 
-                    <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">Vertex</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> 
-                    <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span>
-    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawPrimitives&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawPrimitives"><a name="drawPrimitives,RenderTexture,,cint,PrimitiveType,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> 
-                    <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">Vertex</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">;</span> <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> 
-                    <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawPrimitives"><a name="drawPrimitives,RenderTexture,Vertex,cint,PrimitiveType,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Identifier">Vertex</span><span class="Other">;</span> 
+<dt id="drawPrimitives"><a name="drawPrimitives,RenderTexture,ptr.Vertex,cint,PrimitiveType,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Vertex</span><span class="Other">;</span> 
                     <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> 
-                    <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+                    <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawPrimitives&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="drawPrimitives"><a name="drawPrimitives,RenderTexture,Vertex,cint,PrimitiveType,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Identifier">Vertex</span><span class="Other">;</span> 
+<dt id="drawPrimitives"><a name="drawPrimitives,RenderTexture,ptr.Vertex,cint,PrimitiveType,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Vertex</span><span class="Other">;</span> 
                     <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
 <dd>
 <p>Draw primitives defined by an array of vertices to a render texture</p>
@@ -7190,6 +7154,23 @@ Allows the syntax <tt class="docutils literal"><span class="pre">renderTarget.dr
 <em>Returns:</em> A new ConvexShape with this pointCount, or nil if it failed
 
 </dd>
+<dt id="[]"><a name="[],ConvexShape,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]`</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="[]="><a name="[]=,ConvexShape,int,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]=`</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">point</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+<p>Set the position of a point in a convex shape</p>
+<p>Don't forget that the polygon must remain convex, and the points need to stay ordered! pointCount= must be called first in order to set the total number of points. The result is undefined if <tt class="docutils literal"><span class="pre">index</span></tt> is out of the valid range.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>:  Shape object</li>
+<li><tt class="docutils literal"><span class="pre">index</span></tt>:  Index of the point to change, in range [0 .. GetPointCount() - 1]</li>
+<li><tt class="docutils literal"><span class="pre">point</span></tt>:  New point</li>
+</ul>
+
+
+</dd>
 <dt id="texture="><a name="texture=,Sprite,Texture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">texture=</span><span class="Other">(</span><span class="Identifier">sprite</span><span class="Other">:</span> <span class="Identifier">Sprite</span><span class="Other">;</span> <span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
 <dd>
 Change the source texture of a sprite without resetting textureRect
@@ -7269,10 +7250,11 @@ Allows TextStyle values to be combined using the | operator and be used in funct
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-07 15:58:58 UTC</small>
+        <small>Made with Nim. Generated: 2015-01-09 00:20:50 UTC</small>
       </div>
     </div>
   </div>
 </div>
+
 </body>
 </html>
