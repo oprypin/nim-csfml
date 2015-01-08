@@ -41,14 +41,22 @@ Sound Capture example [from SFML](https://github.com/LaurentGomila/SFML/blob/mas
 - Play sound
 - Save sound
 
+### [shapes](shapes.nim)
+
+- `VertexArray`
+- `drawPrimitives`
+- `ConvexShape`
+- Custom `Shape`
+
+### [gl](gl.nim)
+
+- Basic OpenGL
+
 ### [typing](typing.nim)
 
 - Keyboard events, `TextEntered`
 - Unicode (Rune) string
 
-### [gl](gl.nim)
-
-- Basic OpenGL
 
 Acknowledgements
 ----------------

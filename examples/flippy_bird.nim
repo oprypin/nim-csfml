@@ -1,25 +1,20 @@
 import csfml
 
-let settings = context_settings(depth=32, antialiasing=8)
-let video_mode = video_mode(800, 600)
-
-var window = new_RenderWindow(video_mode, "pɹıq ʎddılɟ", WindowStyle.Default, settings)
+var window = new_RenderWindow(video_mode(800, 600), "pɹıq ʎddılɟ")
 window.vertical_sync_enabled = true
 
 let bird_texture = new_Texture("bird.png", rect(0, 0, 0, 0))
+let sz = bird_texture.size
 
 var bird = new_Sprite(bird_texture)
-
-let sz = bird_texture.size
 bird.origin = vec2(sz.x/2, sz.y/2)
 bird.scale = vec2(2.5, 2.5)
 bird.position = vec2(window.size.x/3, window.size.y/2)
 
 var speed = 0.0
 
-var event: Event
-
 while window.open:
+    var event: Event
     while window.poll_event(event):
         case event.kind
           of EventType.Closed:
