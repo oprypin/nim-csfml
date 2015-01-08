@@ -271,17 +271,45 @@ proc newCircleShape*(radius: cfloat, pointCount: cint = 30): CircleShape =
   result.radius = radius
   result.pointCount = pointCount
 
+
 proc newRectangleShape*(size: Vector2f): RectangleShape =
   ## *Returns:* A new RectangleShape with this size, or nil if it failed
   result = newRectangleShape()
   if result == nil: return nil
   result.size = size
 
+
 proc newConvexShape*(pointCount: cint): ConvexShape =
   ## *Returns:* A new ConvexShape with this pointCount, or nil if it failed
   result = newConvexShape()
   if result == nil: return nil
   result.pointCount = pointCount
+
+proc `[]`*(shape: ConvexShape, index: int): Vector2f =
+  ## Get a point of a convex shape
+  ##
+  ## The result is undefined if ``index`` is out of the valid range.
+  ##
+  ## *Arguments*:
+  ## - ``shape``: Shape object
+  ## - ``index``: Index of the point to get, in range [0 .. pointCount - 1]
+  ##
+  ## *Returns:* Index-th point of the shape
+  shape.getPoint(cint(index))
+proc `[]=`*(shape: ConvexShape, index: int, point: Vector2f) =
+  ## Set the position of a point in a convex shape
+  ##
+  ## Don't forget that the polygon must remain convex, and
+  ## the points need to stay ordered!
+  ## pointCount= must be called first in order to set the total
+  ## number of points. The result is undefined if ``index`` is out
+  ## of the valid range.
+  ##
+  ## *Arguments*:
+  ## - ``shape``:  Shape object
+  ## - ``index``:  Index of the point to change, in range [0 .. GetPointCount() - 1]
+  ## - ``point``:  New point
+  shape.setPoint(cint(index), point)
 
 
 proc `texture=`*(sprite: Sprite, texture: Texture) =
