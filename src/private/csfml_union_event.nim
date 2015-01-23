@@ -18,19 +18,26 @@
 #    misrepresented as being the original software.
 # 3. This notice may not be removed or altered from any source distribution.
 
-const module = "audio"
-include private/csfml_common
 
-import csfml_system
-
-
-{.push dynlib: lib.}
-include private/csfml_audio_gen
-{.pop.}
-
-
-proc newSound*(buffer: SoundBuffer): Sound =
-  ## *Returns*: A new Sound with this buffer
-  result = newSound()
-  if result == nil: return nil
-  result.buffer = buffer
+type
+  Event* {.bycopy.} = object
+    case kind*: EventType
+      of EventType.KeyPressed, EventType.KeyReleased:
+        key*: KeyEvent
+      of EventType.MouseButtonPressed, EventType.MouseButtonReleased:
+        mouseButton*: MouseButtonEvent
+      of EventType.TextEntered:
+        text*: TextEvent
+      of EventType.JoystickConnected, EventType.JoystickDisconnected:
+        joystickConnect*: JoystickConnectEvent
+      of EventType.JoystickMoved:
+        joystickMove*: JoystickMoveEvent
+      of EventType.JoystickButtonPressed, EventType.JoystickButtonReleased:
+        joystickButton*: JoystickButtonEvent
+      of EventType.Resized:
+        size*: SizeEvent
+      of EventType.MouseMoved, EventType.MouseEntered, EventType.MouseLeft:
+        mouseMove*: MouseMoveEvent
+      of EventType.MouseWheelMoved:
+        mouseWheel*: MouseWheelEvent
+      else: nil

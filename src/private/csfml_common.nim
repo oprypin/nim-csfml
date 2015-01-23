@@ -19,25 +19,14 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 
-type
-  Event* {.pure.} = object
-    case kind*: EventType
-      of EventType.KeyPressed, EventType.KeyReleased:
-        key*: KeyEvent
-      of EventType.MouseButtonPressed, EventType.MouseButtonReleased:
-        mouseButton*: MouseButtonEvent
-      of EventType.TextEntered:
-        text*: TextEvent
-      of EventType.JoystickConnected, EventType.JoystickDisconnected:
-        joystickConnect*: JoystickConnectEvent
-      of EventType.JoystickMoved:
-        joystickMove*: JoystickMoveEvent
-      of EventType.JoystickButtonPressed, EventType.JoystickButtonReleased:
-        joystickButton*: JoystickButtonEvent
-      of EventType.Resized:
-        size*: SizeEvent
-      of EventType.MouseMoved, EventType.MouseEntered, EventType.MouseLeft:
-        mouseMove*: MouseMoveEvent
-      of EventType.MouseWheelMoved:
-        mouseWheel*: MouseWheelEvent
-      else: nil
+{.deadCodeElim: on, experimental.}
+
+when defined(windows):
+  const lib = "csfml-" & module & "-2.dll"
+elif defined(mac):
+  const lib = "libcsfml-" & module & ".dylib"
+else:
+  const lib = "libcsfml-" & module & ".so"
+
+import csfml_util
+export csfml_util

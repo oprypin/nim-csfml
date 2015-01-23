@@ -18,22 +18,14 @@
 #    misrepresented as being the original software.
 # 3. This notice may not be removed or altered from any source distribution.
 
-{.deadCodeElim: on, experimental.}
-
-when defined(windows):
-  const lib = "csfml-graphics-2.dll"
-elif defined(mac):
-  const lib = "libcsfml-graphics.dylib"
-else:
-  const lib = "libcsfml-graphics.so"
+const module = "graphics"
+include private/csfml_common
 
 import csfml_system, csfml_window
-import csfml_util
-export csfml_util
 
 
 {.push dynlib: lib.}
-include csfml_graphics_gen
+include private/csfml_graphics_gen
 {.pop.}
 
 
@@ -244,7 +236,7 @@ converter toBitMaskU32*(a: TextStyle): BitMaskU32 = BitMaskU32 a
   ## Allows TextStyle values to be combined using the | operator and be used in functions
 
 
-template defDraw(name: expr) {.immediate.} =
+template defDraw(name: expr) {.immediate, dirty.} =
   proc draw*[T: RenderTexture|RenderWindow](renderTarget: T, obj: `name`, states = renderStates()) =
     ## Allows the syntax ``renderTarget.draw(drawable[, states])``
     ## by turning it into ``renderTarget.drawDrawableType(drawable, states)``

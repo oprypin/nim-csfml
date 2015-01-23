@@ -18,18 +18,10 @@
 #    misrepresented as being the original software.
 # 3. This notice may not be removed or altered from any source distribution.
 
-{.deadCodeElim: on, experimental.}
-
-when defined(windows):
-  const lib = "csfml-window-2.dll"
-elif defined(mac):
-  const lib = "libcsfml-window.dylib"
-else:
-  const lib = "libcsfml-window.so"
+const module = "window"
+include private/csfml_common
 
 import csfml_system
-import csfml_util
-export csfml_util
 
 
 when defined(windows) or defined(mac):
@@ -38,7 +30,7 @@ else:
   type WindowHandle* = culong
 
 {.push dynlib: lib.}
-include csfml_window_gen
+include private/csfml_window_gen
 {.pop.}
 
 
