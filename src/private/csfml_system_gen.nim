@@ -90,7 +90,7 @@ proc copy*(clock: Clock): Clock {.
   ## *Returns:* A new Clock object which is a copy of ``clock``
 
 proc destroy*(clock: Clock) {.
-  override, cdecl, importc: "sfClock_destroy".}
+  destroy, cdecl, importc: "sfClock_destroy".}
   ## Destroy a clock
   ## 
   ## *Arguments*:

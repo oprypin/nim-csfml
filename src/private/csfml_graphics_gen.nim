@@ -337,7 +337,7 @@ proc copy*(shape: CircleShape): CircleShape {.
   ## *Returns:* Copied object
 
 proc destroy*(shape: CircleShape) {.
-  override, cdecl, importc: "sfCircleShape_destroy".}
+  destroy, cdecl, importc: "sfCircleShape_destroy".}
   ## Destroy an existing circle Shape
   ## 
   ## *Arguments*:
@@ -697,7 +697,7 @@ proc copy*(shape: ConvexShape): ConvexShape {.
   ## *Returns:* Copied object
 
 proc destroy*(shape: ConvexShape) {.
-  override, cdecl, importc: "sfConvexShape_destroy".}
+  destroy, cdecl, importc: "sfConvexShape_destroy".}
   ## Destroy an existing convex Shape
   ## 
   ## *Arguments*:
@@ -1088,7 +1088,7 @@ proc copy*(font: Font): Font {.
   ## *Returns:* Copied object
 
 proc destroy*(font: Font) {.
-  override, cdecl, importc: "sfFont_destroy".}
+  destroy, cdecl, importc: "sfFont_destroy".}
   ## Destroy an existing font
   ## 
   ## *Arguments*:
@@ -1233,7 +1233,7 @@ proc copy*(image: Image): Image {.
   ## *Returns:* Copied object
 
 proc destroy*(image: Image) {.
-  override, cdecl, importc: "sfImage_destroy".}
+  destroy, cdecl, importc: "sfImage_destroy".}
   ## Destroy an existing image
   ## 
   ## *Arguments*:
@@ -1386,7 +1386,7 @@ proc copy*(shape: RectangleShape): RectangleShape {.
   ## *Returns:* Copied object
 
 proc destroy*(shape: RectangleShape) {.
-  override, cdecl, importc: "sfRectangleShape_destroy".}
+  destroy, cdecl, importc: "sfRectangleShape_destroy".}
   ## Destroy an existing rectangle shape
   ## 
   ## *Arguments*:
@@ -1778,7 +1778,7 @@ proc newRenderWindow*(handle: WindowHandle, settings: ContextSettings): RenderWi
   newRenderWindow(handle, Csettings)
 
 proc destroy*(renderWindow: RenderWindow) {.
-  override, cdecl, importc: "sfRenderWindow_destroy".}
+  destroy, cdecl, importc: "sfRenderWindow_destroy".}
   ## Destroy an existing render window
   ## 
   ## *Arguments*:
@@ -2225,7 +2225,7 @@ proc newRenderTexture*(width: cint, height: cint, depthBuffer: BoolInt): RenderT
   ## *Returns:* A new RenderTexture object, or NULL if it failed
 
 proc destroy*(renderTexture: RenderTexture) {.
-  override, cdecl, importc: "sfRenderTexture_destroy".}
+  destroy, cdecl, importc: "sfRenderTexture_destroy".}
   ## Destroy an existing render texture
   ## 
   ## *Arguments*:
@@ -2560,7 +2560,7 @@ proc newShader*(vertexShaderStream: var InputStream, fragmentShaderStream: var I
   ## *Returns:* A new Shader object, or NULL if it failed
 
 proc destroy*(shader: Shader) {.
-  override, cdecl, importc: "sfShader_destroy".}
+  destroy, cdecl, importc: "sfShader_destroy".}
   ## Destroy an existing shader
   ## 
   ## *Arguments*:
@@ -2766,7 +2766,7 @@ proc newShape*(getPointCount: ShapeGetPointCountCallback, getPoint: ShapeGetPoin
   ## *Returns:* A new Shape object
 
 proc destroy*(shape: Shape) {.
-  override, cdecl, importc: "sfShape_destroy".}
+  destroy, cdecl, importc: "sfShape_destroy".}
   ## Destroy an existing shape
   ## 
   ## *Arguments*:
@@ -3109,7 +3109,7 @@ proc copy*(sprite: Sprite): Sprite {.
   ## *Returns:* Copied object
 
 proc destroy*(sprite: Sprite) {.
-  override, cdecl, importc: "sfSprite_destroy".}
+  destroy, cdecl, importc: "sfSprite_destroy".}
   ## Destroy an existing sprite
   ## 
   ## *Arguments*:
@@ -3382,7 +3382,7 @@ proc copy*(text: Text): Text {.
   ## *Returns:* Copied object
 
 proc destroy*(text: Text) {.
-  override, cdecl, importc: "sfText_destroy".}
+  destroy, cdecl, importc: "sfText_destroy".}
   ## Destroy an existing text
   ## 
   ## *Arguments*:
@@ -3774,7 +3774,7 @@ proc copy*(texture: Texture): Texture {.
   ## *Returns:* Copied object
 
 proc destroy*(texture: Texture) {.
-  override, cdecl, importc: "sfTexture_destroy".}
+  destroy, cdecl, importc: "sfTexture_destroy".}
   ## Destroy an existing texture
   ## 
   ## *Arguments*:
@@ -3925,7 +3925,7 @@ proc copy*(transformable: Transformable): Transformable {.
   ## *Returns:* Copied object
 
 proc destroy*(transformable: Transformable) {.
-  override, cdecl, importc: "sfTransformable_destroy".}
+  destroy, cdecl, importc: "sfTransformable_destroy".}
   ## Destroy an existing transformable
   ## 
   ## *Arguments*:
@@ -4090,7 +4090,7 @@ proc copy*(vertexArray: VertexArray): VertexArray {.
   ## *Returns:* Copied object
 
 proc destroy*(vertexArray: VertexArray) {.
-  override, cdecl, importc: "sfVertexArray_destroy".}
+  destroy, cdecl, importc: "sfVertexArray_destroy".}
   ## Destroy an existing vertex array
   ## 
   ## *Arguments*:
@@ -4220,7 +4220,7 @@ proc copy*(view: View): View {.
   ## *Returns:* Copied object
 
 proc destroy*(view: View) {.
-  override, cdecl, importc: "sfView_destroy".}
+  destroy, cdecl, importc: "sfView_destroy".}
   ## Destroy an existing view
   ## 
   ## *Arguments*:

@@ -180,7 +180,7 @@ def handle_function(main, params):
     main_fn = '{nfname}'
     pragmas = []
     if nfname=='destroy':
-        pragmas.append('override')
+        pragmas.append('destroy')
     if nfname.startswith('get') and nfname[3].isupper() and len(params)==1:
         nfname = nfname[3].lower()+nfname[4:]
     elif nfname.startswith('is') and nfname[2].isupper() and len(params)==1:
