@@ -45,32 +45,6 @@ proc color*(red, green, blue: int, alpha: int = 255): Color =
   result.b = uint8 blue
   result.a = uint8 alpha
 
-proc red*(color: Color): int =
-  ## *Returns*: red component of a Color
-  int color.r
-proc green*(color: Color): int =
-  ## *Returns*: green component of a Color
-  int color.g
-proc blue*(color: Color): int =
-  ## *Returns*: blue component of a Color
-  int color.b
-proc alpha*(color: Color): int =
-  ## *Returns*: alpha (opacity) component of a Color
-  int color.a
-
-proc `red=`*(color: var Color, red: int) =
-  ## Sets the red component of a Color
-  color.r = uint8 red
-proc `green=`*(color: var Color, green: int) =
-  ## Sets the green component of a Color
-  color.g = uint8 green
-proc `blue=`*(color: var Color, blue: int) =
-  ## Sets the blue component of a Color
-  color.b = uint8 blue
-proc `alpha=`*(color: var Color, alpha: int) =
-  ## Sets the alpha (opacity) component of a Color
-  color.a = uint8 alpha
-
 proc `==`*(a, b: Color): bool =
   ## *Returns*: whether all components of two Colors are equal
   a.r==b.r and a.g==b.g and a.b==b.b and a.a==b.a
