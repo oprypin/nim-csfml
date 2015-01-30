@@ -1,5 +1,5 @@
 import math, sequtils
-import csfml
+import csfml, csfml_ext
 
 
 var window = new_RenderWindow(
@@ -197,8 +197,7 @@ transform.scale vec2(20, 20)
 let states = render_states(transform=transform)
 
 while window.open:
-    var event: Event
-    while window.poll_event(event):
+    for event in window.events:
         if event.kind == EventType.Closed or
           (event.kind == EventType.KeyPressed and event.key.code == KeyCode.Escape):
             window.close()
