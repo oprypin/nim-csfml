@@ -229,13 +229,20 @@ proc draw*[T: RenderTexture|RenderWindow, O] (
   ## by turning it into ``drawable.draw(renderTarget, states)``
   obj.draw(renderTarget, states)
 
+proc draw*[T: RenderTexture|RenderWindow] (
+  renderTarget: T, vertices: var seq[Vertex], kind: PrimitiveType, states = renderStates()) =
+  ## Draw primitives defined by an array of vertices to a render window.
+  ## Wrapper for drawPrimitives.
+  if vertices.len > 0:
+    drawPrimitives(renderTarget, addr(vertices[0]), cint(vertices.len), kind, states)
 
-proc newCircleShape*(radius: cfloat, pointCount: cint = 30): CircleShape =
+
+proc newCircleShape*(radius: cfloat, pointCount = 30): CircleShape =
   ## *Returns:* A new CircleShape with these members, or nil if it failed
   result = newCircleShape()
   if result == nil: return nil
   result.radius = radius
-  result.pointCount = pointCount
+  result.pointCount = cint(pointCount)
 
 
 proc newRectangleShape*(size: Vector2f): RectangleShape =
@@ -245,11 +252,11 @@ proc newRectangleShape*(size: Vector2f): RectangleShape =
   result.size = size
 
 
-proc newConvexShape*(pointCount: cint): ConvexShape =
+proc newConvexShape*(pointCount: int): ConvexShape =
   ## *Returns:* A new ConvexShape with this pointCount, or nil if it failed
   result = newConvexShape()
   if result == nil: return nil
-  result.pointCount = pointCount
+  result.pointCount = cint(pointCount)
 
 proc `[]`*(shape: ConvexShape, index: int): Vector2f =
   ## Get a point of a convex shape
@@ -303,7 +310,7 @@ proc newText*(str: string, font: Font, characterSize = 30): Text =
   if result == nil: return nil
   result.str = str
   result.font = font
-  result.characterSize = cint characterSize
+  result.characterSize = cint(characterSize)
 
 
 proc vertex*(position = vec2(0.0, 0.0), color = White, texCoords = vec2(0.0, 0.0)): Vertex =
