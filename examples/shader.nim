@@ -15,7 +15,7 @@ proc cycle[T](x: var T) =
 let texture = newTexture("resources/background.jpg", rect(0, 0, 0, 0))
 var sprite = newSprite(texture)
 var pxShader = newShader(nil, fragmentShaderFilename="resources/pixelate.frag")
-pxShader.currentTextureParameter = "texture"
+pxShader.setParameter "texture", CurrentTexture
 
 
 let ipsum = getContent("http://loripsum.net/api/12/short/plaintext")
@@ -40,21 +40,21 @@ while window.open:
         elif event.kind in {EventType.MouseButtonPressed, EventType.KeyPressed}:
             cycle(scene)
     
-    let cursor = mouseGetPositionRenderWindow(window)
+    let cursor = mouseGetPosition(window)
     let x = cursor.x / window.size.x
     let y = cursor.y / window.size.y
     let time = clock.elapsedTime.asSeconds
     
     case scene
       of scPixelate:
-        pxShader.setFloatParameter "pixel_threshold", (x+y)/30
+        pxShader.setParameter "pixel_threshold", (x+y)/30
         
         window.draw sprite, renderStates(shader=pxShader)
     
       of scWaveBlur:
-        wbShader.setFloatParameter "wave_phase", time
-        wbShader.setFloat2Parameter "wave_amplitude", x*40, y*40
-        wbShader.setFloatParameter "blur_radius", (x+y)*0.008
+        wbShader.setParameter "wave_phase", time
+        wbShader.setParameter "wave_amplitude", x*40, y*40
+        wbShader.setParameter "blur_radius", (x+y)*0.008
         
         window.clear White
         window.draw text, renderStates(shader=wbShader)

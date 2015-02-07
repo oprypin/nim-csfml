@@ -166,6 +166,9 @@ def handle_function(main, params):
     nfname = re.sub(r'(.+)_create.*', r'new\1', nfname)
     nfname = re.sub(r'(.+)_from.+', r'\1', nfname)
     nfname = re.sub(r'(.+)With.+', r'\1', nfname)
+    nfname = re.sub(r'([gs]et.+)RenderWindow$', r'\1', nfname)
+    if nfname != 'Shader_setCurrentTextureParameter':
+        nfname = re.sub(r'_set(.+)Parameter$', r'_setParameter', nfname)
     if 'unicode' in fname.lower():
         nfname += '_U32'
     if params:

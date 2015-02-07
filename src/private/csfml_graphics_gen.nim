@@ -2187,7 +2187,7 @@ proc capture*(renderWindow: RenderWindow): Image {.
   ## 
   ## *Returns:* New image containing the captured contents
 
-proc mouse_getPositionRenderWindow*(relativeTo: RenderWindow): Vector2i {.
+proc mouse_getPosition*(relativeTo: RenderWindow): Vector2i {.
   cdecl, importc: "sfMouse_getPositionRenderWindow".}
   ## Get the current position of the mouse relatively to a render-window
   ## 
@@ -2199,7 +2199,7 @@ proc mouse_getPositionRenderWindow*(relativeTo: RenderWindow): Vector2i {.
   ## 
   ## *Returns:* Position of the mouse cursor, relative to the given render-window
 
-proc mouse_setPositionRenderWindow*(position: Vector2i, relativeTo: RenderWindow) {.
+proc mouse_setPosition*(position: Vector2i, relativeTo: RenderWindow) {.
   cdecl, importc: "sfMouse_setPositionRenderWindow".}
   ## Set the current position of the mouse relatively to a render-window
   ## 
@@ -2566,7 +2566,7 @@ proc destroy*(shader: Shader) {.
   ## *Arguments*:
   ## - ``shader``:  Shader to delete
 
-proc setFloatParameter*(shader: Shader, name: cstring, x: cfloat) {.
+proc setParameter*(shader: Shader, name: cstring, x: cfloat) {.
   cdecl, importc: "sfShader_setFloatParameter".}
   ## Change a float parameter of a shader
   ## 
@@ -2580,7 +2580,7 @@ proc setFloatParameter*(shader: Shader, name: cstring, x: cfloat) {.
   ## - ``name``:    Name of the parameter in the shader
   ## - ``x``:       Value to assign
 
-proc setFloat2Parameter*(shader: Shader, name: cstring, x: cfloat, y: cfloat) {.
+proc setParameter*(shader: Shader, name: cstring, x: cfloat, y: cfloat) {.
   cdecl, importc: "sfShader_setFloat2Parameter".}
   ## Change a 2-components vector parameter of a shader
   ## 
@@ -2595,7 +2595,7 @@ proc setFloat2Parameter*(shader: Shader, name: cstring, x: cfloat, y: cfloat) {.
   ## - ``x``:       First component of the value to assign
   ## - ``y``:       Second component of the value to assign
 
-proc setFloat3Parameter*(shader: Shader, name: cstring, x: cfloat, y: cfloat, z: cfloat) {.
+proc setParameter*(shader: Shader, name: cstring, x: cfloat, y: cfloat, z: cfloat) {.
   cdecl, importc: "sfShader_setFloat3Parameter".}
   ## Change a 3-components vector parameter of a shader
   ## 
@@ -2611,7 +2611,7 @@ proc setFloat3Parameter*(shader: Shader, name: cstring, x: cfloat, y: cfloat, z:
   ## - ``y``:       Second component of the value to assign
   ## - ``z``:       Third component of the value to assign
 
-proc setFloat4Parameter*(shader: Shader, name: cstring, x: cfloat, y: cfloat, z: cfloat, w: cfloat) {.
+proc setParameter*(shader: Shader, name: cstring, x: cfloat, y: cfloat, z: cfloat, w: cfloat) {.
   cdecl, importc: "sfShader_setFloat4Parameter".}
   ## Change a 4-components vector parameter of a shader
   ## 
@@ -2628,7 +2628,7 @@ proc setFloat4Parameter*(shader: Shader, name: cstring, x: cfloat, y: cfloat, z:
   ## - ``z``:       Third component of the value to assign
   ## - ``w``:       Fourth component of the value to assign
 
-proc setVector2Parameter*(shader: Shader, name: cstring, vector: Vector2f) {.
+proc setParameter*(shader: Shader, name: cstring, vector: Vector2f) {.
   cdecl, importc: "sfShader_setVector2Parameter".}
   ## Change a 2-components vector parameter of a shader
   ## 
@@ -2642,7 +2642,7 @@ proc setVector2Parameter*(shader: Shader, name: cstring, vector: Vector2f) {.
   ## - ``name``:    Name of the parameter in the shader
   ## - ``vector``:  Vector to assign
 
-proc setVector3Parameter*(shader: Shader, name: cstring, vector: Vector3f) {.
+proc setParameter*(shader: Shader, name: cstring, vector: Vector3f) {.
   cdecl, importc: "sfShader_setVector3Parameter".}
   ## Change a 3-components vector parameter of a shader
   ## 
@@ -2656,7 +2656,7 @@ proc setVector3Parameter*(shader: Shader, name: cstring, vector: Vector3f) {.
   ## - ``name``:    Name of the parameter in the shader
   ## - ``vector``:  Vector to assign
 
-proc setColorParameter*(shader: Shader, name: cstring, color: Color) {.
+proc setParameter*(shader: Shader, name: cstring, color: Color) {.
   cdecl, importc: "sfShader_setColorParameter".}
   ## Change a color parameter of a shader
   ## 
@@ -2676,7 +2676,7 @@ proc setColorParameter*(shader: Shader, name: cstring, color: Color) {.
   ## - ``name``:    Name of the parameter in the shader
   ## - ``color``:   Color to assign
 
-proc setTransformParameter*(shader: Shader, name: cstring, transform: Transform) {.
+proc setParameter*(shader: Shader, name: cstring, transform: Transform) {.
   cdecl, importc: "sfShader_setTransformParameter".}
   ## Change a matrix parameter of a shader
   ## 
@@ -2690,7 +2690,7 @@ proc setTransformParameter*(shader: Shader, name: cstring, transform: Transform)
   ## - ``name``:       Name of the parameter in the shader
   ## - ``transform``:  Transform to assign
 
-proc setTextureParameter*(shader: Shader, name: cstring, texture: Texture) {.
+proc setParameter*(shader: Shader, name: cstring, texture: Texture) {.
   cdecl, importc: "sfShader_setTextureParameter".}
   ## Change a texture parameter of a shader
   ## 

@@ -159,6 +159,29 @@ proc renderStates*(blendMode = BlendMode.Alpha, transform = Identity,
   result.shader = shader
 
 
+
+type CurrentTextureType = object
+let CurrentTexture* = CurrentTextureType()
+
+proc setParameter*(shader: Shader, name: cstring, currentTexture: CurrentTextureType) =
+  ## Change a texture parameter of a shader
+  ##
+  ## This function maps a shader texture variable to the
+  ## texture of the object being drawn, which cannot be
+  ## known in advance.
+  ## The corresponding parameter in the shader must be a 2D texture
+  ## (sampler2D GLSL type).
+  ##
+  ## Example: ``shader.setParameter "texture", CurrentTexture``
+  ##
+  ## *Arguments*:
+  ## - ``shader``: Shader object
+  ## - ``name``: Name of the texture in the shader
+  ## - ``currentTexture``: Must be CurrentTexture.
+  shader.`currentTextureParameter=`(name)
+
+
+
 proc `title=`*(window: RenderWindow, title: string) =
   ## Change the title of a render window (with a normal UTF-8 string)
   ##
