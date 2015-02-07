@@ -161,9 +161,9 @@ proc renderStates*(blendMode = BlendMode.Alpha, transform = Identity,
 
 
 type CurrentTextureType = object
-let CurrentTexture* = CurrentTextureType()
+let CurrentTexture* = CurrentTextureType() ## Placeholder argument for setParameter
 
-proc setParameter*(shader: Shader, name: cstring, currentTexture: CurrentTextureType) =
+proc setParameter*(shader: Shader, name: cstring, currentTexture: type(CurrentTexture)) =
   ## Change a texture parameter of a shader
   ##
   ## This function maps a shader texture variable to the

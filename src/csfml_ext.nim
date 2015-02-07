@@ -33,6 +33,28 @@ iterator events*[T: Window|RenderWindow] (window: T): Event =
     yield event
 
 
+proc `[]=`*[T: cfloat|float](shader: Shader, name: string, x: T) =
+    shader.setParameter(name, cfloat(x))
+proc `[]=`*[T: cfloat|float](shader: Shader, name: string, p: tuple[x, y: T]) =
+    shader.setParameter(name, cfloat(p.x), cfloat(p.y))
+proc `[]=`*[T: cfloat|float](shader: Shader, name: string, p: tuple[x, y, z: T]) =
+    shader.setParameter(name, cfloat(p.x), cfloat(p.y), cfloat(p.z))
+proc `[]=`*[T: cfloat|float](shader: Shader, name: string, p: tuple[x, y, z, w: T]) =
+    shader.setParameter(name, cfloat(p.x), cfloat(p.y), cfloat(p.z), cfloat(p.w))
+proc `[]=`*(shader: Shader, name: string, vector: Vector2f) =
+    shader.setParameter(name, vector)
+proc `[]=`*(shader: Shader, name: string, vector: Vector3f) =
+    shader.setParameter(name, vector)
+proc `[]=`*(shader: Shader, name: string, color: Color) =
+    shader.setParameter(name, color)
+proc `[]=`*(shader: Shader, name: string, transform: Transform) =
+    shader.setParameter(name, transform)
+proc `[]=`*(shader: Shader, name: string, texture: Texture) =
+    shader.setParameter(name, texture)
+proc `[]=`*(shader: Shader, name: string, currentTexture: type(CurrentTexture)) =
+    shader.setParameter(name, currentTexture)
+
+
 
 proc red*(color: Color): int =
   ## *Returns*: red component of a Color

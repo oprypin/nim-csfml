@@ -1,5 +1,5 @@
 import httpclient, math
-import csfml
+import csfml, csfml_ext
 
 
 type Scene = enum
@@ -15,7 +15,7 @@ proc cycle[T](x: var T) =
 let texture = newTexture("resources/background.jpg")
 var sprite = newSprite(texture)
 var pxShader = newShader(nil, fragmentShaderFilename="resources/pixelate.frag")
-pxShader.setParameter "texture", CurrentTexture
+pxShader["texture"] = CurrentTexture
 
 
 let ipsum = getContent("http://loripsum.net/api/12/short/plaintext")
@@ -33,8 +33,7 @@ window.verticalSyncEnabled = true
 
 var clock = newClock()
 while window.open:
-    var event: Event
-    while window.pollEvent(event):
+    for event in window.events:
         if event.kind == EventType.Closed:
             window.close()
         elif event.kind in {EventType.MouseButtonPressed, EventType.KeyPressed}:
@@ -47,14 +46,14 @@ while window.open:
     
     case scene
       of scPixelate:
-        pxShader.setParameter "pixel_threshold", (x+y)/30
+        pxShader["pixel_threshold"] = (x+y)/30
         
         window.draw sprite, renderStates(shader=pxShader)
     
       of scWaveBlur:
-        wbShader.setParameter "wave_phase", time
-        wbShader.setParameter "wave_amplitude", x*40, y*40
-        wbShader.setParameter "blur_radius", (x+y)*0.008
+        wbShader["wave_phase"] = time
+        wbShader["wave_amplitude"] = (x*40, y*40)
+        wbShader["blur_radius"] = (x+y)*0.008
         
         window.clear White
         window.draw text, renderStates(shader=wbShader)
