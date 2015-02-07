@@ -74,12 +74,12 @@ body {
 /* For devices larger than 400px */
 @media (min-width: 400px) {
   .container {
-    width: 85%;
+    width: 100%;
     padding: 0; } }
 /* For devices larger than 650px */
 @media (min-width: 650px) {
   .container {
-    width: 80%; }
+    width: 100%; }
 
   .column,
   .columns {
@@ -392,7 +392,7 @@ h6 {
 ul,
 ol {
   padding: 0;
-  margin: 0 0 10px 25px; }
+  margin: 0 0 0px 15px; }
 
 ul ul,
 ul ol,
@@ -485,15 +485,16 @@ code {
   border: 1px solid #777777; }
 
 pre {
-  display: block;
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: calc(100% - 19.5px);
   padding: 9.5px;
-  margin: 0 10px 10px 10px;
+  margin: 0 10px 0px 10px;
   font-size: 14px;
   line-height: 20px;
   white-space: pre !important;
   overflow-y: hidden;
-  overflow: visible;
-  overflow-x: auto;
+  overflow-x: visible;
   background-color: whitesmoke;
   border: 1px solid #cccccc;
   -webkit-border-radius: 4px;
@@ -507,7 +508,7 @@ pre code {
   padding: 0;
   color: inherit;
   white-space: pre;
-  overflow-x: scroll;
+  overflow-x: visible;
   background-color: transparent;
   border: 0; }
 
@@ -1418,7 +1419,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <div class="section" id="6">
 <h1><a class="toc-backref" href="#6">Imports</a></h1>
 <dl class="item">
-<a class="reference external" href="csfml_system.html">csfml_system</a>, <a class="reference external" href="csfml_util.html">csfml_util</a>
+<a class="reference external" href="csfml_util.html">csfml_util</a>, <a class="reference external" href="csfml_system.html">csfml_system</a>
 </dl></div>
 <div class="section" id="7">
 <h1><a class="toc-backref" href="#7">Types</a></h1>
@@ -2171,7 +2172,7 @@ Allows WindowStyle values to be combined using the | operator and be used in fun
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-09 00:20:50 UTC</small>
+        <small>Made with Nim. Generated: 2015-02-07 16:37:42 UTC</small>
       </div>
     </div>
   </div>

@@ -74,12 +74,12 @@ body {
 /* For devices larger than 400px */
 @media (min-width: 400px) {
   .container {
-    width: 85%;
+    width: 100%;
     padding: 0; } }
 /* For devices larger than 650px */
 @media (min-width: 650px) {
   .container {
-    width: 80%; }
+    width: 100%; }
 
   .column,
   .columns {
@@ -392,7 +392,7 @@ h6 {
 ul,
 ol {
   padding: 0;
-  margin: 0 0 10px 25px; }
+  margin: 0 0 0px 15px; }
 
 ul ul,
 ul ol,
@@ -485,15 +485,16 @@ code {
   border: 1px solid #777777; }
 
 pre {
-  display: block;
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: calc(100% - 19.5px);
   padding: 9.5px;
-  margin: 0 10px 10px 10px;
+  margin: 0 10px 0px 10px;
   font-size: 14px;
   line-height: 20px;
   white-space: pre !important;
   overflow-y: hidden;
-  overflow: visible;
-  overflow-x: auto;
+  overflow-x: visible;
   background-color: whitesmoke;
   border: 1px solid #cccccc;
   -webkit-border-radius: 4px;
@@ -507,7 +508,7 @@ pre code {
   padding: 0;
   color: inherit;
   white-space: pre;
-  overflow-x: scroll;
+  overflow-x: visible;
   background-color: transparent;
   border: 0; }
 
@@ -1155,6 +1156,48 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   </ul>
 </li>
 <li>
+  <a class="reference reference-toplevel" href="#12" id="62">Procs</a>
+  <ul class="simple simple-toc-section">
+      <li><a class="reference" href="#[]=,Shader,string,T"
+    title="`[]=`[T](shader: Shader; name: string; x: T)"><wbr />`[]=`</a></li>
+  <li><a class="reference" href="#[]=,Shader,string,tuple[T,T]"
+    title="`[]=`[T](shader: Shader; name: string; p: tuple[x, y: T])"><wbr />`[]=`</a></li>
+  <li><a class="reference" href="#[]=,Shader,string,tuple[T,T,T]"
+    title="`[]=`[T](shader: Shader; name: string; p: tuple[x, y, z: T])"><wbr />`[]=`</a></li>
+  <li><a class="reference" href="#[]=,Shader,string,tuple[T,T,T,T]"
+    title="`[]=`[T](shader: Shader; name: string; p: tuple[x, y, z, w: T])"><wbr />`[]=`</a></li>
+  <li><a class="reference" href="#[]=,Shader,string,Vector2f"
+    title="`[]=`(shader: Shader; name: string; vector: Vector2f)"><wbr />`[]=`</a></li>
+  <li><a class="reference" href="#[]=,Shader,string,Vector3f"
+    title="`[]=`(shader: Shader; name: string; vector: Vector3f)"><wbr />`[]=`</a></li>
+  <li><a class="reference" href="#[]=,Shader,string,Color"
+    title="`[]=`(shader: Shader; name: string; color: Color)"><wbr />`[]=`</a></li>
+  <li><a class="reference" href="#[]=,Shader,string,Transform"
+    title="`[]=`(shader: Shader; name: string; transform: Transform)"><wbr />`[]=`</a></li>
+  <li><a class="reference" href="#[]=,Shader,string,Texture"
+    title="`[]=`(shader: Shader; name: string; texture: Texture)"><wbr />`[]=`</a></li>
+  <li><a class="reference" href="#[]=,Shader,string,"
+    title="`[]=`(shader: Shader; name: string; currentTexture: type (CurrentTexture))"><wbr />`[]=`</a></li>
+  <li><a class="reference" href="#red,Color"
+    title="red(color: Color): int"><wbr />red</a></li>
+  <li><a class="reference" href="#green,Color"
+    title="green(color: Color): int"><wbr />green</a></li>
+  <li><a class="reference" href="#blue,Color"
+    title="blue(color: Color): int"><wbr />blue</a></li>
+  <li><a class="reference" href="#alpha,Color"
+    title="alpha(color: Color): int"><wbr />alpha</a></li>
+  <li><a class="reference" href="#red=,Color,int"
+    title="red=(color: var Color; red: int)"><wbr />red=</a></li>
+  <li><a class="reference" href="#green=,Color,int"
+    title="green=(color: var Color; green: int)"><wbr />green=</a></li>
+  <li><a class="reference" href="#blue=,Color,int"
+    title="blue=(color: var Color; blue: int)"><wbr />blue=</a></li>
+  <li><a class="reference" href="#alpha=,Color,int"
+    title="alpha=(color: var Color; alpha: int)"><wbr />alpha=</a></li>
+
+  </ul>
+</li>
+<li>
   <a class="reference reference-toplevel" href="#14" id="64">Iterators</a>
   <ul class="simple simple-toc-section">
       <li><a class="reference" href="#events.i,T"
@@ -1172,6 +1215,101 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
 <h1><a class="toc-backref" href="#6">Imports</a></h1>
 <dl class="item">
 <a class="reference external" href="csfml.html">csfml</a>
+</dl></div>
+<div class="section" id="12">
+<h1><a class="toc-backref" href="#12">Procs</a></h1>
+<dl class="item">
+<dt id="[]="><a name="[]=,Shader,string,T"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]=`</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="[]="><a name="[]=,Shader,string,tuple[T,T]"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]=`</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">p</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="[]="><a name="[]=,Shader,string,tuple[T,T,T]"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]=`</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">p</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="[]="><a name="[]=,Shader,string,tuple[T,T,T,T]"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]=`</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">p</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">,</span> <span class="Identifier">w</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="[]="><a name="[]=,Shader,string,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]=`</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">vector</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="[]="><a name="[]=,Shader,string,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]=`</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">vector</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="[]="><a name="[]=,Shader,string,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]=`</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="[]="><a name="[]=,Shader,string,Transform"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]=`</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">transform</span><span class="Other">:</span> <span class="Identifier">Transform</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="[]="><a name="[]=,Shader,string,Texture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]=`</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="[]="><a name="[]=,Shader,string,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]=`</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">currentTexture</span><span class="Other">:</span> <span class="Keyword">type</span> <span class="Other">(</span><span class="Identifier">CurrentTexture</span><span class="Other">)</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="red"><a name="red,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">red</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="green"><a name="green,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">green</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="blue"><a name="blue,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">blue</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="alpha"><a name="alpha,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">alpha</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="red="><a name="red=,Color,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">red=</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Color</span><span class="Other">;</span> <span class="Identifier">red</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+Sets the red component of a Color
+
+</dd>
+<dt id="green="><a name="green=,Color,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">green=</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Color</span><span class="Other">;</span> <span class="Identifier">green</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+Sets the green component of a Color
+
+</dd>
+<dt id="blue="><a name="blue=,Color,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">blue=</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Color</span><span class="Other">;</span> <span class="Identifier">blue</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+Sets the blue component of a Color
+
+</dd>
+<dt id="alpha="><a name="alpha=,Color,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">alpha=</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Color</span><span class="Other">;</span> <span class="Identifier">alpha</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+Sets the alpha (opacity) component of a Color
+
+</dd>
+
 </dl></div>
 <div class="section" id="14">
 <h1><a class="toc-backref" href="#14">Iterators</a></h1>
@@ -1191,7 +1329,7 @@ Iterator wrapping pollEvent in a loop
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-09 00:20:50 UTC</small>
+        <small>Made with Nim. Generated: 2015-02-07 16:37:42 UTC</small>
       </div>
     </div>
   </div>

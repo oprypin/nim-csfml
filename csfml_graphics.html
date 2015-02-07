@@ -74,12 +74,12 @@ body {
 /* For devices larger than 400px */
 @media (min-width: 400px) {
   .container {
-    width: 85%;
+    width: 100%;
     padding: 0; } }
 /* For devices larger than 650px */
 @media (min-width: 650px) {
   .container {
-    width: 80%; }
+    width: 100%; }
 
   .column,
   .columns {
@@ -392,7 +392,7 @@ h6 {
 ul,
 ol {
   padding: 0;
-  margin: 0 0 10px 25px; }
+  margin: 0 0 0px 15px; }
 
 ul ul,
 ul ol,
@@ -485,15 +485,16 @@ code {
   border: 1px solid #777777; }
 
 pre {
-  display: block;
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: calc(100% - 19.5px);
   padding: 9.5px;
-  margin: 0 10px 10px 10px;
+  margin: 0 10px 0px 10px;
   font-size: 14px;
   line-height: 20px;
   white-space: pre !important;
   overflow-y: hidden;
-  overflow: visible;
-  overflow-x: auto;
+  overflow-x: visible;
   background-color: whitesmoke;
   border: 1px solid #cccccc;
   -webkit-border-radius: 4px;
@@ -507,7 +508,7 @@ pre code {
   padding: 0;
   color: inherit;
   white-space: pre;
-  overflow-x: scroll;
+  overflow-x: visible;
   background-color: transparent;
   border: 0; }
 
@@ -1263,6 +1264,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="Transparent = color(0, 0, 0, 0)"><wbr />Transparent</a></li>
   <li><a class="reference" href="#Identity"
     title="Identity = transform()"><wbr />Identity</a></li>
+  <li><a class="reference" href="#CurrentTexture"
+    title="CurrentTexture = CurrentTextureType()"><wbr />Current<wbr />Texture</a></li>
 
   </ul>
 </li>
@@ -1708,10 +1711,10 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="resetGLStates(renderWindow: RenderWindow)"><wbr />reset<wbr />GLStates</a></li>
   <li><a class="reference" href="#capture,RenderWindow"
     title="capture(renderWindow: RenderWindow): Image"><wbr />capture</a></li>
-  <li><a class="reference" href="#mouse_getPositionRenderWindow,RenderWindow"
-    title="mouse_getPositionRenderWindow(relativeTo: RenderWindow): Vector2i"><wbr />mouse_<wbr />get<wbr />Position<wbr />Render<wbr />Window</a></li>
-  <li><a class="reference" href="#mouse_setPositionRenderWindow,Vector2i,RenderWindow"
-    title="mouse_setPositionRenderWindow(position: Vector2i; relativeTo: RenderWindow)"><wbr />mouse_<wbr />set<wbr />Position<wbr />Render<wbr />Window</a></li>
+  <li><a class="reference" href="#mouse_getPosition,RenderWindow"
+    title="mouse_getPosition(relativeTo: RenderWindow): Vector2i"><wbr />mouse_<wbr />get<wbr />Position</a></li>
+  <li><a class="reference" href="#mouse_setPosition,Vector2i,RenderWindow"
+    title="mouse_setPosition(position: Vector2i; relativeTo: RenderWindow)"><wbr />mouse_<wbr />set<wbr />Position</a></li>
   <li><a class="reference" href="#newRenderTexture,cint,cint,BoolInt"
     title="newRenderTexture(width: cint; height: cint; depthBuffer: BoolInt): RenderTexture"><wbr />new<wbr />Render<wbr />Texture</a></li>
   <li><a class="reference" href="#destroy,RenderTexture"
@@ -1807,26 +1810,25 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
           fragmentShaderStream: var InputStream): Shader"><wbr />new<wbr />Shader</a></li>
   <li><a class="reference" href="#destroy,Shader"
     title="destroy(shader: Shader)"><wbr />destroy</a></li>
-  <li><a class="reference" href="#setFloatParameter,Shader,cstring,cfloat"
-    title="setFloatParameter(shader: Shader; name: cstring; x: cfloat)"><wbr />set<wbr />Float<wbr />Parameter</a></li>
-  <li><a class="reference" href="#setFloat2Parameter,Shader,cstring,cfloat,cfloat"
-    title="setFloat2Parameter(shader: Shader; name: cstring; x: cfloat; y: cfloat)"><wbr />set<wbr />Float2Parameter</a></li>
-  <li><a class="reference" href="#setFloat3Parameter,Shader,cstring,cfloat,cfloat,cfloat"
-    title="setFloat3Parameter(shader: Shader; name: cstring; x: cfloat; y: cfloat; 
-                   z: cfloat)"><wbr />set<wbr />Float3Parameter</a></li>
-  <li><a class="reference" href="#setFloat4Parameter,Shader,cstring,cfloat,cfloat,cfloat,cfloat"
-    title="setFloat4Parameter(shader: Shader; name: cstring; x: cfloat; y: cfloat; 
-                   z: cfloat; w: cfloat)"><wbr />set<wbr />Float4Parameter</a></li>
-  <li><a class="reference" href="#setVector2Parameter,Shader,cstring,Vector2f"
-    title="setVector2Parameter(shader: Shader; name: cstring; vector: Vector2f)"><wbr />set<wbr />Vector2Parameter</a></li>
-  <li><a class="reference" href="#setVector3Parameter,Shader,cstring,Vector3f"
-    title="setVector3Parameter(shader: Shader; name: cstring; vector: Vector3f)"><wbr />set<wbr />Vector3Parameter</a></li>
-  <li><a class="reference" href="#setColorParameter,Shader,cstring,Color"
-    title="setColorParameter(shader: Shader; name: cstring; color: Color)"><wbr />set<wbr />Color<wbr />Parameter</a></li>
-  <li><a class="reference" href="#setTransformParameter,Shader,cstring,Transform"
-    title="setTransformParameter(shader: Shader; name: cstring; transform: Transform)"><wbr />set<wbr />Transform<wbr />Parameter</a></li>
-  <li><a class="reference" href="#setTextureParameter,Shader,cstring,Texture"
-    title="setTextureParameter(shader: Shader; name: cstring; texture: Texture)"><wbr />set<wbr />Texture<wbr />Parameter</a></li>
+  <li><a class="reference" href="#setParameter,Shader,cstring,cfloat"
+    title="setParameter(shader: Shader; name: cstring; x: cfloat)"><wbr />set<wbr />Parameter</a></li>
+  <li><a class="reference" href="#setParameter,Shader,cstring,cfloat,cfloat"
+    title="setParameter(shader: Shader; name: cstring; x: cfloat; y: cfloat)"><wbr />set<wbr />Parameter</a></li>
+  <li><a class="reference" href="#setParameter,Shader,cstring,cfloat,cfloat,cfloat"
+    title="setParameter(shader: Shader; name: cstring; x: cfloat; y: cfloat; z: cfloat)"><wbr />set<wbr />Parameter</a></li>
+  <li><a class="reference" href="#setParameter,Shader,cstring,cfloat,cfloat,cfloat,cfloat"
+    title="setParameter(shader: Shader; name: cstring; x: cfloat; y: cfloat; z: cfloat; 
+             w: cfloat)"><wbr />set<wbr />Parameter</a></li>
+  <li><a class="reference" href="#setParameter,Shader,cstring,Vector2f"
+    title="setParameter(shader: Shader; name: cstring; vector: Vector2f)"><wbr />set<wbr />Parameter</a></li>
+  <li><a class="reference" href="#setParameter,Shader,cstring,Vector3f"
+    title="setParameter(shader: Shader; name: cstring; vector: Vector3f)"><wbr />set<wbr />Parameter</a></li>
+  <li><a class="reference" href="#setParameter,Shader,cstring,Color"
+    title="setParameter(shader: Shader; name: cstring; color: Color)"><wbr />set<wbr />Parameter</a></li>
+  <li><a class="reference" href="#setParameter,Shader,cstring,Transform"
+    title="setParameter(shader: Shader; name: cstring; transform: Transform)"><wbr />set<wbr />Parameter</a></li>
+  <li><a class="reference" href="#setParameter,Shader,cstring,Texture"
+    title="setParameter(shader: Shader; name: cstring; texture: Texture)"><wbr />set<wbr />Parameter</a></li>
   <li><a class="reference" href="#currentTextureParameter=,Shader,cstring"
     title="currentTextureParameter=(shader: Shader; name: cstring)"><wbr />current<wbr />Texture<wbr />Parameter=</a></li>
   <li><a class="reference" href="#bindGL,Shader"
@@ -2136,22 +2138,6 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="zoom(view: View; factor: cfloat)"><wbr />zoom</a></li>
   <li><a class="reference" href="#color,int,int,int,int"
     title="color(red, green, blue: int; alpha: int = 255): Color"><wbr />color</a></li>
-  <li><a class="reference" href="#red,Color"
-    title="red(color: Color): int"><wbr />red</a></li>
-  <li><a class="reference" href="#green,Color"
-    title="green(color: Color): int"><wbr />green</a></li>
-  <li><a class="reference" href="#blue,Color"
-    title="blue(color: Color): int"><wbr />blue</a></li>
-  <li><a class="reference" href="#alpha,Color"
-    title="alpha(color: Color): int"><wbr />alpha</a></li>
-  <li><a class="reference" href="#red=,Color,int"
-    title="red=(color: var Color; red: int)"><wbr />red=</a></li>
-  <li><a class="reference" href="#green=,Color,int"
-    title="green=(color: var Color; green: int)"><wbr />green=</a></li>
-  <li><a class="reference" href="#blue=,Color,int"
-    title="blue=(color: var Color; blue: int)"><wbr />blue=</a></li>
-  <li><a class="reference" href="#alpha=,Color,int"
-    title="alpha=(color: var Color; alpha: int)"><wbr />alpha=</a></li>
   <li><a class="reference" href="#==,Color,Color"
     title="`==`(a, b: Color): bool"><wbr />`==`</a></li>
   <li><a class="reference" href="#+,Color,Color"
@@ -2199,6 +2185,9 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#renderStates,Texture,Shader"
     title="renderStates(blendMode = BlendMode.Alpha; transform = Identity; 
              texture: Texture = nil; shader: Shader = nil): RenderStates"><wbr />render<wbr />States</a></li>
+  <li><a class="reference" href="#setParameter,Shader,cstring,"
+    title="setParameter(shader: Shader; name: cstring; 
+             currentTexture: type (CurrentTexture))"><wbr />set<wbr />Parameter</a></li>
   <li><a class="reference" href="#title=,RenderWindow,string"
     title="title=(window: RenderWindow; title: string)"><wbr />title=</a></li>
   <li><a class="reference" href="#newRenderWindow,VideoMode,string,BitMaskU32"
@@ -2225,16 +2214,21 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="draw[T](renderTarget: T; obj: VertexArray; states = renderStates())"><wbr />draw</a></li>
   <li><a class="reference" href="#draw,T,O"
     title="draw[T, O](renderTarget: T; obj: O; states = renderStates())"><wbr />draw</a></li>
-  <li><a class="reference" href="#newCircleShape,cfloat,cint"
-    title="newCircleShape(radius: cfloat; pointCount: cint = 30): CircleShape"><wbr />new<wbr />Circle<wbr />Shape</a></li>
+  <li><a class="reference" href="#draw,T,seq[Vertex],PrimitiveType"
+    title="draw[T](renderTarget: T; vertices: var seq[Vertex]; kind: PrimitiveType; 
+        states = renderStates())"><wbr />draw</a></li>
+  <li><a class="reference" href="#newCircleShape,cfloat,int"
+    title="newCircleShape(radius: cfloat; pointCount = 30): CircleShape"><wbr />new<wbr />Circle<wbr />Shape</a></li>
   <li><a class="reference" href="#newRectangleShape,Vector2f"
     title="newRectangleShape(size: Vector2f): RectangleShape"><wbr />new<wbr />Rectangle<wbr />Shape</a></li>
-  <li><a class="reference" href="#newConvexShape,cint"
-    title="newConvexShape(pointCount: cint): ConvexShape"><wbr />new<wbr />Convex<wbr />Shape</a></li>
+  <li><a class="reference" href="#newConvexShape,int"
+    title="newConvexShape(pointCount: int): ConvexShape"><wbr />new<wbr />Convex<wbr />Shape</a></li>
   <li><a class="reference" href="#[],ConvexShape,int"
     title="`[]`(shape: ConvexShape; index: int): Vector2f"><wbr />`[]`</a></li>
   <li><a class="reference" href="#[]=,ConvexShape,int,Vector2f"
     title="`[]=`(shape: ConvexShape; index: int; point: Vector2f)"><wbr />`[]=`</a></li>
+  <li><a class="reference" href="#newTexture,cstring"
+    title="newTexture(filename: cstring): Texture"><wbr />new<wbr />Texture</a></li>
   <li><a class="reference" href="#texture=,Sprite,Texture"
     title="texture=(sprite: Sprite; texture: Texture)"><wbr />texture=</a></li>
   <li><a class="reference" href="#newSprite,Texture"
@@ -2277,7 +2271,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <div class="section" id="6">
 <h1><a class="toc-backref" href="#6">Imports</a></h1>
 <dl class="item">
-<a class="reference external" href="csfml_system.html">csfml_system</a>, <a class="reference external" href="csfml_window.html">csfml_window</a>, <a class="reference external" href="csfml_util.html">csfml_util</a>, <a class="reference external" href="unsigned.html">unsigned</a>, <a class="reference external" href="unicode.html">unicode</a>
+<a class="reference external" href="csfml_util.html">csfml_util</a>, <a class="reference external" href="csfml_system.html">csfml_system</a>, <a class="reference external" href="csfml_window.html">csfml_window</a>, <a class="reference external" href="unsigned.html">unsigned</a>, <a class="reference external" href="unicode.html">unicode</a>
 </dl></div>
 <div class="section" id="7">
 <h1><a class="toc-backref" href="#7">Types</a></h1>
@@ -2505,6 +2499,11 @@ Define the states used for drawing to a RenderTarget
 <dt id="Identity"><a name="Identity"></a><pre><span class="Identifier">Identity</span> <span class="Other">=</span> <span class="Identifier">transform</span><span class="Other">(</span><span class="Other">)</span></pre></dt>
 <dd>
 
+
+</dd>
+<dt id="CurrentTexture"><a name="CurrentTexture"></a><pre><span class="Identifier">CurrentTexture</span> <span class="Other">=</span> <span class="Identifier">CurrentTextureType</span><span class="Other">(</span><span class="Other">)</span></pre></dt>
+<dd>
+Placeholder argument for setParameter
 
 </dd>
 
@@ -4720,7 +4719,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="mouse_getPositionRenderWindow"><a name="mouse_getPositionRenderWindow,RenderWindow"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouse_getPositionRenderWindow</span><span class="Other">(</span><span class="Identifier">relativeTo</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="mouse_getPosition"><a name="mouse_getPosition,RenderWindow"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouse_getPosition</span><span class="Other">(</span><span class="Identifier">relativeTo</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfMouse_getPositionRenderWindow&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get the current position of the mouse relatively to a render-window</p>
@@ -4732,8 +4731,8 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="mouse_setPositionRenderWindow"><a name="mouse_setPositionRenderWindow,Vector2i,RenderWindow"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouse_setPositionRenderWindow</span><span class="Other">(</span><span class="Identifier">position</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">;</span> <span class="Identifier">relativeTo</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">)</span> <span class="Other">{.</span>
-    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfMouse_setPositionRenderWindow&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="mouse_setPosition"><a name="mouse_setPosition,Vector2i,RenderWindow"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouse_setPosition</span><span class="Other">(</span><span class="Identifier">position</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">;</span> <span class="Identifier">relativeTo</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfMouse_setPositionRenderWindow&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the current position of the mouse relatively to a render-window</p>
 <p>This function sets the current position of the mouse cursor relative to the given render-window, or desktop if NULL is passed.</p>
@@ -5145,7 +5144,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="setFloatParameter"><a name="setFloatParameter,Shader,cstring,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setFloatParameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="setParameter"><a name="setParameter,Shader,cstring,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setParameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_setFloatParameter&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Change a float parameter of a shader</p>
@@ -5158,8 +5157,8 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="setFloat2Parameter"><a name="setFloat2Parameter,Shader,cstring,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setFloat2Parameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span> <span class="Other">{.</span>
-    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_setFloat2Parameter&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="setParameter"><a name="setParameter,Shader,cstring,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setParameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_setFloat2Parameter&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Change a 2-components vector parameter of a shader</p>
 <p><tt class="docutils literal"><span class="pre">name</span></tt> is the name of the variable to change in the shader. The corresponding parameter in the shader must be a 2x1 vector (vec2 GLSL type).</p>
@@ -5172,9 +5171,8 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="setFloat3Parameter"><a name="setFloat3Parameter,Shader,cstring,cfloat,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setFloat3Parameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> 
-                        <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-                                     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_setFloat3Parameter&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="setParameter"><a name="setParameter,Shader,cstring,cfloat,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setParameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span> <span class="Other">{.</span>
+    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_setFloat3Parameter&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Change a 3-components vector parameter of a shader</p>
 <p><tt class="docutils literal"><span class="pre">name</span></tt> is the name of the variable to change in the shader. The corresponding parameter in the shader must be a 3x1 vector (vec3 GLSL type).</p>
@@ -5188,8 +5186,8 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="setFloat4Parameter"><a name="setFloat4Parameter,Shader,cstring,cfloat,cfloat,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setFloat4Parameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> 
-                        <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">w</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="setParameter"><a name="setParameter,Shader,cstring,cfloat,cfloat,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setParameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> 
+                  <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">w</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_setFloat4Parameter&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Change a 4-components vector parameter of a shader</p>
@@ -5205,8 +5203,8 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="setVector2Parameter"><a name="setVector2Parameter,Shader,cstring,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setVector2Parameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">vector</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span> <span class="Other">{.</span>
-    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_setVector2Parameter&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="setParameter"><a name="setParameter,Shader,cstring,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setParameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">vector</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_setVector2Parameter&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Change a 2-components vector parameter of a shader</p>
 <p><tt class="docutils literal"><span class="pre">name</span></tt> is the name of the variable to change in the shader. The corresponding parameter in the shader must be a 2x1 vector (vec2 GLSL type).</p>
@@ -5218,8 +5216,8 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="setVector3Parameter"><a name="setVector3Parameter,Shader,cstring,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setVector3Parameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">vector</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span> <span class="Other">{.</span>
-    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_setVector3Parameter&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="setParameter"><a name="setParameter,Shader,cstring,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setParameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">vector</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_setVector3Parameter&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Change a 3-components vector parameter of a shader</p>
 <p><tt class="docutils literal"><span class="pre">name</span></tt> is the name of the variable to change in the shader. The corresponding parameter in the shader must be a 3x1 vector (vec3 GLSL type).</p>
@@ -5231,7 +5229,7 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="setColorParameter"><a name="setColorParameter,Shader,cstring,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setColorParameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="setParameter"><a name="setParameter,Shader,cstring,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setParameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_setColorParameter&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Change a color parameter of a shader</p>
@@ -5245,8 +5243,8 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="setTransformParameter"><a name="setTransformParameter,Shader,cstring,Transform"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setTransformParameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">transform</span><span class="Other">:</span> <span class="Identifier">Transform</span><span class="Other">)</span> <span class="Other">{.</span>
-    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_setTransformParameter&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="setParameter"><a name="setParameter,Shader,cstring,Transform"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setParameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">transform</span><span class="Other">:</span> <span class="Identifier">Transform</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_setTransformParameter&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Change a matrix parameter of a shader</p>
 <p><tt class="docutils literal"><span class="pre">name</span></tt> is the name of the variable to change in the shader. The corresponding parameter in the shader must be a 4x4 matrix (mat4 GLSL type).</p>
@@ -5258,8 +5256,8 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="setTextureParameter"><a name="setTextureParameter,Shader,cstring,Texture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setTextureParameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">)</span> <span class="Other">{.</span>
-    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_setTextureParameter&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="setParameter"><a name="setParameter,Shader,cstring,Texture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setParameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_setTextureParameter&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Change a texture parameter of a shader</p>
 <p><tt class="docutils literal"><span class="pre">name</span></tt> is the name of the variable to change in the shader. The corresponding parameter in the shader must be a 2D texture (sampler2D GLSL type).</p>
@@ -6906,46 +6904,6 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="red"><a name="red,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">red</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other"></span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="green"><a name="green,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">green</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other"></span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="blue"><a name="blue,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">blue</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other"></span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="alpha"><a name="alpha,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">alpha</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other"></span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="red="><a name="red=,Color,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">red=</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Color</span><span class="Other">;</span> <span class="Identifier">red</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
-<dd>
-Sets the red component of a Color
-
-</dd>
-<dt id="green="><a name="green=,Color,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">green=</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Color</span><span class="Other">;</span> <span class="Identifier">green</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
-<dd>
-Sets the green component of a Color
-
-</dd>
-<dt id="blue="><a name="blue=,Color,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">blue=</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Color</span><span class="Other">;</span> <span class="Identifier">blue</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
-<dd>
-Sets the blue component of a Color
-
-</dd>
-<dt id="alpha="><a name="alpha=,Color,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">alpha=</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Color</span><span class="Other">;</span> <span class="Identifier">alpha</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
-<dd>
-Sets the alpha (opacity) component of a Color
-
-</dd>
 <dt id="=="><a name="==,Color,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other"></span></pre></dt>
 <dd>
 
@@ -7067,6 +7025,20 @@ Sets the alpha (opacity) component of a Color
 <em>Returns</em>: a RenderStates with these members
 
 </dd>
+<dt id="setParameter"><a name="setParameter,Shader,cstring,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setParameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> 
+                  <span class="Identifier">currentTexture</span><span class="Other">:</span> <span class="Keyword">type</span> <span class="Other">(</span><span class="Identifier">CurrentTexture</span><span class="Other">)</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+<p>Change a texture parameter of a shader</p>
+<p>This function maps a shader texture variable to the texture of the object being drawn, which cannot be known in advance. The corresponding parameter in the shader must be a 2D texture (sampler2D GLSL type).</p>
+<p>Example: <tt class="docutils literal"><span class="pre">shader.setParameter &quot;texture&quot;, CurrentTexture</span></tt></p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">shader</span></tt>: Shader object</li>
+<li><tt class="docutils literal"><span class="pre">name</span></tt>: Name of the texture in the shader</li>
+<li><tt class="docutils literal"><span class="pre">currentTexture</span></tt>: Must be CurrentTexture.</li>
+</ul>
+
+
+</dd>
 <dt id="title="><a name="title=,RenderWindow,string"></a><pre><span class="Keyword">proc</span> <span class="Identifier">title=</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
 <dd>
 <p>Change the title of a render window (with a normal UTF-8 string)</p>
@@ -7139,7 +7111,13 @@ Sets the alpha (opacity) component of a Color
 Allows the syntax <tt class="docutils literal"><span class="pre">renderTarget.draw(drawable[, states])</span></tt> by turning it into <tt class="docutils literal"><span class="pre">drawable.draw(renderTarget, states)</span></tt>
 
 </dd>
-<dt id="newCircleShape"><a name="newCircleShape,cfloat,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newCircleShape</span><span class="Other">(</span><span class="Identifier">radius</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">pointCount</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">30</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">CircleShape</span> <span class="Other"></span></pre></dt>
+<dt id="draw"><a name="draw,T,seq[Vertex],PrimitiveType"></a><pre><span class="Keyword">proc</span> <span class="Identifier">draw</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">renderTarget</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">Vertex</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> 
+             <span class="Identifier">states</span> <span class="Other">=</span> <span class="Identifier">renderStates</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span></pre></dt>
+<dd>
+Draw primitives defined by an array of vertices to a render window. Wrapper for drawPrimitives.
+
+</dd>
+<dt id="newCircleShape"><a name="newCircleShape,cfloat,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newCircleShape</span><span class="Other">(</span><span class="Identifier">radius</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">pointCount</span> <span class="Other">=</span> <span class="DecNumber">30</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">CircleShape</span> <span class="Other"></span></pre></dt>
 <dd>
 <em>Returns:</em> A new CircleShape with these members, or nil if it failed
 
@@ -7149,7 +7127,7 @@ Allows the syntax <tt class="docutils literal"><span class="pre">renderTarget.dr
 <em>Returns:</em> A new RectangleShape with this size, or nil if it failed
 
 </dd>
-<dt id="newConvexShape"><a name="newConvexShape,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newConvexShape</span><span class="Other">(</span><span class="Identifier">pointCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span> <span class="Other"></span></pre></dt>
+<dt id="newConvexShape"><a name="newConvexShape,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newConvexShape</span><span class="Other">(</span><span class="Identifier">pointCount</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span> <span class="Other"></span></pre></dt>
 <dd>
 <em>Returns:</em> A new ConvexShape with this pointCount, or nil if it failed
 
@@ -7168,6 +7146,11 @@ Allows the syntax <tt class="docutils literal"><span class="pre">renderTarget.dr
 <li><tt class="docutils literal"><span class="pre">index</span></tt>:  Index of the point to change, in range [0 .. GetPointCount() - 1]</li>
 <li><tt class="docutils literal"><span class="pre">point</span></tt>:  New point</li>
 </ul>
+
+
+</dd>
+<dt id="newTexture"><a name="newTexture,cstring"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newTexture</span><span class="Other">(</span><span class="Identifier">filename</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Texture</span> <span class="Other"></span></pre></dt>
+<dd>
 
 
 </dd>
@@ -7250,7 +7233,7 @@ Allows TextStyle values to be combined using the | operator and be used in funct
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-09 00:20:50 UTC</small>
+        <small>Made with Nim. Generated: 2015-02-07 16:37:42 UTC</small>
       </div>
     </div>
   </div>
