@@ -81,4 +81,4 @@ Acknowledgements
 
 [pong]: https://github.com/LaurentGomila/SFML/blob/master/examples/pong
 [sound_capture]: https://github.com/LaurentGomila/SFML/blob/master/examples/sound_capture/
-[shader]: https://github.com/LaurentGomila/SFML/blob/master/examples/sound_capture/
+[shader]: https://github.com/LaurentGomila/SFML/blob/master/examples/shader/
