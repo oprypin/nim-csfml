@@ -17,7 +17,7 @@ Examples
 
 ### [pong](pong.nim)
 
-Pong example [from SFML](https://github.com/LaurentGomila/SFML/blob/master/examples/pong)
+Pong example [from SFML][pong]
 
 - `Sound` and `SoundBuffer`
 - `RectangleShape` and `CircleShape`
@@ -35,7 +35,7 @@ Pong example [from SFML](https://github.com/LaurentGomila/SFML/blob/master/examp
 
 ### [sound_capture](sound_capture.nim)
 
-Sound Capture example [from SFML](https://github.com/LaurentGomila/SFML/blob/master/examples/sound_capture/)
+Sound Capture example [from SFML][sound_capture]
 
 - Record sound
 - Play sound
@@ -52,16 +52,33 @@ Sound Capture example [from SFML](https://github.com/LaurentGomila/SFML/blob/mas
 
 - Basic OpenGL
 
+### [shader](shader.nim)
+
+Parts of the Shader example [from SFML][shader]
+
+- Fragment and vertex shaders
+    - Load from file
+    - Set arguments
+    - Apply
+
 ### [typing](typing.nim)
 
 - Keyboard events, `TextEntered`
 - Unicode (Rune) string
 
 
+
 Acknowledgements
 ----------------
 
-- *pong.nim* was adapted from [SFML's Pong example](https://github.com/LaurentGomila/SFML/blob/master/examples/pong)
-- *sound_capture.nim* was adapted from [SFML's Sound Capture example](https://github.com/LaurentGomila/SFML/blob/master/examples/sound_capture/)
-- *sansation.ttf* and *ball.wav* were taken [from SFML's repository](https://github.com/LaurentGomila/SFML/blob/master/examples)
+- *pong.nim* was adapted from [SFML's Pong example][pong]
+- *sound_capture.nim* was adapted from [SFML's Sound Capture example][sound_capture]
+- *shader.nim* was adapted from [SFML's Shader example][shader]
+- *resources*: *sansation.ttf*, *ball.wav*, *background.jpg*, *pixelate.frag*, *wave.vert*, *blur.frag*
+  were taken [from SFML's repository](https://github.com/LaurentGomila/SFML/blob/master/examples)
 - All the other files in this *examples* folder may be used without any limitations.
+
+
+[pong]: https://github.com/LaurentGomila/SFML/blob/master/examples/pong
+[sound_capture]: https://github.com/LaurentGomila/SFML/blob/master/examples/sound_capture/
+[shader]: https://github.com/LaurentGomila/SFML/blob/master/examples/sound_capture/
