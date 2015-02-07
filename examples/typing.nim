@@ -6,7 +6,7 @@ window.vertical_sync_enabled = true
 
 var str = new_seq[Rune]()
 
-var font = new_Font("sansation.ttf")
+var font = new_Font("resources/sansation.ttf")
 
 var text = new_Text("_", font)
 text.color = Black

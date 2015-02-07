@@ -8,11 +8,10 @@
 !/src
 !/src/private
 !/src/*/*.nim
-!/examples
-!/examples/*.nim
-!/examples/*.png
-!/examples/*.ttf
-!/examples/*.wav
 !/generate
 !/generate/*.py
 !/generate/*.sh
+!/examples
+!/examples/*.nim
+!/examples/resources
+!/examples/resources/*
