@@ -12,7 +12,7 @@ proc cycle[T](x: var T) =
         else: succ(x)
 
 
-let texture = newTexture("resources/background.jpg", rect(0, 0, 0, 0))
+let texture = newTexture("resources/background.jpg")
 var sprite = newSprite(texture)
 var pxShader = newShader(nil, fragmentShaderFilename="resources/pixelate.frag")
 pxShader.setParameter "texture", CurrentTexture

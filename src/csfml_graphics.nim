@@ -308,6 +308,13 @@ proc `[]=`*(shape: ConvexShape, index: int, point: Vector2f) =
   shape.setPoint(cint(index), point)
 
 
+proc newTexture*(filename: cstring): Texture =
+  ## Create a new texture from a file
+  ##
+  ## *Returns:* A new Texture object, or NULL if it failed
+  newTexture(filename, rect(0, 0, 0, 0))
+
+
 proc `texture=`*(sprite: Sprite, texture: Texture) =
   ## Change the source texture of a sprite without resetting textureRect
   sprite.setTexture(texture, resetRect = false)

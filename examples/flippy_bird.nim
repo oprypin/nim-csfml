@@ -3,7 +3,7 @@ import csfml
 var window = new_RenderWindow(video_mode(800, 600), "pɹıq ʎddılɟ")
 window.vertical_sync_enabled = true
 
-let bird_texture = new_Texture("resources/bird.png", rect(0, 0, 0, 0))
+let bird_texture = new_Texture("resources/bird.png")
 let sz = bird_texture.size
 
 var bird = new_Sprite(bird_texture)
