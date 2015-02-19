@@ -2,7 +2,7 @@ nim-csfml
 =========
 #### Nim Bindings for [Simple and Fast Multimedia Library][sfml] (through [CSFML][]).
 
-**See [introduction](#introduction), [examples](examples), [documentation][].**
+**See [introduction](#introduction), [examples](examples), [documentation][], [wiki][].**
 
 The files <em>[src](src)/csfml\_\*\_gen.nim</em> are [automatically generated](generate) from CSFML's header files. They provide the base CSFML API. The files <em>csfml_\*.nim</em> build upon them, adding compatibility with SFML API.  
 *csfml.nim* automatically imports *system*, *window* and *graphics*; *audio* should be imported separately; *network* is not implemented.
@@ -16,6 +16,10 @@ This library can be installed using <code>[nimble][] install csfml</code>.
 On Windows you can just [download CSFML][csfml] and put the DLLs (which seem to be statically linked with SFML) in your project folder instead.
 
 *nim-csfml*'s version number (`x.y.z`): `x.y` corresponds to the supported CSFML version; `z` is for the project's own point releases.
+
+
+[Troubleshooting][]
+-------------------
 
 
 Introduction
@@ -56,6 +60,10 @@ The API attempts to be very similar to SFML's, but some general changes are pres
 See [examples](examples) to learn more.
 
 
+[Contributing][]
+----------------
+
+
 Acknowledgements
 ----------------
 
@@ -69,6 +77,9 @@ This library uses and is based on [SFML][] and [CSFML][].
 
 
 [documentation]: http://blaxpirit.github.io/nim-csfml/
+[wiki]: https://github.com/BlaXpirit/nim-csfml/wiki
+[contributing]: https://github.com/BlaXpirit/nim-csfml/wiki/Contributing
+[troubleshooting]: https://github.com/BlaXpirit/nim-csfml/wiki/Troubleshooting
 [sfml]: http://www.sfml-dev.org/ "Simple and Fast Multimedia Library"
 [csfml]: http://www.sfml-dev.org/download/csfml/
 [sfml-tutorials]: http://www.sfml-dev.org/tutorials/
