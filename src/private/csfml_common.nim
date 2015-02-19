@@ -30,7 +30,7 @@ else:
 
 when defined(windows):
   const lib = "csfml-" & module & "-2.dll"
-elif defined(mac):
+elif defined(macosx):
   const lib = "libcsfml-" & module & ".dylib"
 else:
   const lib = "libcsfml-" & module & ".so"

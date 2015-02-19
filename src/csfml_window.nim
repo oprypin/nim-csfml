@@ -24,7 +24,7 @@ include private/csfml_common
 import csfml_system
 
 
-when defined(windows) or defined(mac):
+when defined(windows) or defined(macosx):
   type WindowHandle* = pointer
 else:
   type WindowHandle* = culong
