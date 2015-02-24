@@ -4,8 +4,21 @@
 
 #--- SFML/Graphics/BlendMode ---#
 
-type BlendMode* {.pure, size: sizeof(cint).} = enum  ## Available blending modes for drawing
-  Alpha, Add, Multiply, None
+type BlendFactor* {.pure, size: sizeof(cint).} = enum  ## Enumeration of the blending factors
+  Zero, One, SrcColor, OneMinusSrcColor, DstColor, OneMinusDstColor, SrcAlpha,
+  OneMinusSrcAlpha, DstAlpha, OneMinusDstAlpha
+
+type BlendEquation* {.pure, size: sizeof(cint).} = enum  ## Enumeration of the blending equations
+  Add, Subtract
+
+type BlendMode* {.bycopy.} = object
+  ## Blending mode for drawing
+  colorSrcFactor*: BlendFactor
+  colorDstFactor*: BlendFactor
+  colorEquation*: BlendEquation
+  alphaSrcFactor*: BlendFactor
+  alphaDstFactor*: BlendFactor
+  alphaEquation*: BlendEquation
 
 
 #--- SFML/Graphics/CircleShape ---#
@@ -1042,12 +1055,18 @@ proc globalBounds*(shape: ConvexShape): FloatRect {.
 #--- SFML/Graphics/Font ---#
 
 
+#--- SFML/Graphics/FontInfo ---#
+
+type FontInfo* {.bycopy.} = object
+  family*: cstring
+
+
 #--- SFML/Graphics/Glyph ---#
 
 type Glyph* {.bycopy.} = object
   ## Glyph describes a glyph (a visual character)
-  advance*: cint
-  bounds*: IntRect
+  advance*: cfloat
+  bounds*: FloatRect
   textureRect*: IntRect
 
 proc newFont*(filename: cstring): Font {.
@@ -1106,7 +1125,7 @@ proc getGlyph*(font: Font, codePoint: RuneU32, characterSize: cint, bold: BoolIn
   ## 
   ## *Returns:* The corresponding glyph
 
-proc getKerning*(font: Font, first: RuneU32, second: RuneU32, characterSize: cint): cint {.
+proc getKerning*(font: Font, first: RuneU32, second: RuneU32, characterSize: cint): cfloat {.
   cdecl, importc: "sfFont_getKerning".}
   ## Get the kerning value corresponding to a given pair of characters in a font
   ## 
@@ -1118,7 +1137,7 @@ proc getKerning*(font: Font, first: RuneU32, second: RuneU32, characterSize: cin
   ## 
   ## *Returns:* Kerning offset, in pixels
 
-proc getLineSpacing*(font: Font, characterSize: cint): cint {.
+proc getLineSpacing*(font: Font, characterSize: cint): cfloat {.
   cdecl, importc: "sfFont_getLineSpacing".}
   ## Get the line spacing value
   ## 
@@ -1127,6 +1146,31 @@ proc getLineSpacing*(font: Font, characterSize: cint): cint {.
   ## - ``characterSize``:  Character size, in pixels
   ## 
   ## *Returns:* Line spacing, in pixels
+
+proc getUnderlinePosition*(font: Font, characterSize: cint): cfloat {.
+  cdecl, importc: "sfFont_getUnderlinePosition".}
+  ## Get the position of the underline
+  ## 
+  ## Underline position is the vertical offset to apply between the
+  ## baseline and the underline.
+  ## 
+  ## *Arguments*:
+  ## - ``font``:           Source font
+  ## - ``characterSize``:  Reference character size
+  ## 
+  ## *Returns:* Underline position, in pixels
+
+proc getUnderlineThickness*(font: Font, characterSize: cint): cfloat {.
+  cdecl, importc: "sfFont_getUnderlineThickness".}
+  ## Get the thickness of the underline
+  ## 
+  ## Underline thickness is the vertical size of the underline.
+  ## 
+  ## *Arguments*:
+  ## - ``font``:           Source font
+  ## - ``characterSize``:  Reference character size
+  ## 
+  ## *Returns:* Underline thickness, in pixels
 
 proc getTexture*(font: Font, characterSize: cint): Texture {.
   cdecl, importc: "sfFont_getTexture".}
@@ -1137,6 +1181,19 @@ proc getTexture*(font: Font, characterSize: cint): Texture {.
   ## - ``characterSize``:  Character size, in pixels
   ## 
   ## *Returns:* Read-only pointer to the texture
+
+proc info*(font: Font): FontInfo {.
+  cdecl, importc: "sfFont_getInfo".}
+  ## Get the font information
+  ## 
+  ## The returned structure will remain valid only if the font
+  ## is still valid. If the font is invalid an invalid structure
+  ## is returned.
+  ## 
+  ## *Arguments*:
+  ## - ``font``:  Source font
+  ## 
+  ## *Returns:* A structure that holds the font information
 
 
 #--- SFML/Graphics/Image ---#
@@ -1932,6 +1989,28 @@ proc `active=`*(renderWindow: RenderWindow, active: BoolInt): BoolInt {.
   ## - ``active``:        True to activate, False to deactivate
   ## 
   ## *Returns:* True if operation was successful, false otherwise
+
+proc requestFocus*(renderWindow: RenderWindow) {.
+  cdecl, importc: "sfRenderWindow_requestFocus".}
+  ## Request the current render window to be made the active
+  ## foreground window
+  ## 
+  ## At any given time, only one window may have the input focus
+  ## to receive input events such as keystrokes or mouse events.
+  ## If a window requests focus, it only hints to the operating
+  ## system, that it would like to be focused. The operating system
+  ## is free to deny the request.
+  ## This is not to be confused with Window_setActive().
+
+proc hasFocus*(renderWindow: RenderWindow): BoolInt {.
+  cdecl, importc: "sfRenderWindow_hasFocus".}
+  ## Check whether the render window has the input focus
+  ## 
+  ## At any given time, only one window may have the input focus
+  ## to receive input events such as keystrokes or most mouse
+  ## events.
+  ## 
+  ## *Returns:* True if window has focus, false otherwise
 
 proc display*(renderWindow: RenderWindow) {.
   cdecl, importc: "sfRenderWindow_display".}
@@ -3364,7 +3443,7 @@ proc globalBounds*(sprite: Sprite): FloatRect {.
 #--- SFML/Graphics/Text ---#
 
 type TextStyle* {.pure, size: sizeof(cint).} = enum
-  Regular = 0, Bold = 1, Italic = 2, Underlined = 4
+  Regular = 0, Bold = 1, Italic = 2, Underlined = 4, StrikeThrough = 8
 
 proc newText*(): Text {.
   cdecl, importc: "sfText_create".}

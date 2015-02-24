@@ -36,23 +36,45 @@ proc listener_getPosition*(): Vector3f {.
   ## 
   ## *Returns:* The listener's position
 
-proc listener_setDirection*(orientation: Vector3f) {.
+proc listener_setDirection*(direction: Vector3f) {.
   cdecl, importc: "sfListener_setDirection".}
-  ## Set the orientation of the listener in the scene
+  ## Set the orientation of the forward vector in the scene
   ## 
-  ## The orientation defines the 3D axes of the listener
-  ## (left, up, front) in the scene. The orientation vector
-  ## doesn't have to be normalized.
-  ## The default listener's orientation is (0, 0, -1).
+  ## The direction (also called "at vector") is the vector
+  ## pointing forward from the listener's perspective. Together
+  ## with the up vector, it defines the 3D orientation of the
+  ## listener in the scene. The direction vector doesn't
+  ## have to be normalized.
+  ## The default listener's direction is (0, 0, -1).
   ## 
   ## *Arguments*:
-  ## - ``position``:  New direction of the listener
+  ## - ``direction``:  New listener's direction
 
 proc listener_getDirection*(): Vector3f {.
   cdecl, importc: "sfListener_getDirection".}
-  ## Get the current orientation of the listener in the scene
+  ## Get the current forward vector of the listener in the scene
   ## 
-  ## *Returns:* The listener's direction
+  ## *Returns:* Listener's forward vector (not normalized)
+
+proc listener_setUpVector*(upVector: Vector3f) {.
+  cdecl, importc: "sfListener_setUpVector".}
+  ## Set the upward vector of the listener in the scene
+  ## 
+  ## The up vector is the vector that points upward from the
+  ## listener's perspective. Together with the direction, it
+  ## defines the 3D orientation of the listener in the scene.
+  ## The up vector doesn't have to be normalized.
+  ## The default listener's up vector is (0, 1, 0). It is usually
+  ## not necessary to change it, especially in 2D scenarios.
+  ## 
+  ## *Arguments*:
+  ## - ``upVector``:  New listener's up vector
+
+proc listener_getUpVector*(): Vector3f {.
+  cdecl, importc: "sfListener_getUpVector".}
+  ## Get the current upward vector of the listener in the scene
+  ## 
+  ## *Returns:* Listener's upward vector (not normalized)
 
 
 #--- SFML/Audio/Music ---#
@@ -895,7 +917,7 @@ proc destroy*(soundRecorder: SoundRecorder) {.
   ## *Arguments*:
   ## - ``soundRecorder``:  Sound recorder to destroy
 
-proc start*(soundRecorder: SoundRecorder, sampleRate: cint) {.
+proc start*(soundRecorder: SoundRecorder, sampleRate: cint): BoolInt {.
   cdecl, importc: "sfSoundRecorder_start".}
   ## Start the capture of a sound recorder
   ## 
@@ -909,6 +931,8 @@ proc start*(soundRecorder: SoundRecorder, sampleRate: cint) {.
   ## *Arguments*:
   ## - ``soundRecorder``:  Sound recorder object
   ## - ``sampleRate``:     Desired capture rate, in number of samples per second
+  ## 
+  ## *Returns:* True, if start of capture was successful
 
 proc stop*(soundRecorder: SoundRecorder) {.
   cdecl, importc: "sfSoundRecorder_stop".}
@@ -939,3 +963,67 @@ proc soundRecorder_isAvailable*(): BoolInt {.
   ## any attempt to use SoundRecorder will fail.
   ## 
   ## *Returns:* True if audio capture is supported, False otherwise
+
+proc `processingInterval=`*(soundRecorder: SoundRecorder, interval: Time) {.
+  cdecl, importc: "sfSoundRecorder_setProcessingInterval".}
+  ## Set the processing interval
+  ## 
+  ## The processing interval controls the period
+  ## between calls to the onProcessSamples function. You may
+  ## want to use a small interval if you want to process the
+  ## recorded data in real time, for example.
+  ## 
+  ## Note: this is only a hint, the actual period may vary.
+  ## So don't rely on this parameter to implement precise timing.
+  ## 
+  ## The default processing interval is 100 ms.
+  ## 
+  ## *Arguments*:
+  ## - ``soundRecorder``:  Sound recorder object
+  ## - ``interval``:  Processing interval
+
+proc soundRecorder_getAvailableDevices*(count: ptr int): ptr ptr char {.
+  cdecl, importc: "sfSoundRecorder_getAvailableDevices".}
+  ## Get a list of the names of all availabe audio capture devices
+  ## 
+  ## This function returns an array of strings (null terminated),
+  ## containing the names of all availabe audio capture devices.
+  ## If no devices are available then NULL is returned.
+  ## 
+  ## *Arguments*:
+  ## - ``count``:  Pointer to a variable that will be filled with the number of modes in the array
+  ## 
+  ## *Returns:* An array of strings containing the names
+
+proc soundRecorder_getDefaultDevice*(): cstring {.
+  cdecl, importc: "sfSoundRecorder_getDefaultDevice".}
+  ## Get the name of the default audio capture device
+  ## 
+  ## This function returns the name of the default audio
+  ## capture device. If none is available, NULL is returned.
+  ## 
+  ## *Returns:* The name of the default audio capture device (null terminated)
+
+proc `device=`*(soundRecorder: SoundRecorder, name: cstring): BoolInt {.
+  cdecl, importc: "sfSoundRecorder_setDevice".}
+  ## Set the audio capture device
+  ## 
+  ## This function sets the audio capture device to the device
+  ## with the given name. It can be called on the fly (i.e:
+  ## while recording). If you do so while recording and
+  ## opening the device fails, it stops the recording.
+  ## 
+  ## *Arguments*:
+  ## - ``soundRecorder``:  Sound recorder object
+  ## - ``The``:  name of the audio capture device
+  ## 
+  ## *Returns:* True, if it was able to set the requested device
+
+proc device*(soundRecorder: SoundRecorder): cstring {.
+  cdecl, importc: "sfSoundRecorder_getDevice".}
+  ## Get the name of the current audio capture device
+  ## 
+  ## *Arguments*:
+  ## - ``soundRecorder``:  Sound recorder object
+  ## 
+  ## *Returns:* The name of the current audio capture device

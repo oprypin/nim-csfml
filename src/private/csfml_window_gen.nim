@@ -40,6 +40,14 @@ proc `active=`*(context: Context, active: BoolInt) {.
 
 #--- SFML/Window/Joystick ---#
 
+
+#--- SFML/Window/JoystickIdentification ---#
+
+type JoystickIdentification* {.bycopy.} = object
+  name*: cstring
+  vendorId*: cint
+  productId*: cint
+
 const
   JoystickCount* = 8
   JoystickButtonCount* = 32
@@ -103,6 +111,18 @@ proc joystick_getAxisPosition*(joystick: cint, axis: JoystickAxis): cfloat {.
   ## - ``axis``:      Axis to check
   ## 
   ## *Returns:* Current position of the axis, in range [-100 .. 100]
+
+proc joystick_getIdentification*(joystick: cint): JoystickIdentification {.
+  cdecl, importc: "sfJoystick_getIdentification".}
+  ## Get the joystick information
+  ## 
+  ## The result of this function will only remain valid until
+  ## the next time the function is called.
+  ## 
+  ## *Arguments*:
+  ## - ``joystick``:  Index of the joystick
+  ## 
+  ## *Returns:* Structure containing joystick information.
 
 proc joystick_update*() {.
   cdecl, importc: "sfJoystick_update".}
@@ -569,12 +589,35 @@ proc `active=`*(window: Window, active: BoolInt): BoolInt {.
   ## on the previous thread first if it was active.
   ## Only one window can be active on a thread at a time, thus
   ## the window previously active (if any) automatically gets deactivated.
+  ## This is not to be confused with Window_requestFocus().
   ## 
   ## *Arguments*:
   ## - ``window``:  Window object
   ## - ``active``:  True to activate, False to deactivate
   ## 
   ## *Returns:* True if operation was successful, False otherwise
+
+proc requestFocus*(window: Window) {.
+  cdecl, importc: "sfWindow_requestFocus".}
+  ## Request the current window to be made the active
+  ## foreground window
+  ## 
+  ## At any given time, only one window may have the input focus
+  ## to receive input events such as keystrokes or mouse events.
+  ## If a window requests focus, it only hints to the operating
+  ## system, that it would like to be focused. The operating system
+  ## is free to deny the request.
+  ## This is not to be confused with Window_setActive().
+
+proc hasFocus*(window: Window): BoolInt {.
+  cdecl, importc: "sfWindow_hasFocus".}
+  ## Check whether the window has the input focus
+  ## 
+  ## At any given time, only one window may have the input focus
+  ## to receive input events such as keystrokes or most mouse
+  ## events.
+  ## 
+  ## *Returns:* True if window has focus, false otherwise
 
 proc display*(window: Window) {.
   cdecl, importc: "sfWindow_display".}
