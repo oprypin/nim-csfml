@@ -150,7 +150,49 @@ proc matrixGL*(transform: Transform): array[0..15, cfloat] =
   transform.getMatrix(addr(result[0]))
 
 
-proc renderStates*(blendMode = BlendMode.Alpha, transform = Identity,
+proc blendMode*(colorSourceFactor, colorDestinationFactor: BlendFactor, colorBlendEquation: BlendEquation,
+                alphaSourceFactor, alphaDestinationFactor: BlendFactor, alphaBlendEquation: BlendEquation): BlendMode =
+  ## Construct the blend mode given the factors and equation.
+  ##
+  ## *Arguments*:
+  ## - ``colorSourceFactor``: Specifies how to compute the source factor for the color channels.
+  ## - ``colorDestinationFactor``: Specifies how to compute the destination factor for the color channels.
+  ## - ``colorBlendEquation``: Specifies how to combine the source and destination colors.
+  ## - ``alphaSourceFactor``: Specifies how to compute the source factor.
+  ## - ``alphaDestinationFactor``: Specifies how to compute the destination factor.
+  ## - ``alphaBlendEquation``: Specifies how to combine the source and destination alphas.
+  result.colorSrcFactor = colorSourceFactor
+  result.colorDstFactor = colorDestinationFactor
+  result.colorEquation = colorBlendEquation
+  result.alphaSrcFactor = alphaSourceFactor
+  result.alphaDstFactor = alphaDestinationFactor
+  result.alphaEquation = alphaBlendEquation
+
+proc blendMode*(sourceFactor, destinationFactor: BlendFactor, blendEquation = BlendEquation.Add): BlendMode =
+  ## Construct the blend mode given the factors and equation.
+  ##
+  ## This constructor uses the same factors and equation for both
+  ## color and alpha components. It also defaults to the Add equation.
+  ##
+  ## *Arguments*:
+  ## - ``sourceFactor``: Specifies how to compute the source factor for the color and alpha channels.
+  ## - ``destinationFactor``: Specifies how to compute the destination factor for the color and alpha channels.
+  ## - ``blendEquation``: Specifies how to combine the source and destination colors and alpha.
+  blendMode(sourceFactor, destinationFactor, blendEquation, sourceFactor, destinationFactor, blendEquation)
+
+let BlendAlpha* = blendMode(BlendFactor.SrcAlpha, BlendFactor.OneMinusSrcAlpha, BlendEquation.Add,
+                           BlendFactor.One, BlendFactor.OneMinusSrcAlpha, BlendEquation.Add)
+let BlendAdd* = blendMode(BlendFactor.SrcAlpha, BlendFactor.One, BlendEquation.Add,
+                         BlendFactor.One, BlendFactor.One, BlendEquation.Add)
+let BlendMultiply* = blendMode(BlendFactor.DstColor, BlendFactor.Zero)
+let BlendNone* = blendMode(BlendFactor.One, BlendFactor.Zero)
+
+proc blendMode*(): BlendMode =
+  ## Constructs a blending mode that does alpha blending.
+  BlendAlpha
+
+
+proc renderStates*(blendMode = BlendAlpha, transform = Identity,
                    texture: Texture = nil, shader: Shader = nil): RenderStates =
   ## *Returns*: a RenderStates with these members
   result.blendMode = blendMode
