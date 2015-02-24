@@ -34,3 +34,14 @@ proc newSound*(buffer: SoundBuffer): Sound =
   result = newSound()
   if result == nil: return nil
   result.buffer = buffer
+
+proc soundRecorder_getAvailableDevices*(): seq[string] =
+  ## Wrapper proc that returns a seq instead of exposing pointers
+  ##
+  ## *Returns:* seq of the names of all availabe audio capture devices
+  var count: int
+  var p = cast[int](soundRecorder_getAvailableDevices(addr count))
+  result = newSeq[string](count)
+  for i in result.low..result.high:
+    result[i] = $cast[ptr cstring](p)[]
+    p += sizeof(cstring)
