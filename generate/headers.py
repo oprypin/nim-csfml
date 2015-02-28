@@ -23,7 +23,7 @@ import os.path
 import re
 
 
-inc_path = '/usr/include'
+inc_path = 'CSFML/include'
 
 skip = 'Thread Mutex'.split()
 
@@ -44,7 +44,7 @@ def visit_header(file_path):
         if file_path.endswith(h+'.h'):
             return
     write_doc = False
-    with open(os.path.join(inc_path, file_path)) as src_file:
+    with open(os.path.join(inc_path, file_path), encoding='ascii') as src_file:
         src.append('\n\n;;;;enum {};;;;\n\n'.format(file_path[:-2].replace('/', '_')))
         for line in src_file:
             if line.strip().startswith('//////'):

@@ -194,11 +194,51 @@ proc mouse_setPosition*(position: Vector2i, relativeTo: Window) {.
   ## - ``position``:    New position of the mouse
   ## - ``relativeTo``:  Reference window
 
+
+#--- SFML/Window/Sensor ---#
+
+type SensorType* {.pure, size: sizeof(cint).} = enum  ## Sensor Types
+  Accelerometer, Gyroscope, Magnetometer, Gravity, UserAcceleration,
+  Orientation, Count
+
+proc sensor_isAvailable*(sensor: SensorType): BoolInt {.
+  cdecl, importc: "sfSensor_isAvailable".}
+  ## Check if a sensor is available on the underlying platform
+  ## 
+  ## *Arguments*:
+  ## - ``sensor``:  Sensor to check
+  ## 
+  ## *Returns:* True if the sensor is available, False otherwise
+
+proc sensor_setEnabled*(sensor: SensorType, enabled: BoolInt) {.
+  cdecl, importc: "sfSensor_setEnabled".}
+  ## Enable or disable a sensor
+  ## 
+  ## All sensors are disabled by default, to avoid consuming too
+  ## much battery power. Once a sensor is enabled, it starts
+  ## sending events of the corresponding type.
+  ## 
+  ## This function does nothing if the sensor is unavailable.
+  ## 
+  ## *Arguments*:
+  ## - ``sensor``:  Sensor to enable
+  ## - ``enabled``:  True to enable, False to disable
+
+proc sensor_getValue*(sensor: SensorType): Vector3f {.
+  cdecl, importc: "sfSensor_getValue".}
+  ## Get the current sensor value
+  ## 
+  ## *Arguments*:
+  ## - ``sensor``:  Sensor to read
+  ## 
+  ## *Returns:* The current sensor value
+
 type EventType* {.pure, size: sizeof(cint).} = enum  ## Definition of all the event types
   Closed, Resized, LostFocus, GainedFocus, TextEntered, KeyPressed, KeyReleased,
   MouseWheelMoved, MouseButtonPressed, MouseButtonReleased, MouseMoved,
   MouseEntered, MouseLeft, JoystickButtonPressed, JoystickButtonReleased,
-  JoystickMoved, JoystickConnected, JoystickDisconnected
+  JoystickMoved, JoystickConnected, JoystickDisconnected, TouchBegan,
+  TouchMoved, TouchEnded, SensorChanged, Count
 
 type KeyEvent* {.bycopy.} = object
   ## Keyboard event parameters
@@ -248,6 +288,19 @@ type SizeEvent* {.bycopy.} = object
   ## Size events parameters
   width*: cint
   height*: cint
+
+type TouchEvent* {.bycopy.} = object
+  ## Touch events parameters
+  finger*: cint
+  x*: cint
+  y*: cint
+
+type SensorEvent* {.bycopy.} = object
+  ## Sensor event parameters
+  sensorType*: SensorType
+  x*: cfloat
+  y*: cfloat
+  z*: cfloat
 
 include csfml_union_event
 
