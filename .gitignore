@@ -5,6 +5,7 @@
 !*.md
 !LICENSE
 !*.nimble
+!*nim.cfg
 !/src
 !/src/private
 !/src/*/*.nim
