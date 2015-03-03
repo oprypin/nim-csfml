@@ -74,12 +74,12 @@ body {
 /* For devices larger than 400px */
 @media (min-width: 400px) {
   .container {
-    width: 100%;
+    width: 85%;
     padding: 0; } }
 /* For devices larger than 650px */
 @media (min-width: 650px) {
   .container {
-    width: 100%; }
+    width: 80%; }
 
   .column,
   .columns {
@@ -392,7 +392,7 @@ h6 {
 ul,
 ol {
   padding: 0;
-  margin: 0 0 0px 15px; }
+  margin: 0 0 10px 25px; }
 
 ul ul,
 ul ol,
@@ -485,16 +485,15 @@ code {
   border: 1px solid #777777; }
 
 pre {
-  display: inline-block;
-  box-sizing: border-box;
-  min-width: calc(100% - 19.5px);
+  display: block;
   padding: 9.5px;
-  margin: 0 10px 0px 10px;
+  margin: 0 10px 10px 10px;
   font-size: 14px;
   line-height: 20px;
   white-space: pre !important;
   overflow-y: hidden;
-  overflow-x: visible;
+  overflow: visible;
+  overflow-x: auto;
   background-color: whitesmoke;
   border: 1px solid #cccccc;
   -webkit-border-radius: 4px;
@@ -508,7 +507,7 @@ pre code {
   padding: 0;
   color: inherit;
   white-space: pre;
-  overflow-x: visible;
+  overflow-x: scroll;
   background-color: transparent;
   border: 0; }
 
@@ -1164,6 +1163,11 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="Context = ptr object"><wbr />Context</a></li>
   <li><a class="reference" href="#Window"
     title="Window = ptr object"><wbr />Window</a></li>
+  <li><a class="reference" href="#JoystickIdentification"
+    title="JoystickIdentification = object 
+  name*: cstring
+  vendorId*: cint
+  productId*: cint"><wbr />Joystick<wbr />Identification</a></li>
   <li><a class="reference" href="#JoystickAxis"
     title="JoystickAxis = enum 
   X, Y, Z, R, U, V, PovX, PovY"><wbr />Joystick<wbr />Axis</a></li>
@@ -1181,12 +1185,17 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#MouseButton"
     title="MouseButton = enum 
   Left, Right, Middle, XButton1, XButton2, Count"><wbr />Mouse<wbr />Button</a></li>
+  <li><a class="reference" href="#SensorType"
+    title="SensorType = enum 
+  Accelerometer, Gyroscope, Magnetometer, Gravity, UserAcceleration, 
+  Orientation, Count"><wbr />Sensor<wbr />Type</a></li>
   <li><a class="reference" href="#EventType"
     title="EventType = enum 
   Closed, Resized, LostFocus, GainedFocus, TextEntered, KeyPressed, KeyReleased, 
   MouseWheelMoved, MouseButtonPressed, MouseButtonReleased, MouseMoved, 
   MouseEntered, MouseLeft, JoystickButtonPressed, JoystickButtonReleased, 
-  JoystickMoved, JoystickConnected, JoystickDisconnected"><wbr />Event<wbr />Type</a></li>
+  JoystickMoved, JoystickConnected, JoystickDisconnected, TouchBegan, 
+  TouchMoved, TouchEnded, SensorChanged, Count"><wbr />Event<wbr />Type</a></li>
   <li><a class="reference" href="#KeyEvent"
     title="KeyEvent = object 
   code*: KeyCode
@@ -1227,6 +1236,17 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="SizeEvent = object 
   width*: cint
   height*: cint"><wbr />Size<wbr />Event</a></li>
+  <li><a class="reference" href="#TouchEvent"
+    title="TouchEvent = object 
+  finger*: cint
+  x*: cint
+  y*: cint"><wbr />Touch<wbr />Event</a></li>
+  <li><a class="reference" href="#SensorEvent"
+    title="SensorEvent = object 
+  sensorType*: SensorType
+  x*: cfloat
+  y*: cfloat
+  z*: cfloat"><wbr />Sensor<wbr />Event</a></li>
   <li><a class="reference" href="#Event"
     title="Event = object 
   case kind*: EventType
@@ -1307,6 +1327,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="joystick_isButtonPressed(joystick: cint; button: cint): BoolInt"><wbr />joystick_<wbr />is<wbr />Button<wbr />Pressed</a></li>
   <li><a class="reference" href="#joystick_getAxisPosition,cint,JoystickAxis"
     title="joystick_getAxisPosition(joystick: cint; axis: JoystickAxis): cfloat"><wbr />joystick_<wbr />get<wbr />Axis<wbr />Position</a></li>
+  <li><a class="reference" href="#joystick_getIdentification,cint"
+    title="joystick_getIdentification(joystick: cint): JoystickIdentification"><wbr />joystick_<wbr />get<wbr />Identification</a></li>
   <li><a class="reference" href="#joystick_update,"
     title="joystick_update()"><wbr />joystick_<wbr />update</a></li>
   <li><a class="reference" href="#keyboard_isKeyPressed,KeyCode"
@@ -1317,6 +1339,12 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="mouse_getPosition(relativeTo: Window): Vector2i"><wbr />mouse_<wbr />get<wbr />Position</a></li>
   <li><a class="reference" href="#mouse_setPosition,Vector2i,Window"
     title="mouse_setPosition(position: Vector2i; relativeTo: Window)"><wbr />mouse_<wbr />set<wbr />Position</a></li>
+  <li><a class="reference" href="#sensor_isAvailable,SensorType"
+    title="sensor_isAvailable(sensor: SensorType): BoolInt"><wbr />sensor_<wbr />is<wbr />Available</a></li>
+  <li><a class="reference" href="#sensor_setEnabled,SensorType,BoolInt"
+    title="sensor_setEnabled(sensor: SensorType; enabled: BoolInt)"><wbr />sensor_<wbr />set<wbr />Enabled</a></li>
+  <li><a class="reference" href="#sensor_getValue,SensorType"
+    title="sensor_getValue(sensor: SensorType): Vector3f"><wbr />sensor_<wbr />get<wbr />Value</a></li>
   <li><a class="reference" href="#videoMode_getDesktopMode,"
     title="videoMode_getDesktopMode(): VideoMode"><wbr />video<wbr />Mode_<wbr />get<wbr />Desktop<wbr />Mode</a></li>
   <li><a class="reference" href="#videoMode_getFullscreenModes,ptr.int"
@@ -1367,6 +1395,10 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="keyRepeatEnabled=(window: Window; enabled: BoolInt)"><wbr />key<wbr />Repeat<wbr />Enabled=</a></li>
   <li><a class="reference" href="#active=,Window,BoolInt"
     title="active=(window: Window; active: BoolInt): BoolInt"><wbr />active=</a></li>
+  <li><a class="reference" href="#requestFocus,Window"
+    title="requestFocus(window: Window)"><wbr />request<wbr />Focus</a></li>
+  <li><a class="reference" href="#hasFocus,Window"
+    title="hasFocus(window: Window): BoolInt"><wbr />has<wbr />Focus</a></li>
   <li><a class="reference" href="#display,Window"
     title="display(window: Window)"><wbr />display</a></li>
   <li><a class="reference" href="#framerateLimit=,Window,cint"
@@ -1439,6 +1471,15 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
 
 
 </dd>
+<dt id="JoystickIdentification"><a name="JoystickIdentification"></a><pre><span class="Identifier">JoystickIdentification</span> <span class="Other">=</span> <span class="Keyword">object</span> 
+  <span class="Identifier">name</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cstring</span>
+  <span class="Identifier">vendorId</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
+  <span class="Identifier">productId</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
+</pre></dt>
+<dd>
+
+
+</dd>
 <dt id="JoystickAxis"><a name="JoystickAxis"></a><pre><span class="Identifier">JoystickAxis</span> <span class="Other">=</span> <span class="Keyword">enum</span> 
   <span class="Identifier">X</span><span class="Other">,</span> <span class="Identifier">Y</span><span class="Other">,</span> <span class="Identifier">Z</span><span class="Other">,</span> <span class="Identifier">R</span><span class="Other">,</span> <span class="Identifier">U</span><span class="Other">,</span> <span class="Identifier">V</span><span class="Other">,</span> <span class="Identifier">PovX</span><span class="Other">,</span> <span class="Identifier">PovY</span></pre></dt>
 <dd>
@@ -1465,11 +1506,19 @@ Key codes
 Mouse buttons
 
 </dd>
+<dt id="SensorType"><a name="SensorType"></a><pre><span class="Identifier">SensorType</span> <span class="Other">=</span> <span class="Keyword">enum</span> 
+  <span class="Identifier">Accelerometer</span><span class="Other">,</span> <span class="Identifier">Gyroscope</span><span class="Other">,</span> <span class="Identifier">Magnetometer</span><span class="Other">,</span> <span class="Identifier">Gravity</span><span class="Other">,</span> <span class="Identifier">UserAcceleration</span><span class="Other">,</span> 
+  <span class="Identifier">Orientation</span><span class="Other">,</span> <span class="Identifier">Count</span></pre></dt>
+<dd>
+Sensor Types
+
+</dd>
 <dt id="EventType"><a name="EventType"></a><pre><span class="Identifier">EventType</span> <span class="Other">=</span> <span class="Keyword">enum</span> 
   <span class="Identifier">Closed</span><span class="Other">,</span> <span class="Identifier">Resized</span><span class="Other">,</span> <span class="Identifier">LostFocus</span><span class="Other">,</span> <span class="Identifier">GainedFocus</span><span class="Other">,</span> <span class="Identifier">TextEntered</span><span class="Other">,</span> <span class="Identifier">KeyPressed</span><span class="Other">,</span> <span class="Identifier">KeyReleased</span><span class="Other">,</span> 
   <span class="Identifier">MouseWheelMoved</span><span class="Other">,</span> <span class="Identifier">MouseButtonPressed</span><span class="Other">,</span> <span class="Identifier">MouseButtonReleased</span><span class="Other">,</span> <span class="Identifier">MouseMoved</span><span class="Other">,</span> 
   <span class="Identifier">MouseEntered</span><span class="Other">,</span> <span class="Identifier">MouseLeft</span><span class="Other">,</span> <span class="Identifier">JoystickButtonPressed</span><span class="Other">,</span> <span class="Identifier">JoystickButtonReleased</span><span class="Other">,</span> 
-  <span class="Identifier">JoystickMoved</span><span class="Other">,</span> <span class="Identifier">JoystickConnected</span><span class="Other">,</span> <span class="Identifier">JoystickDisconnected</span></pre></dt>
+  <span class="Identifier">JoystickMoved</span><span class="Other">,</span> <span class="Identifier">JoystickConnected</span><span class="Other">,</span> <span class="Identifier">JoystickDisconnected</span><span class="Other">,</span> <span class="Identifier">TouchBegan</span><span class="Other">,</span> 
+  <span class="Identifier">TouchMoved</span><span class="Other">,</span> <span class="Identifier">TouchEnded</span><span class="Other">,</span> <span class="Identifier">SensorChanged</span><span class="Other">,</span> <span class="Identifier">Count</span></pre></dt>
 <dd>
 Definition of all the event types
 
@@ -1548,6 +1597,25 @@ Joystick connection/disconnection event parameters
 </pre></dt>
 <dd>
 Size events parameters
+
+</dd>
+<dt id="TouchEvent"><a name="TouchEvent"></a><pre><span class="Identifier">TouchEvent</span> <span class="Other">=</span> <span class="Keyword">object</span> 
+  <span class="Identifier">finger</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
+  <span class="Identifier">x</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
+  <span class="Identifier">y</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
+</pre></dt>
+<dd>
+Touch events parameters
+
+</dd>
+<dt id="SensorEvent"><a name="SensorEvent"></a><pre><span class="Identifier">SensorEvent</span> <span class="Other">=</span> <span class="Keyword">object</span> 
+  <span class="Identifier">sensorType</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">SensorType</span>
+  <span class="Identifier">x</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cfloat</span>
+  <span class="Identifier">y</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cfloat</span>
+  <span class="Identifier">z</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cfloat</span>
+</pre></dt>
+<dd>
+Sensor event parameters
 
 </dd>
 <dt id="Event"><a name="Event"></a><pre><span class="Identifier">Event</span> <span class="Other">=</span> <span class="Keyword">object</span> 
@@ -1726,6 +1794,18 @@ Structure defining the window's creation settings
 
 
 </dd>
+<dt id="joystick_getIdentification"><a name="joystick_getIdentification,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">joystick_getIdentification</span><span class="Other">(</span><span class="Identifier">joystick</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">JoystickIdentification</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfJoystick_getIdentification&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the joystick information</p>
+<p>The result of this function will only remain valid until the next time the function is called.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">joystick</span></tt>:  Index of the joystick</li>
+</ul>
+<p><em>Returns:</em> Structure containing joystick information.</p>
+
+
+</dd>
 <dt id="joystick_update"><a name="joystick_update,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">joystick_update</span><span class="Other">(</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfJoystick_update&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Update the states of all joysticks</p>
@@ -1776,6 +1856,41 @@ Structure defining the window's creation settings
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">position</span></tt>:    New position of the mouse</li>
 <li><tt class="docutils literal"><span class="pre">relativeTo</span></tt>:  Reference window</li>
 </ul>
+
+
+</dd>
+<dt id="sensor_isAvailable"><a name="sensor_isAvailable,SensorType"></a><pre><span class="Keyword">proc</span> <span class="Identifier">sensor_isAvailable</span><span class="Other">(</span><span class="Identifier">sensor</span><span class="Other">:</span> <span class="Identifier">SensorType</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSensor_isAvailable&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Check if a sensor is available on the underlying platform</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">sensor</span></tt>:  Sensor to check</li>
+</ul>
+<p><em>Returns:</em> True if the sensor is available, False otherwise</p>
+
+
+</dd>
+<dt id="sensor_setEnabled"><a name="sensor_setEnabled,SensorType,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">sensor_setEnabled</span><span class="Other">(</span><span class="Identifier">sensor</span><span class="Other">:</span> <span class="Identifier">SensorType</span><span class="Other">;</span> <span class="Identifier">enabled</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSensor_setEnabled&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Enable or disable a sensor</p>
+<p>All sensors are disabled by default, to avoid consuming too much battery power. Once a sensor is enabled, it starts sending events of the corresponding type.</p>
+<p>This function does nothing if the sensor is unavailable.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">sensor</span></tt>:  Sensor to enable</li>
+<li><tt class="docutils literal"><span class="pre">enabled</span></tt>:  True to enable, False to disable</li>
+</ul>
+
+
+</dd>
+<dt id="sensor_getValue"><a name="sensor_getValue,SensorType"></a><pre><span class="Keyword">proc</span> <span class="Identifier">sensor_getValue</span><span class="Other">(</span><span class="Identifier">sensor</span><span class="Other">:</span> <span class="Identifier">SensorType</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSensor_getValue&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the current sensor value</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">sensor</span></tt>:  Sensor to read</li>
+</ul>
+<p><em>Returns:</em> The current sensor value</p>
 
 
 </dd>
@@ -2021,12 +2136,27 @@ Structure defining the window's creation settings
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfWindow_setActive&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Activate or deactivate a window as the current target for OpenGL rendering</p>
-<p>A window is active only on the current thread, if you want to make it active on another thread you have to deactivate it on the previous thread first if it was active. Only one window can be active on a thread at a time, thus the window previously active (if any) automatically gets deactivated.</p>
+<p>A window is active only on the current thread, if you want to make it active on another thread you have to deactivate it on the previous thread first if it was active. Only one window can be active on a thread at a time, thus the window previously active (if any) automatically gets deactivated. This is not to be confused with Window_requestFocus().</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">window</span></tt>:  Window object</li>
 <li><tt class="docutils literal"><span class="pre">active</span></tt>:  True to activate, False to deactivate</li>
 </ul>
 <p><em>Returns:</em> True if operation was successful, False otherwise</p>
+
+
+</dd>
+<dt id="requestFocus"><a name="requestFocus,Window"></a><pre><span class="Keyword">proc</span> <span class="Identifier">requestFocus</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">Window</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfWindow_requestFocus&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Request the current window to be made the active foreground window</p>
+<p>At any given time, only one window may have the input focus to receive input events such as keystrokes or mouse events. If a window requests focus, it only hints to the operating system, that it would like to be focused. The operating system is free to deny the request. This is not to be confused with Window_setActive().</p>
+
+
+</dd>
+<dt id="hasFocus"><a name="hasFocus,Window"></a><pre><span class="Keyword">proc</span> <span class="Identifier">hasFocus</span><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">Window</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfWindow_hasFocus&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Check whether the window has the input focus</p>
+<p>At any given time, only one window may have the input focus to receive input events such as keystrokes or most mouse events.</p>
+<p><em>Returns:</em> True if window has focus, false otherwise</p>
 
 
 </dd>
@@ -2172,11 +2302,10 @@ Allows WindowStyle values to be combined using the | operator and be used in fun
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-02-07 16:37:42 UTC</small>
+        <small>Made with Nim. Generated: 2015-03-03 22:54:54 UTC</small>
       </div>
     </div>
   </div>
 </div>
-
 </body>
 </html>

@@ -74,12 +74,12 @@ body {
 /* For devices larger than 400px */
 @media (min-width: 400px) {
   .container {
-    width: 100%;
+    width: 85%;
     padding: 0; } }
 /* For devices larger than 650px */
 @media (min-width: 650px) {
   .container {
-    width: 100%; }
+    width: 80%; }
 
   .column,
   .columns {
@@ -392,7 +392,7 @@ h6 {
 ul,
 ol {
   padding: 0;
-  margin: 0 0 0px 15px; }
+  margin: 0 0 10px 25px; }
 
 ul ul,
 ul ol,
@@ -485,16 +485,15 @@ code {
   border: 1px solid #777777; }
 
 pre {
-  display: inline-block;
-  box-sizing: border-box;
-  min-width: calc(100% - 19.5px);
+  display: block;
   padding: 9.5px;
-  margin: 0 10px 0px 10px;
+  margin: 0 10px 10px 10px;
   font-size: 14px;
   line-height: 20px;
   white-space: pre !important;
   overflow-y: hidden;
-  overflow-x: visible;
+  overflow: visible;
+  overflow-x: auto;
   background-color: whitesmoke;
   border: 1px solid #cccccc;
   -webkit-border-radius: 4px;
@@ -508,7 +507,7 @@ pre code {
   padding: 0;
   color: inherit;
   white-space: pre;
-  overflow-x: visible;
+  overflow-x: scroll;
   background-color: transparent;
   border: 0; }
 
@@ -1194,9 +1193,13 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#listener_getPosition,"
     title="listener_getPosition(): Vector3f"><wbr />listener_<wbr />get<wbr />Position</a></li>
   <li><a class="reference" href="#listener_setDirection,Vector3f"
-    title="listener_setDirection(orientation: Vector3f)"><wbr />listener_<wbr />set<wbr />Direction</a></li>
+    title="listener_setDirection(direction: Vector3f)"><wbr />listener_<wbr />set<wbr />Direction</a></li>
   <li><a class="reference" href="#listener_getDirection,"
     title="listener_getDirection(): Vector3f"><wbr />listener_<wbr />get<wbr />Direction</a></li>
+  <li><a class="reference" href="#listener_setUpVector,Vector3f"
+    title="listener_setUpVector(upVector: Vector3f)"><wbr />listener_<wbr />set<wbr />Up<wbr />Vector</a></li>
+  <li><a class="reference" href="#listener_getUpVector,"
+    title="listener_getUpVector(): Vector3f"><wbr />listener_<wbr />get<wbr />Up<wbr />Vector</a></li>
   <li><a class="reference" href="#newMusic,cstring"
     title="newMusic(filename: cstring): Music"><wbr />new<wbr />Music</a></li>
   <li><a class="reference" href="#newMusic,pointer,int"
@@ -1345,15 +1348,27 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#destroy,SoundRecorder"
     title="destroy(soundRecorder: SoundRecorder)"><wbr />destroy</a></li>
   <li><a class="reference" href="#start,SoundRecorder,cint"
-    title="start(soundRecorder: SoundRecorder; sampleRate: cint)"><wbr />start</a></li>
+    title="start(soundRecorder: SoundRecorder; sampleRate: cint): BoolInt"><wbr />start</a></li>
   <li><a class="reference" href="#stop,SoundRecorder"
     title="stop(soundRecorder: SoundRecorder)"><wbr />stop</a></li>
   <li><a class="reference" href="#sampleRate,SoundRecorder"
     title="sampleRate(soundRecorder: SoundRecorder): cint"><wbr />sample<wbr />Rate</a></li>
   <li><a class="reference" href="#soundRecorder_isAvailable,"
     title="soundRecorder_isAvailable(): BoolInt"><wbr />sound<wbr />Recorder_<wbr />is<wbr />Available</a></li>
+  <li><a class="reference" href="#processingInterval=,SoundRecorder,Time"
+    title="processingInterval=(soundRecorder: SoundRecorder; interval: Time)"><wbr />processing<wbr />Interval=</a></li>
+  <li><a class="reference" href="#soundRecorder_getAvailableDevices,ptr.int"
+    title="soundRecorder_getAvailableDevices(count: ptr int): ptr ptr char"><wbr />sound<wbr />Recorder_<wbr />get<wbr />Available<wbr />Devices</a></li>
+  <li><a class="reference" href="#soundRecorder_getDefaultDevice,"
+    title="soundRecorder_getDefaultDevice(): cstring"><wbr />sound<wbr />Recorder_<wbr />get<wbr />Default<wbr />Device</a></li>
+  <li><a class="reference" href="#device=,SoundRecorder,cstring"
+    title="device=(soundRecorder: SoundRecorder; name: cstring): BoolInt"><wbr />device=</a></li>
+  <li><a class="reference" href="#device,SoundRecorder"
+    title="device(soundRecorder: SoundRecorder): cstring"><wbr />device</a></li>
   <li><a class="reference" href="#newSound,SoundBuffer"
     title="newSound(buffer: SoundBuffer): Sound"><wbr />new<wbr />Sound</a></li>
+  <li><a class="reference" href="#soundRecorder_getAvailableDevices,"
+    title="soundRecorder_getAvailableDevices(): seq[string]"><wbr />sound<wbr />Recorder_<wbr />get<wbr />Available<wbr />Devices</a></li>
 
   </ul>
 </li>
@@ -1465,13 +1480,13 @@ Enumeration of statuses for sounds and musics
 
 
 </dd>
-<dt id="listener_setDirection"><a name="listener_setDirection,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">listener_setDirection</span><span class="Other">(</span><span class="Identifier">orientation</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="listener_setDirection"><a name="listener_setDirection,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">listener_setDirection</span><span class="Other">(</span><span class="Identifier">direction</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfListener_setDirection&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
-<p>Set the orientation of the listener in the scene</p>
-<p>The orientation defines the 3D axes of the listener (left, up, front) in the scene. The orientation vector doesn't have to be normalized. The default listener's orientation is (0, 0, -1).</p>
+<p>Set the orientation of the forward vector in the scene</p>
+<p>The direction (also called &quot;at vector&quot;) is the vector pointing forward from the listener's perspective. Together with the up vector, it defines the 3D orientation of the listener in the scene. The direction vector doesn't have to be normalized. The default listener's direction is (0, 0, -1).</p>
 <p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">position</span></tt>:  New direction of the listener</li>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">direction</span></tt>:  New listener's direction</li>
 </ul>
 
 
@@ -1479,8 +1494,26 @@ Enumeration of statuses for sounds and musics
 <dt id="listener_getDirection"><a name="listener_getDirection,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">listener_getDirection</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfListener_getDirection&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
-<p>Get the current orientation of the listener in the scene</p>
-<p><em>Returns:</em> The listener's direction</p>
+<p>Get the current forward vector of the listener in the scene</p>
+<p><em>Returns:</em> Listener's forward vector (not normalized)</p>
+
+
+</dd>
+<dt id="listener_setUpVector"><a name="listener_setUpVector,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">listener_setUpVector</span><span class="Other">(</span><span class="Identifier">upVector</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfListener_setUpVector&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Set the upward vector of the listener in the scene</p>
+<p>The up vector is the vector that points upward from the listener's perspective. Together with the direction, it defines the 3D orientation of the listener in the scene. The up vector doesn't have to be normalized. The default listener's up vector is (0, 1, 0). It is usually not necessary to change it, especially in 2D scenarios.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">upVector</span></tt>:  New listener's up vector</li>
+</ul>
+
+
+</dd>
+<dt id="listener_getUpVector"><a name="listener_getUpVector,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">listener_getUpVector</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfListener_getUpVector&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the current upward vector of the listener in the scene</p>
+<p><em>Returns:</em> Listener's upward vector (not normalized)</p>
 
 
 </dd>
@@ -2281,7 +2314,7 @@ Enumeration of statuses for sounds and musics
 
 
 </dd>
-<dt id="start"><a name="start,SoundRecorder,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">start</span><span class="Other">(</span><span class="Identifier">soundRecorder</span><span class="Other">:</span> <span class="Identifier">SoundRecorder</span><span class="Other">;</span> <span class="Identifier">sampleRate</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="start"><a name="start,SoundRecorder,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">start</span><span class="Other">(</span><span class="Identifier">soundRecorder</span><span class="Other">:</span> <span class="Identifier">SoundRecorder</span><span class="Other">;</span> <span class="Identifier">sampleRate</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundRecorder_start&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Start the capture of a sound recorder</p>
@@ -2290,6 +2323,7 @@ Enumeration of statuses for sounds and musics
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">soundRecorder</span></tt>:  Sound recorder object</li>
 <li><tt class="docutils literal"><span class="pre">sampleRate</span></tt>:     Desired capture rate, in number of samples per second</li>
 </ul>
+<p><em>Returns:</em> True, if start of capture was successful</p>
 
 
 </dd>
@@ -2323,9 +2357,75 @@ Enumeration of statuses for sounds and musics
 
 
 </dd>
+<dt id="processingInterval="><a name="processingInterval=,SoundRecorder,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">processingInterval=</span><span class="Other">(</span><span class="Identifier">soundRecorder</span><span class="Other">:</span> <span class="Identifier">SoundRecorder</span><span class="Other">;</span> <span class="Identifier">interval</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundRecorder_setProcessingInterval&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Set the processing interval</p>
+<p>The processing interval controls the period between calls to the onProcessSamples function. You may want to use a small interval if you want to process the recorded data in real time, for example.</p>
+<p>Note: this is only a hint, the actual period may vary. So don't rely on this parameter to implement precise timing.</p>
+<p>The default processing interval is 100 ms.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundRecorder</span></tt>:  Sound recorder object</li>
+<li><tt class="docutils literal"><span class="pre">interval</span></tt>:  Processing interval</li>
+</ul>
+
+
+</dd>
+<dt id="soundRecorder_getAvailableDevices"><a name="soundRecorder_getAvailableDevices,ptr.int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">soundRecorder_getAvailableDevices</span><span class="Other">(</span><span class="Identifier">count</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Keyword">ptr</span> <span class="Identifier">char</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundRecorder_getAvailableDevices&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get a list of the names of all availabe audio capture devices</p>
+<p>This function returns an array of strings (null terminated), containing the names of all availabe audio capture devices. If no devices are available then NULL is returned.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">count</span></tt>:  Pointer to a variable that will be filled with the number of modes in the array</li>
+</ul>
+<p><em>Returns:</em> An array of strings containing the names</p>
+
+
+</dd>
+<dt id="soundRecorder_getDefaultDevice"><a name="soundRecorder_getDefaultDevice,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">soundRecorder_getDefaultDevice</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cstring</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundRecorder_getDefaultDevice&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the name of the default audio capture device</p>
+<p>This function returns the name of the default audio capture device. If none is available, NULL is returned.</p>
+<p><em>Returns:</em> The name of the default audio capture device (null terminated)</p>
+
+
+</dd>
+<dt id="device="><a name="device=,SoundRecorder,cstring"></a><pre><span class="Keyword">proc</span> <span class="Identifier">device=</span><span class="Other">(</span><span class="Identifier">soundRecorder</span><span class="Other">:</span> <span class="Identifier">SoundRecorder</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundRecorder_setDevice&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Set the audio capture device</p>
+<p>This function sets the audio capture device to the device with the given name. It can be called on the fly (i.e: while recording). If you do so while recording and opening the device fails, it stops the recording.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundRecorder</span></tt>:  Sound recorder object</li>
+<li><tt class="docutils literal"><span class="pre">The</span></tt>:  name of the audio capture device</li>
+</ul>
+<p><em>Returns:</em> True, if it was able to set the requested device</p>
+
+
+</dd>
+<dt id="device"><a name="device,SoundRecorder"></a><pre><span class="Keyword">proc</span> <span class="Identifier">device</span><span class="Other">(</span><span class="Identifier">soundRecorder</span><span class="Other">:</span> <span class="Identifier">SoundRecorder</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cstring</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundRecorder_getDevice&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the name of the current audio capture device</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundRecorder</span></tt>:  Sound recorder object</li>
+</ul>
+<p><em>Returns:</em> The name of the current audio capture device</p>
+
+
+</dd>
 <dt id="newSound"><a name="newSound,SoundBuffer"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newSound</span><span class="Other">(</span><span class="Identifier">buffer</span><span class="Other">:</span> <span class="Identifier">SoundBuffer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Sound</span> <span class="Other"></span></pre></dt>
 <dd>
 <em>Returns</em>: A new Sound with this buffer
+
+</dd>
+<dt id="soundRecorder_getAvailableDevices"><a name="soundRecorder_getAvailableDevices,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">soundRecorder_getAvailableDevices</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> <span class="Other"></span></pre></dt>
+<dd>
+<p>Wrapper proc that returns a seq instead of exposing pointers</p>
+<p><em>Returns:</em> seq of the names of all availabe audio capture devices</p>
+
 
 </dd>
 
@@ -2338,11 +2438,10 @@ Enumeration of statuses for sounds and musics
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-02-07 16:37:43 UTC</small>
+        <small>Made with Nim. Generated: 2015-03-03 22:54:54 UTC</small>
       </div>
     </div>
   </div>
 </div>
-
 </body>
 </html>
