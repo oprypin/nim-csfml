@@ -2268,7 +2268,7 @@ proc capture*(renderWindow: RenderWindow): Image {.
 
 proc mouse_getPosition*(relativeTo: RenderWindow): Vector2i {.
   cdecl, importc: "sfMouse_getPositionRenderWindow".}
-  ## Get the current position of the mouse relatively to a render-window
+  ## Get the current position of the mouse relative to a render-window
   ## 
   ## This function returns the current position of the mouse
   ## cursor relative to the given render-window, or desktop if NULL is passed.
@@ -2276,11 +2276,11 @@ proc mouse_getPosition*(relativeTo: RenderWindow): Vector2i {.
   ## *Arguments*:
   ## - ``relativeTo``:  Reference window
   ## 
-  ## *Returns:* Position of the mouse cursor, relative to the given render-window
+  ## *Returns:* Position of the mouse cursor, relative to the given render window
 
 proc mouse_setPosition*(position: Vector2i, relativeTo: RenderWindow) {.
   cdecl, importc: "sfMouse_setPositionRenderWindow".}
-  ## Set the current position of the mouse relatively to a render-window
+  ## Set the current position of the mouse relative to a render window
   ## 
   ## This function sets the current position of the mouse
   ## cursor relative to the given render-window, or desktop if NULL is passed.
@@ -2288,6 +2288,19 @@ proc mouse_setPosition*(position: Vector2i, relativeTo: RenderWindow) {.
   ## *Arguments*:
   ## - ``position``:    New position of the mouse
   ## - ``relativeTo``:  Reference window
+
+proc touch_getPosition*(finger: cint, relativeTo: RenderWindow): Vector2i {.
+  cdecl, importc: "sfTouch_getPositionRenderWindow".}
+  ## Get the current position of a touch in window coordinates
+  ## 
+  ## This function returns the current touch position
+  ## relative to the given render window, or desktop if NULL is passed.
+  ## 
+  ## *Arguments*:
+  ## - ``finger``:  Finger index
+  ## - ``relativeTo``:  Reference window
+  ## 
+  ## *Returns:* Current position of ``finger``, or undefined if it's not down
 
 
 #--- SFML/Graphics/RenderTexture ---#
