@@ -147,6 +147,8 @@ def handle_struct(name, items):
         typ = rename_type(typ)
         if typ=='uint32' and name=='unicode':
             typ = 'RuneU32'
+        elif typ=='uint32' and name=='attributeFlags':
+            typ = 'BitMaskU32'
         yield '  {}*: {}'.format(name, typ)
 
 
@@ -203,7 +205,8 @@ def handle_function(main, params):
         public = ''
     if nftype=='uint32':
         if nfname in ['style']: nftype = 'BitMaskU32'
-        else: nftype = 'RuneU32'
+        else:
+            if 'Font' in fname: nftype = 'RuneU32'
     #if nftype.startswith('ptr ') or nftype=='pointer':
         #public = ''
     r = []
@@ -222,7 +225,8 @@ def handle_function(main, params):
                 public = ''
             if rtype=='uint32':
                 if rname in ['style']: rtype = 'BitMaskU32'
-                else: rtype = 'RuneU32'
+                else:
+                    if 'Font' in fname: rtype = 'RuneU32'
             if ptype.startswith('const') and rtype.startswith('var '):
                 if repl:
                     rrtype = rtype[4:]
