@@ -7,11 +7,11 @@ nim-csfml
 The files <em>[src](src)/csfml\_\*\_gen.nim</em> are [automatically generated](generate) from CSFML's header files. They provide the base CSFML API. The files <em>csfml_\*.nim</em> build upon them, adding compatibility with SFML API.  
 *csfml.nim* automatically imports *system*, *window* and *graphics*; *audio* should be imported separately; *network* is not implemented.
 
-*nim-csfml* supports CSFML 2.2; see older releases for CSFML 2.1. It has been tested on Linux 64-bit and Windows 7 with MinGW 32-bit.  
+*nim-csfml* supports CSFML 2.3; there are older releases, down to CSFML 2.1. It has been tested on Linux 64-bit and Windows 7 with MinGW 32-bit.
 
 This library can be installed using <code>[nimble][] install csfml</code>.
 
-[CSFML][] 2.2, which requires [SFML][] 2.2, must be installed to use it.
+[CSFML][] 2.3, which requires [SFML][] 2.3, must be installed to use it.
 On Windows you can just [download CSFML][csfml] and put the DLLs (which seem to be statically linked with SFML) in your project folder instead.
 
 *nim-csfml*'s version number (`x.y.z`): `x.y` corresponds to the supported CSFML version; `z` is for the project's own point releases.
