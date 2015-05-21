@@ -40,4 +40,6 @@ type
         mouseMove*: MouseMoveEvent
       of EventType.MouseWheelMoved:
         mouseWheel*: MouseWheelEvent
+      of EventType.MouseWheelScrolled:
+        mouseWheelScroll*: MouseWheelScrollEvent
       else: nil

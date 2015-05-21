@@ -34,13 +34,17 @@ include private/csfml_window_gen
 {.pop.}
 
 
-proc contextSettings*(depth: cint = 0, stencil: cint = 0, antialiasing: cint = 0, major: cint = 2, minor: cint = 0): ContextSettings =
+converter toBitMaskU32*(a: ContextAttribute): BitMaskU32 = BitMaskU32 a
+  ## Allows ContextAttribute values to be combined using the | operator and be used in functions
+
+proc contextSettings*(depth: cint = 0, stencil: cint = 0, antialiasing: cint = 0, major: cint = 2, minor: cint = 0, attributes = ContextAttribute.Default): ContextSettings =
   ## *Arguments*:
   ## ``depth``: Depth buffer bits
   ## ``stencil``: Stencil buffer bits
   ## ``antialiasing``: Antialiasing level
   ## ``major``: Major number of the context version
   ## ``minor``: Minor number of the context version
+  ## ``attributes``: The attribute flags to create the context with
   ##
   ## *Returns*: ContextSettings with these members
   result.depthBits = depth
@@ -48,6 +52,7 @@ proc contextSettings*(depth: cint = 0, stencil: cint = 0, antialiasing: cint = 0
   result.antialiasingLevel = antialiasing
   result.majorVersion = major
   result.minorVersion = minor
+  result.attributeFlags = attributes
 
 
 proc mouse_getPosition*(): Vector2i = mouse_getPosition(nil)

@@ -28,7 +28,7 @@ while window.open:
         vertex(vec2(100, 0), Red),
         vertex(vec2(200, 100), Blue),
     ]
-    window.drawPrimitives(addr(vertexSeq[0]), cint(vertexSeq.len),
+    window.drawPrimitives(addr(vertexSeq[0]), vertexSeq.len,
                           PrimitiveType.Triangles, renderStates())
     
     # Bottom left
@@ -40,8 +40,8 @@ while window.open:
     window.draw convexShape
     
     # Bottom right
-    proc getPointCount(p: pointer): cint {.cdecl.} = 3
-    proc getPoint(index: cint, p: pointer): Vector2f {.cdecl.} =
+    proc getPointCount(p: pointer): int {.cdecl.} = 3
+    proc getPoint(index: int, p: pointer): Vector2f {.cdecl.} =
         case index
         of 0: vec2(200, 200)
         of 1: vec2(100, 200)
