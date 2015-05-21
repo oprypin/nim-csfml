@@ -9,7 +9,6 @@ Examples
 ### [flippy_bird](flippy_bird.nim)
 
 - Show a `RenderWindow`
-- Setup antialiasing
 - Unicode window title
 - React to close and keyboard events
 - Use a `Texture` and a `Sprite`
@@ -28,6 +27,7 @@ Pong example [from SFML][pong]
 
 ### [snakes](snakes.nim)
 
+- Setup antialiasing
 - Object-oriented
 - Custom drawables
 - `RenderStates`

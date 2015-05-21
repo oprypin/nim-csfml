@@ -61,14 +61,10 @@ proc `*`*(a, b: Color): Color =
   modulate(a, b)
 proc `-`*(a, b: Color): Color =
   ## *Returns:* The component-wise subtraction of two colors. Components below 0 are clamped to 0.
-  if a.r <= b.r: result.r = 0
-  else: result.r = a.r-b.r
-  if a.g <= b.g: result.g = 0
-  else: result.g = a.g-b.g
-  if a.b <= b.b: result.b = 0
-  else: result.b = a.b-b.b
-  if a.a <= b.a: result.a = 0
-  else: result.a = a.a-b.a
+  if a.r > b.r: result.r = a.r-b.r
+  if a.g > b.g: result.g = a.g-b.g
+  if a.b > b.b: result.b = a.b-b.b
+  if a.a > b.a: result.a = a.a-b.a
 
 let
   Black* = color(0, 0, 0)
