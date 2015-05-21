@@ -56,6 +56,21 @@ proc color*(red: uint8, green: uint8, blue: uint8, alpha: uint8): Color {.
   ## 
   ## *Returns:* Color constructed from the components
 
+proc color*(color: uint32): Color {.
+  cdecl, importc: "sfColor_fromInteger".}
+  ## Construct the color from 32-bit unsigned integer
+  ## 
+  ## *Arguments*:
+  ## - ``color``:  Number containing the RGBA components (in that order)
+  ## 
+  ## *Returns:* Color constructed from the 32-bit unsigned integer
+
+proc toInteger*(color: Color): uint32 {.
+  cdecl, importc: "sfColor_toInteger".}
+  ## Convert a color to a 32-bit unsigned integer
+  ## 
+  ## *Returns:* Color represented as a 32-bit unsigned integer
+
 proc add*(color1: Color, color2: Color): Color {.
   cdecl, importc: "sfColor_add".}
   ## Add two colors
@@ -65,6 +80,16 @@ proc add*(color1: Color, color2: Color): Color {.
   ## - ``color2``:  Second color
   ## 
   ## *Returns:* Component-wise saturated addition of the two colors
+
+proc subtract*(color1: Color, color2: Color): Color {.
+  cdecl, importc: "sfColor_subtract".}
+  ## Subtract two colors
+  ## 
+  ## *Arguments*:
+  ## - ``color1``:  First color
+  ## - ``color2``:  Second color
+  ## 
+  ## *Returns:* Component-wise saturated subtraction of the two colors
 
 proc modulate*(color1: Color, color2: Color): Color {.
   cdecl, importc: "sfColor_modulate".}
@@ -615,7 +640,7 @@ proc outlineThickness*(shape: CircleShape): cfloat {.
   ## 
   ## *Returns:* Outline thickness of the shape
 
-proc pointCount*(shape: CircleShape): cint {.
+proc pointCount*(shape: CircleShape): int {.
   cdecl, importc: "sfCircleShape_getPointCount".}
   ## Get the total number of points of a circle shape
   ## 
@@ -624,7 +649,7 @@ proc pointCount*(shape: CircleShape): cint {.
   ## 
   ## *Returns:* Number of points of the shape
 
-proc getPoint*(shape: CircleShape, index: cint): Vector2f {.
+proc getPoint*(shape: CircleShape, index: int): Vector2f {.
   cdecl, importc: "sfCircleShape_getPoint".}
   ## Get a point of a circle shape
   ## 
@@ -653,7 +678,7 @@ proc radius*(shape: CircleShape): cfloat {.
   ## 
   ## *Returns:* Radius of the circle
 
-proc `pointCount=`*(shape: CircleShape, count: cint) {.
+proc `pointCount=`*(shape: CircleShape, count: int) {.
   cdecl, importc: "sfCircleShape_setPointCount".}
   ## Set the number of points of a circle
   ## 
@@ -975,7 +1000,7 @@ proc outlineThickness*(shape: ConvexShape): cfloat {.
   ## 
   ## *Returns:* Outline thickness of the shape
 
-proc pointCount*(shape: ConvexShape): cint {.
+proc pointCount*(shape: ConvexShape): int {.
   cdecl, importc: "sfConvexShape_getPointCount".}
   ## Get the total number of points of a convex shape
   ## 
@@ -984,7 +1009,7 @@ proc pointCount*(shape: ConvexShape): cint {.
   ## 
   ## *Returns:* Number of points of the shape
 
-proc getPoint*(shape: ConvexShape, index: cint): Vector2f {.
+proc getPoint*(shape: ConvexShape, index: int): Vector2f {.
   cdecl, importc: "sfConvexShape_getPoint".}
   ## Get a point of a convex shape
   ## 
@@ -996,7 +1021,7 @@ proc getPoint*(shape: ConvexShape, index: cint): Vector2f {.
   ## 
   ## *Returns:* Index-th point of the shape
 
-proc `pointCount=`*(shape: ConvexShape, count: cint) {.
+proc `pointCount=`*(shape: ConvexShape, count: int) {.
   cdecl, importc: "sfConvexShape_setPointCount".}
   ## Set the number of points of a convex shap
   ## 
@@ -1006,7 +1031,7 @@ proc `pointCount=`*(shape: ConvexShape, count: cint) {.
   ## - ``shape``:  Shape object
   ## - ``count``:  New number of points of the shape
 
-proc setPoint*(shape: ConvexShape, index: cint, point: Vector2f) {.
+proc setPoint*(shape: ConvexShape, index: int, point: Vector2f) {.
   cdecl, importc: "sfConvexShape_setPoint".}
   ## Set the position of a point in a convex shape
   ## 
@@ -1708,7 +1733,7 @@ proc outlineThickness*(shape: RectangleShape): cfloat {.
   ## 
   ## *Returns:* Outline thickness of the shape
 
-proc pointCount*(shape: RectangleShape): cint {.
+proc pointCount*(shape: RectangleShape): int {.
   cdecl, importc: "sfRectangleShape_getPointCount".}
   ## Get the total number of points of a rectangle shape
   ## 
@@ -1717,7 +1742,7 @@ proc pointCount*(shape: RectangleShape): cint {.
   ## 
   ## *Returns:* Number of points of the shape
 
-proc getPoint*(shape: RectangleShape, index: cint): Vector2f {.
+proc getPoint*(shape: RectangleShape, index: int): Vector2f {.
   cdecl, importc: "sfRectangleShape_getPoint".}
   ## Get a point of a rectangle shape
   ## 
@@ -1787,7 +1812,7 @@ type RenderStates* {.bycopy.} = object
   shader*: Shader
 
 
-#--- SFML/Graphics/RenderWindow ---#
+#--- SFML/Graphics/RenderTexture ---#
 
 
 #--- SFML/Graphics/Vertex ---#
@@ -1796,6 +1821,298 @@ type Vertex* {.bycopy.} = object
   position*: Vector2f
   color*: Color
   texCoords*: Vector2f
+
+proc newRenderTexture*(width: cint, height: cint, depthBuffer: BoolInt): RenderTexture {.
+  cdecl, importc: "sfRenderTexture_create".}
+  ## Construct a new render texture
+  ## 
+  ## *Arguments*:
+  ## - ``width``:        Width of the render texture
+  ## - ``height``:       Height of the render texture
+  ## - ``depthBuffer``:  Do you want a depth-buffer attached? (useful only if you're doing 3D OpenGL on the rendertexture)
+  ## 
+  ## *Returns:* A new RenderTexture object, or NULL if it failed
+
+proc destroy*(renderTexture: RenderTexture) {.
+  destroy, cdecl, importc: "sfRenderTexture_destroy".}
+  ## Destroy an existing render texture
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture to destroy
+
+proc size*(renderTexture: RenderTexture): Vector2i {.
+  cdecl, importc: "sfRenderTexture_getSize".}
+  ## Get the size of the rendering region of a render texture
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+  ## 
+  ## *Returns:* Size in pixels
+
+proc `active=`*(renderTexture: RenderTexture, active: BoolInt): BoolInt {.
+  cdecl, importc: "sfRenderTexture_setActive".}
+  ## Activate or deactivate a render texture as the current target for rendering
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+  ## - ``active``:         True to activate, False to deactivate
+  ## 
+  ## *Returns:* True if operation was successful, false otherwise
+
+proc display*(renderTexture: RenderTexture) {.
+  cdecl, importc: "sfRenderTexture_display".}
+  ## Update the contents of the target texture
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+
+proc clear*(renderTexture: RenderTexture, color: Color) {.
+  cdecl, importc: "sfRenderTexture_clear".}
+  ## Clear the rendertexture with the given color
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+  ## - ``color``:          Fill color
+
+proc `view=`*(renderTexture: RenderTexture, view: View) {.
+  cdecl, importc: "sfRenderTexture_setView".}
+  ## Change the current active view of a render texture
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+  ## - ``view``:           Pointer to the new view
+
+proc view*(renderTexture: RenderTexture): View {.
+  cdecl, importc: "sfRenderTexture_getView".}
+  ## Get the current active view of a render texture
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+  ## 
+  ## *Returns:* Current active view
+
+proc defaultView*(renderTexture: RenderTexture): View {.
+  cdecl, importc: "sfRenderTexture_getDefaultView".}
+  ## Get the default view of a render texture
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+  ## 
+  ## *Returns:* Default view of the rendertexture
+
+proc getViewport*(renderTexture: RenderTexture, view: View): IntRect {.
+  cdecl, importc: "sfRenderTexture_getViewport".}
+  ## Get the viewport of a view applied to this target
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+  ## - ``view``:           Target view
+  ## 
+  ## *Returns:* Viewport rectangle, expressed in pixels in the current target
+
+proc mapPixelToCoords*(renderTexture: RenderTexture, point: Vector2i, view: View): Vector2f {.
+  cdecl, importc: "sfRenderTexture_mapPixelToCoords".}
+  ## Convert a point from texture coordinates to world coordinates
+  ## 
+  ## This function finds the 2D position that matches the
+  ## given pixel of the render-texture. In other words, it does
+  ## the inverse of what the graphics card does, to find the
+  ## initial position of a rendered pixel.
+  ## 
+  ## Initially, both coordinate systems (world units and target pixels)
+  ## match perfectly. But if you define a custom view or resize your
+  ## render-texture, this assertion is not true anymore, ie. a point
+  ## located at (10, 50) in your render-texture may map to the point
+  ## (150, 75) in your 2D world -- if the view is translated by (140, 25).
+  ## 
+  ## This version uses a custom view for calculations, see the other
+  ## overload of the function if you want to use the current view of the
+  ## render-texture.
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+  ## - ``point``:  Pixel to convert
+  ## - ``view``:  The view to use for converting the point
+  ## 
+  ## *Returns:* The converted point, in "world" units
+
+proc mapCoordsToPixel*(renderTexture: RenderTexture, point: Vector2f, view: View): Vector2i {.
+  cdecl, importc: "sfRenderTexture_mapCoordsToPixel".}
+  ## Convert a point from world coordinates to texture coordinates
+  ## 
+  ## This function finds the pixel of the render-texture that matches
+  ## the given 2D point. In other words, it goes through the same process
+  ## as the graphics card, to compute the final position of a rendered point.
+  ## 
+  ## Initially, both coordinate systems (world units and target pixels)
+  ## match perfectly. But if you define a custom view or resize your
+  ## render-texture, this assertion is not true anymore, ie. a point
+  ## located at (150, 75) in your 2D world may map to the pixel
+  ## (10, 50) of your render-texture -- if the view is translated by (140, 25).
+  ## 
+  ## This version uses a custom view for calculations, see the other
+  ## overload of the function if you want to use the current view of the
+  ## render-texture.
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+  ## - ``point``:  Point to convert
+  ## - ``view``:  The view to use for converting the point
+  ## 
+  ## *Returns:* The converted point, in target coordinates (pixels)
+
+proc drawSprite*(renderTexture: RenderTexture, obj: Sprite, states: (var RenderStates){lvalue}) {.
+  cdecl, importc: "sfRenderTexture_drawSprite".}
+proc drawSprite*(renderTexture: RenderTexture, obj: Sprite, states: RenderStates) =
+  ## Draw a drawable object to the render-target
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+  ## - ``object``:         Object to draw
+  ## - ``states``:         Render states to use for drawing (NULL to use the default states)
+  (var Cstates = states)
+  drawSprite(renderTexture, obj, Cstates)
+
+proc drawText*(renderTexture: RenderTexture, obj: Text, states: (var RenderStates){lvalue}) {.
+  cdecl, importc: "sfRenderTexture_drawText".}
+proc drawText*(renderTexture: RenderTexture, obj: Text, states: RenderStates) =
+  (var Cstates = states)
+  drawText(renderTexture, obj, Cstates)
+
+proc drawShape*(renderTexture: RenderTexture, obj: Shape, states: (var RenderStates){lvalue}) {.
+  cdecl, importc: "sfRenderTexture_drawShape".}
+proc drawShape*(renderTexture: RenderTexture, obj: Shape, states: RenderStates) =
+  (var Cstates = states)
+  drawShape(renderTexture, obj, Cstates)
+
+proc drawCircleShape*(renderTexture: RenderTexture, obj: CircleShape, states: (var RenderStates){lvalue}) {.
+  cdecl, importc: "sfRenderTexture_drawCircleShape".}
+proc drawCircleShape*(renderTexture: RenderTexture, obj: CircleShape, states: RenderStates) =
+  (var Cstates = states)
+  drawCircleShape(renderTexture, obj, Cstates)
+
+proc drawConvexShape*(renderTexture: RenderTexture, obj: ConvexShape, states: (var RenderStates){lvalue}) {.
+  cdecl, importc: "sfRenderTexture_drawConvexShape".}
+proc drawConvexShape*(renderTexture: RenderTexture, obj: ConvexShape, states: RenderStates) =
+  (var Cstates = states)
+  drawConvexShape(renderTexture, obj, Cstates)
+
+proc drawRectangleShape*(renderTexture: RenderTexture, obj: RectangleShape, states: (var RenderStates){lvalue}) {.
+  cdecl, importc: "sfRenderTexture_drawRectangleShape".}
+proc drawRectangleShape*(renderTexture: RenderTexture, obj: RectangleShape, states: RenderStates) =
+  (var Cstates = states)
+  drawRectangleShape(renderTexture, obj, Cstates)
+
+proc drawVertexArray*(renderTexture: RenderTexture, obj: VertexArray, states: (var RenderStates){lvalue}) {.
+  cdecl, importc: "sfRenderTexture_drawVertexArray".}
+proc drawVertexArray*(renderTexture: RenderTexture, obj: VertexArray, states: RenderStates) =
+  (var Cstates = states)
+  drawVertexArray(renderTexture, obj, Cstates)
+
+proc drawPrimitives*(renderTexture: RenderTexture, vertices: ptr Vertex, vertexCount: int, kind: PrimitiveType, states: (var RenderStates){lvalue}) {.
+  cdecl, importc: "sfRenderTexture_drawPrimitives".}
+proc drawPrimitives*(renderTexture: RenderTexture, vertices: ptr Vertex, vertexCount: int, kind: PrimitiveType, states: RenderStates) =
+  ## Draw primitives defined by an array of vertices to a render texture
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+  ## - ``vertices``:       Pointer to the vertices
+  ## - ``vertexCount``:    Number of vertices in the array
+  ## - ``type``:           Type of primitives to draw
+  ## - ``states``:         Render states to use for drawing (NULL to use the default states)
+  (var Cstates = states)
+  drawPrimitives(renderTexture, vertices, vertexCount, kind, Cstates)
+
+proc pushGLStates*(renderTexture: RenderTexture) {.
+  cdecl, importc: "sfRenderTexture_pushGLStates".}
+  ## Save the current OpenGL render states and matrices
+  ## 
+  ## This function can be used when you mix SFML drawing
+  ## and direct OpenGL rendering. Combined with popGLStates,
+  ## it ensures that:
+  ## - SFML's internal states are not messed up by your OpenGL code
+  ## - your OpenGL states are not modified by a call to a SFML function
+  ## 
+  ## Note that this function is quite expensive: it saves all the
+  ## possible OpenGL states and matrices, even the ones you
+  ## don't care about. Therefore it should be used wisely.
+  ## It is provided for convenience, but the best results will
+  ## be achieved if you handle OpenGL states yourself (because
+  ## you know which states have really changed, and need to be
+  ## saved and restored). Take a look at the resetGLStates
+  ## function if you do so.
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+
+proc popGLStates*(renderTexture: RenderTexture) {.
+  cdecl, importc: "sfRenderTexture_popGLStates".}
+  ## Restore the previously saved OpenGL render states and matrices
+  ## 
+  ## See the description of pushGLStates to get a detailed
+  ## description of these functions.
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+
+proc resetGLStates*(renderTexture: RenderTexture) {.
+  cdecl, importc: "sfRenderTexture_resetGLStates".}
+  ## Reset the internal OpenGL states so that the target is ready for drawing
+  ## 
+  ## This function can be used when you mix SFML drawing
+  ## and direct OpenGL rendering, if you choose not to use
+  ## pushGLStates/popGLStates. It makes sure that all OpenGL
+  ## states needed by SFML are set, so that subsequent RenderTexture_draw*()
+  ## calls will work as expected.
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+
+proc texture*(renderTexture: RenderTexture): Texture {.
+  cdecl, importc: "sfRenderTexture_getTexture".}
+  ## Get the target texture of a render texture
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+  ## 
+  ## *Returns:* Pointer to the target texture
+
+proc `smooth=`*(renderTexture: RenderTexture, smooth: BoolInt) {.
+  cdecl, importc: "sfRenderTexture_setSmooth".}
+  ## Enable or disable the smooth filter on a render texture
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+  ## - ``smooth``:         True to enable smoothing, False to disable it
+
+proc smooth*(renderTexture: RenderTexture): BoolInt {.
+  cdecl, importc: "sfRenderTexture_isSmooth".}
+  ## Tell whether the smooth filter is enabled or not for a render texture
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+  ## 
+  ## *Returns:* True if smoothing is enabled, False if it is disabled
+
+proc `repeated=`*(renderTexture: RenderTexture, repeated: BoolInt) {.
+  cdecl, importc: "sfRenderTexture_setRepeated".}
+  ## Enable or disable texture repeating
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+  ## - ``repeated``:       True to enable repeating, False to disable it
+
+proc repeated*(renderTexture: RenderTexture): BoolInt {.
+  cdecl, importc: "sfRenderTexture_isRepeated".}
+  ## Tell whether the texture is repeated or not
+  ## 
+  ## *Arguments*:
+  ## - ``renderTexture``:  Render texture object
+  ## 
+  ## *Returns:* True if repeat mode is enabled, False if it is disabled
+
+
+#--- SFML/Graphics/RenderWindow ---#
 
 proc newRenderWindowC*(mode: VideoMode, title: cstring, style: BitMaskU32, settings: (var ContextSettings){lvalue}): RenderWindow {.
   cdecl, importc: "sfRenderWindow_create".}
@@ -2190,9 +2507,9 @@ proc drawVertexArray*(renderWindow: RenderWindow, obj: VertexArray, states: Rend
   (var Cstates = states)
   drawVertexArray(renderWindow, obj, Cstates)
 
-proc drawPrimitives*(renderWindow: RenderWindow, vertices: ptr Vertex, vertexCount: cint, kind: PrimitiveType, states: (var RenderStates){lvalue}) {.
+proc drawPrimitives*(renderWindow: RenderWindow, vertices: ptr Vertex, vertexCount: int, kind: PrimitiveType, states: (var RenderStates){lvalue}) {.
   cdecl, importc: "sfRenderWindow_drawPrimitives".}
-proc drawPrimitives*(renderWindow: RenderWindow, vertices: ptr Vertex, vertexCount: cint, kind: PrimitiveType, states: RenderStates) =
+proc drawPrimitives*(renderWindow: RenderWindow, vertices: ptr Vertex, vertexCount: int, kind: PrimitiveType, states: RenderStates) =
   ## Draw primitives defined by an array of vertices to a render window
   ## 
   ## *Arguments*:
@@ -2301,298 +2618,6 @@ proc touch_getPosition*(finger: cint, relativeTo: RenderWindow): Vector2i {.
   ## - ``relativeTo``:  Reference window
   ## 
   ## *Returns:* Current position of ``finger``, or undefined if it's not down
-
-
-#--- SFML/Graphics/RenderTexture ---#
-
-proc newRenderTexture*(width: cint, height: cint, depthBuffer: BoolInt): RenderTexture {.
-  cdecl, importc: "sfRenderTexture_create".}
-  ## Construct a new render texture
-  ## 
-  ## *Arguments*:
-  ## - ``width``:        Width of the render texture
-  ## - ``height``:       Height of the render texture
-  ## - ``depthBuffer``:  Do you want a depth-buffer attached? (useful only if you're doing 3D OpenGL on the rendertexture)
-  ## 
-  ## *Returns:* A new RenderTexture object, or NULL if it failed
-
-proc destroy*(renderTexture: RenderTexture) {.
-  destroy, cdecl, importc: "sfRenderTexture_destroy".}
-  ## Destroy an existing render texture
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture to destroy
-
-proc size*(renderTexture: RenderTexture): Vector2i {.
-  cdecl, importc: "sfRenderTexture_getSize".}
-  ## Get the size of the rendering region of a render texture
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-  ## 
-  ## *Returns:* Size in pixels
-
-proc `active=`*(renderTexture: RenderTexture, active: BoolInt): BoolInt {.
-  cdecl, importc: "sfRenderTexture_setActive".}
-  ## Activate or deactivate a render texture as the current target for rendering
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-  ## - ``active``:         True to activate, False to deactivate
-  ## 
-  ## *Returns:* True if operation was successful, false otherwise
-
-proc display*(renderTexture: RenderTexture) {.
-  cdecl, importc: "sfRenderTexture_display".}
-  ## Update the contents of the target texture
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-
-proc clear*(renderTexture: RenderTexture, color: Color) {.
-  cdecl, importc: "sfRenderTexture_clear".}
-  ## Clear the rendertexture with the given color
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-  ## - ``color``:          Fill color
-
-proc `view=`*(renderTexture: RenderTexture, view: View) {.
-  cdecl, importc: "sfRenderTexture_setView".}
-  ## Change the current active view of a render texture
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-  ## - ``view``:           Pointer to the new view
-
-proc view*(renderTexture: RenderTexture): View {.
-  cdecl, importc: "sfRenderTexture_getView".}
-  ## Get the current active view of a render texture
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-  ## 
-  ## *Returns:* Current active view
-
-proc defaultView*(renderTexture: RenderTexture): View {.
-  cdecl, importc: "sfRenderTexture_getDefaultView".}
-  ## Get the default view of a render texture
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-  ## 
-  ## *Returns:* Default view of the rendertexture
-
-proc getViewport*(renderTexture: RenderTexture, view: View): IntRect {.
-  cdecl, importc: "sfRenderTexture_getViewport".}
-  ## Get the viewport of a view applied to this target
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-  ## - ``view``:           Target view
-  ## 
-  ## *Returns:* Viewport rectangle, expressed in pixels in the current target
-
-proc mapPixelToCoords*(renderTexture: RenderTexture, point: Vector2i, view: View): Vector2f {.
-  cdecl, importc: "sfRenderTexture_mapPixelToCoords".}
-  ## Convert a point from texture coordinates to world coordinates
-  ## 
-  ## This function finds the 2D position that matches the
-  ## given pixel of the render-texture. In other words, it does
-  ## the inverse of what the graphics card does, to find the
-  ## initial position of a rendered pixel.
-  ## 
-  ## Initially, both coordinate systems (world units and target pixels)
-  ## match perfectly. But if you define a custom view or resize your
-  ## render-texture, this assertion is not true anymore, ie. a point
-  ## located at (10, 50) in your render-texture may map to the point
-  ## (150, 75) in your 2D world -- if the view is translated by (140, 25).
-  ## 
-  ## This version uses a custom view for calculations, see the other
-  ## overload of the function if you want to use the current view of the
-  ## render-texture.
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-  ## - ``point``:  Pixel to convert
-  ## - ``view``:  The view to use for converting the point
-  ## 
-  ## *Returns:* The converted point, in "world" units
-
-proc mapCoordsToPixel*(renderTexture: RenderTexture, point: Vector2f, view: View): Vector2i {.
-  cdecl, importc: "sfRenderTexture_mapCoordsToPixel".}
-  ## Convert a point from world coordinates to texture coordinates
-  ## 
-  ## This function finds the pixel of the render-texture that matches
-  ## the given 2D point. In other words, it goes through the same process
-  ## as the graphics card, to compute the final position of a rendered point.
-  ## 
-  ## Initially, both coordinate systems (world units and target pixels)
-  ## match perfectly. But if you define a custom view or resize your
-  ## render-texture, this assertion is not true anymore, ie. a point
-  ## located at (150, 75) in your 2D world may map to the pixel
-  ## (10, 50) of your render-texture -- if the view is translated by (140, 25).
-  ## 
-  ## This version uses a custom view for calculations, see the other
-  ## overload of the function if you want to use the current view of the
-  ## render-texture.
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-  ## - ``point``:  Point to convert
-  ## - ``view``:  The view to use for converting the point
-  ## 
-  ## *Returns:* The converted point, in target coordinates (pixels)
-
-proc drawSprite*(renderTexture: RenderTexture, obj: Sprite, states: (var RenderStates){lvalue}) {.
-  cdecl, importc: "sfRenderTexture_drawSprite".}
-proc drawSprite*(renderTexture: RenderTexture, obj: Sprite, states: RenderStates) =
-  ## Draw a drawable object to the render-target
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-  ## - ``object``:         Object to draw
-  ## - ``states``:         Render states to use for drawing (NULL to use the default states)
-  (var Cstates = states)
-  drawSprite(renderTexture, obj, Cstates)
-
-proc drawText*(renderTexture: RenderTexture, obj: Text, states: (var RenderStates){lvalue}) {.
-  cdecl, importc: "sfRenderTexture_drawText".}
-proc drawText*(renderTexture: RenderTexture, obj: Text, states: RenderStates) =
-  (var Cstates = states)
-  drawText(renderTexture, obj, Cstates)
-
-proc drawShape*(renderTexture: RenderTexture, obj: Shape, states: (var RenderStates){lvalue}) {.
-  cdecl, importc: "sfRenderTexture_drawShape".}
-proc drawShape*(renderTexture: RenderTexture, obj: Shape, states: RenderStates) =
-  (var Cstates = states)
-  drawShape(renderTexture, obj, Cstates)
-
-proc drawCircleShape*(renderTexture: RenderTexture, obj: CircleShape, states: (var RenderStates){lvalue}) {.
-  cdecl, importc: "sfRenderTexture_drawCircleShape".}
-proc drawCircleShape*(renderTexture: RenderTexture, obj: CircleShape, states: RenderStates) =
-  (var Cstates = states)
-  drawCircleShape(renderTexture, obj, Cstates)
-
-proc drawConvexShape*(renderTexture: RenderTexture, obj: ConvexShape, states: (var RenderStates){lvalue}) {.
-  cdecl, importc: "sfRenderTexture_drawConvexShape".}
-proc drawConvexShape*(renderTexture: RenderTexture, obj: ConvexShape, states: RenderStates) =
-  (var Cstates = states)
-  drawConvexShape(renderTexture, obj, Cstates)
-
-proc drawRectangleShape*(renderTexture: RenderTexture, obj: RectangleShape, states: (var RenderStates){lvalue}) {.
-  cdecl, importc: "sfRenderTexture_drawRectangleShape".}
-proc drawRectangleShape*(renderTexture: RenderTexture, obj: RectangleShape, states: RenderStates) =
-  (var Cstates = states)
-  drawRectangleShape(renderTexture, obj, Cstates)
-
-proc drawVertexArray*(renderTexture: RenderTexture, obj: VertexArray, states: (var RenderStates){lvalue}) {.
-  cdecl, importc: "sfRenderTexture_drawVertexArray".}
-proc drawVertexArray*(renderTexture: RenderTexture, obj: VertexArray, states: RenderStates) =
-  (var Cstates = states)
-  drawVertexArray(renderTexture, obj, Cstates)
-
-proc drawPrimitives*(renderTexture: RenderTexture, vertices: ptr Vertex, vertexCount: cint, kind: PrimitiveType, states: (var RenderStates){lvalue}) {.
-  cdecl, importc: "sfRenderTexture_drawPrimitives".}
-proc drawPrimitives*(renderTexture: RenderTexture, vertices: ptr Vertex, vertexCount: cint, kind: PrimitiveType, states: RenderStates) =
-  ## Draw primitives defined by an array of vertices to a render texture
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-  ## - ``vertices``:       Pointer to the vertices
-  ## - ``vertexCount``:    Number of vertices in the array
-  ## - ``type``:           Type of primitives to draw
-  ## - ``states``:         Render states to use for drawing (NULL to use the default states)
-  (var Cstates = states)
-  drawPrimitives(renderTexture, vertices, vertexCount, kind, Cstates)
-
-proc pushGLStates*(renderTexture: RenderTexture) {.
-  cdecl, importc: "sfRenderTexture_pushGLStates".}
-  ## Save the current OpenGL render states and matrices
-  ## 
-  ## This function can be used when you mix SFML drawing
-  ## and direct OpenGL rendering. Combined with popGLStates,
-  ## it ensures that:
-  ## - SFML's internal states are not messed up by your OpenGL code
-  ## - your OpenGL states are not modified by a call to a SFML function
-  ## 
-  ## Note that this function is quite expensive: it saves all the
-  ## possible OpenGL states and matrices, even the ones you
-  ## don't care about. Therefore it should be used wisely.
-  ## It is provided for convenience, but the best results will
-  ## be achieved if you handle OpenGL states yourself (because
-  ## you know which states have really changed, and need to be
-  ## saved and restored). Take a look at the resetGLStates
-  ## function if you do so.
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-
-proc popGLStates*(renderTexture: RenderTexture) {.
-  cdecl, importc: "sfRenderTexture_popGLStates".}
-  ## Restore the previously saved OpenGL render states and matrices
-  ## 
-  ## See the description of pushGLStates to get a detailed
-  ## description of these functions.
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-
-proc resetGLStates*(renderTexture: RenderTexture) {.
-  cdecl, importc: "sfRenderTexture_resetGLStates".}
-  ## Reset the internal OpenGL states so that the target is ready for drawing
-  ## 
-  ## This function can be used when you mix SFML drawing
-  ## and direct OpenGL rendering, if you choose not to use
-  ## pushGLStates/popGLStates. It makes sure that all OpenGL
-  ## states needed by SFML are set, so that subsequent RenderTexture_draw*()
-  ## calls will work as expected.
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-
-proc texture*(renderTexture: RenderTexture): Texture {.
-  cdecl, importc: "sfRenderTexture_getTexture".}
-  ## Get the target texture of a render texture
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-  ## 
-  ## *Returns:* Pointer to the target texture
-
-proc `smooth=`*(renderTexture: RenderTexture, smooth: BoolInt) {.
-  cdecl, importc: "sfRenderTexture_setSmooth".}
-  ## Enable or disable the smooth filter on a render texture
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-  ## - ``smooth``:         True to enable smoothing, False to disable it
-
-proc smooth*(renderTexture: RenderTexture): BoolInt {.
-  cdecl, importc: "sfRenderTexture_isSmooth".}
-  ## Tell whether the smooth filter is enabled or not for a render texture
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-  ## 
-  ## *Returns:* True if smoothing is enabled, False if it is disabled
-
-proc `repeated=`*(renderTexture: RenderTexture, repeated: BoolInt) {.
-  cdecl, importc: "sfRenderTexture_setRepeated".}
-  ## Enable or disable texture repeating
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-  ## - ``repeated``:       True to enable repeating, False to disable it
-
-proc repeated*(renderTexture: RenderTexture): BoolInt {.
-  cdecl, importc: "sfRenderTexture_isRepeated".}
-  ## Tell whether the texture is repeated or not
-  ## 
-  ## *Arguments*:
-  ## - ``renderTexture``:  Render texture object
-  ## 
-  ## *Returns:* True if repeat mode is enabled, False if it is disabled
 
 
 #--- SFML/Graphics/Shader ---#
@@ -2817,6 +2842,19 @@ proc `currentTextureParameter=`*(shader: Shader, name: cstring) {.
   ## - ``shader``:  Shader object
   ## - ``name``:    Name of the texture in the shader
 
+proc nativeHandle*(shader: Shader): cint {.
+  cdecl, importc: "sfShader_getNativeHandle".}
+  ## Get the underlying OpenGL handle of the shader.
+  ## 
+  ## You shouldn't need to use this function, unless you have
+  ## very specific stuff to implement that SFML doesn't support,
+  ## or implement a temporary workaround until a bug is fixed.
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## 
+  ## *Returns:* OpenGL handle of the shader or 0 if not yet loaded
+
 proc bindGL*(shader: Shader) {.
   cdecl, importc: "sfShader_bind".}
   ## Bind a shader for rendering (activate it)
@@ -2842,9 +2880,9 @@ proc shader_isAvailable*(): BoolInt {.
 
 #--- SFML/Graphics/Shape ---#
 
-type ShapeGetPointCountCallback* = proc(p1: pointer): cint {.cdecl.}
+type ShapeGetPointCountCallback* = proc(p1: pointer): int {.cdecl.}
 
-type ShapeGetPointCallback* = proc(p1: cint; p2: pointer): Vector2f {.cdecl.}
+type ShapeGetPointCallback* = proc(p1: int; p2: pointer): Vector2f {.cdecl.}
 
 proc newShape*(getPointCount: ShapeGetPointCountCallback, getPoint: ShapeGetPointCallback, userData: pointer): Shape {.
   cdecl, importc: "sfShape_create".}
@@ -3123,7 +3161,7 @@ proc outlineThickness*(shape: Shape): cfloat {.
   ## 
   ## *Returns:* Outline thickness of the shape
 
-proc pointCount*(shape: Shape): cint {.
+proc pointCount*(shape: Shape): int {.
   cdecl, importc: "sfShape_getPointCount".}
   ## Get the total number of points of a shape
   ## 
@@ -3132,7 +3170,7 @@ proc pointCount*(shape: Shape): cint {.
   ## 
   ## *Returns:* Number of points of the shape
 
-proc getPoint*(shape: Shape, index: cint): Vector2f {.
+proc getPoint*(shape: Shape, index: int): Vector2f {.
   cdecl, importc: "sfShape_getPoint".}
   ## Get a point of a shape
   ## 
@@ -3980,6 +4018,19 @@ proc repeated*(texture: Texture): BoolInt {.
   ## 
   ## *Returns:* True if repeat mode is enabled, False if it is disabled
 
+proc nativeHandle*(texture: Texture): cint {.
+  cdecl, importc: "sfTexture_getNativeHandle".}
+  ## Get the underlying OpenGL handle of the texture.
+  ## 
+  ## You shouldn't need to use this function, unless you have
+  ## very specific stuff to implement that SFML doesn't support,
+  ## or implement a temporary workaround until a bug is fixed.
+  ## 
+  ## *Arguments*:
+  ## - ``texture``:  The texture object
+  ## 
+  ## *Returns:* OpenGL handle of the texture or 0 if not yet created
+
 proc bindGL*(texture: Texture) {.
   cdecl, importc: "sfTexture_bind".}
   ## Bind a texture for rendering
@@ -4188,7 +4239,7 @@ proc destroy*(vertexArray: VertexArray) {.
   ## *Arguments*:
   ## - ``vertexArray``:  Vertex array to delete
 
-proc vertexCount*(vertexArray: VertexArray): cint {.
+proc vertexCount*(vertexArray: VertexArray): int {.
   cdecl, importc: "sfVertexArray_getVertexCount".}
   ## Return the vertex count of a vertex array
   ## 
@@ -4197,7 +4248,7 @@ proc vertexCount*(vertexArray: VertexArray): cint {.
   ## 
   ## *Returns:* Number of vertices in the array
 
-proc getVertex*(vertexArray: VertexArray, index: cint): ptr Vertex {.
+proc getVertex*(vertexArray: VertexArray, index: int): ptr Vertex {.
   cdecl, importc: "sfVertexArray_getVertex".}
   ## Get access to a vertex by its index
   ## 
@@ -4223,7 +4274,7 @@ proc clear*(vertexArray: VertexArray) {.
   ## *Arguments*:
   ## - ``vertexArray``:  Vertex array object
 
-proc resize*(vertexArray: VertexArray, vertexCount: cint) {.
+proc resize*(vertexArray: VertexArray, vertexCount: int) {.
   cdecl, importc: "sfVertexArray_resize".}
   ## Resize the vertex array
   ## 

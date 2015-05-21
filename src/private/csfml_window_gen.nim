@@ -162,6 +162,9 @@ proc keyboard_isKeyPressed*(key: KeyCode): BoolInt {.
 type MouseButton* {.pure, size: sizeof(cint).} = enum  ## Mouse buttons
   Left, Right, Middle, XButton1, XButton2, Count
 
+type MouseWheel* {.pure, size: sizeof(cint).} = enum  ## Mouse wheels
+  VerticalWheel, HorizontalWheel
+
 proc mouse_isButtonPressed*(button: MouseButton): BoolInt {.
   cdecl, importc: "sfMouse_isButtonPressed".}
   ## Check if a mouse button is pressed
@@ -235,10 +238,10 @@ proc sensor_getValue*(sensor: SensorType): Vector3f {.
 
 type EventType* {.pure, size: sizeof(cint).} = enum  ## Definition of all the event types
   Closed, Resized, LostFocus, GainedFocus, TextEntered, KeyPressed, KeyReleased,
-  MouseWheelMoved, MouseButtonPressed, MouseButtonReleased, MouseMoved,
-  MouseEntered, MouseLeft, JoystickButtonPressed, JoystickButtonReleased,
-  JoystickMoved, JoystickConnected, JoystickDisconnected, TouchBegan,
-  TouchMoved, TouchEnded, SensorChanged, Count
+  MouseWheelMoved, MouseWheelScrolled, MouseButtonPressed, MouseButtonReleased,
+  MouseMoved, MouseEntered, MouseLeft, JoystickButtonPressed,
+  JoystickButtonReleased, JoystickMoved, JoystickConnected,
+  JoystickDisconnected, TouchBegan, TouchMoved, TouchEnded, SensorChanged, Count
 
 type KeyEvent* {.bycopy.} = object
   ## Keyboard event parameters
@@ -264,8 +267,15 @@ type MouseButtonEvent* {.bycopy.} = object
   y*: cint
 
 type MouseWheelEvent* {.bycopy.} = object
-  ## Mouse wheel events parameters
+  ## Mouse wheel events parameters (deprecated)
   delta*: cint
+  x*: cint
+  y*: cint
+
+type MouseWheelScrollEvent* {.bycopy.} = object
+  ## Mouse wheel events parameters
+  wheel*: MouseWheel
+  delta*: cfloat
   x*: cint
   y*: cint
 
@@ -303,6 +313,31 @@ type SensorEvent* {.bycopy.} = object
   z*: cfloat
 
 include csfml_union_event
+
+
+#--- SFML/Window/Touch ---#
+
+proc touch_isDown*(finger: cint): BoolInt {.
+  cdecl, importc: "sfTouch_isDown".}
+  ## Check if a touch event is currently down
+  ## 
+  ## *Arguments*:
+  ## - ``finger``:  Finger index
+  ## 
+  ## *Returns:* True if ``finger`` is currently touching the screen, False otherwise
+
+proc touch_getPosition*(finger: cint, relativeTo: Window): Vector2i {.
+  cdecl, importc: "sfTouch_getPosition".}
+  ## Get the current position of a touch in window coordinates
+  ## 
+  ## This function returns the current touch position
+  ## relative to the given window, or desktop if NULL is passed.
+  ## 
+  ## *Arguments*:
+  ## - ``finger``:  Finger index
+  ## - ``relativeTo``:  Reference window
+  ## 
+  ## *Returns:* Current position of ``finger``, or undefined if it's not down
 
 
 #--- SFML/Window/VideoMode ---#
@@ -360,6 +395,9 @@ proc valid*(mode: VideoMode): BoolInt {.
 type WindowStyle* {.pure, size: sizeof(cint).} = enum  ## Enumeration of window creation styles
   None = 0, Titlebar = 1, Resize = 2, Close = 4, Default = 7, Fullscreen = 8
 
+type ContextAttribute* {.pure, size: sizeof(cint).} = enum  ## Enumeration of the context attribute flags
+  Default = 0, Core = 1, Debug = 4
+
 type ContextSettings* {.bycopy.} = object
   ## Structure defining the window's creation settings
   depthBits*: cint
@@ -367,6 +405,7 @@ type ContextSettings* {.bycopy.} = object
   antialiasingLevel*: cint
   majorVersion*: cint
   minorVersion*: cint
+  attributeFlags*: BitMaskU32
 
 proc newWindowC*(mode: VideoMode, title: cstring, style: BitMaskU32, settings: (var ContextSettings){lvalue}): Window {.
   cdecl, importc: "sfWindow_create".}
