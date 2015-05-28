@@ -74,12 +74,12 @@ body {
 /* For devices larger than 400px */
 @media (min-width: 400px) {
   .container {
-    width: 85%;
+    width: 100%;
     padding: 0; } }
 /* For devices larger than 650px */
 @media (min-width: 650px) {
   .container {
-    width: 80%; }
+    width: 100%; }
 
   .column,
   .columns {
@@ -392,7 +392,7 @@ h6 {
 ul,
 ol {
   padding: 0;
-  margin: 0 0 10px 25px; }
+  margin: 0 0 0px 15px; }
 
 ul ul,
 ul ol,
@@ -485,15 +485,16 @@ code {
   border: 1px solid #777777; }
 
 pre {
-  display: block;
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: calc(100% - 19.5px);
   padding: 9.5px;
-  margin: 0 10px 10px 10px;
+  margin: 0 10px 0px 10px;
   font-size: 14px;
   line-height: 20px;
   white-space: pre !important;
   overflow-y: hidden;
-  overflow: visible;
-  overflow-x: auto;
+  overflow-x: visible;
   background-color: whitesmoke;
   border: 1px solid #cccccc;
   -webkit-border-radius: 4px;
@@ -507,7 +508,7 @@ pre code {
   padding: 0;
   color: inherit;
   white-space: pre;
-  overflow-x: scroll;
+  overflow-x: visible;
   background-color: transparent;
   border: 0; }
 
@@ -1246,9 +1247,9 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   color*: Color
   texCoords*: Vector2f"><wbr />Vertex</a></li>
   <li><a class="reference" href="#ShapeGetPointCountCallback"
-    title="ShapeGetPointCountCallback = proc (p1: pointer): cint"><wbr />Shape<wbr />Get<wbr />Point<wbr />Count<wbr />Callback</a></li>
+    title="ShapeGetPointCountCallback = proc (p1: pointer): int"><wbr />Shape<wbr />Get<wbr />Point<wbr />Count<wbr />Callback</a></li>
   <li><a class="reference" href="#ShapeGetPointCallback"
-    title="ShapeGetPointCallback = proc (p1: cint; p2: pointer): Vector2f"><wbr />Shape<wbr />Get<wbr />Point<wbr />Callback</a></li>
+    title="ShapeGetPointCallback = proc (p1: int; p2: pointer): Vector2f"><wbr />Shape<wbr />Get<wbr />Point<wbr />Callback</a></li>
   <li><a class="reference" href="#TextStyle"
     title="TextStyle = enum 
   Regular = 0, Bold = 1, Italic = 2, Underlined = 4, StrikeThrough = 8"><wbr />Text<wbr />Style</a></li>
@@ -1299,8 +1300,14 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="color(red: uint8; green: uint8; blue: uint8): Color"><wbr />color</a></li>
   <li><a class="reference" href="#color,uint8,uint8,uint8,uint8"
     title="color(red: uint8; green: uint8; blue: uint8; alpha: uint8): Color"><wbr />color</a></li>
+  <li><a class="reference" href="#color,uint32"
+    title="color(color: uint32): Color"><wbr />color</a></li>
+  <li><a class="reference" href="#toInteger,Color"
+    title="toInteger(color: Color): uint32"><wbr />to<wbr />Integer</a></li>
   <li><a class="reference" href="#add,Color,Color"
     title="add(color1: Color; color2: Color): Color"><wbr />add</a></li>
+  <li><a class="reference" href="#subtract,Color,Color"
+    title="subtract(color1: Color; color2: Color): Color"><wbr />subtract</a></li>
   <li><a class="reference" href="#modulate,Color,Color"
     title="modulate(color1: Color; color2: Color): Color"><wbr />modulate</a></li>
   <li><a class="reference" href="#contains,,cfloat,cfloat"
@@ -1420,15 +1427,15 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#outlineThickness,CircleShape"
     title="outlineThickness(shape: CircleShape): cfloat"><wbr />outline<wbr />Thickness</a></li>
   <li><a class="reference" href="#pointCount,CircleShape"
-    title="pointCount(shape: CircleShape): cint"><wbr />point<wbr />Count</a></li>
-  <li><a class="reference" href="#getPoint,CircleShape,cint"
-    title="getPoint(shape: CircleShape; index: cint): Vector2f"><wbr />get<wbr />Point</a></li>
+    title="pointCount(shape: CircleShape): int"><wbr />point<wbr />Count</a></li>
+  <li><a class="reference" href="#getPoint,CircleShape,int"
+    title="getPoint(shape: CircleShape; index: int): Vector2f"><wbr />get<wbr />Point</a></li>
   <li><a class="reference" href="#radius=,CircleShape,cfloat"
     title="radius=(shape: CircleShape; radius: cfloat)"><wbr />radius=</a></li>
   <li><a class="reference" href="#radius,CircleShape"
     title="radius(shape: CircleShape): cfloat"><wbr />radius</a></li>
-  <li><a class="reference" href="#pointCount=,CircleShape,cint"
-    title="pointCount=(shape: CircleShape; count: cint)"><wbr />point<wbr />Count=</a></li>
+  <li><a class="reference" href="#pointCount=,CircleShape,int"
+    title="pointCount=(shape: CircleShape; count: int)"><wbr />point<wbr />Count=</a></li>
   <li><a class="reference" href="#localBounds,CircleShape"
     title="localBounds(shape: CircleShape): FloatRect"><wbr />local<wbr />Bounds</a></li>
   <li><a class="reference" href="#globalBounds,CircleShape"
@@ -1486,13 +1493,13 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#outlineThickness,ConvexShape"
     title="outlineThickness(shape: ConvexShape): cfloat"><wbr />outline<wbr />Thickness</a></li>
   <li><a class="reference" href="#pointCount,ConvexShape"
-    title="pointCount(shape: ConvexShape): cint"><wbr />point<wbr />Count</a></li>
-  <li><a class="reference" href="#getPoint,ConvexShape,cint"
-    title="getPoint(shape: ConvexShape; index: cint): Vector2f"><wbr />get<wbr />Point</a></li>
-  <li><a class="reference" href="#pointCount=,ConvexShape,cint"
-    title="pointCount=(shape: ConvexShape; count: cint)"><wbr />point<wbr />Count=</a></li>
-  <li><a class="reference" href="#setPoint,ConvexShape,cint,Vector2f"
-    title="setPoint(shape: ConvexShape; index: cint; point: Vector2f)"><wbr />set<wbr />Point</a></li>
+    title="pointCount(shape: ConvexShape): int"><wbr />point<wbr />Count</a></li>
+  <li><a class="reference" href="#getPoint,ConvexShape,int"
+    title="getPoint(shape: ConvexShape; index: int): Vector2f"><wbr />get<wbr />Point</a></li>
+  <li><a class="reference" href="#pointCount=,ConvexShape,int"
+    title="pointCount=(shape: ConvexShape; count: int)"><wbr />point<wbr />Count=</a></li>
+  <li><a class="reference" href="#setPoint,ConvexShape,int,Vector2f"
+    title="setPoint(shape: ConvexShape; index: int; point: Vector2f)"><wbr />set<wbr />Point</a></li>
   <li><a class="reference" href="#localBounds,ConvexShape"
     title="localBounds(shape: ConvexShape): FloatRect"><wbr />local<wbr />Bounds</a></li>
   <li><a class="reference" href="#globalBounds,ConvexShape"
@@ -1609,9 +1616,9 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#outlineThickness,RectangleShape"
     title="outlineThickness(shape: RectangleShape): cfloat"><wbr />outline<wbr />Thickness</a></li>
   <li><a class="reference" href="#pointCount,RectangleShape"
-    title="pointCount(shape: RectangleShape): cint"><wbr />point<wbr />Count</a></li>
-  <li><a class="reference" href="#getPoint,RectangleShape,cint"
-    title="getPoint(shape: RectangleShape; index: cint): Vector2f"><wbr />get<wbr />Point</a></li>
+    title="pointCount(shape: RectangleShape): int"><wbr />point<wbr />Count</a></li>
+  <li><a class="reference" href="#getPoint,RectangleShape,int"
+    title="getPoint(shape: RectangleShape; index: int): Vector2f"><wbr />get<wbr />Point</a></li>
   <li><a class="reference" href="#size=,RectangleShape,Vector2f"
     title="size=(shape: RectangleShape; size: Vector2f)"><wbr />size=</a></li>
   <li><a class="reference" href="#size,RectangleShape"
@@ -1620,6 +1627,92 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="localBounds(shape: RectangleShape): FloatRect"><wbr />local<wbr />Bounds</a></li>
   <li><a class="reference" href="#globalBounds,RectangleShape"
     title="globalBounds(shape: RectangleShape): FloatRect"><wbr />global<wbr />Bounds</a></li>
+  <li><a class="reference" href="#newRenderTexture,cint,cint,BoolInt"
+    title="newRenderTexture(width: cint; height: cint; depthBuffer: BoolInt): RenderTexture"><wbr />new<wbr />Render<wbr />Texture</a></li>
+  <li><a class="reference" href="#destroy,RenderTexture"
+    title="destroy(renderTexture: RenderTexture)"><wbr />destroy</a></li>
+  <li><a class="reference" href="#size,RenderTexture"
+    title="size(renderTexture: RenderTexture): Vector2i"><wbr />size</a></li>
+  <li><a class="reference" href="#active=,RenderTexture,BoolInt"
+    title="active=(renderTexture: RenderTexture; active: BoolInt): BoolInt"><wbr />active=</a></li>
+  <li><a class="reference" href="#display,RenderTexture"
+    title="display(renderTexture: RenderTexture)"><wbr />display</a></li>
+  <li><a class="reference" href="#clear,RenderTexture,Color"
+    title="clear(renderTexture: RenderTexture; color: Color)"><wbr />clear</a></li>
+  <li><a class="reference" href="#view=,RenderTexture,View"
+    title="view=(renderTexture: RenderTexture; view: View)"><wbr />view=</a></li>
+  <li><a class="reference" href="#view,RenderTexture"
+    title="view(renderTexture: RenderTexture): View"><wbr />view</a></li>
+  <li><a class="reference" href="#defaultView,RenderTexture"
+    title="defaultView(renderTexture: RenderTexture): View"><wbr />default<wbr />View</a></li>
+  <li><a class="reference" href="#getViewport,RenderTexture,View"
+    title="getViewport(renderTexture: RenderTexture; view: View): IntRect"><wbr />get<wbr />Viewport</a></li>
+  <li><a class="reference" href="#mapPixelToCoords,RenderTexture,Vector2i,View"
+    title="mapPixelToCoords(renderTexture: RenderTexture; point: Vector2i; view: View): Vector2f"><wbr />map<wbr />Pixel<wbr />To<wbr />Coords</a></li>
+  <li><a class="reference" href="#mapCoordsToPixel,RenderTexture,Vector2f,View"
+    title="mapCoordsToPixel(renderTexture: RenderTexture; point: Vector2f; view: View): Vector2i"><wbr />map<wbr />Coords<wbr />To<wbr />Pixel</a></li>
+  <li><a class="reference" href="#drawSprite,RenderTexture,Sprite,"
+    title="drawSprite(renderTexture: RenderTexture; obj: Sprite; 
+           states: (var RenderStates){lvalue})"><wbr />draw<wbr />Sprite</a></li>
+  <li><a class="reference" href="#drawSprite,RenderTexture,Sprite,RenderStates"
+    title="drawSprite(renderTexture: RenderTexture; obj: Sprite; states: RenderStates)"><wbr />draw<wbr />Sprite</a></li>
+  <li><a class="reference" href="#drawText,RenderTexture,Text,"
+    title="drawText(renderTexture: RenderTexture; obj: Text; 
+         states: (var RenderStates){lvalue})"><wbr />draw<wbr />Text</a></li>
+  <li><a class="reference" href="#drawText,RenderTexture,Text,RenderStates"
+    title="drawText(renderTexture: RenderTexture; obj: Text; states: RenderStates)"><wbr />draw<wbr />Text</a></li>
+  <li><a class="reference" href="#drawShape,RenderTexture,Shape,"
+    title="drawShape(renderTexture: RenderTexture; obj: Shape; 
+          states: (var RenderStates){lvalue})"><wbr />draw<wbr />Shape</a></li>
+  <li><a class="reference" href="#drawShape,RenderTexture,Shape,RenderStates"
+    title="drawShape(renderTexture: RenderTexture; obj: Shape; states: RenderStates)"><wbr />draw<wbr />Shape</a></li>
+  <li><a class="reference" href="#drawCircleShape,RenderTexture,CircleShape,"
+    title="drawCircleShape(renderTexture: RenderTexture; obj: CircleShape; 
+                states: (var RenderStates){lvalue})"><wbr />draw<wbr />Circle<wbr />Shape</a></li>
+  <li><a class="reference" href="#drawCircleShape,RenderTexture,CircleShape,RenderStates"
+    title="drawCircleShape(renderTexture: RenderTexture; obj: CircleShape; 
+                states: RenderStates)"><wbr />draw<wbr />Circle<wbr />Shape</a></li>
+  <li><a class="reference" href="#drawConvexShape,RenderTexture,ConvexShape,"
+    title="drawConvexShape(renderTexture: RenderTexture; obj: ConvexShape; 
+                states: (var RenderStates){lvalue})"><wbr />draw<wbr />Convex<wbr />Shape</a></li>
+  <li><a class="reference" href="#drawConvexShape,RenderTexture,ConvexShape,RenderStates"
+    title="drawConvexShape(renderTexture: RenderTexture; obj: ConvexShape; 
+                states: RenderStates)"><wbr />draw<wbr />Convex<wbr />Shape</a></li>
+  <li><a class="reference" href="#drawRectangleShape,RenderTexture,RectangleShape,"
+    title="drawRectangleShape(renderTexture: RenderTexture; obj: RectangleShape; 
+                   states: (var RenderStates){lvalue})"><wbr />draw<wbr />Rectangle<wbr />Shape</a></li>
+  <li><a class="reference" href="#drawRectangleShape,RenderTexture,RectangleShape,RenderStates"
+    title="drawRectangleShape(renderTexture: RenderTexture; obj: RectangleShape; 
+                   states: RenderStates)"><wbr />draw<wbr />Rectangle<wbr />Shape</a></li>
+  <li><a class="reference" href="#drawVertexArray,RenderTexture,VertexArray,"
+    title="drawVertexArray(renderTexture: RenderTexture; obj: VertexArray; 
+                states: (var RenderStates){lvalue})"><wbr />draw<wbr />Vertex<wbr />Array</a></li>
+  <li><a class="reference" href="#drawVertexArray,RenderTexture,VertexArray,RenderStates"
+    title="drawVertexArray(renderTexture: RenderTexture; obj: VertexArray; 
+                states: RenderStates)"><wbr />draw<wbr />Vertex<wbr />Array</a></li>
+  <li><a class="reference" href="#drawPrimitives,RenderTexture,ptr.Vertex,int,PrimitiveType,"
+    title="drawPrimitives(renderTexture: RenderTexture; vertices: ptr Vertex; 
+               vertexCount: int; kind: PrimitiveType; 
+               states: (var RenderStates){lvalue})"><wbr />draw<wbr />Primitives</a></li>
+  <li><a class="reference" href="#drawPrimitives,RenderTexture,ptr.Vertex,int,PrimitiveType,RenderStates"
+    title="drawPrimitives(renderTexture: RenderTexture; vertices: ptr Vertex; 
+               vertexCount: int; kind: PrimitiveType; states: RenderStates)"><wbr />draw<wbr />Primitives</a></li>
+  <li><a class="reference" href="#pushGLStates,RenderTexture"
+    title="pushGLStates(renderTexture: RenderTexture)"><wbr />push<wbr />GLStates</a></li>
+  <li><a class="reference" href="#popGLStates,RenderTexture"
+    title="popGLStates(renderTexture: RenderTexture)"><wbr />pop<wbr />GLStates</a></li>
+  <li><a class="reference" href="#resetGLStates,RenderTexture"
+    title="resetGLStates(renderTexture: RenderTexture)"><wbr />reset<wbr />GLStates</a></li>
+  <li><a class="reference" href="#texture,RenderTexture"
+    title="texture(renderTexture: RenderTexture): Texture"><wbr />texture</a></li>
+  <li><a class="reference" href="#smooth=,RenderTexture,BoolInt"
+    title="smooth=(renderTexture: RenderTexture; smooth: BoolInt)"><wbr />smooth=</a></li>
+  <li><a class="reference" href="#smooth,RenderTexture"
+    title="smooth(renderTexture: RenderTexture): BoolInt"><wbr />smooth</a></li>
+  <li><a class="reference" href="#repeated=,RenderTexture,BoolInt"
+    title="repeated=(renderTexture: RenderTexture; repeated: BoolInt)"><wbr />repeated=</a></li>
+  <li><a class="reference" href="#repeated,RenderTexture"
+    title="repeated(renderTexture: RenderTexture): BoolInt"><wbr />repeated</a></li>
   <li><a class="reference" href="#newRenderWindowC,VideoMode,cstring,BitMaskU32,"
     title="newRenderWindowC(mode: VideoMode; title: cstring; style: BitMaskU32; 
                  settings: (var ContextSettings){lvalue}): RenderWindow"><wbr />new<wbr />Render<wbr />Window<wbr />C</a></li>
@@ -1729,13 +1822,13 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#drawVertexArray,RenderWindow,VertexArray,RenderStates"
     title="drawVertexArray(renderWindow: RenderWindow; obj: VertexArray; 
                 states: RenderStates)"><wbr />draw<wbr />Vertex<wbr />Array</a></li>
-  <li><a class="reference" href="#drawPrimitives,RenderWindow,ptr.Vertex,cint,PrimitiveType,"
+  <li><a class="reference" href="#drawPrimitives,RenderWindow,ptr.Vertex,int,PrimitiveType,"
     title="drawPrimitives(renderWindow: RenderWindow; vertices: ptr Vertex; 
-               vertexCount: cint; kind: PrimitiveType; 
+               vertexCount: int; kind: PrimitiveType; 
                states: (var RenderStates){lvalue})"><wbr />draw<wbr />Primitives</a></li>
-  <li><a class="reference" href="#drawPrimitives,RenderWindow,ptr.Vertex,cint,PrimitiveType,RenderStates"
+  <li><a class="reference" href="#drawPrimitives,RenderWindow,ptr.Vertex,int,PrimitiveType,RenderStates"
     title="drawPrimitives(renderWindow: RenderWindow; vertices: ptr Vertex; 
-               vertexCount: cint; kind: PrimitiveType; states: RenderStates)"><wbr />draw<wbr />Primitives</a></li>
+               vertexCount: int; kind: PrimitiveType; states: RenderStates)"><wbr />draw<wbr />Primitives</a></li>
   <li><a class="reference" href="#pushGLStates,RenderWindow"
     title="pushGLStates(renderWindow: RenderWindow)"><wbr />push<wbr />GLStates</a></li>
   <li><a class="reference" href="#popGLStates,RenderWindow"
@@ -1748,92 +1841,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="mouse_getPosition(relativeTo: RenderWindow): Vector2i"><wbr />mouse_<wbr />get<wbr />Position</a></li>
   <li><a class="reference" href="#mouse_setPosition,Vector2i,RenderWindow"
     title="mouse_setPosition(position: Vector2i; relativeTo: RenderWindow)"><wbr />mouse_<wbr />set<wbr />Position</a></li>
-  <li><a class="reference" href="#newRenderTexture,cint,cint,BoolInt"
-    title="newRenderTexture(width: cint; height: cint; depthBuffer: BoolInt): RenderTexture"><wbr />new<wbr />Render<wbr />Texture</a></li>
-  <li><a class="reference" href="#destroy,RenderTexture"
-    title="destroy(renderTexture: RenderTexture)"><wbr />destroy</a></li>
-  <li><a class="reference" href="#size,RenderTexture"
-    title="size(renderTexture: RenderTexture): Vector2i"><wbr />size</a></li>
-  <li><a class="reference" href="#active=,RenderTexture,BoolInt"
-    title="active=(renderTexture: RenderTexture; active: BoolInt): BoolInt"><wbr />active=</a></li>
-  <li><a class="reference" href="#display,RenderTexture"
-    title="display(renderTexture: RenderTexture)"><wbr />display</a></li>
-  <li><a class="reference" href="#clear,RenderTexture,Color"
-    title="clear(renderTexture: RenderTexture; color: Color)"><wbr />clear</a></li>
-  <li><a class="reference" href="#view=,RenderTexture,View"
-    title="view=(renderTexture: RenderTexture; view: View)"><wbr />view=</a></li>
-  <li><a class="reference" href="#view,RenderTexture"
-    title="view(renderTexture: RenderTexture): View"><wbr />view</a></li>
-  <li><a class="reference" href="#defaultView,RenderTexture"
-    title="defaultView(renderTexture: RenderTexture): View"><wbr />default<wbr />View</a></li>
-  <li><a class="reference" href="#getViewport,RenderTexture,View"
-    title="getViewport(renderTexture: RenderTexture; view: View): IntRect"><wbr />get<wbr />Viewport</a></li>
-  <li><a class="reference" href="#mapPixelToCoords,RenderTexture,Vector2i,View"
-    title="mapPixelToCoords(renderTexture: RenderTexture; point: Vector2i; view: View): Vector2f"><wbr />map<wbr />Pixel<wbr />To<wbr />Coords</a></li>
-  <li><a class="reference" href="#mapCoordsToPixel,RenderTexture,Vector2f,View"
-    title="mapCoordsToPixel(renderTexture: RenderTexture; point: Vector2f; view: View): Vector2i"><wbr />map<wbr />Coords<wbr />To<wbr />Pixel</a></li>
-  <li><a class="reference" href="#drawSprite,RenderTexture,Sprite,"
-    title="drawSprite(renderTexture: RenderTexture; obj: Sprite; 
-           states: (var RenderStates){lvalue})"><wbr />draw<wbr />Sprite</a></li>
-  <li><a class="reference" href="#drawSprite,RenderTexture,Sprite,RenderStates"
-    title="drawSprite(renderTexture: RenderTexture; obj: Sprite; states: RenderStates)"><wbr />draw<wbr />Sprite</a></li>
-  <li><a class="reference" href="#drawText,RenderTexture,Text,"
-    title="drawText(renderTexture: RenderTexture; obj: Text; 
-         states: (var RenderStates){lvalue})"><wbr />draw<wbr />Text</a></li>
-  <li><a class="reference" href="#drawText,RenderTexture,Text,RenderStates"
-    title="drawText(renderTexture: RenderTexture; obj: Text; states: RenderStates)"><wbr />draw<wbr />Text</a></li>
-  <li><a class="reference" href="#drawShape,RenderTexture,Shape,"
-    title="drawShape(renderTexture: RenderTexture; obj: Shape; 
-          states: (var RenderStates){lvalue})"><wbr />draw<wbr />Shape</a></li>
-  <li><a class="reference" href="#drawShape,RenderTexture,Shape,RenderStates"
-    title="drawShape(renderTexture: RenderTexture; obj: Shape; states: RenderStates)"><wbr />draw<wbr />Shape</a></li>
-  <li><a class="reference" href="#drawCircleShape,RenderTexture,CircleShape,"
-    title="drawCircleShape(renderTexture: RenderTexture; obj: CircleShape; 
-                states: (var RenderStates){lvalue})"><wbr />draw<wbr />Circle<wbr />Shape</a></li>
-  <li><a class="reference" href="#drawCircleShape,RenderTexture,CircleShape,RenderStates"
-    title="drawCircleShape(renderTexture: RenderTexture; obj: CircleShape; 
-                states: RenderStates)"><wbr />draw<wbr />Circle<wbr />Shape</a></li>
-  <li><a class="reference" href="#drawConvexShape,RenderTexture,ConvexShape,"
-    title="drawConvexShape(renderTexture: RenderTexture; obj: ConvexShape; 
-                states: (var RenderStates){lvalue})"><wbr />draw<wbr />Convex<wbr />Shape</a></li>
-  <li><a class="reference" href="#drawConvexShape,RenderTexture,ConvexShape,RenderStates"
-    title="drawConvexShape(renderTexture: RenderTexture; obj: ConvexShape; 
-                states: RenderStates)"><wbr />draw<wbr />Convex<wbr />Shape</a></li>
-  <li><a class="reference" href="#drawRectangleShape,RenderTexture,RectangleShape,"
-    title="drawRectangleShape(renderTexture: RenderTexture; obj: RectangleShape; 
-                   states: (var RenderStates){lvalue})"><wbr />draw<wbr />Rectangle<wbr />Shape</a></li>
-  <li><a class="reference" href="#drawRectangleShape,RenderTexture,RectangleShape,RenderStates"
-    title="drawRectangleShape(renderTexture: RenderTexture; obj: RectangleShape; 
-                   states: RenderStates)"><wbr />draw<wbr />Rectangle<wbr />Shape</a></li>
-  <li><a class="reference" href="#drawVertexArray,RenderTexture,VertexArray,"
-    title="drawVertexArray(renderTexture: RenderTexture; obj: VertexArray; 
-                states: (var RenderStates){lvalue})"><wbr />draw<wbr />Vertex<wbr />Array</a></li>
-  <li><a class="reference" href="#drawVertexArray,RenderTexture,VertexArray,RenderStates"
-    title="drawVertexArray(renderTexture: RenderTexture; obj: VertexArray; 
-                states: RenderStates)"><wbr />draw<wbr />Vertex<wbr />Array</a></li>
-  <li><a class="reference" href="#drawPrimitives,RenderTexture,ptr.Vertex,cint,PrimitiveType,"
-    title="drawPrimitives(renderTexture: RenderTexture; vertices: ptr Vertex; 
-               vertexCount: cint; kind: PrimitiveType; 
-               states: (var RenderStates){lvalue})"><wbr />draw<wbr />Primitives</a></li>
-  <li><a class="reference" href="#drawPrimitives,RenderTexture,ptr.Vertex,cint,PrimitiveType,RenderStates"
-    title="drawPrimitives(renderTexture: RenderTexture; vertices: ptr Vertex; 
-               vertexCount: cint; kind: PrimitiveType; states: RenderStates)"><wbr />draw<wbr />Primitives</a></li>
-  <li><a class="reference" href="#pushGLStates,RenderTexture"
-    title="pushGLStates(renderTexture: RenderTexture)"><wbr />push<wbr />GLStates</a></li>
-  <li><a class="reference" href="#popGLStates,RenderTexture"
-    title="popGLStates(renderTexture: RenderTexture)"><wbr />pop<wbr />GLStates</a></li>
-  <li><a class="reference" href="#resetGLStates,RenderTexture"
-    title="resetGLStates(renderTexture: RenderTexture)"><wbr />reset<wbr />GLStates</a></li>
-  <li><a class="reference" href="#texture,RenderTexture"
-    title="texture(renderTexture: RenderTexture): Texture"><wbr />texture</a></li>
-  <li><a class="reference" href="#smooth=,RenderTexture,BoolInt"
-    title="smooth=(renderTexture: RenderTexture; smooth: BoolInt)"><wbr />smooth=</a></li>
-  <li><a class="reference" href="#smooth,RenderTexture"
-    title="smooth(renderTexture: RenderTexture): BoolInt"><wbr />smooth</a></li>
-  <li><a class="reference" href="#repeated=,RenderTexture,BoolInt"
-    title="repeated=(renderTexture: RenderTexture; repeated: BoolInt)"><wbr />repeated=</a></li>
-  <li><a class="reference" href="#repeated,RenderTexture"
-    title="repeated(renderTexture: RenderTexture): BoolInt"><wbr />repeated</a></li>
+  <li><a class="reference" href="#touch_getPosition,cint,RenderWindow"
+    title="touch_getPosition(finger: cint; relativeTo: RenderWindow): Vector2i"><wbr />touch_<wbr />get<wbr />Position</a></li>
   <li><a class="reference" href="#newShader,cstring,cstring"
     title="newShader(vertexShaderFilename: cstring; fragmentShaderFilename: cstring): Shader"><wbr />new<wbr />Shader</a></li>
   <li><a class="reference" href="#newShader,cstring,cstring_2"
@@ -1864,6 +1873,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="setParameter(shader: Shader; name: cstring; texture: Texture)"><wbr />set<wbr />Parameter</a></li>
   <li><a class="reference" href="#currentTextureParameter=,Shader,cstring"
     title="currentTextureParameter=(shader: Shader; name: cstring)"><wbr />current<wbr />Texture<wbr />Parameter=</a></li>
+  <li><a class="reference" href="#nativeHandle,Shader"
+    title="nativeHandle(shader: Shader): cint"><wbr />native<wbr />Handle</a></li>
   <li><a class="reference" href="#bindGL,Shader"
     title="bindGL(shader: Shader)"><wbr />bind<wbr />GL</a></li>
   <li><a class="reference" href="#shader_isAvailable,"
@@ -1920,9 +1931,9 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#outlineThickness,Shape"
     title="outlineThickness(shape: Shape): cfloat"><wbr />outline<wbr />Thickness</a></li>
   <li><a class="reference" href="#pointCount,Shape"
-    title="pointCount(shape: Shape): cint"><wbr />point<wbr />Count</a></li>
-  <li><a class="reference" href="#getPoint,Shape,cint"
-    title="getPoint(shape: Shape; index: cint): Vector2f"><wbr />get<wbr />Point</a></li>
+    title="pointCount(shape: Shape): int"><wbr />point<wbr />Count</a></li>
+  <li><a class="reference" href="#getPoint,Shape,int"
+    title="getPoint(shape: Shape; index: int): Vector2f"><wbr />get<wbr />Point</a></li>
   <li><a class="reference" href="#localBounds,Shape"
     title="localBounds(shape: Shape): FloatRect"><wbr />local<wbr />Bounds</a></li>
   <li><a class="reference" href="#globalBounds,Shape"
@@ -2079,6 +2090,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="repeated=(texture: Texture; repeated: BoolInt)"><wbr />repeated=</a></li>
   <li><a class="reference" href="#repeated,Texture"
     title="repeated(texture: Texture): BoolInt"><wbr />repeated</a></li>
+  <li><a class="reference" href="#nativeHandle,Texture"
+    title="nativeHandle(texture: Texture): cint"><wbr />native<wbr />Handle</a></li>
   <li><a class="reference" href="#bindGL,Texture"
     title="bindGL(texture: Texture)"><wbr />bind<wbr />GL</a></li>
   <li><a class="reference" href="#texture_getMaximumSize,"
@@ -2122,13 +2135,13 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#destroy,VertexArray"
     title="destroy(vertexArray: VertexArray)"><wbr />destroy</a></li>
   <li><a class="reference" href="#vertexCount,VertexArray"
-    title="vertexCount(vertexArray: VertexArray): cint"><wbr />vertex<wbr />Count</a></li>
-  <li><a class="reference" href="#getVertex,VertexArray,cint"
-    title="getVertex(vertexArray: VertexArray; index: cint): ptr Vertex"><wbr />get<wbr />Vertex</a></li>
+    title="vertexCount(vertexArray: VertexArray): int"><wbr />vertex<wbr />Count</a></li>
+  <li><a class="reference" href="#getVertex,VertexArray,int"
+    title="getVertex(vertexArray: VertexArray; index: int): ptr Vertex"><wbr />get<wbr />Vertex</a></li>
   <li><a class="reference" href="#clear,VertexArray"
     title="clear(vertexArray: VertexArray)"><wbr />clear</a></li>
-  <li><a class="reference" href="#resize,VertexArray,cint"
-    title="resize(vertexArray: VertexArray; vertexCount: cint)"><wbr />resize</a></li>
+  <li><a class="reference" href="#resize,VertexArray,int"
+    title="resize(vertexArray: VertexArray; vertexCount: int)"><wbr />resize</a></li>
   <li><a class="reference" href="#append,VertexArray,Vertex"
     title="append(vertexArray: VertexArray; vertex: Vertex)"><wbr />append</a></li>
   <li><a class="reference" href="#primitiveType=,VertexArray,PrimitiveType"
@@ -2229,8 +2242,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="renderStates(blendMode = BlendAlpha; transform = Identity; 
              texture: Texture = nil; shader: Shader = nil): RenderStates"><wbr />render<wbr />States</a></li>
   <li><a class="reference" href="#setParameter,Shader,cstring,"
-    title="setParameter(shader: Shader; name: cstring; 
-             currentTexture: type (CurrentTexture))"><wbr />set<wbr />Parameter</a></li>
+    title="setParameter(shader: Shader; name: cstring; currentTexture: type(CurrentTexture))"><wbr />set<wbr />Parameter</a></li>
   <li><a class="reference" href="#title=,RenderWindow,string"
     title="title=(window: RenderWindow; title: string)"><wbr />title=</a></li>
   <li><a class="reference" href="#newRenderWindow,VideoMode,string,BitMaskU32"
@@ -2499,12 +2511,12 @@ Define the states used for drawing to a RenderTarget
 
 
 </dd>
-<dt id="ShapeGetPointCountCallback"><a name="ShapeGetPointCountCallback"></a><pre><span class="Identifier">ShapeGetPointCountCallback</span> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">p1</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">.}</span></pre></dt>
+<dt id="ShapeGetPointCountCallback"><a name="ShapeGetPointCountCallback"></a><pre><span class="Identifier">ShapeGetPointCountCallback</span> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">p1</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="ShapeGetPointCallback"><a name="ShapeGetPointCallback"></a><pre><span class="Identifier">ShapeGetPointCallback</span> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">p1</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">p2</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">.}</span></pre></dt>
+<dt id="ShapeGetPointCallback"><a name="ShapeGetPointCallback"></a><pre><span class="Identifier">ShapeGetPointCallback</span> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">p1</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">p2</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
@@ -2628,6 +2640,23 @@ Placeholder argument for setParameter
 
 
 </dd>
+<dt id="color"><a name="color,uint32"></a><pre><span class="Keyword">proc</span> <span class="Identifier">color</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">uint32</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Color</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfColor_fromInteger&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Construct the color from 32-bit unsigned integer</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">color</span></tt>:  Number containing the RGBA components (in that order)</li>
+</ul>
+<p><em>Returns:</em> Color constructed from the 32-bit unsigned integer</p>
+
+
+</dd>
+<dt id="toInteger"><a name="toInteger,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">toInteger</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">uint32</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfColor_toInteger&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Convert a color to a 32-bit unsigned integer</p>
+<p><em>Returns:</em> Color represented as a 32-bit unsigned integer</p>
+
+
+</dd>
 <dt id="add"><a name="add,Color,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">add</span><span class="Other">(</span><span class="Identifier">color1</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">;</span> <span class="Identifier">color2</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Color</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfColor_add&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Add two colors</p>
@@ -2636,6 +2665,18 @@ Placeholder argument for setParameter
 <li><tt class="docutils literal"><span class="pre">color2</span></tt>:  Second color</li>
 </ul>
 <p><em>Returns:</em> Component-wise saturated addition of the two colors</p>
+
+
+</dd>
+<dt id="subtract"><a name="subtract,Color,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">subtract</span><span class="Other">(</span><span class="Identifier">color1</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">;</span> <span class="Identifier">color2</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Color</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfColor_subtract&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Subtract two colors</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">color1</span></tt>:  First color</li>
+<li><tt class="docutils literal"><span class="pre">color2</span></tt>:  Second color</li>
+</ul>
+<p><em>Returns:</em> Component-wise saturated subtraction of the two colors</p>
 
 
 </dd>
@@ -2659,6 +2700,13 @@ Placeholder argument for setParameter
 </dd>
 <dt id="contains"><a name="contains,FloatRect,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">contains</span><span class="Other">(</span><span class="Identifier">rect</span><span class="Other">:</span> <span class="Identifier">FloatRect</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Check if a point is inside a rectangle's area</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">rect</span></tt>:  Rectangle to test</li>
+<li><tt class="docutils literal"><span class="pre">x</span></tt>:     X coordinate of the point to test</li>
+<li><tt class="docutils literal"><span class="pre">y</span></tt>:     Y coordinate of the point to test</li>
+</ul>
+<p><em>Returns:</em> True if the point is inside</p>
 
 
 </dd>
@@ -2694,6 +2742,13 @@ Placeholder argument for setParameter
 </dd>
 <dt id="intersects"><a name="intersects,FloatRect,FloatRect,FloatRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">intersects</span><span class="Other">(</span><span class="Identifier">rect1</span><span class="Other">:</span> <span class="Identifier">FloatRect</span><span class="Other">;</span> <span class="Identifier">rect2</span><span class="Other">:</span> <span class="Identifier">FloatRect</span><span class="Other">;</span> <span class="Identifier">intersection</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Check intersection between two rectangles</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">rect1</span></tt>:         First rectangle to test</li>
+<li><tt class="docutils literal"><span class="pre">rect2</span></tt>:         Second rectangle to test</li>
+<li><tt class="docutils literal"><span class="pre">intersection</span></tt>:  Rectangle to be filled with overlapping rect (can be NULL)</li>
+</ul>
+<p><em>Returns:</em> True if rectangles overlap</p>
 
 
 </dd>
@@ -2766,6 +2821,12 @@ Placeholder argument for setParameter
 </dd>
 <dt id="inverse"><a name="inverse,Transform"></a><pre><span class="Keyword">proc</span> <span class="Identifier">inverse</span><span class="Other">(</span><span class="Identifier">transform</span><span class="Other">:</span> <span class="Identifier">Transform</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Transform</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Return the inverse of a transform</p>
+<p>If the inverse cannot be computed, a new identity transform is returned.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">transform</span></tt>:  Transform object</li>
+</ul>
+<p><em>Returns:</em> The inverse matrix</p>
 
 
 </dd>
@@ -2777,6 +2838,12 @@ Placeholder argument for setParameter
 </dd>
 <dt id="transformPoint"><a name="transformPoint,Transform,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">transformPoint</span><span class="Other">(</span><span class="Identifier">transform</span><span class="Other">:</span> <span class="Identifier">Transform</span><span class="Other">;</span> <span class="Identifier">point</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Apply a transform to a 2D point</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">transform</span></tt>:  Transform object</li>
+<li><tt class="docutils literal"><span class="pre">point</span></tt>:      Point to transform</li>
+</ul>
+<p><em>Returns:</em> Transformed point</p>
 
 
 </dd>
@@ -2788,6 +2855,13 @@ Placeholder argument for setParameter
 </dd>
 <dt id="transformRect"><a name="transformRect,Transform,FloatRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">transformRect</span><span class="Other">(</span><span class="Identifier">transform</span><span class="Other">:</span> <span class="Identifier">Transform</span><span class="Other">;</span> <span class="Identifier">rectangle</span><span class="Other">:</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">FloatRect</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Apply a transform to a rectangle</p>
+<p>Since SFML doesn't provide support for oriented rectangles, the result of this function is always an axis-aligned rectangle. Which means that if the transform contains a rotation, the bounding rectangle of the transformed rectangle is returned.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">transform</span></tt>:  Transform object</li>
+<li><tt class="docutils literal"><span class="pre">rectangle</span></tt>:  Rectangle to transform</li>
+</ul>
+<p><em>Returns:</em> Transformed rectangle</p>
 
 
 </dd>
@@ -3169,7 +3243,7 @@ Placeholder argument for setParameter
 
 
 </dd>
-<dt id="pointCount"><a name="pointCount,CircleShape"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pointCount</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">CircleShape</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="pointCount"><a name="pointCount,CircleShape"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pointCount</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">CircleShape</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfCircleShape_getPointCount&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get the total number of points of a circle shape</p>
@@ -3180,7 +3254,7 @@ Placeholder argument for setParameter
 
 
 </dd>
-<dt id="getPoint"><a name="getPoint,CircleShape,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getPoint</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">CircleShape</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="getPoint"><a name="getPoint,CircleShape,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getPoint</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">CircleShape</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfCircleShape_getPoint&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get a point of a circle shape</p>
@@ -3215,7 +3289,7 @@ Placeholder argument for setParameter
 
 
 </dd>
-<dt id="pointCount="><a name="pointCount=,CircleShape,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pointCount=</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">CircleShape</span><span class="Other">;</span> <span class="Identifier">count</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="pointCount="><a name="pointCount=,CircleShape,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pointCount=</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">CircleShape</span><span class="Other">;</span> <span class="Identifier">count</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfCircleShape_setPointCount&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the number of points of a circle</p>
@@ -3546,7 +3620,7 @@ Placeholder argument for setParameter
 
 
 </dd>
-<dt id="pointCount"><a name="pointCount,ConvexShape"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pointCount</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="pointCount"><a name="pointCount,ConvexShape"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pointCount</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfConvexShape_getPointCount&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get the total number of points of a convex shape</p>
@@ -3557,7 +3631,7 @@ Placeholder argument for setParameter
 
 
 </dd>
-<dt id="getPoint"><a name="getPoint,ConvexShape,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getPoint</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="getPoint"><a name="getPoint,ConvexShape,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getPoint</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfConvexShape_getPoint&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get a point of a convex shape</p>
@@ -3570,7 +3644,7 @@ Placeholder argument for setParameter
 
 
 </dd>
-<dt id="pointCount="><a name="pointCount=,ConvexShape,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pointCount=</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">;</span> <span class="Identifier">count</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="pointCount="><a name="pointCount=,ConvexShape,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pointCount=</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">;</span> <span class="Identifier">count</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfConvexShape_setPointCount&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the number of points of a convex shap</p>
@@ -3582,7 +3656,7 @@ Placeholder argument for setParameter
 
 
 </dd>
-<dt id="setPoint"><a name="setPoint,ConvexShape,cint,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setPoint</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">point</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="setPoint"><a name="setPoint,ConvexShape,int,Vector2f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setPoint</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">point</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfConvexShape_setPoint&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Set the position of a point in a convex shape</p>
@@ -4264,7 +4338,7 @@ Placeholder argument for setParameter
 
 
 </dd>
-<dt id="pointCount"><a name="pointCount,RectangleShape"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pointCount</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">RectangleShape</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="pointCount"><a name="pointCount,RectangleShape"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pointCount</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">RectangleShape</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRectangleShape_getPointCount&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get the total number of points of a rectangle shape</p>
@@ -4275,7 +4349,7 @@ Placeholder argument for setParameter
 
 
 </dd>
-<dt id="getPoint"><a name="getPoint,RectangleShape,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getPoint</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">RectangleShape</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="getPoint"><a name="getPoint,RectangleShape,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getPoint</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">RectangleShape</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRectangleShape_getPoint&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get a point of a rectangle shape</p>
@@ -4334,6 +4408,358 @@ Placeholder argument for setParameter
 
 
 </dd>
+<dt id="newRenderTexture"><a name="newRenderTexture,cint,cint,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderTexture</span><span class="Other">(</span><span class="Identifier">width</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">depthBuffer</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span> <span class="Other">{.</span>
+    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_create&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Construct a new render texture</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">width</span></tt>:        Width of the render texture</li>
+<li><tt class="docutils literal"><span class="pre">height</span></tt>:       Height of the render texture</li>
+<li><tt class="docutils literal"><span class="pre">depthBuffer</span></tt>:  Do you want a depth-buffer attached? (useful only if you're doing 3D OpenGL on the rendertexture)</li>
+</ul>
+<p><em>Returns:</em> A new RenderTexture object, or NULL if it failed</p>
+
+
+</dd>
+<dt id="destroy"><a name="destroy,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">destroy</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">override</span><span class="Other">,</span> <span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_destroy&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Destroy an existing render texture</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture to destroy</li>
+</ul>
+
+
+</dd>
+<dt id="size"><a name="size,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">size</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_getSize&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the size of the rendering region of a render texture</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+</ul>
+<p><em>Returns:</em> Size in pixels</p>
+
+
+</dd>
+<dt id="active="><a name="active=,RenderTexture,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">active=</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">active</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_setActive&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Activate or deactivate a render texture as the current target for rendering</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+<li><tt class="docutils literal"><span class="pre">active</span></tt>:         True to activate, False to deactivate</li>
+</ul>
+<p><em>Returns:</em> True if operation was successful, false otherwise</p>
+
+
+</dd>
+<dt id="display"><a name="display,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">display</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_display&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Update the contents of the target texture</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+</ul>
+
+
+</dd>
+<dt id="clear"><a name="clear,RenderTexture,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">clear</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_clear&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Clear the rendertexture with the given color</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+<li><tt class="docutils literal"><span class="pre">color</span></tt>:          Fill color</li>
+</ul>
+
+
+</dd>
+<dt id="view="><a name="view=,RenderTexture,View"></a><pre><span class="Keyword">proc</span> <span class="Identifier">view=</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">view</span><span class="Other">:</span> <span class="Identifier">View</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_setView&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Change the current active view of a render texture</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+<li><tt class="docutils literal"><span class="pre">view</span></tt>:           Pointer to the new view</li>
+</ul>
+
+
+</dd>
+<dt id="view"><a name="view,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">view</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">View</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_getView&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the current active view of a render texture</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+</ul>
+<p><em>Returns:</em> Current active view</p>
+
+
+</dd>
+<dt id="defaultView"><a name="defaultView,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">defaultView</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">View</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_getDefaultView&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the default view of a render texture</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+</ul>
+<p><em>Returns:</em> Default view of the rendertexture</p>
+
+
+</dd>
+<dt id="getViewport"><a name="getViewport,RenderTexture,View"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getViewport</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">view</span><span class="Other">:</span> <span class="Identifier">View</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntRect</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_getViewport&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the viewport of a view applied to this target</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+<li><tt class="docutils literal"><span class="pre">view</span></tt>:           Target view</li>
+</ul>
+<p><em>Returns:</em> Viewport rectangle, expressed in pixels in the current target</p>
+
+
+</dd>
+<dt id="mapPixelToCoords"><a name="mapPixelToCoords,RenderTexture,Vector2i,View"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mapPixelToCoords</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">point</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">;</span> <span class="Identifier">view</span><span class="Other">:</span> <span class="Identifier">View</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span>
+    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_mapPixelToCoords&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Convert a point from texture coordinates to world coordinates</p>
+<p>This function finds the 2D position that matches the given pixel of the render-texture. In other words, it does the inverse of what the graphics card does, to find the initial position of a rendered pixel.</p>
+<p>Initially, both coordinate systems (world units and target pixels) match perfectly. But if you define a custom view or resize your render-texture, this assertion is not true anymore, ie. a point located at (10, 50) in your render-texture may map to the point (150, 75) in your 2D world -- if the view is translated by (140, 25).</p>
+<p>This version uses a custom view for calculations, see the other overload of the function if you want to use the current view of the render-texture.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+<li><tt class="docutils literal"><span class="pre">point</span></tt>:  Pixel to convert</li>
+<li><tt class="docutils literal"><span class="pre">view</span></tt>:  The view to use for converting the point</li>
+</ul>
+<p><em>Returns:</em> The converted point, in &quot;world&quot; units</p>
+
+
+</dd>
+<dt id="mapCoordsToPixel"><a name="mapCoordsToPixel,RenderTexture,Vector2f,View"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mapCoordsToPixel</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">point</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">;</span> <span class="Identifier">view</span><span class="Other">:</span> <span class="Identifier">View</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span>
+    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_mapCoordsToPixel&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Convert a point from world coordinates to texture coordinates</p>
+<p>This function finds the pixel of the render-texture that matches the given 2D point. In other words, it goes through the same process as the graphics card, to compute the final position of a rendered point.</p>
+<p>Initially, both coordinate systems (world units and target pixels) match perfectly. But if you define a custom view or resize your render-texture, this assertion is not true anymore, ie. a point located at (150, 75) in your 2D world may map to the pixel (10, 50) of your render-texture -- if the view is translated by (140, 25).</p>
+<p>This version uses a custom view for calculations, see the other overload of the function if you want to use the current view of the render-texture.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+<li><tt class="docutils literal"><span class="pre">point</span></tt>:  Point to convert</li>
+<li><tt class="docutils literal"><span class="pre">view</span></tt>:  The view to use for converting the point</li>
+</ul>
+<p><em>Returns:</em> The converted point, in target coordinates (pixels)</p>
+
+
+</dd>
+<dt id="drawSprite"><a name="drawSprite,RenderTexture,Sprite,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawSprite</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">Sprite</span><span class="Other">;</span> 
+                <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawSprite&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="drawSprite"><a name="drawSprite,RenderTexture,Sprite,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawSprite</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">Sprite</span><span class="Other">;</span> <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+<p>Draw a drawable object to the render-target</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+<li><tt class="docutils literal"><span class="pre">object</span></tt>:         Object to draw</li>
+<li><tt class="docutils literal"><span class="pre">states</span></tt>:         Render states to use for drawing (NULL to use the default states)</li>
+</ul>
+
+
+</dd>
+<dt id="drawText"><a name="drawText,RenderTexture,Text,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawText</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">;</span> 
+              <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawText&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="drawText"><a name="drawText,RenderTexture,Text,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawText</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">;</span> <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="drawShape"><a name="drawShape,RenderTexture,Shape,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawShape</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">Shape</span><span class="Other">;</span> 
+               <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawShape&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="drawShape"><a name="drawShape,RenderTexture,Shape,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawShape</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">Shape</span><span class="Other">;</span> <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="drawCircleShape"><a name="drawCircleShape,RenderTexture,CircleShape,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawCircleShape</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">CircleShape</span><span class="Other">;</span> 
+                     <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawCircleShape&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="drawCircleShape"><a name="drawCircleShape,RenderTexture,CircleShape,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawCircleShape</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">CircleShape</span><span class="Other">;</span> 
+                     <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="drawConvexShape"><a name="drawConvexShape,RenderTexture,ConvexShape,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawConvexShape</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">;</span> 
+                     <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawConvexShape&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="drawConvexShape"><a name="drawConvexShape,RenderTexture,ConvexShape,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawConvexShape</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">;</span> 
+                     <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="drawRectangleShape"><a name="drawRectangleShape,RenderTexture,RectangleShape,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawRectangleShape</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">RectangleShape</span><span class="Other">;</span> 
+                        <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawRectangleShape&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="drawRectangleShape"><a name="drawRectangleShape,RenderTexture,RectangleShape,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawRectangleShape</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">RectangleShape</span><span class="Other">;</span> 
+                        <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="drawVertexArray"><a name="drawVertexArray,RenderTexture,VertexArray,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawVertexArray</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">VertexArray</span><span class="Other">;</span> 
+                     <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawVertexArray&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="drawVertexArray"><a name="drawVertexArray,RenderTexture,VertexArray,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawVertexArray</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">VertexArray</span><span class="Other">;</span> 
+                     <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="drawPrimitives"><a name="drawPrimitives,RenderTexture,ptr.Vertex,int,PrimitiveType,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Vertex</span><span class="Other">;</span> 
+                    <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> 
+                    <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawPrimitives&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="drawPrimitives"><a name="drawPrimitives,RenderTexture,ptr.Vertex,int,PrimitiveType,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Vertex</span><span class="Other">;</span> 
+                    <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dd>
+<p>Draw primitives defined by an array of vertices to a render texture</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+<li><tt class="docutils literal"><span class="pre">vertices</span></tt>:       Pointer to the vertices</li>
+<li><tt class="docutils literal"><span class="pre">vertexCount</span></tt>:    Number of vertices in the array</li>
+<li><tt class="docutils literal"><span class="pre">type</span></tt>:           Type of primitives to draw</li>
+<li><tt class="docutils literal"><span class="pre">states</span></tt>:         Render states to use for drawing (NULL to use the default states)</li>
+</ul>
+
+
+</dd>
+<dt id="pushGLStates"><a name="pushGLStates,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pushGLStates</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_pushGLStates&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Save the current OpenGL render states and matrices</p>
+<p>This function can be used when you mix SFML drawing and direct OpenGL rendering. Combined with popGLStates, it ensures that:</p>
+<ul class="simple"><li>SFML's internal states are not messed up by your OpenGL code</li>
+<li>your OpenGL states are not modified by a call to a SFML function</li>
+</ul>
+<p>Note that this function is quite expensive: it saves all the possible OpenGL states and matrices, even the ones you don't care about. Therefore it should be used wisely. It is provided for convenience, but the best results will be achieved if you handle OpenGL states yourself (because you know which states have really changed, and need to be saved and restored). Take a look at the resetGLStates function if you do so.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+</ul>
+
+
+</dd>
+<dt id="popGLStates"><a name="popGLStates,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">popGLStates</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_popGLStates&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Restore the previously saved OpenGL render states and matrices</p>
+<p>See the description of pushGLStates to get a detailed description of these functions.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+</ul>
+
+
+</dd>
+<dt id="resetGLStates"><a name="resetGLStates,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">resetGLStates</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_resetGLStates&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Reset the internal OpenGL states so that the target is ready for drawing</p>
+<p>This function can be used when you mix SFML drawing and direct OpenGL rendering, if you choose not to use pushGLStates/popGLStates. It makes sure that all OpenGL states needed by SFML are set, so that subsequent RenderTexture_draw*() calls will work as expected.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+</ul>
+
+
+</dd>
+<dt id="texture"><a name="texture,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">texture</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Texture</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_getTexture&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the target texture of a render texture</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+</ul>
+<p><em>Returns:</em> Pointer to the target texture</p>
+
+
+</dd>
+<dt id="smooth="><a name="smooth=,RenderTexture,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">smooth=</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">smooth</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_setSmooth&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Enable or disable the smooth filter on a render texture</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+<li><tt class="docutils literal"><span class="pre">smooth</span></tt>:         True to enable smoothing, False to disable it</li>
+</ul>
+
+
+</dd>
+<dt id="smooth"><a name="smooth,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">smooth</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_isSmooth&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Tell whether the smooth filter is enabled or not for a render texture</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+</ul>
+<p><em>Returns:</em> True if smoothing is enabled, False if it is disabled</p>
+
+
+</dd>
+<dt id="repeated="><a name="repeated=,RenderTexture,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">repeated=</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">repeated</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_setRepeated&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Enable or disable texture repeating</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+<li><tt class="docutils literal"><span class="pre">repeated</span></tt>:       True to enable repeating, False to disable it</li>
+</ul>
+
+
+</dd>
+<dt id="repeated"><a name="repeated,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">repeated</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_isRepeated&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Tell whether the texture is repeated or not</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
+</ul>
+<p><em>Returns:</em> True if repeat mode is enabled, False if it is disabled</p>
+
+
+</dd>
 <dt id="newRenderWindowC"><a name="newRenderWindowC,VideoMode,cstring,BitMaskU32,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderWindowC</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span><span class="Other">;</span> 
                       <span class="Identifier">settings</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">ContextSettings</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span> <span class="Other">{.</span>
     <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_create&quot;</span><span class="Other">.}</span></pre></dt>
@@ -4344,6 +4770,13 @@ Placeholder argument for setParameter
 <dt id="newRenderWindowC"><a name="newRenderWindowC,VideoMode,cstring,BitMaskU32,ContextSettings"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderWindowC</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span><span class="Other">;</span> 
                       <span class="Identifier">settings</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Construct a new render window</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">mode</span></tt>:      Video mode to use</li>
+<li><tt class="docutils literal"><span class="pre">title</span></tt>:     Title of the window</li>
+<li><tt class="docutils literal"><span class="pre">style</span></tt>:     Window style</li>
+<li><tt class="docutils literal"><span class="pre">settings</span></tt>:  Creation settings (pass NULL to use default values)</li>
+</ul>
 
 
 </dd>
@@ -4356,6 +4789,11 @@ Placeholder argument for setParameter
 </dd>
 <dt id="newRenderWindow"><a name="newRenderWindow,WindowHandle,ContextSettings"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderWindow</span><span class="Other">(</span><span class="Identifier">handle</span><span class="Other">:</span> <span class="Identifier">WindowHandle</span><span class="Other">;</span> <span class="Identifier">settings</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Construct a render window from an existing control</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">handle</span></tt>:    Platform-specific handle of the control</li>
+<li><tt class="docutils literal"><span class="pre">settings</span></tt>:  Creation settings (pass NULL to use default values)</li>
+</ul>
 
 
 </dd>
@@ -4792,16 +5230,16 @@ Placeholder argument for setParameter
 
 
 </dd>
-<dt id="drawPrimitives"><a name="drawPrimitives,RenderWindow,ptr.Vertex,cint,PrimitiveType,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Vertex</span><span class="Other">;</span> 
-                    <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> 
+<dt id="drawPrimitives"><a name="drawPrimitives,RenderWindow,ptr.Vertex,int,PrimitiveType,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Vertex</span><span class="Other">;</span> 
+                    <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> 
                     <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderWindow_drawPrimitives&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
 </dd>
-<dt id="drawPrimitives"><a name="drawPrimitives,RenderWindow,ptr.Vertex,cint,PrimitiveType,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Vertex</span><span class="Other">;</span> 
-                    <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dt id="drawPrimitives"><a name="drawPrimitives,RenderWindow,ptr.Vertex,int,PrimitiveType,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderWindow</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Vertex</span><span class="Other">;</span> 
+                    <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
 <dd>
 <p>Draw primitives defined by an array of vertices to a render window</p>
 <p><em>Arguments</em>:</p>
@@ -4866,19 +5304,19 @@ Placeholder argument for setParameter
 <dt id="mouse_getPosition"><a name="mouse_getPosition,RenderWindow"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouse_getPosition</span><span class="Other">(</span><span class="Identifier">relativeTo</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfMouse_getPositionRenderWindow&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
-<p>Get the current position of the mouse relatively to a render-window</p>
+<p>Get the current position of the mouse relative to a render-window</p>
 <p>This function returns the current position of the mouse cursor relative to the given render-window, or desktop if NULL is passed.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">relativeTo</span></tt>:  Reference window</li>
 </ul>
-<p><em>Returns:</em> Position of the mouse cursor, relative to the given render-window</p>
+<p><em>Returns:</em> Position of the mouse cursor, relative to the given render window</p>
 
 
 </dd>
 <dt id="mouse_setPosition"><a name="mouse_setPosition,Vector2i,RenderWindow"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mouse_setPosition</span><span class="Other">(</span><span class="Identifier">position</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">;</span> <span class="Identifier">relativeTo</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfMouse_setPositionRenderWindow&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
-<p>Set the current position of the mouse relatively to a render-window</p>
+<p>Set the current position of the mouse relative to a render window</p>
 <p>This function sets the current position of the mouse cursor relative to the given render-window, or desktop if NULL is passed.</p>
 <p><em>Arguments</em>:</p>
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">position</span></tt>:    New position of the mouse</li>
@@ -4887,355 +5325,16 @@ Placeholder argument for setParameter
 
 
 </dd>
-<dt id="newRenderTexture"><a name="newRenderTexture,cint,cint,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderTexture</span><span class="Other">(</span><span class="Identifier">width</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">depthBuffer</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span> <span class="Other">{.</span>
-    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_create&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="touch_getPosition"><a name="touch_getPosition,cint,RenderWindow"></a><pre><span class="Keyword">proc</span> <span class="Identifier">touch_getPosition</span><span class="Other">(</span><span class="Identifier">finger</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">relativeTo</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span>
+    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTouch_getPositionRenderWindow&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
-<p>Construct a new render texture</p>
+<p>Get the current position of a touch in window coordinates</p>
+<p>This function returns the current touch position relative to the given render window, or desktop if NULL is passed.</p>
 <p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">width</span></tt>:        Width of the render texture</li>
-<li><tt class="docutils literal"><span class="pre">height</span></tt>:       Height of the render texture</li>
-<li><tt class="docutils literal"><span class="pre">depthBuffer</span></tt>:  Do you want a depth-buffer attached? (useful only if you're doing 3D OpenGL on the rendertexture)</li>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">finger</span></tt>:  Finger index</li>
+<li><tt class="docutils literal"><span class="pre">relativeTo</span></tt>:  Reference window</li>
 </ul>
-<p><em>Returns:</em> A new RenderTexture object, or NULL if it failed</p>
-
-
-</dd>
-<dt id="destroy"><a name="destroy,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">destroy</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">override</span><span class="Other">,</span> <span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_destroy&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Destroy an existing render texture</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture to destroy</li>
-</ul>
-
-
-</dd>
-<dt id="size"><a name="size,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">size</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_getSize&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Get the size of the rendering region of a render texture</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-</ul>
-<p><em>Returns:</em> Size in pixels</p>
-
-
-</dd>
-<dt id="active="><a name="active=,RenderTexture,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">active=</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">active</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_setActive&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Activate or deactivate a render texture as the current target for rendering</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-<li><tt class="docutils literal"><span class="pre">active</span></tt>:         True to activate, False to deactivate</li>
-</ul>
-<p><em>Returns:</em> True if operation was successful, false otherwise</p>
-
-
-</dd>
-<dt id="display"><a name="display,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">display</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_display&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Update the contents of the target texture</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-</ul>
-
-
-</dd>
-<dt id="clear"><a name="clear,RenderTexture,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">clear</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_clear&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Clear the rendertexture with the given color</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-<li><tt class="docutils literal"><span class="pre">color</span></tt>:          Fill color</li>
-</ul>
-
-
-</dd>
-<dt id="view="><a name="view=,RenderTexture,View"></a><pre><span class="Keyword">proc</span> <span class="Identifier">view=</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">view</span><span class="Other">:</span> <span class="Identifier">View</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_setView&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Change the current active view of a render texture</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-<li><tt class="docutils literal"><span class="pre">view</span></tt>:           Pointer to the new view</li>
-</ul>
-
-
-</dd>
-<dt id="view"><a name="view,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">view</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">View</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_getView&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Get the current active view of a render texture</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-</ul>
-<p><em>Returns:</em> Current active view</p>
-
-
-</dd>
-<dt id="defaultView"><a name="defaultView,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">defaultView</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">View</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_getDefaultView&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Get the default view of a render texture</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-</ul>
-<p><em>Returns:</em> Default view of the rendertexture</p>
-
-
-</dd>
-<dt id="getViewport"><a name="getViewport,RenderTexture,View"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getViewport</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">view</span><span class="Other">:</span> <span class="Identifier">View</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntRect</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_getViewport&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Get the viewport of a view applied to this target</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-<li><tt class="docutils literal"><span class="pre">view</span></tt>:           Target view</li>
-</ul>
-<p><em>Returns:</em> Viewport rectangle, expressed in pixels in the current target</p>
-
-
-</dd>
-<dt id="mapPixelToCoords"><a name="mapPixelToCoords,RenderTexture,Vector2i,View"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mapPixelToCoords</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">point</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">;</span> <span class="Identifier">view</span><span class="Other">:</span> <span class="Identifier">View</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span>
-    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_mapPixelToCoords&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Convert a point from texture coordinates to world coordinates</p>
-<p>This function finds the 2D position that matches the given pixel of the render-texture. In other words, it does the inverse of what the graphics card does, to find the initial position of a rendered pixel.</p>
-<p>Initially, both coordinate systems (world units and target pixels) match perfectly. But if you define a custom view or resize your render-texture, this assertion is not true anymore, ie. a point located at (10, 50) in your render-texture may map to the point (150, 75) in your 2D world -- if the view is translated by (140, 25).</p>
-<p>This version uses a custom view for calculations, see the other overload of the function if you want to use the current view of the render-texture.</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-<li><tt class="docutils literal"><span class="pre">point</span></tt>:  Pixel to convert</li>
-<li><tt class="docutils literal"><span class="pre">view</span></tt>:  The view to use for converting the point</li>
-</ul>
-<p><em>Returns:</em> The converted point, in &quot;world&quot; units</p>
-
-
-</dd>
-<dt id="mapCoordsToPixel"><a name="mapCoordsToPixel,RenderTexture,Vector2f,View"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mapCoordsToPixel</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">point</span><span class="Other">:</span> <span class="Identifier">Vector2f</span><span class="Other">;</span> <span class="Identifier">view</span><span class="Other">:</span> <span class="Identifier">View</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span>
-    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_mapCoordsToPixel&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Convert a point from world coordinates to texture coordinates</p>
-<p>This function finds the pixel of the render-texture that matches the given 2D point. In other words, it goes through the same process as the graphics card, to compute the final position of a rendered point.</p>
-<p>Initially, both coordinate systems (world units and target pixels) match perfectly. But if you define a custom view or resize your render-texture, this assertion is not true anymore, ie. a point located at (150, 75) in your 2D world may map to the pixel (10, 50) of your render-texture -- if the view is translated by (140, 25).</p>
-<p>This version uses a custom view for calculations, see the other overload of the function if you want to use the current view of the render-texture.</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-<li><tt class="docutils literal"><span class="pre">point</span></tt>:  Point to convert</li>
-<li><tt class="docutils literal"><span class="pre">view</span></tt>:  The view to use for converting the point</li>
-</ul>
-<p><em>Returns:</em> The converted point, in target coordinates (pixels)</p>
-
-
-</dd>
-<dt id="drawSprite"><a name="drawSprite,RenderTexture,Sprite,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawSprite</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">Sprite</span><span class="Other">;</span> 
-                <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawSprite&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawSprite"><a name="drawSprite,RenderTexture,Sprite,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawSprite</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">Sprite</span><span class="Other">;</span> <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
-<dd>
-<p>Draw a drawable object to the render-target</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-<li><tt class="docutils literal"><span class="pre">object</span></tt>:         Object to draw</li>
-<li><tt class="docutils literal"><span class="pre">states</span></tt>:         Render states to use for drawing (NULL to use the default states)</li>
-</ul>
-
-
-</dd>
-<dt id="drawText"><a name="drawText,RenderTexture,Text,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawText</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">;</span> 
-              <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawText&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawText"><a name="drawText,RenderTexture,Text,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawText</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">;</span> <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawShape"><a name="drawShape,RenderTexture,Shape,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawShape</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">Shape</span><span class="Other">;</span> 
-               <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawShape&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawShape"><a name="drawShape,RenderTexture,Shape,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawShape</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">Shape</span><span class="Other">;</span> <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawCircleShape"><a name="drawCircleShape,RenderTexture,CircleShape,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawCircleShape</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">CircleShape</span><span class="Other">;</span> 
-                     <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawCircleShape&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawCircleShape"><a name="drawCircleShape,RenderTexture,CircleShape,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawCircleShape</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">CircleShape</span><span class="Other">;</span> 
-                     <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawConvexShape"><a name="drawConvexShape,RenderTexture,ConvexShape,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawConvexShape</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">;</span> 
-                     <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawConvexShape&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawConvexShape"><a name="drawConvexShape,RenderTexture,ConvexShape,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawConvexShape</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">;</span> 
-                     <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawRectangleShape"><a name="drawRectangleShape,RenderTexture,RectangleShape,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawRectangleShape</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">RectangleShape</span><span class="Other">;</span> 
-                        <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawRectangleShape&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawRectangleShape"><a name="drawRectangleShape,RenderTexture,RectangleShape,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawRectangleShape</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">RectangleShape</span><span class="Other">;</span> 
-                        <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawVertexArray"><a name="drawVertexArray,RenderTexture,VertexArray,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawVertexArray</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">VertexArray</span><span class="Other">;</span> 
-                     <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawVertexArray&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawVertexArray"><a name="drawVertexArray,RenderTexture,VertexArray,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawVertexArray</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <span class="Identifier">VertexArray</span><span class="Other">;</span> 
-                     <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawPrimitives"><a name="drawPrimitives,RenderTexture,ptr.Vertex,cint,PrimitiveType,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Vertex</span><span class="Other">;</span> 
-                    <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> 
-                    <span class="Identifier">states</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">var</span> <span class="Identifier">RenderStates</span><span class="Other">)</span><span class="Other">{</span><span class="Identifier">lvalue</span><span class="Other">}</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_drawPrimitives&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-
-
-</dd>
-<dt id="drawPrimitives"><a name="drawPrimitives,RenderTexture,ptr.Vertex,cint,PrimitiveType,RenderStates"></a><pre><span class="Keyword">proc</span> <span class="Identifier">drawPrimitives</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">vertices</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Vertex</span><span class="Other">;</span> 
-                    <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">PrimitiveType</span><span class="Other">;</span> <span class="Identifier">states</span><span class="Other">:</span> <span class="Identifier">RenderStates</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
-<dd>
-<p>Draw primitives defined by an array of vertices to a render texture</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-<li><tt class="docutils literal"><span class="pre">vertices</span></tt>:       Pointer to the vertices</li>
-<li><tt class="docutils literal"><span class="pre">vertexCount</span></tt>:    Number of vertices in the array</li>
-<li><tt class="docutils literal"><span class="pre">type</span></tt>:           Type of primitives to draw</li>
-<li><tt class="docutils literal"><span class="pre">states</span></tt>:         Render states to use for drawing (NULL to use the default states)</li>
-</ul>
-
-
-</dd>
-<dt id="pushGLStates"><a name="pushGLStates,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pushGLStates</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_pushGLStates&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Save the current OpenGL render states and matrices</p>
-<p>This function can be used when you mix SFML drawing and direct OpenGL rendering. Combined with popGLStates, it ensures that:</p>
-<ul class="simple"><li>SFML's internal states are not messed up by your OpenGL code</li>
-<li>your OpenGL states are not modified by a call to a SFML function</li>
-</ul>
-<p>Note that this function is quite expensive: it saves all the possible OpenGL states and matrices, even the ones you don't care about. Therefore it should be used wisely. It is provided for convenience, but the best results will be achieved if you handle OpenGL states yourself (because you know which states have really changed, and need to be saved and restored). Take a look at the resetGLStates function if you do so.</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-</ul>
-
-
-</dd>
-<dt id="popGLStates"><a name="popGLStates,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">popGLStates</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_popGLStates&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Restore the previously saved OpenGL render states and matrices</p>
-<p>See the description of pushGLStates to get a detailed description of these functions.</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-</ul>
-
-
-</dd>
-<dt id="resetGLStates"><a name="resetGLStates,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">resetGLStates</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_resetGLStates&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Reset the internal OpenGL states so that the target is ready for drawing</p>
-<p>This function can be used when you mix SFML drawing and direct OpenGL rendering, if you choose not to use pushGLStates/popGLStates. It makes sure that all OpenGL states needed by SFML are set, so that subsequent RenderTexture_draw*() calls will work as expected.</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-</ul>
-
-
-</dd>
-<dt id="texture"><a name="texture,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">texture</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Texture</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_getTexture&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Get the target texture of a render texture</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-</ul>
-<p><em>Returns:</em> Pointer to the target texture</p>
-
-
-</dd>
-<dt id="smooth="><a name="smooth=,RenderTexture,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">smooth=</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">smooth</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_setSmooth&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Enable or disable the smooth filter on a render texture</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-<li><tt class="docutils literal"><span class="pre">smooth</span></tt>:         True to enable smoothing, False to disable it</li>
-</ul>
-
-
-</dd>
-<dt id="smooth"><a name="smooth,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">smooth</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_isSmooth&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Tell whether the smooth filter is enabled or not for a render texture</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-</ul>
-<p><em>Returns:</em> True if smoothing is enabled, False if it is disabled</p>
-
-
-</dd>
-<dt id="repeated="><a name="repeated=,RenderTexture,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">repeated=</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">;</span> <span class="Identifier">repeated</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_setRepeated&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Enable or disable texture repeating</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-<li><tt class="docutils literal"><span class="pre">repeated</span></tt>:       True to enable repeating, False to disable it</li>
-</ul>
-
-
-</dd>
-<dt id="repeated"><a name="repeated,RenderTexture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">repeated</span><span class="Other">(</span><span class="Identifier">renderTexture</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfRenderTexture_isRepeated&quot;</span><span class="Other">.}</span></pre></dt>
-<dd>
-<p>Tell whether the texture is repeated or not</p>
-<p><em>Arguments</em>:</p>
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">renderTexture</span></tt>:  Render texture object</li>
-</ul>
-<p><em>Returns:</em> True if repeat mode is enabled, False if it is disabled</p>
+<p><em>Returns:</em> Current position of <tt class="docutils literal"><span class="pre">finger</span></tt>, or undefined if it's not down</p>
 
 
 </dd>
@@ -5424,6 +5523,18 @@ Placeholder argument for setParameter
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">shader</span></tt>:  Shader object</li>
 <li><tt class="docutils literal"><span class="pre">name</span></tt>:    Name of the texture in the shader</li>
 </ul>
+
+
+</dd>
+<dt id="nativeHandle"><a name="nativeHandle,Shader"></a><pre><span class="Keyword">proc</span> <span class="Identifier">nativeHandle</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShader_getNativeHandle&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the underlying OpenGL handle of the shader.</p>
+<p>You shouldn't need to use this function, unless you have very specific stuff to implement that SFML doesn't support, or implement a temporary workaround until a bug is fixed.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">shader</span></tt>:  Shader object</li>
+</ul>
+<p><em>Returns:</em> OpenGL handle of the shader or 0 if not yet loaded</p>
 
 
 </dd>
@@ -5725,7 +5836,7 @@ Placeholder argument for setParameter
 
 
 </dd>
-<dt id="pointCount"><a name="pointCount,Shape"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pointCount</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">Shape</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShape_getPointCount&quot;</span><span class="Other">.}</span></pre></dt>
+<dt id="pointCount"><a name="pointCount,Shape"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pointCount</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">Shape</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShape_getPointCount&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get the total number of points of a shape</p>
 <p><em>Arguments</em>:</p>
@@ -5735,7 +5846,7 @@ Placeholder argument for setParameter
 
 
 </dd>
-<dt id="getPoint"><a name="getPoint,Shape,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getPoint</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">Shape</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="getPoint"><a name="getPoint,Shape,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getPoint</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">Shape</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfShape_getPoint&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get a point of a shape</p>
@@ -6371,6 +6482,12 @@ Placeholder argument for setParameter
 </dd>
 <dt id="newTexture"><a name="newTexture,cstring,IntRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newTexture</span><span class="Other">(</span><span class="Identifier">filename</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">area</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Texture</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Create a new texture from a file</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">filename</span></tt>:  Path of the image file to load</li>
+<li><tt class="docutils literal"><span class="pre">area</span></tt>:      Area of the source image to load (NULL to load the entire image)</li>
+</ul>
+<p><em>Returns:</em> A new Texture object, or NULL if it failed</p>
 
 
 </dd>
@@ -6382,6 +6499,13 @@ Placeholder argument for setParameter
 </dd>
 <dt id="newTexture"><a name="newTexture,pointer,int,IntRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newTexture</span><span class="Other">(</span><span class="Identifier">data</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">;</span> <span class="Identifier">sizeInBytes</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">area</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Texture</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Create a new texture from a file in memory</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">data</span></tt>:         Pointer to the file data in memory</li>
+<li><tt class="docutils literal"><span class="pre">sizeInBytes</span></tt>:  Size of the data to load, in bytes</li>
+<li><tt class="docutils literal"><span class="pre">area</span></tt>:         Area of the source image to load (NULL to load the entire image)</li>
+</ul>
+<p><em>Returns:</em> A new Texture object, or NULL if it failed</p>
 
 
 </dd>
@@ -6393,6 +6517,12 @@ Placeholder argument for setParameter
 </dd>
 <dt id="newTexture"><a name="newTexture,InputStream,IntRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newTexture</span><span class="Other">(</span><span class="Identifier">stream</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">InputStream</span><span class="Other">;</span> <span class="Identifier">area</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Texture</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Create a new texture from a custom stream</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">stream</span></tt>:  Source stream to read from</li>
+<li><tt class="docutils literal"><span class="pre">area</span></tt>:    Area of the source image to load (NULL to load the entire image)</li>
+</ul>
+<p><em>Returns:</em> A new Texture object, or NULL if it failed</p>
 
 
 </dd>
@@ -6404,6 +6534,12 @@ Placeholder argument for setParameter
 </dd>
 <dt id="newTexture"><a name="newTexture,Image,IntRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newTexture</span><span class="Other">(</span><span class="Identifier">image</span><span class="Other">:</span> <span class="Identifier">Image</span><span class="Other">;</span> <span class="Identifier">area</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Texture</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Create a new texture from an image</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">image</span></tt>:  Image to upload to the texture</li>
+<li><tt class="docutils literal"><span class="pre">area</span></tt>:   Area of the source image to load (NULL to load the entire image)</li>
+</ul>
+<p><em>Returns:</em> A new Texture object, or NULL if it failed</p>
 
 
 </dd>
@@ -6544,6 +6680,18 @@ Placeholder argument for setParameter
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">texture</span></tt>:  The texture object</li>
 </ul>
 <p><em>Returns:</em> True if repeat mode is enabled, False if it is disabled</p>
+
+
+</dd>
+<dt id="nativeHandle"><a name="nativeHandle,Texture"></a><pre><span class="Keyword">proc</span> <span class="Identifier">nativeHandle</span><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Identifier">Texture</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTexture_getNativeHandle&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the underlying OpenGL handle of the texture.</p>
+<p>You shouldn't need to use this function, unless you have very specific stuff to implement that SFML doesn't support, or implement a temporary workaround until a bug is fixed.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">texture</span></tt>:  The texture object</li>
+</ul>
+<p><em>Returns:</em> OpenGL handle of the texture or 0 if not yet created</p>
 
 
 </dd>
@@ -6772,7 +6920,7 @@ Placeholder argument for setParameter
 
 
 </dd>
-<dt id="vertexCount"><a name="vertexCount,VertexArray"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vertexCount</span><span class="Other">(</span><span class="Identifier">vertexArray</span><span class="Other">:</span> <span class="Identifier">VertexArray</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="vertexCount"><a name="vertexCount,VertexArray"></a><pre><span class="Keyword">proc</span> <span class="Identifier">vertexCount</span><span class="Other">(</span><span class="Identifier">vertexArray</span><span class="Other">:</span> <span class="Identifier">VertexArray</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfVertexArray_getVertexCount&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Return the vertex count of a vertex array</p>
@@ -6783,7 +6931,7 @@ Placeholder argument for setParameter
 
 
 </dd>
-<dt id="getVertex"><a name="getVertex,VertexArray,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getVertex</span><span class="Other">(</span><span class="Identifier">vertexArray</span><span class="Other">:</span> <span class="Identifier">VertexArray</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Vertex</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="getVertex"><a name="getVertex,VertexArray,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">getVertex</span><span class="Other">(</span><span class="Identifier">vertexArray</span><span class="Other">:</span> <span class="Identifier">VertexArray</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Vertex</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfVertexArray_getVertex&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get access to a vertex by its index</p>
@@ -6806,7 +6954,7 @@ Placeholder argument for setParameter
 
 
 </dd>
-<dt id="resize"><a name="resize,VertexArray,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">resize</span><span class="Other">(</span><span class="Identifier">vertexArray</span><span class="Other">:</span> <span class="Identifier">VertexArray</span><span class="Other">;</span> <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="resize"><a name="resize,VertexArray,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">resize</span><span class="Other">(</span><span class="Identifier">vertexArray</span><span class="Other">:</span> <span class="Identifier">VertexArray</span><span class="Other">;</span> <span class="Identifier">vertexCount</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfVertexArray_resize&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Resize the vertex array</p>
@@ -7050,16 +7198,20 @@ Placeholder argument for setParameter
 </dd>
 <dt id="=="><a name="==,Color,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other"></span></pre></dt>
 <dd>
-
+<em>Returns</em>: whether all components of two Colors are equal
 
 </dd>
 <dt id="+"><a name="+,Color,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`+`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Color</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Alias for add</p>
+<p><em>Returns:</em> The component-wise sum of two colors. Components that exceed 255 are clamped to 255.</p>
 
 
 </dd>
 <dt id="*"><a name="*,Color,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`*`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Color</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Alias for modulate</p>
+<p><em>Returns:</em> The component-wise multiplication (also called &quot;modulation&quot;) of two colors. Components are then divided by 255 so that the result is still in the range [0, 255].</p>
 
 
 </dd>
@@ -7070,32 +7222,32 @@ Placeholder argument for setParameter
 </dd>
 <dt id="rect"><a name="rect,cint,cint,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">rect</span><span class="Other">(</span><span class="Identifier">left</span><span class="Other">,</span> <span class="Identifier">top</span><span class="Other">,</span> <span class="Identifier">width</span><span class="Other">,</span> <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntRect</span> <span class="Other"></span></pre></dt>
 <dd>
-
+<em>Returns</em>: IntRect with these members
 
 </dd>
 <dt id="rect"><a name="rect,int,int,int,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">rect</span><span class="Other">(</span><span class="Identifier">left</span><span class="Other">,</span> <span class="Identifier">top</span><span class="Other">,</span> <span class="Identifier">width</span><span class="Other">,</span> <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">IntRect</span> <span class="Other"></span></pre></dt>
 <dd>
-
+<em>Returns</em>: IntRect with these members
 
 </dd>
 <dt id="rect"><a name="rect,cfloat,cfloat,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">rect</span><span class="Other">(</span><span class="Identifier">left</span><span class="Other">,</span> <span class="Identifier">top</span><span class="Other">,</span> <span class="Identifier">width</span><span class="Other">,</span> <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">FloatRect</span> <span class="Other"></span></pre></dt>
 <dd>
-
+<em>Returns</em>: FloatRect with these members
 
 </dd>
 <dt id="rect"><a name="rect,float,float,float,float"></a><pre><span class="Keyword">proc</span> <span class="Identifier">rect</span><span class="Other">(</span><span class="Identifier">left</span><span class="Other">,</span> <span class="Identifier">top</span><span class="Other">,</span> <span class="Identifier">width</span><span class="Other">,</span> <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">FloatRect</span> <span class="Other"></span></pre></dt>
 <dd>
-
+<em>Returns</em>: FloatRect with these members
 
 </dd>
 <dt id="=="><a name="==,IntRect,IntRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other"></span></pre></dt>
 <dd>
-
+<em>Returns</em>: whether corresponding members of two IntRects are equal
 
 </dd>
 <dt id="=="><a name="==,FloatRect,FloatRect"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`==`</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">FloatRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other"></span></pre></dt>
 <dd>
-
+<em>Returns</em>: whether corresponding members of two FloatRects are equal
 
 </dd>
 <dt id="contains"><a name="contains,IntRect,Vector2i"></a><pre><span class="Keyword">proc</span> <span class="Identifier">contains</span><span class="Other">(</span><span class="Identifier">rect</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">;</span> <span class="Identifier">point</span><span class="Other">:</span> <span class="Identifier">Vector2i</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other"></span></pre></dt>
@@ -7110,7 +7262,7 @@ Placeholder argument for setParameter
 </dd>
 <dt id="transform"><a name="transform,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">transform</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Transform</span> <span class="Other"></span></pre></dt>
 <dd>
-
+<em>Returns</em>: An identity Transform (a transform that does nothing). 
 
 </dd>
 <dt id="transformPoint"><a name="transformPoint,Transform,cfloat,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">transformPoint</span><span class="Other">(</span><span class="Identifier">transform</span><span class="Other">:</span> <span class="Identifier">Transform</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other"></span></pre></dt>
@@ -7183,12 +7335,19 @@ Placeholder argument for setParameter
 <dt id="blendMode"><a name="blendMode,BlendFactor,BlendFactor"></a><pre><span class="Keyword">proc</span> <span class="Identifier">blendMode</span><span class="Other">(</span><span class="Identifier">sourceFactor</span><span class="Other">,</span> <span class="Identifier">destinationFactor</span><span class="Other">:</span> <span class="Identifier">BlendFactor</span><span class="Other">;</span> 
                <span class="Identifier">blendEquation</span> <span class="Other">=</span> <span class="Identifier">BlendEquation</span><span class="Other">.</span><span class="Identifier">Add</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BlendMode</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Construct the blend mode given the factors and equation.</p>
+<p>This constructor uses the same factors and equation for both color and alpha components. It also defaults to the Add equation.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">sourceFactor</span></tt>: Specifies how to compute the source factor for the color and alpha channels.</li>
+<li><tt class="docutils literal"><span class="pre">destinationFactor</span></tt>: Specifies how to compute the destination factor for the color and alpha channels.</li>
+<li><tt class="docutils literal"><span class="pre">blendEquation</span></tt>: Specifies how to combine the source and destination colors and alpha.</li>
+</ul>
 
 
 </dd>
 <dt id="blendMode"><a name="blendMode,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">blendMode</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BlendMode</span> <span class="Other"></span></pre></dt>
 <dd>
-
+Constructs a blending mode that does alpha blending.
 
 </dd>
 <dt id="renderStates"><a name="renderStates,Texture,Shader"></a><pre><span class="Keyword">proc</span> <span class="Identifier">renderStates</span><span class="Other">(</span><span class="Identifier">blendMode</span> <span class="Other">=</span> <span class="Identifier">BlendAlpha</span><span class="Other">;</span> <span class="Identifier">transform</span> <span class="Other">=</span> <span class="Identifier">Identity</span><span class="Other">;</span> 
@@ -7198,7 +7357,7 @@ Placeholder argument for setParameter
 
 </dd>
 <dt id="setParameter"><a name="setParameter,Shader,cstring,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">setParameter</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> 
-                  <span class="Identifier">currentTexture</span><span class="Other">:</span> <span class="Keyword">type</span> <span class="Other">(</span><span class="Identifier">CurrentTexture</span><span class="Other">)</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+                  <span class="Identifier">currentTexture</span><span class="Other">:</span> <span class="Keyword">type</span><span class="Other">(</span><span class="Identifier">CurrentTexture</span><span class="Other">)</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
 <dd>
 <p>Change a texture parameter of a shader</p>
 <p>This function maps a shader texture variable to the texture of the object being drawn, which cannot be known in advance. The corresponding parameter in the shader must be a 2D texture (sampler2D GLSL type).</p>
@@ -7225,11 +7384,23 @@ Placeholder argument for setParameter
                      <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span> <span class="Other">=</span> <span class="Identifier">WindowStyle</span><span class="Other">.</span><span class="Identifier">Default</span><span class="Other">;</span> 
                      <span class="Identifier">settings</span> <span class="Other">=</span> <span class="Identifier">contextSettings</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderWindow</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Construct a new render window (with a UTF-8 title)</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">mode</span></tt>: Video mode to use</li>
+<li><tt class="docutils literal"><span class="pre">title</span></tt>: Title of the window (UTF-8)</li>
+<li><tt class="docutils literal"><span class="pre">style</span></tt>: Window style</li>
+<li><tt class="docutils literal"><span class="pre">settings</span></tt>: Creation settings</li>
+</ul>
 
 
 </dd>
 <dt id="str"><a name="str,Text"></a><pre><span class="Keyword">proc</span> <span class="Identifier">str</span><span class="Other">(</span><span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">Text</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Get the string of a text</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">text</span></tt>: Text object</li>
+</ul>
+<p><em>Returns:</em> String as UTF-8</p>
 
 
 </dd>
@@ -7306,6 +7477,13 @@ Draw primitives defined by an array of vertices to a render window. Wrapper for 
 </dd>
 <dt id="[]"><a name="[],ConvexShape,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]`</span><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <span class="Identifier">ConvexShape</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2f</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Get a point of a convex shape</p>
+<p>The result is undefined if <tt class="docutils literal"><span class="pre">index</span></tt> is out of the valid range.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">shape</span></tt>: Shape object</li>
+<li><tt class="docutils literal"><span class="pre">index</span></tt>: Index of the point to get, in range [0 .. pointCount - 1]</li>
+</ul>
+<p><em>Returns:</em> Index-th point of the shape</p>
 
 
 </dd>
@@ -7323,6 +7501,8 @@ Draw primitives defined by an array of vertices to a render window. Wrapper for 
 </dd>
 <dt id="newTexture"><a name="newTexture,cstring"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newTexture</span><span class="Other">(</span><span class="Identifier">filename</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Texture</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Create a new texture from a file</p>
+<p><em>Returns:</em> A new Texture object, or NULL if it failed</p>
 
 
 </dd>
@@ -7360,6 +7540,9 @@ Change the source texture of a sprite without resetting textureRect
 </dd>
 <dt id="[]"><a name="[],VertexArray,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]`</span><span class="Other">(</span><span class="Identifier">vertexArray</span><span class="Other">:</span> <span class="Identifier">VertexArray</span><span class="Other">;</span> <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vertex</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Get a vertex by its index</p>
+<p>This function doesn't check <tt class="docutils literal"><span class="pre">index</span></tt>, it must be in range [0, vertex count - 1]. The behaviour is undefined otherwise.</p>
+<p><em>Returns:</em> The index-th vertex</p>
 
 
 </dd>
@@ -7377,7 +7560,7 @@ Change the source texture of a sprite without resetting textureRect
 </dd>
 <dt id="newRenderTexture"><a name="newRenderTexture,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newRenderTexture</span><span class="Other">(</span><span class="Identifier">width</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">height</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">RenderTexture</span> <span class="Other"></span></pre></dt>
 <dd>
-
+<em>Returns:</em> A new RenderTexture object with this size and depthBuffer = false, or nil if it failed
 
 </dd>
 
@@ -7387,7 +7570,7 @@ Change the source texture of a sprite without resetting textureRect
 <dl class="item">
 <dt id="rect"><a name="rect.c,IntRect"></a><pre><span class="Keyword">converter</span> <span class="Identifier">rect</span><span class="Other">(</span><span class="Identifier">r</span><span class="Other">:</span> <span class="Identifier">IntRect</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">FloatRect</span> <span class="Other"></span></pre></dt>
 <dd>
-
+Conversion from IntRect to FloatRect
 
 </dd>
 <dt id="toBitMaskU32"><a name="toBitMaskU32.c,TextStyle"></a><pre><span class="Keyword">converter</span> <span class="Identifier">toBitMaskU32</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">TextStyle</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span> <span class="Other"></span></pre></dt>
@@ -7405,10 +7588,11 @@ Allows TextStyle values to be combined using the | operator and be used in funct
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-03-03 22:54:53 UTC</small>
+        <small>Made with Nim. Generated: 2015-05-29 01:26:44 UTC</small>
       </div>
     </div>
   </div>
 </div>
+
 </body>
 </html>

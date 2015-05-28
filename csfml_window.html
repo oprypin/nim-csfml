@@ -74,12 +74,12 @@ body {
 /* For devices larger than 400px */
 @media (min-width: 400px) {
   .container {
-    width: 85%;
+    width: 100%;
     padding: 0; } }
 /* For devices larger than 650px */
 @media (min-width: 650px) {
   .container {
-    width: 80%; }
+    width: 100%; }
 
   .column,
   .columns {
@@ -392,7 +392,7 @@ h6 {
 ul,
 ol {
   padding: 0;
-  margin: 0 0 10px 25px; }
+  margin: 0 0 0px 15px; }
 
 ul ul,
 ul ol,
@@ -485,15 +485,16 @@ code {
   border: 1px solid #777777; }
 
 pre {
-  display: block;
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: calc(100% - 19.5px);
   padding: 9.5px;
-  margin: 0 10px 10px 10px;
+  margin: 0 10px 0px 10px;
   font-size: 14px;
   line-height: 20px;
   white-space: pre !important;
   overflow-y: hidden;
-  overflow: visible;
-  overflow-x: auto;
+  overflow-x: visible;
   background-color: whitesmoke;
   border: 1px solid #cccccc;
   -webkit-border-radius: 4px;
@@ -507,7 +508,7 @@ pre code {
   padding: 0;
   color: inherit;
   white-space: pre;
-  overflow-x: scroll;
+  overflow-x: visible;
   background-color: transparent;
   border: 0; }
 
@@ -1185,6 +1186,9 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#MouseButton"
     title="MouseButton = enum 
   Left, Right, Middle, XButton1, XButton2, Count"><wbr />Mouse<wbr />Button</a></li>
+  <li><a class="reference" href="#MouseWheel"
+    title="MouseWheel = enum 
+  VerticalWheel, HorizontalWheel"><wbr />Mouse<wbr />Wheel</a></li>
   <li><a class="reference" href="#SensorType"
     title="SensorType = enum 
   Accelerometer, Gyroscope, Magnetometer, Gravity, UserAcceleration, 
@@ -1192,10 +1196,10 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#EventType"
     title="EventType = enum 
   Closed, Resized, LostFocus, GainedFocus, TextEntered, KeyPressed, KeyReleased, 
-  MouseWheelMoved, MouseButtonPressed, MouseButtonReleased, MouseMoved, 
-  MouseEntered, MouseLeft, JoystickButtonPressed, JoystickButtonReleased, 
-  JoystickMoved, JoystickConnected, JoystickDisconnected, TouchBegan, 
-  TouchMoved, TouchEnded, SensorChanged, Count"><wbr />Event<wbr />Type</a></li>
+  MouseWheelMoved, MouseWheelScrolled, MouseButtonPressed, MouseButtonReleased, 
+  MouseMoved, MouseEntered, MouseLeft, JoystickButtonPressed, 
+  JoystickButtonReleased, JoystickMoved, JoystickConnected, 
+  JoystickDisconnected, TouchBegan, TouchMoved, TouchEnded, SensorChanged, Count"><wbr />Event<wbr />Type</a></li>
   <li><a class="reference" href="#KeyEvent"
     title="KeyEvent = object 
   code*: KeyCode
@@ -1220,6 +1224,12 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   delta*: cint
   x*: cint
   y*: cint"><wbr />Mouse<wbr />Wheel<wbr />Event</a></li>
+  <li><a class="reference" href="#MouseWheelScrollEvent"
+    title="MouseWheelScrollEvent = object 
+  wheel*: MouseWheel
+  delta*: cfloat
+  x*: cint
+  y*: cint"><wbr />Mouse<wbr />Wheel<wbr />Scroll<wbr />Event</a></li>
   <li><a class="reference" href="#JoystickMoveEvent"
     title="JoystickMoveEvent = object 
   joystickId*: cint
@@ -1277,6 +1287,9 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   of EventType.MouseWheelMoved: 
       mouseWheel*: MouseWheelEvent
 
+  of EventType.MouseWheelScrolled: 
+      mouseWheelScroll*: MouseWheelScrollEvent
+
   else: nil"><wbr />Event</a></li>
   <li><a class="reference" href="#VideoMode"
     title="VideoMode = object 
@@ -1286,13 +1299,17 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#WindowStyle"
     title="WindowStyle = enum 
   None = 0, Titlebar = 1, Resize = 2, Close = 4, Default = 7, Fullscreen = 8"><wbr />Window<wbr />Style</a></li>
+  <li><a class="reference" href="#ContextAttribute"
+    title="ContextAttribute = enum 
+  Default = 0, Core = 1, Debug = 4"><wbr />Context<wbr />Attribute</a></li>
   <li><a class="reference" href="#ContextSettings"
     title="ContextSettings = object 
   depthBits*: cint
   stencilBits*: cint
   antialiasingLevel*: cint
   majorVersion*: cint
-  minorVersion*: cint"><wbr />Context<wbr />Settings</a></li>
+  minorVersion*: cint
+  attributeFlags*: BitMaskU32"><wbr />Context<wbr />Settings</a></li>
 
   </ul>
 </li>
@@ -1345,6 +1362,10 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="sensor_setEnabled(sensor: SensorType; enabled: BoolInt)"><wbr />sensor_<wbr />set<wbr />Enabled</a></li>
   <li><a class="reference" href="#sensor_getValue,SensorType"
     title="sensor_getValue(sensor: SensorType): Vector3f"><wbr />sensor_<wbr />get<wbr />Value</a></li>
+  <li><a class="reference" href="#touch_isDown,cint"
+    title="touch_isDown(finger: cint): BoolInt"><wbr />touch_<wbr />is<wbr />Down</a></li>
+  <li><a class="reference" href="#touch_getPosition,cint,Window"
+    title="touch_getPosition(finger: cint; relativeTo: Window): Vector2i"><wbr />touch_<wbr />get<wbr />Position</a></li>
   <li><a class="reference" href="#videoMode_getDesktopMode,"
     title="videoMode_getDesktopMode(): VideoMode"><wbr />video<wbr />Mode_<wbr />get<wbr />Desktop<wbr />Mode</a></li>
   <li><a class="reference" href="#videoMode_getFullscreenModes,ptr.int"
@@ -1409,7 +1430,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="systemHandle(window: Window): WindowHandle"><wbr />system<wbr />Handle</a></li>
   <li><a class="reference" href="#contextSettings,cint,cint,cint,cint,cint"
     title="contextSettings(depth: cint = 0; stencil: cint = 0; antialiasing: cint = 0; 
-                major: cint = 2; minor: cint = 0): ContextSettings"><wbr />context<wbr />Settings</a></li>
+                major: cint = 2; minor: cint = 0; 
+                attributes = ContextAttribute.Default): ContextSettings"><wbr />context<wbr />Settings</a></li>
   <li><a class="reference" href="#mouse_getPosition,"
     title="mouse_getPosition(): Vector2i"><wbr />mouse_<wbr />get<wbr />Position</a></li>
   <li><a class="reference" href="#mouse_setPosition,Vector2i"
@@ -1437,7 +1459,9 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
 <li>
   <a class="reference reference-toplevel" href="#16" id="66">Converters</a>
   <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#toBitMaskU32.c,WindowStyle"
+      <li><a class="reference" href="#toBitMaskU32.c,ContextAttribute"
+    title="toBitMaskU32(a: ContextAttribute): BitMaskU32"><wbr />to<wbr />Bit<wbr />Mask<wbr />U32</a></li>
+  <li><a class="reference" href="#toBitMaskU32.c,WindowStyle"
     title="toBitMaskU32(a: WindowStyle): BitMaskU32"><wbr />to<wbr />Bit<wbr />Mask<wbr />U32</a></li>
 
   </ul>
@@ -1506,6 +1530,12 @@ Key codes
 Mouse buttons
 
 </dd>
+<dt id="MouseWheel"><a name="MouseWheel"></a><pre><span class="Identifier">MouseWheel</span> <span class="Other">=</span> <span class="Keyword">enum</span> 
+  <span class="Identifier">VerticalWheel</span><span class="Other">,</span> <span class="Identifier">HorizontalWheel</span></pre></dt>
+<dd>
+Mouse wheels
+
+</dd>
 <dt id="SensorType"><a name="SensorType"></a><pre><span class="Identifier">SensorType</span> <span class="Other">=</span> <span class="Keyword">enum</span> 
   <span class="Identifier">Accelerometer</span><span class="Other">,</span> <span class="Identifier">Gyroscope</span><span class="Other">,</span> <span class="Identifier">Magnetometer</span><span class="Other">,</span> <span class="Identifier">Gravity</span><span class="Other">,</span> <span class="Identifier">UserAcceleration</span><span class="Other">,</span> 
   <span class="Identifier">Orientation</span><span class="Other">,</span> <span class="Identifier">Count</span></pre></dt>
@@ -1515,10 +1545,10 @@ Sensor Types
 </dd>
 <dt id="EventType"><a name="EventType"></a><pre><span class="Identifier">EventType</span> <span class="Other">=</span> <span class="Keyword">enum</span> 
   <span class="Identifier">Closed</span><span class="Other">,</span> <span class="Identifier">Resized</span><span class="Other">,</span> <span class="Identifier">LostFocus</span><span class="Other">,</span> <span class="Identifier">GainedFocus</span><span class="Other">,</span> <span class="Identifier">TextEntered</span><span class="Other">,</span> <span class="Identifier">KeyPressed</span><span class="Other">,</span> <span class="Identifier">KeyReleased</span><span class="Other">,</span> 
-  <span class="Identifier">MouseWheelMoved</span><span class="Other">,</span> <span class="Identifier">MouseButtonPressed</span><span class="Other">,</span> <span class="Identifier">MouseButtonReleased</span><span class="Other">,</span> <span class="Identifier">MouseMoved</span><span class="Other">,</span> 
-  <span class="Identifier">MouseEntered</span><span class="Other">,</span> <span class="Identifier">MouseLeft</span><span class="Other">,</span> <span class="Identifier">JoystickButtonPressed</span><span class="Other">,</span> <span class="Identifier">JoystickButtonReleased</span><span class="Other">,</span> 
-  <span class="Identifier">JoystickMoved</span><span class="Other">,</span> <span class="Identifier">JoystickConnected</span><span class="Other">,</span> <span class="Identifier">JoystickDisconnected</span><span class="Other">,</span> <span class="Identifier">TouchBegan</span><span class="Other">,</span> 
-  <span class="Identifier">TouchMoved</span><span class="Other">,</span> <span class="Identifier">TouchEnded</span><span class="Other">,</span> <span class="Identifier">SensorChanged</span><span class="Other">,</span> <span class="Identifier">Count</span></pre></dt>
+  <span class="Identifier">MouseWheelMoved</span><span class="Other">,</span> <span class="Identifier">MouseWheelScrolled</span><span class="Other">,</span> <span class="Identifier">MouseButtonPressed</span><span class="Other">,</span> <span class="Identifier">MouseButtonReleased</span><span class="Other">,</span> 
+  <span class="Identifier">MouseMoved</span><span class="Other">,</span> <span class="Identifier">MouseEntered</span><span class="Other">,</span> <span class="Identifier">MouseLeft</span><span class="Other">,</span> <span class="Identifier">JoystickButtonPressed</span><span class="Other">,</span> 
+  <span class="Identifier">JoystickButtonReleased</span><span class="Other">,</span> <span class="Identifier">JoystickMoved</span><span class="Other">,</span> <span class="Identifier">JoystickConnected</span><span class="Other">,</span> 
+  <span class="Identifier">JoystickDisconnected</span><span class="Other">,</span> <span class="Identifier">TouchBegan</span><span class="Other">,</span> <span class="Identifier">TouchMoved</span><span class="Other">,</span> <span class="Identifier">TouchEnded</span><span class="Other">,</span> <span class="Identifier">SensorChanged</span><span class="Other">,</span> <span class="Identifier">Count</span></pre></dt>
 <dd>
 Definition of all the event types
 
@@ -1560,6 +1590,16 @@ Mouse buttons events parameters
 </dd>
 <dt id="MouseWheelEvent"><a name="MouseWheelEvent"></a><pre><span class="Identifier">MouseWheelEvent</span> <span class="Other">=</span> <span class="Keyword">object</span> 
   <span class="Identifier">delta</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
+  <span class="Identifier">x</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
+  <span class="Identifier">y</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
+</pre></dt>
+<dd>
+Mouse wheel events parameters (deprecated)
+
+</dd>
+<dt id="MouseWheelScrollEvent"><a name="MouseWheelScrollEvent"></a><pre><span class="Identifier">MouseWheelScrollEvent</span> <span class="Other">=</span> <span class="Keyword">object</span> 
+  <span class="Identifier">wheel</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">MouseWheel</span>
+  <span class="Identifier">delta</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cfloat</span>
   <span class="Identifier">x</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
   <span class="Identifier">y</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
 </pre></dt>
@@ -1647,6 +1687,9 @@ Sensor event parameters
   <span class="Keyword">of</span> <span class="Identifier">EventType</span><span class="Other">.</span><span class="Identifier">MouseWheelMoved</span><span class="Other">:</span> 
       <span class="Identifier">mouseWheel</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">MouseWheelEvent</span>
 
+  <span class="Keyword">of</span> <span class="Identifier">EventType</span><span class="Other">.</span><span class="Identifier">MouseWheelScrolled</span><span class="Other">:</span> 
+      <span class="Identifier">mouseWheelScroll</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">MouseWheelScrollEvent</span>
+
   <span class="Keyword">else</span><span class="Other">:</span> <span class="Keyword">nil</span>
   </pre></dt>
 <dd>
@@ -1668,12 +1711,19 @@ VideoMode defines a video mode (width, height, bpp, frequency) and provides func
 Enumeration of window creation styles
 
 </dd>
+<dt id="ContextAttribute"><a name="ContextAttribute"></a><pre><span class="Identifier">ContextAttribute</span> <span class="Other">=</span> <span class="Keyword">enum</span> 
+  <span class="Identifier">Default</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="Identifier">Core</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">,</span> <span class="Identifier">Debug</span> <span class="Other">=</span> <span class="DecNumber">4</span></pre></dt>
+<dd>
+Enumeration of the context attribute flags
+
+</dd>
 <dt id="ContextSettings"><a name="ContextSettings"></a><pre><span class="Identifier">ContextSettings</span> <span class="Other">=</span> <span class="Keyword">object</span> 
   <span class="Identifier">depthBits</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
   <span class="Identifier">stencilBits</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
   <span class="Identifier">antialiasingLevel</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
   <span class="Identifier">majorVersion</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
   <span class="Identifier">minorVersion</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
+  <span class="Identifier">attributeFlags</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span>
 </pre></dt>
 <dd>
 Structure defining the window's creation settings
@@ -1894,6 +1944,29 @@ Structure defining the window's creation settings
 
 
 </dd>
+<dt id="touch_isDown"><a name="touch_isDown,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">touch_isDown</span><span class="Other">(</span><span class="Identifier">finger</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTouch_isDown&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Check if a touch event is currently down</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">finger</span></tt>:  Finger index</li>
+</ul>
+<p><em>Returns:</em> True if <tt class="docutils literal"><span class="pre">finger</span></tt> is currently touching the screen, False otherwise</p>
+
+
+</dd>
+<dt id="touch_getPosition"><a name="touch_getPosition,cint,Window"></a><pre><span class="Keyword">proc</span> <span class="Identifier">touch_getPosition</span><span class="Other">(</span><span class="Identifier">finger</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">relativeTo</span><span class="Other">:</span> <span class="Identifier">Window</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector2i</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfTouch_getPosition&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the current position of a touch in window coordinates</p>
+<p>This function returns the current touch position relative to the given window, or desktop if NULL is passed.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">finger</span></tt>:  Finger index</li>
+<li><tt class="docutils literal"><span class="pre">relativeTo</span></tt>:  Reference window</li>
+</ul>
+<p><em>Returns:</em> Current position of <tt class="docutils literal"><span class="pre">finger</span></tt>, or undefined if it's not down</p>
+
+
+</dd>
 <dt id="videoMode_getDesktopMode"><a name="videoMode_getDesktopMode,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">videoMode_getDesktopMode</span><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">VideoMode</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfVideoMode_getDesktopMode&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
@@ -1935,6 +2008,16 @@ Structure defining the window's creation settings
 <dt id="newWindowC"><a name="newWindowC,VideoMode,cstring,BitMaskU32,ContextSettings"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newWindowC</span><span class="Other">(</span><span class="Identifier">mode</span><span class="Other">:</span> <span class="Identifier">VideoMode</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span><span class="Other">;</span> 
                 <span class="Identifier">settings</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Window</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Construct a new window</p>
+<p>This function creates the window with the size and pixel depth defined in <tt class="docutils literal"><span class="pre">mode</span></tt>. An optional style can be passed to customize the look and behaviour of the window (borders, title bar, resizable, closable, ...). If <tt class="docutils literal"><span class="pre">style</span></tt> contains Fullscreen, then <tt class="docutils literal"><span class="pre">mode</span></tt> must be a valid video mode.</p>
+<p>The fourth parameter is a pointer to a structure specifying advanced OpenGL context settings such as antialiasing, depth-buffer bits, etc.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">mode</span></tt>:      Video mode to use (defines the width, height and depth of the rendering area of the window)</li>
+<li><tt class="docutils literal"><span class="pre">title</span></tt>:     Title of the window</li>
+<li><tt class="docutils literal"><span class="pre">style</span></tt>:     Window style</li>
+<li><tt class="docutils literal"><span class="pre">settings</span></tt>:  Additional settings for the underlying OpenGL context</li>
+</ul>
+<p><em>Returns:</em> A new Window object</p>
 
 
 </dd>
@@ -1946,6 +2029,14 @@ Structure defining the window's creation settings
 </dd>
 <dt id="newWindow"><a name="newWindow,WindowHandle,ContextSettings"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newWindow</span><span class="Other">(</span><span class="Identifier">handle</span><span class="Other">:</span> <span class="Identifier">WindowHandle</span><span class="Other">;</span> <span class="Identifier">settings</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Window</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Construct a window from an existing control</p>
+<p>Use this constructor if you want to create an OpenGL rendering area into an already existing control.</p>
+<p>The second parameter is a pointer to a structure specifying advanced OpenGL context settings such as antialiasing, depth-buffer bits, etc.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">handle</span></tt>:    Platform-specific handle of the control</li>
+<li><tt class="docutils literal"><span class="pre">settings</span></tt>:  Additional settings for the underlying OpenGL context</li>
+</ul>
+<p><em>Returns:</em> A new Window object</p>
 
 
 </dd>
@@ -2207,9 +2298,10 @@ Structure defining the window's creation settings
 
 </dd>
 <dt id="contextSettings"><a name="contextSettings,cint,cint,cint,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">contextSettings</span><span class="Other">(</span><span class="Identifier">depth</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> <span class="Identifier">stencil</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> <span class="Identifier">antialiasing</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> 
-                     <span class="Identifier">major</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">2</span><span class="Other">;</span> <span class="Identifier">minor</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span> <span class="Other"></span></pre></dt>
+                     <span class="Identifier">major</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">2</span><span class="Other">;</span> <span class="Identifier">minor</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> 
+                     <span class="Identifier">attributes</span> <span class="Other">=</span> <span class="Identifier">ContextAttribute</span><span class="Other">.</span><span class="Identifier">Default</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">ContextSettings</span> <span class="Other"></span></pre></dt>
 <dd>
-<p><em>Arguments</em>: <tt class="docutils literal"><span class="pre">depth</span></tt>: Depth buffer bits <tt class="docutils literal"><span class="pre">stencil</span></tt>: Stencil buffer bits <tt class="docutils literal"><span class="pre">antialiasing</span></tt>: Antialiasing level <tt class="docutils literal"><span class="pre">major</span></tt>: Major number of the context version <tt class="docutils literal"><span class="pre">minor</span></tt>: Minor number of the context version</p>
+<p><em>Arguments</em>: <tt class="docutils literal"><span class="pre">depth</span></tt>: Depth buffer bits <tt class="docutils literal"><span class="pre">stencil</span></tt>: Stencil buffer bits <tt class="docutils literal"><span class="pre">antialiasing</span></tt>: Antialiasing level <tt class="docutils literal"><span class="pre">major</span></tt>: Major number of the context version <tt class="docutils literal"><span class="pre">minor</span></tt>: Minor number of the context version <tt class="docutils literal"><span class="pre">attributes</span></tt>: The attribute flags to create the context with</p>
 <p><em>Returns</em>: ContextSettings with these members</p>
 
 
@@ -2279,6 +2371,16 @@ Structure defining the window's creation settings
                <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span> <span class="Other">=</span> <span class="Identifier">WindowStyle</span><span class="Other">.</span><span class="Identifier">Default</span><span class="Other">;</span> 
                <span class="Identifier">settings</span> <span class="Other">=</span> <span class="Identifier">contextSettings</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Window</span> <span class="Other"></span></pre></dt>
 <dd>
+<p>Construct a new window (with a UTF-8 title)</p>
+<p>This function creates the window with the size and pixel depth defined in <tt class="docutils literal"><span class="pre">mode</span></tt>. An optional style can be passed to customize the look and behaviour of the window (borders, title bar, resizable, closable, ...). If <tt class="docutils literal"><span class="pre">style</span></tt> contains Fullscreen, then <tt class="docutils literal"><span class="pre">mode</span></tt> must be a valid video mode.</p>
+<p>The fourth parameter is a pointer to a structure specifying advanced OpenGL context settings such as antialiasing, depth-buffer bits, etc.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">mode</span></tt>: Video mode to use (defines the width, height and depth of the rendering area of the window)</li>
+<li><tt class="docutils literal"><span class="pre">title</span></tt>: Title of the window (normal UTF-8 string)</li>
+<li><tt class="docutils literal"><span class="pre">style</span></tt>: Window style</li>
+<li><tt class="docutils literal"><span class="pre">settings</span></tt>: Additional settings for the underlying OpenGL context</li>
+</ul>
+<p><em>Returns:</em> A new Window object</p>
 
 
 </dd>
@@ -2287,6 +2389,11 @@ Structure defining the window's creation settings
 <div class="section" id="16">
 <h1><a class="toc-backref" href="#16">Converters</a></h1>
 <dl class="item">
+<dt id="toBitMaskU32"><a name="toBitMaskU32.c,ContextAttribute"></a><pre><span class="Keyword">converter</span> <span class="Identifier">toBitMaskU32</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">ContextAttribute</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span> <span class="Other"></span></pre></dt>
+<dd>
+Allows ContextAttribute values to be combined using the | operator and be used in functions
+
+</dd>
 <dt id="toBitMaskU32"><a name="toBitMaskU32.c,WindowStyle"></a><pre><span class="Keyword">converter</span> <span class="Identifier">toBitMaskU32</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">WindowStyle</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BitMaskU32</span> <span class="Other"></span></pre></dt>
 <dd>
 Allows WindowStyle values to be combined using the | operator and be used in functions
@@ -2302,10 +2409,11 @@ Allows WindowStyle values to be combined using the | operator and be used in fun
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-03-03 22:54:54 UTC</small>
+        <small>Made with Nim. Generated: 2015-05-29 01:26:45 UTC</small>
       </div>
     </div>
   </div>
 </div>
+
 </body>
 </html>

@@ -74,12 +74,12 @@ body {
 /* For devices larger than 400px */
 @media (min-width: 400px) {
   .container {
-    width: 85%;
+    width: 100%;
     padding: 0; } }
 /* For devices larger than 650px */
 @media (min-width: 650px) {
   .container {
-    width: 80%; }
+    width: 100%; }
 
   .column,
   .columns {
@@ -392,7 +392,7 @@ h6 {
 ul,
 ol {
   padding: 0;
-  margin: 0 0 10px 25px; }
+  margin: 0 0 0px 15px; }
 
 ul ul,
 ul ol,
@@ -485,15 +485,16 @@ code {
   border: 1px solid #777777; }
 
 pre {
-  display: block;
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: calc(100% - 19.5px);
   padding: 9.5px;
-  margin: 0 10px 10px 10px;
+  margin: 0 10px 0px 10px;
   font-size: 14px;
   line-height: 20px;
   white-space: pre !important;
   overflow-y: hidden;
-  overflow: visible;
-  overflow-x: auto;
+  overflow-x: visible;
   background-color: whitesmoke;
   border: 1px solid #cccccc;
   -webkit-border-radius: 4px;
@@ -507,7 +508,7 @@ pre code {
   padding: 0;
   color: inherit;
   white-space: pre;
-  overflow-x: scroll;
+  overflow-x: visible;
   background-color: transparent;
   border: 0; }
 
@@ -1176,7 +1177,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#[]=,Shader,string,Texture"
     title="`[]=`(shader: Shader; name: string; texture: Texture)"><wbr />`[]=`</a></li>
   <li><a class="reference" href="#[]=,Shader,string,"
-    title="`[]=`(shader: Shader; name: string; currentTexture: type (CurrentTexture))"><wbr />`[]=`</a></li>
+    title="`[]=`(shader: Shader; name: string; currentTexture: type(CurrentTexture))"><wbr />`[]=`</a></li>
   <li><a class="reference" href="#red,Color"
     title="red(color: Color): int"><wbr />red</a></li>
   <li><a class="reference" href="#green,Color"
@@ -1263,29 +1264,29 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
 
 
 </dd>
-<dt id="[]="><a name="[]=,Shader,string,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]=`</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">currentTexture</span><span class="Other">:</span> <span class="Keyword">type</span> <span class="Other">(</span><span class="Identifier">CurrentTexture</span><span class="Other">)</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
+<dt id="[]="><a name="[]=,Shader,string,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]=`</span><span class="Other">(</span><span class="Identifier">shader</span><span class="Other">:</span> <span class="Identifier">Shader</span><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">currentTexture</span><span class="Other">:</span> <span class="Keyword">type</span><span class="Other">(</span><span class="Identifier">CurrentTexture</span><span class="Other">)</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
 <dd>
 
 
 </dd>
 <dt id="red"><a name="red,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">red</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other"></span></pre></dt>
 <dd>
-
+<em>Returns</em>: red component of a Color
 
 </dd>
 <dt id="green"><a name="green,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">green</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other"></span></pre></dt>
 <dd>
-
+<em>Returns</em>: green component of a Color
 
 </dd>
 <dt id="blue"><a name="blue,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">blue</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other"></span></pre></dt>
 <dd>
-
+<em>Returns</em>: blue component of a Color
 
 </dd>
 <dt id="alpha"><a name="alpha,Color"></a><pre><span class="Keyword">proc</span> <span class="Identifier">alpha</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Identifier">Color</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other"></span></pre></dt>
 <dd>
-
+<em>Returns</em>: alpha (opacity) component of a Color
 
 </dd>
 <dt id="red="><a name="red=,Color,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">red=</span><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Color</span><span class="Other">;</span> <span class="Identifier">red</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> <span class="Other"></span></pre></dt>
@@ -1328,10 +1329,11 @@ Iterator wrapping pollEvent in a loop
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-03-03 22:54:53 UTC</small>
+        <small>Made with Nim. Generated: 2015-05-29 01:26:44 UTC</small>
       </div>
     </div>
   </div>
 </div>
+
 </body>
 </html>

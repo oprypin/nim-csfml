@@ -74,12 +74,12 @@ body {
 /* For devices larger than 400px */
 @media (min-width: 400px) {
   .container {
-    width: 85%;
+    width: 100%;
     padding: 0; } }
 /* For devices larger than 650px */
 @media (min-width: 650px) {
   .container {
-    width: 80%; }
+    width: 100%; }
 
   .column,
   .columns {
@@ -392,7 +392,7 @@ h6 {
 ul,
 ol {
   padding: 0;
-  margin: 0 0 10px 25px; }
+  margin: 0 0 0px 15px; }
 
 ul ul,
 ul ol,
@@ -485,15 +485,16 @@ code {
   border: 1px solid #777777; }
 
 pre {
-  display: block;
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: calc(100% - 19.5px);
   padding: 9.5px;
-  margin: 0 10px 10px 10px;
+  margin: 0 10px 0px 10px;
   font-size: 14px;
   line-height: 20px;
   white-space: pre !important;
   overflow-y: hidden;
-  overflow: visible;
-  overflow-x: auto;
+  overflow-x: visible;
   background-color: whitesmoke;
   border: 1px solid #cccccc;
   -webkit-border-radius: 4px;
@@ -507,7 +508,7 @@ pre code {
   padding: 0;
   color: inherit;
   white-space: pre;
-  overflow-x: scroll;
+  overflow-x: visible;
   background-color: transparent;
   border: 0; }
 
@@ -1178,6 +1179,14 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="SoundRecorderProcessCallback = proc (p1: ptr int16; p2: int; p3: pointer): BoolInt"><wbr />Sound<wbr />Recorder<wbr />Process<wbr />Callback</a></li>
   <li><a class="reference" href="#SoundRecorderStopCallback"
     title="SoundRecorderStopCallback = proc (p1: pointer): void"><wbr />Sound<wbr />Recorder<wbr />Stop<wbr />Callback</a></li>
+  <li><a class="reference" href="#SoundStreamChunk"
+    title="SoundStreamChunk = object 
+  samples*: ptr int16
+  sampleCount*: cint"><wbr />Sound<wbr />Stream<wbr />Chunk</a></li>
+  <li><a class="reference" href="#SoundStreamGetDataCallback"
+    title="SoundStreamGetDataCallback = proc (p1: var SoundStreamChunk; p2: pointer): BoolInt"><wbr />Sound<wbr />Stream<wbr />Get<wbr />Data<wbr />Callback</a></li>
+  <li><a class="reference" href="#SoundStreamSeekCallback"
+    title="SoundStreamSeekCallback = proc (p1: Time; p2: pointer): void"><wbr />Sound<wbr />Stream<wbr />Seek<wbr />Callback</a></li>
 
   </ul>
 </li>
@@ -1310,8 +1319,8 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="newSoundBuffer(data: pointer; sizeInBytes: int): SoundBuffer"><wbr />new<wbr />Sound<wbr />Buffer</a></li>
   <li><a class="reference" href="#newSoundBuffer,InputStream"
     title="newSoundBuffer(stream: var InputStream): SoundBuffer"><wbr />new<wbr />Sound<wbr />Buffer</a></li>
-  <li><a class="reference" href="#newSoundBuffer,ptr.int16,int,cint,cint"
-    title="newSoundBuffer(samples: ptr int16; sampleCount: int; channelCount: cint; 
+  <li><a class="reference" href="#newSoundBuffer,ptr.int16,uint64,cint,cint"
+    title="newSoundBuffer(samples: ptr int16; sampleCount: uint64; channelCount: cint; 
                sampleRate: cint): SoundBuffer"><wbr />new<wbr />Sound<wbr />Buffer</a></li>
   <li><a class="reference" href="#copy,SoundBuffer"
     title="copy(soundBuffer: SoundBuffer): SoundBuffer"><wbr />copy</a></li>
@@ -1322,7 +1331,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   <li><a class="reference" href="#samples,SoundBuffer"
     title="samples(soundBuffer: SoundBuffer): ptr int16"><wbr />samples</a></li>
   <li><a class="reference" href="#sampleCount,SoundBuffer"
-    title="sampleCount(soundBuffer: SoundBuffer): int"><wbr />sample<wbr />Count</a></li>
+    title="sampleCount(soundBuffer: SoundBuffer): uint64"><wbr />sample<wbr />Count</a></li>
   <li><a class="reference" href="#sampleRate,SoundBuffer"
     title="sampleRate(soundBuffer: SoundBuffer): cint"><wbr />sample<wbr />Rate</a></li>
   <li><a class="reference" href="#channelCount,SoundBuffer"
@@ -1365,6 +1374,56 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
     title="device=(soundRecorder: SoundRecorder; name: cstring): BoolInt"><wbr />device=</a></li>
   <li><a class="reference" href="#device,SoundRecorder"
     title="device(soundRecorder: SoundRecorder): cstring"><wbr />device</a></li>
+  <li><a class="reference" href="#newSoundStream,SoundStreamGetDataCallback,SoundStreamSeekCallback,cint,cint,pointer"
+    title="newSoundStream(onGetData: SoundStreamGetDataCallback; 
+               onSeek: SoundStreamSeekCallback; channelCount: cint; 
+               sampleRate: cint; userData: pointer): SoundStream"><wbr />new<wbr />Sound<wbr />Stream</a></li>
+  <li><a class="reference" href="#destroy,SoundStream"
+    title="destroy(soundStream: SoundStream)"><wbr />destroy</a></li>
+  <li><a class="reference" href="#play,SoundStream"
+    title="play(soundStream: SoundStream)"><wbr />play</a></li>
+  <li><a class="reference" href="#pause,SoundStream"
+    title="pause(soundStream: SoundStream)"><wbr />pause</a></li>
+  <li><a class="reference" href="#stop,SoundStream"
+    title="stop(soundStream: SoundStream)"><wbr />stop</a></li>
+  <li><a class="reference" href="#status,SoundStream"
+    title="status(soundStream: SoundStream): SoundStatus"><wbr />status</a></li>
+  <li><a class="reference" href="#channelCount,SoundStream"
+    title="channelCount(soundStream: SoundStream): cint"><wbr />channel<wbr />Count</a></li>
+  <li><a class="reference" href="#sampleRate,SoundStream"
+    title="sampleRate(soundStream: SoundStream): cint"><wbr />sample<wbr />Rate</a></li>
+  <li><a class="reference" href="#pitch=,SoundStream,cfloat"
+    title="pitch=(soundStream: SoundStream; pitch: cfloat)"><wbr />pitch=</a></li>
+  <li><a class="reference" href="#volume=,SoundStream,cfloat"
+    title="volume=(soundStream: SoundStream; volume: cfloat)"><wbr />volume=</a></li>
+  <li><a class="reference" href="#position=,SoundStream,Vector3f"
+    title="position=(soundStream: SoundStream; position: Vector3f)"><wbr />position=</a></li>
+  <li><a class="reference" href="#relativeToListener=,SoundStream,BoolInt"
+    title="relativeToListener=(soundStream: SoundStream; relative: BoolInt)"><wbr />relative<wbr />To<wbr />Listener=</a></li>
+  <li><a class="reference" href="#minDistance=,SoundStream,cfloat"
+    title="minDistance=(soundStream: SoundStream; distance: cfloat)"><wbr />min<wbr />Distance=</a></li>
+  <li><a class="reference" href="#attenuation=,SoundStream,cfloat"
+    title="attenuation=(soundStream: SoundStream; attenuation: cfloat)"><wbr />attenuation=</a></li>
+  <li><a class="reference" href="#playingOffset=,SoundStream,Time"
+    title="playingOffset=(soundStream: SoundStream; timeOffset: Time)"><wbr />playing<wbr />Offset=</a></li>
+  <li><a class="reference" href="#loop=,SoundStream,BoolInt"
+    title="loop=(soundStream: SoundStream; loop: BoolInt)"><wbr />loop=</a></li>
+  <li><a class="reference" href="#pitch,SoundStream"
+    title="pitch(soundStream: SoundStream): cfloat"><wbr />pitch</a></li>
+  <li><a class="reference" href="#volume,SoundStream"
+    title="volume(soundStream: SoundStream): cfloat"><wbr />volume</a></li>
+  <li><a class="reference" href="#position,SoundStream"
+    title="position(soundStream: SoundStream): Vector3f"><wbr />position</a></li>
+  <li><a class="reference" href="#relativeToListener,SoundStream"
+    title="relativeToListener(soundStream: SoundStream): BoolInt"><wbr />relative<wbr />To<wbr />Listener</a></li>
+  <li><a class="reference" href="#minDistance,SoundStream"
+    title="minDistance(soundStream: SoundStream): cfloat"><wbr />min<wbr />Distance</a></li>
+  <li><a class="reference" href="#attenuation,SoundStream"
+    title="attenuation(soundStream: SoundStream): cfloat"><wbr />attenuation</a></li>
+  <li><a class="reference" href="#loop,SoundStream"
+    title="loop(soundStream: SoundStream): BoolInt"><wbr />loop</a></li>
+  <li><a class="reference" href="#playingOffset,SoundStream"
+    title="playingOffset(soundStream: SoundStream): Time"><wbr />playing<wbr />Offset</a></li>
   <li><a class="reference" href="#newSound,SoundBuffer"
     title="newSound(buffer: SoundBuffer): Sound"><wbr />new<wbr />Sound</a></li>
   <li><a class="reference" href="#soundRecorder_getAvailableDevices,"
@@ -1434,6 +1493,25 @@ Enumeration of statuses for sounds and musics
 
 </dd>
 <dt id="SoundRecorderStopCallback"><a name="SoundRecorderStopCallback"></a><pre><span class="Identifier">SoundRecorderStopCallback</span> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">p1</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">void</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="SoundStreamChunk"><a name="SoundStreamChunk"></a><pre><span class="Identifier">SoundStreamChunk</span> <span class="Other">=</span> <span class="Keyword">object</span> 
+  <span class="Identifier">samples</span><span class="Operator">*</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">int16</span>
+  <span class="Identifier">sampleCount</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cint</span>
+</pre></dt>
+<dd>
+defines the data to fill by the OnGetData callback
+
+</dd>
+<dt id="SoundStreamGetDataCallback"><a name="SoundStreamGetDataCallback"></a><pre><span class="Identifier">SoundStreamGetDataCallback</span> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">p1</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">SoundStreamChunk</span><span class="Other">;</span> <span class="Identifier">p2</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span>
+    <span class="Identifier">cdecl</span><span class="Other">.}</span></pre></dt>
+<dd>
+
+
+</dd>
+<dt id="SoundStreamSeekCallback"><a name="SoundStreamSeekCallback"></a><pre><span class="Identifier">SoundStreamSeekCallback</span> <span class="Other">=</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">p1</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">;</span> <span class="Identifier">p2</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">void</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">.}</span></pre></dt>
 <dd>
 
 
@@ -2115,7 +2193,7 @@ Enumeration of statuses for sounds and musics
 
 
 </dd>
-<dt id="newSoundBuffer"><a name="newSoundBuffer,ptr.int16,int,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newSoundBuffer</span><span class="Other">(</span><span class="Identifier">samples</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">int16</span><span class="Other">;</span> <span class="Identifier">sampleCount</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">channelCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> 
+<dt id="newSoundBuffer"><a name="newSoundBuffer,ptr.int16,uint64,cint,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newSoundBuffer</span><span class="Other">(</span><span class="Identifier">samples</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">int16</span><span class="Other">;</span> <span class="Identifier">sampleCount</span><span class="Other">:</span> <span class="Identifier">uint64</span><span class="Other">;</span> <span class="Identifier">channelCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> 
                     <span class="Identifier">sampleRate</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">SoundBuffer</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundBuffer_createFromSamples&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
@@ -2177,7 +2255,7 @@ Enumeration of statuses for sounds and musics
 
 
 </dd>
-<dt id="sampleCount"><a name="sampleCount,SoundBuffer"></a><pre><span class="Keyword">proc</span> <span class="Identifier">sampleCount</span><span class="Other">(</span><span class="Identifier">soundBuffer</span><span class="Other">:</span> <span class="Identifier">SoundBuffer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+<dt id="sampleCount"><a name="sampleCount,SoundBuffer"></a><pre><span class="Keyword">proc</span> <span class="Identifier">sampleCount</span><span class="Other">(</span><span class="Identifier">soundBuffer</span><span class="Other">:</span> <span class="Identifier">SoundBuffer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">uint64</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundBuffer_getSampleCount&quot;</span><span class="Other">.}</span></pre></dt>
 <dd>
 <p>Get the number of samples stored in a sound buffer</p>
@@ -2416,6 +2494,282 @@ Enumeration of statuses for sounds and musics
 
 
 </dd>
+<dt id="newSoundStream"><a name="newSoundStream,SoundStreamGetDataCallback,SoundStreamSeekCallback,cint,cint,pointer"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newSoundStream</span><span class="Other">(</span><span class="Identifier">onGetData</span><span class="Other">:</span> <span class="Identifier">SoundStreamGetDataCallback</span><span class="Other">;</span> 
+                    <span class="Identifier">onSeek</span><span class="Other">:</span> <span class="Identifier">SoundStreamSeekCallback</span><span class="Other">;</span> <span class="Identifier">channelCount</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> 
+                    <span class="Identifier">sampleRate</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">;</span> <span class="Identifier">userData</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">SoundStream</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_create&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Create a new sound stream</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">onGetData</span></tt>:     Function called when the stream needs more data (can't be NULL)</li>
+<li><tt class="docutils literal"><span class="pre">onSeek</span></tt>:        Function called when the stream seeks (can't be NULL)</li>
+<li><tt class="docutils literal"><span class="pre">channelCount</span></tt>:  Number of channels to use (1 = mono, 2 = stereo)</li>
+<li><tt class="docutils literal"><span class="pre">sampleRate</span></tt>:    Sample rate of the sound (44100 = CD quality)</li>
+<li><tt class="docutils literal"><span class="pre">userData</span></tt>:      Data to pass to the callback functions</li>
+</ul>
+<p><em>Returns:</em> A new SoundStream object</p>
+
+
+</dd>
+<dt id="destroy"><a name="destroy,SoundStream"></a><pre><span class="Keyword">proc</span> <span class="Identifier">destroy</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">override</span><span class="Other">,</span> <span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_destroy&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Destroy a sound stream</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream to destroy</li>
+</ul>
+
+
+</dd>
+<dt id="play"><a name="play,SoundStream"></a><pre><span class="Keyword">proc</span> <span class="Identifier">play</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_play&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Start or resume playing a sound stream</p>
+<p>This function starts the stream if it was stopped, resumes it if it was paused, and restarts it from beginning if it was it already playing. This function uses its own thread so that it doesn't block the rest of the program while the music is played.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+</ul>
+
+
+</dd>
+<dt id="pause"><a name="pause,SoundStream"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pause</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_pause&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Pause a sound stream</p>
+<p>This function pauses the stream if it was playing, otherwise (stream already paused or stopped) it has no effect.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+</ul>
+
+
+</dd>
+<dt id="stop"><a name="stop,SoundStream"></a><pre><span class="Keyword">proc</span> <span class="Identifier">stop</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_stop&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Stop playing a sound stream</p>
+<p>This function stops the stream if it was playing or paused, and does nothing if it was already stopped. It also resets the playing position (unlike SoundStream_pause).</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+</ul>
+
+
+</dd>
+<dt id="status"><a name="status,SoundStream"></a><pre><span class="Keyword">proc</span> <span class="Identifier">status</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">SoundStatus</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_getStatus&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the current status of a sound stream (stopped, paused, playing)</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+</ul>
+<p><em>Returns:</em> Current status</p>
+
+
+</dd>
+<dt id="channelCount"><a name="channelCount,SoundStream"></a><pre><span class="Keyword">proc</span> <span class="Identifier">channelCount</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_getChannelCount&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Return the number of channels of a sound stream</p>
+<p>1 channel means a mono sound, 2 means stereo, etc.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+</ul>
+<p><em>Returns:</em> Number of channels</p>
+
+
+</dd>
+<dt id="sampleRate"><a name="sampleRate,SoundStream"></a><pre><span class="Keyword">proc</span> <span class="Identifier">sampleRate</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_getSampleRate&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the sample rate of a sound stream</p>
+<p>The sample rate is the number of audio samples played per second. The higher, the better the quality.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+</ul>
+<p><em>Returns:</em> Sample rate, in number of samples per second</p>
+
+
+</dd>
+<dt id="pitch="><a name="pitch=,SoundStream,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pitch=</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">;</span> <span class="Identifier">pitch</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_setPitch&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Set the pitch of a sound stream</p>
+<p>The pitch represents the perceived fundamental frequency of a sound; thus you can make a stream more acute or grave by changing its pitch. A side effect of changing the pitch is to modify the playing speed of the stream as well. The default value for the pitch is 1.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+<li><tt class="docutils literal"><span class="pre">pitch</span></tt>:        New pitch to apply to the stream</li>
+</ul>
+
+
+</dd>
+<dt id="volume="><a name="volume=,SoundStream,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">volume=</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">;</span> <span class="Identifier">volume</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_setVolume&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Set the volume of a sound stream</p>
+<p>The volume is a value between 0 (mute) and 100 (full volume). The default value for the volume is 100.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+<li><tt class="docutils literal"><span class="pre">volume</span></tt>:       Volume of the stream</li>
+</ul>
+
+
+</dd>
+<dt id="position="><a name="position=,SoundStream,Vector3f"></a><pre><span class="Keyword">proc</span> <span class="Identifier">position=</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">;</span> <span class="Identifier">position</span><span class="Other">:</span> <span class="Identifier">Vector3f</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_setPosition&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Set the 3D position of a sound stream in the audio scene</p>
+<p>Only streams with one channel (mono streams) can be spatialized. The default position of a stream is (0, 0, 0).</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+<li><tt class="docutils literal"><span class="pre">position</span></tt>:     Position of the stream in the scene</li>
+</ul>
+
+
+</dd>
+<dt id="relativeToListener="><a name="relativeToListener=,SoundStream,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">relativeToListener=</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">;</span> <span class="Identifier">relative</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_setRelativeToListener&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Make a sound stream's position relative to the listener or absolute</p>
+<p>Making a stream relative to the listener will ensure that it will always be played the same way regardless the position of the listener. This can be useful for non-spatialized streams, streams that are produced by the listener, or streams attached to it. The default value is false (position is absolute).</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+<li><tt class="docutils literal"><span class="pre">relative</span></tt>:     True to set the position relative, False to set it absolute</li>
+</ul>
+
+
+</dd>
+<dt id="minDistance="><a name="minDistance=,SoundStream,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">minDistance=</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">;</span> <span class="Identifier">distance</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_setMinDistance&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Set the minimum distance of a sound stream</p>
+<p>The &quot;minimum distance&quot; of a stream is the maximum distance at which it is heard at its maximum volume. Further than the minimum distance, it will start to fade out according to its attenuation factor. A value of 0 (&quot;inside the head of the listener&quot;) is an invalid value and is forbidden. The default value of the minimum distance is 1.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+<li><tt class="docutils literal"><span class="pre">distance</span></tt>:     New minimum distance of the stream</li>
+</ul>
+
+
+</dd>
+<dt id="attenuation="><a name="attenuation=,SoundStream,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">attenuation=</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">;</span> <span class="Identifier">attenuation</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_setAttenuation&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Set the attenuation factor of a sound stream</p>
+<p>The attenuation is a multiplicative factor which makes the stream more or less loud according to its distance from the listener. An attenuation of 0 will produce a non-attenuated stream, i.e. its volume will always be the same whether it is heard from near or from far. On the other hand, an attenuation value such as 100 will make the stream fade out very quickly as it gets further from the listener. The default value of the attenuation is 1.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+<li><tt class="docutils literal"><span class="pre">attenuation</span></tt>:  New attenuation factor of the stream</li>
+</ul>
+
+
+</dd>
+<dt id="playingOffset="><a name="playingOffset=,SoundStream,Time"></a><pre><span class="Keyword">proc</span> <span class="Identifier">playingOffset=</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">;</span> <span class="Identifier">timeOffset</span><span class="Other">:</span> <span class="Identifier">Time</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_setPlayingOffset&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Change the current playing position of a sound stream</p>
+<p>The playing position can be changed when the stream is either paused or playing.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+<li><tt class="docutils literal"><span class="pre">timeOffset</span></tt>:   New playing position</li>
+</ul>
+
+
+</dd>
+<dt id="loop="><a name="loop=,SoundStream,BoolInt"></a><pre><span class="Keyword">proc</span> <span class="Identifier">loop=</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">;</span> <span class="Identifier">loop</span><span class="Other">:</span> <span class="Identifier">BoolInt</span><span class="Other">)</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_setLoop&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Set whether or not a sound stream should loop after reaching the end</p>
+<p>If set, the stream will restart from beginning after reaching the end and so on, until it is stopped or SoundStream_setLoop(stream, False) is called. The default looping state for sound streams is false.</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+<li><tt class="docutils literal"><span class="pre">loop</span></tt>:         True to play in loop, False to play once</li>
+</ul>
+
+
+</dd>
+<dt id="pitch"><a name="pitch,SoundStream"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pitch</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cfloat</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_getPitch&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the pitch of a sound stream</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+</ul>
+<p><em>Returns:</em> Pitch of the stream</p>
+
+
+</dd>
+<dt id="volume"><a name="volume,SoundStream"></a><pre><span class="Keyword">proc</span> <span class="Identifier">volume</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cfloat</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_getVolume&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the volume of a sound stream</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+</ul>
+<p><em>Returns:</em> Volume of the stream, in the range [0, 100]</p>
+
+
+</dd>
+<dt id="position"><a name="position,SoundStream"></a><pre><span class="Keyword">proc</span> <span class="Identifier">position</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Vector3f</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_getPosition&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the 3D position of a sound stream in the audio scene</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+</ul>
+<p><em>Returns:</em> Position of the stream in the world</p>
+
+
+</dd>
+<dt id="relativeToListener"><a name="relativeToListener,SoundStream"></a><pre><span class="Keyword">proc</span> <span class="Identifier">relativeToListener</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_isRelativeToListener&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Tell whether a sound stream's position is relative to the listener or is absolute</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+</ul>
+<p><em>Returns:</em> True if the position is relative, False if it's absolute</p>
+
+
+</dd>
+<dt id="minDistance"><a name="minDistance,SoundStream"></a><pre><span class="Keyword">proc</span> <span class="Identifier">minDistance</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cfloat</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_getMinDistance&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the minimum distance of a sound stream</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+</ul>
+<p><em>Returns:</em> Minimum distance of the stream</p>
+
+
+</dd>
+<dt id="attenuation"><a name="attenuation,SoundStream"></a><pre><span class="Keyword">proc</span> <span class="Identifier">attenuation</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cfloat</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_getAttenuation&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the attenuation factor of a sound stream</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+</ul>
+<p><em>Returns:</em> Attenuation factor of the stream</p>
+
+
+</dd>
+<dt id="loop"><a name="loop,SoundStream"></a><pre><span class="Keyword">proc</span> <span class="Identifier">loop</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BoolInt</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_getLoop&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Tell whether or not a sound stream is in loop mode</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+</ul>
+<p><em>Returns:</em> True if the music is looping, False otherwise</p>
+
+
+</dd>
+<dt id="playingOffset"><a name="playingOffset,SoundStream"></a><pre><span class="Keyword">proc</span> <span class="Identifier">playingOffset</span><span class="Other">(</span><span class="Identifier">soundStream</span><span class="Other">:</span> <span class="Identifier">SoundStream</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Time</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> 
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;sfSoundStream_getPlayingOffset&quot;</span><span class="Other">.}</span></pre></dt>
+<dd>
+<p>Get the current playing position of a sound stream</p>
+<p><em>Arguments</em>:</p>
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">soundStream</span></tt>:  Sound stream object</li>
+</ul>
+<p><em>Returns:</em> Current playing position</p>
+
+
+</dd>
 <dt id="newSound"><a name="newSound,SoundBuffer"></a><pre><span class="Keyword">proc</span> <span class="Identifier">newSound</span><span class="Other">(</span><span class="Identifier">buffer</span><span class="Other">:</span> <span class="Identifier">SoundBuffer</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Sound</span> <span class="Other"></span></pre></dt>
 <dd>
 <em>Returns</em>: A new Sound with this buffer
@@ -2438,10 +2792,11 @@ Enumeration of statuses for sounds and musics
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-03-03 22:54:54 UTC</small>
+        <small>Made with Nim. Generated: 2015-05-29 01:26:45 UTC</small>
       </div>
     </div>
   </div>
 </div>
+
 </body>
 </html>
