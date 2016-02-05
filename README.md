@@ -1,24 +1,23 @@
 nim-csfml
 =========
-#### Nim Bindings for [Simple and Fast Multimedia Library][sfml] (through [CSFML][]).
+#### [Nim][] Bindings to [Simple and Fast Multimedia Library][sfml] (through [CSFML][]).
 
 **See [introduction](#introduction), [examples](examples), [documentation][], [wiki][].**
 
-The files <em>[src](src)/csfml\_\*\_gen.nim</em> are [automatically generated](generate) from CSFML's header files. They provide the base CSFML API. The files <em>csfml_\*.nim</em> build upon them, adding compatibility with SFML API.  
-*csfml.nim* automatically imports *system*, *window* and *graphics*; *audio* should be imported separately; *network* is not implemented.
+Warning
+-------
 
-*nim-csfml* supports CSFML 2.3; there are older releases, down to CSFML 2.1. It has been tested on Linux 64-bit and Windows 7 with MinGW 32-bit.
+This library consists of class wrappers implemented as `ptr object`. Because Nim does not allow attaching pointers to the garbage collector, I decided to use [destructors](http://nim-lang.org/docs/manual.html#type-bound-operations-destructors) hoping that would be a reasonable way to implement automatic disposal of objects. However, this feature is based on lexical scoping, which (as I later realized) makes things problematic: the disposal behavior is more like normal `object`s rather than `ref objects`, and sometimes unpredictable.
 
-This library can be installed using <code>[nimble][] install csfml</code>.
+It is recommended to disable destructors (pass `-d:csfmlNoDestructors` to the compiler) and dispose of the `ptr object`s manually by calling `destroy`. Standard memory management caveats apply: destroying objects that are still used will break things, forgetting to destroy is a memory leak.
 
-[CSFML][] 2.3, which requires [SFML][] 2.3, must be installed to use it.
-On Windows you can just [download CSFML][csfml] and put the DLLs (which seem to be statically linked with SFML) in your project folder instead.
+There is no good way to fix this under the current state of the language, short of reimplementing everything with additional wrapper classes which also add a lot of overhead.
 
-*nim-csfml*'s version number (`x.y.z`): `x.y` corresponds to the supported CSFML version; `z` is for the project's own point releases.
+[More details](https://github.com/BlaXpirit/nim-csfml/issues/6)
+
+This library is not under active development, but detailed bug reports will be given proper attention.
 
 
-[Troubleshooting][]
--------------------
 
 
 Introduction
@@ -57,6 +56,26 @@ The API attempts to be very similar to SFML's, but some general changes are pres
 - Most of the [documentation][] is taken directly from CSFML, so don't be surprised if it talks in C/C++ terms.
 
 See [examples](examples) to learn more.
+
+### Implementation
+
+The files <em>[src](src)/csfml\_\*\_gen.nim</em> are [automatically generated](generate) from CSFML's header files. They provide the base CSFML API. The files <em>csfml_\*.nim</em> build upon them, adding compatibility with SFML API.  
+*csfml.nim* automatically imports *system*, *window* and *graphics*; *audio* should be imported separately; *network* is not implemented.
+
+*nim-csfml*'s version number (`x.y.z`): `x.y` corresponds to the supported CSFML version; `z` is for the project's own point releases.
+
+
+Installation
+------------
+
+*nim-csfml* supports CSFML 2.3; there are older releases, down to CSFML 2.1. It has been tested on Linux 64-bit and Windows 7 with MinGW 32-bit.
+
+This library can be installed using <code>[nimble][] install csfml</code>.
+
+[CSFML][] 2.3, which requires [SFML][] 2.3, must be installed to use it.
+On Windows you can just [download CSFML][csfml] and put the DLLs (which seem to be statically linked with SFML) in your project folder instead.
+
+### [Troubleshooting][]
 
 
 [Contributing][]
