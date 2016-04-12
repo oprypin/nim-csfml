@@ -7,7 +7,7 @@ nim-csfml
 Warning
 -------
 
-This library consists of class wrappers implemented as `ptr object`. Because Nim does not allow attaching pointers to the garbage collector, I decided to use [destructors](http://nim-lang.org/docs/manual.html#type-bound-operations-destructors) hoping that would be a reasonable way to implement automatic disposal of objects. However, this feature is based on lexical scoping, which (as I later realized) makes things problematic: the disposal behavior is more like normal `object`s rather than `ref objects`, and sometimes unpredictable.
+This library consists of class wrappers implemented as `ptr object`. Because Nim does not allow attaching pointers to the garbage collector, I decided to use [destructors][nim-destructors] hoping that would be a reasonable way to implement automatic disposal of objects. However, this feature is based on lexical scoping, which (as I later realized) makes things problematic: the disposal behavior is more like normal `object`s rather than `ref objects`, and sometimes unpredictable.
 
 It is recommended to disable destructors (pass `-d:csfmlNoDestructors` to the compiler) and dispose of the `ptr object`s manually by calling `destroy`. Standard memory management caveats apply: destroying objects that are still used will break things, forgetting to destroy is a memory leak.
 
@@ -102,7 +102,7 @@ This library uses and is based on [SFML][] and [CSFML][].
 [csfml]: http://www.sfml-dev.org/download/csfml/
 [sfml-tutorials]: http://www.sfml-dev.org/tutorials/
 [nim]: http://nim-lang.org/
-[nim-destructors]: http://nim-lang.org/manual.html#destructors
+[nim-destructors]: http://nim-lang.org/docs/manual.html#type-bound-operations-destructors
 [python]: http://python.org/
 [nimble]: https://github.com/nim-lang/nimble
 [nimrod-sfml]: https://github.com/fowlmouth/nimrod-sfml
