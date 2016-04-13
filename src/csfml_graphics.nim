@@ -29,7 +29,7 @@ include private/csfml_graphics_gen
 {.pop.}
 
 
-import unsigned, unicode
+import unicode
 
 
 proc color*(red, green, blue: int, alpha: int = 255): Color =
