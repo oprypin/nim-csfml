@@ -21,7 +21,7 @@
 
 ## Types and conversions exported by all modules of nim-csfml
 
-import unicode, unsigned
+import unicode
 
 type
   BoolInt* = distinct cint ## CSFML uses cint as bool
