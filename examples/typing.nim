@@ -19,10 +19,10 @@ while window.open:
             case event.key.code
             of KeyCode.Escape:
                 window.close()
-            of KeyCode.Back:
+            of KeyCode.Backspace:
                 if str.len > 0:
                     discard str.pop()
-            of KeyCode.Return:
+            of KeyCode.Enter:
                 str.add Rune(10)
             else: discard
         of EventType.TextEntered:
