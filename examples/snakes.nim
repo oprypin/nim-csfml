@@ -1,4 +1,4 @@
-import math, sequtils
+import math, random, sequtils
 import csfml, csfml_ext
 
 

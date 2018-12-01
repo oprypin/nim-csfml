@@ -1,7 +1,7 @@
 # Adapted from SFML Pong example
 # https://github.com/LaurentGomila/SFML/blob/master/examples/pong/Pong.cpp
 
-import math
+import math, random
 import csfml, csfml_audio
 
 
