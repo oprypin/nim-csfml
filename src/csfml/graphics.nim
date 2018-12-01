@@ -268,7 +268,7 @@ converter toBitMaskU32*(a: TextStyle): BitMaskU32 = BitMaskU32 a
   ## Allows TextStyle values to be combined using the | operator and be used in functions
 
 
-template defDraw(name: untyped) {.immediate, dirty.} =
+template defDraw(name: untyped) {.dirty.} =
   proc draw*[T: RenderTexture|RenderWindow](renderTarget: T, obj: `name`, states = renderStates()) =
     ## Allows the syntax ``renderTarget.draw(drawable[, states])``
     ## by turning it into ``renderTarget.drawDrawableType(drawable, states)``
