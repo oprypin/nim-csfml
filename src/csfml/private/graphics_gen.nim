@@ -202,6 +202,8 @@ type Transformable* = ptr object
 
 type VertexArray* = ptr object
 
+type VertexBuffer* = ptr object
+
 type View* = ptr object
 
 type Transform* {.bycopy.} = object
@@ -358,6 +360,19 @@ proc scale*(transform: var Transform, scaleX: cfloat, scaleY: cfloat, centerX: c
   ## - ``scaleY``:     Scaling factor on Y axis
   ## - ``centerX``:    X coordinate of the center of scaling
   ## - ``centerY``:    Y coordinate of the center of scaling
+
+proc equal*(left: var Transform, right: var Transform): BoolInt {.
+  cdecl, importc: "sfTransform_equal".}
+  ## Compare two transforms for equality
+  ## 
+  ## Performs an element-wise comparison of the elements of the
+  ## left transform with the elements of the right transform.
+  ## 
+  ## *Arguments*:
+  ## - ``left``:  Left operand (the first transform)
+  ## - ``right``:  Right operand (the second transform)
+  ## 
+  ## *Returns:* true if the transforms are equal, false otherwise
 
 proc newCircleShape*(): CircleShape {.
   cdecl, importc: "sfCircleShape_create".}
@@ -1833,6 +1848,20 @@ proc newRenderTexture*(width: cint, height: cint, depthBuffer: BoolInt): RenderT
   ## - ``depthBuffer``:  Do you want a depth-buffer attached? (useful only if you're doing 3D OpenGL on the rendertexture)
   ## 
   ## *Returns:* A new RenderTexture object, or NULL if it failed
+  ## 
+  ## \deprecated
+  ## Use RenderTexture_createWithSettings instead.
+
+proc newRenderTexture*(width: cint, height: cint, settings: ContextSettings): RenderTexture {.
+  cdecl, importc: "sfRenderTexture_createWithSettings".}
+  ## Construct a new render texture
+  ## 
+  ## *Arguments*:
+  ## - ``width``:     Width of the render texture
+  ## - ``height``:    Height of the render texture
+  ## - ``settings``:  Settings of the render texture
+  ## 
+  ## *Returns:* A new RenderTexture object, or NULL if it failed
 
 proc destroy*(renderTexture: RenderTexture) {.
   cdecl, importc: "sfRenderTexture_destroy".}
@@ -2010,6 +2039,12 @@ proc drawVertexArray*(renderTexture: RenderTexture, obj: VertexArray, states: Re
   (var Cstates = states)
   drawVertexArray(renderTexture, obj, Cstates)
 
+proc drawVertexBuffer*(renderTexture: RenderTexture, obj: VertexBuffer, states: (var RenderStates){lvalue}) {.
+  cdecl, importc: "sfRenderTexture_drawVertexBuffer".}
+proc drawVertexBuffer*(renderTexture: RenderTexture, obj: VertexBuffer, states: RenderStates) =
+  (var Cstates = states)
+  drawVertexBuffer(renderTexture, obj, Cstates)
+
 proc drawPrimitives*(renderTexture: RenderTexture, vertices: ptr Vertex, vertexCount: int, kind: PrimitiveType, states: (var RenderStates){lvalue}) {.
   cdecl, importc: "sfRenderTexture_drawPrimitives".}
 proc drawPrimitives*(renderTexture: RenderTexture, vertices: ptr Vertex, vertexCount: int, kind: PrimitiveType, states: RenderStates) =
@@ -2077,6 +2112,12 @@ proc texture*(renderTexture: RenderTexture): Texture {.
   ## - ``renderTexture``:  Render texture object
   ## 
   ## *Returns:* Pointer to the target texture
+
+proc renderTexture_getMaximumAntialiasingLevel*(): cint {.
+  cdecl, importc: "sfRenderTexture_getMaximumAntialiasingLevel".}
+  ## Get the maximum anti-aliasing level supported by the system
+  ## 
+  ## *Returns:* The maximum anti-aliasing level supported by the system
 
 proc `smooth=`*(renderTexture: RenderTexture, smooth: BoolInt) {.
   cdecl, importc: "sfRenderTexture_setSmooth".}
@@ -2316,6 +2357,24 @@ proc `mouseCursorGrabbed=`*(renderWindow: RenderWindow, grabbed: BoolInt) {.
   ## *Arguments*:
   ## - ``grabbed``:  True to enable, False to disable
 
+proc `mouseCursor=`*(window: RenderWindow, cursor: Cursor) {.
+  cdecl, importc: "sfRenderWindow_setMouseCursor".}
+  ## Set the displayed cursor to a native system cursor
+  ## 
+  ## Upon window creation, the arrow cursor is used by default.
+  ## 
+  ## \warning The cursor must not be destroyed while in use by
+  ## the window.
+  ## 
+  ## \warning Features related to Cursor are not supported on
+  ## iOS and Android.
+  ## 
+  ## *Arguments*:
+  ## - ``cursor``:  Native system cursor type to display
+  ## 
+  ## \see Cursor_createFromSystem
+  ## \see Cursor_createFromPixels
+
 proc `keyRepeatEnabled=`*(renderWindow: RenderWindow, enabled: BoolInt) {.
   cdecl, importc: "sfRenderWindow_setKeyRepeatEnabled".}
   ## Enable or disable automatic key-repeat for keydown events
@@ -2535,6 +2594,12 @@ proc drawVertexArray*(renderWindow: RenderWindow, obj: VertexArray, states: (var
 proc drawVertexArray*(renderWindow: RenderWindow, obj: VertexArray, states: RenderStates) =
   (var Cstates = states)
   drawVertexArray(renderWindow, obj, Cstates)
+
+proc drawVertexBuffer*(renderWindow: RenderWindow, obj: VertexBuffer, states: (var RenderStates){lvalue}) {.
+  cdecl, importc: "sfRenderWindow_drawVertexBuffer".}
+proc drawVertexBuffer*(renderWindow: RenderWindow, obj: VertexBuffer, states: RenderStates) =
+  (var Cstates = states)
+  drawVertexBuffer(renderWindow, obj, Cstates)
 
 proc drawPrimitives*(renderWindow: RenderWindow, vertices: ptr Vertex, vertexCount: int, kind: PrimitiveType, states: (var RenderStates){lvalue}) {.
   cdecl, importc: "sfRenderWindow_drawPrimitives".}
@@ -4068,6 +4133,39 @@ proc `characterSize=`*(text: Text, size: cint) {.
   ## - ``text``:  Text object
   ## - ``size``:  New character size, in pixels
 
+proc `lineSpacing=`*(text: Text, spacingFactor: cfloat) {.
+  cdecl, importc: "sfText_setLineSpacing".}
+  ## Set the line spacing factor
+  ## 
+  ## The default spacing between lines is defined by the font.
+  ## This method enables you to set a factor for the spacing
+  ## between lines. By default the line spacing factor is 1.
+  ## 
+  ## *Arguments*:
+  ## - ``text``:  Text object
+  ## - ``spacingFactor``:  New line spacing factor
+  ## 
+  ## \see Text_getLineSpacing
+
+proc `letterSpacing=`*(text: Text, spacingFactor: cfloat) {.
+  cdecl, importc: "sfText_setLetterSpacing".}
+  ## Set the letter spacing factor
+  ## 
+  ## The default spacing between letters is defined by the font.
+  ## This factor doesn't directly apply to the existing
+  ## spacing between each character, it rather adds a fixed
+  ## space between them which is calculated from the font
+  ## metrics and the character size.
+  ## Note that factors below 1 (including negative numbers) bring
+  ## characters closer to each other.
+  ## By default the letter spacing factor is 1.
+  ## 
+  ## *Arguments*:
+  ## - ``text``:  Text object
+  ## - ``spacingFactor``:  New letter spacing factor
+  ## 
+  ## \see Text_getLetterSpacing
+
 proc `style=`*(text: Text, style: BitMaskU32) {.
   cdecl, importc: "sfText_setStyle".}
   ## Set the style of a text
@@ -4170,6 +4268,28 @@ proc characterSize*(text: Text): cint {.
   ## - ``text``:  Text object
   ## 
   ## *Returns:* Size of the characters
+
+proc letterSpacing*(text: Text): cfloat {.
+  cdecl, importc: "sfText_getLetterSpacing".}
+  ## Get the size of the letter spacing factor
+  ## 
+  ## *Arguments*:
+  ## - ``text``:  Text object
+  ## 
+  ## *Returns:* Size of the letter spacing factor
+  ## 
+  ## \see Text_setLetterSpacing
+
+proc lineSpacing*(text: Text): cfloat {.
+  cdecl, importc: "sfText_getLineSpacing".}
+  ## Get the size of the line spacing factor
+  ## 
+  ## *Arguments*:
+  ## - ``text``:  Text object
+  ## 
+  ## *Returns:* Size of the line spacing factor
+  ## 
+  ## \see Text_setLineSpacing
 
 proc style*(text: Text): BitMaskU32 {.
   cdecl, importc: "sfText_getStyle".}
@@ -4378,6 +4498,23 @@ proc updateFromPixels*(texture: Texture, pixels: ptr uint8, width: cint, height:
   ## - ``x``:        X offset in the texture where to copy the source pixels
   ## - ``y``:        Y offset in the texture where to copy the source pixels
 
+proc updateFromTexture*(destination: Texture, source: Texture, x: cint, y: cint) {.
+  cdecl, importc: "sfTexture_updateFromTexture".}
+  ## Update a part of this texture from another texture
+  ## 
+  ## No additional check is performed on the size of the texture,
+  ## passing an invalid combination of texture size and offset
+  ## will lead to an undefined behavior.
+  ## 
+  ## This function does nothing if either texture was not
+  ## previously created.
+  ## 
+  ## *Arguments*:
+  ## - ``destination``:  Destination texture to copy source texture to
+  ## - ``source``:       Source texture to copy to destination texture
+  ## - ``x``:            X offset in this texture where to copy the source texture
+  ## - ``y``:            Y offset in this texture where to copy the source texture
+
 proc updateFromImage*(texture: Texture, image: Image, x: cint, y: cint) {.
   cdecl, importc: "sfTexture_updateFromImage".}
   ## Update a texture from an image
@@ -4510,6 +4647,14 @@ proc generateMipmap*(texture: Texture): BoolInt {.
   ## regenerate it.
   ## 
   ## *Returns:* True if mipmap generation was successful, False if unsuccessful
+
+proc swap*(left: Texture, right: Texture) {.
+  cdecl, importc: "sfTexture_swap".}
+  ## Swap the contents of a texture with those of another
+  ## 
+  ## *Arguments*:
+  ## - ``left``:   Instance to swap from
+  ## - ``right``:  Instance to swap with
 
 proc nativeHandle*(texture: Texture): cint {.
   cdecl, importc: "sfTexture_getNativeHandle".}
@@ -4825,6 +4970,190 @@ proc bounds*(vertexArray: VertexArray): FloatRect {.
   ## - ``vertexArray``:  Vertex array objet
   ## 
   ## *Returns:* Bounding rectangle of the vertex array
+
+
+#--- SFML/Graphics/VertexBuffer ---#
+
+type VertexBufferUsage* {.pure, size: sizeof(cint).} = enum  ## Usage specifiers
+  ## 
+  ## If data is going to be updated once or more every frame,
+  ## set the usage to VertexBufferStream. If data is going
+  ## to be set once and used for a long time without being
+  ## modified, set the usage to VertexBufferUsageStatic.
+  ## For everything else VertexBufferUsageDynamic should
+  ## be a good compromise.
+  Stream, Dynamic, Static
+
+proc newVertexBuffer*(vertexCount: cint, kind: PrimitiveType, usage: VertexBufferUsage): VertexBuffer {.
+  cdecl, importc: "sfVertexBuffer_create".}
+  ## Create a new vertex buffer with a specific
+  ## PrimitiveType and usage specifier.
+  ## 
+  ## Creates the vertex buffer, allocating enough graphcis
+  ## memory to hold \p vertexCount vertices, and sets its
+  ## primitive type to \p type and usage to \p usage.
+  ## 
+  ## *Arguments*:
+  ## - ``vertexCount``:  Amount of vertices
+  ## - ``type``:  Type of primitive
+  ## - ``usage``:  Usage specifier
+  ## 
+  ## *Returns:* A new VertexBuffer object
+
+proc copy*(vertexBuffer: VertexBuffer): VertexBuffer {.
+  cdecl, importc: "sfVertexBuffer_copy".}
+  ## Copy an existing vertex buffer
+  ## 
+  ## *Arguments*:
+  ## - ``vertexBuffer``:  Vertex buffer to copy
+  ## 
+  ## *Returns:* Copied object
+
+proc destroy*(vertexBuffer: VertexBuffer) {.
+  cdecl, importc: "sfVertexBuffer_destroy".}
+  ## Destroy an existing vertex buffer
+  ## 
+  ## *Arguments*:
+  ## - ``vertexBuffer``:  Vertex buffer to delete
+
+proc vertexCount*(vertexBuffer: VertexBuffer): cint {.
+  cdecl, importc: "sfVertexBuffer_getVertexCount".}
+  ## Return the vertex count
+  ## 
+  ## *Arguments*:
+  ## - ``vertexBuffer``:  Vertex buffer object
+  ## 
+  ## *Returns:* Number of vertices in the vertex buffer
+
+proc update*(vertexBuffer: VertexBuffer, vertices: ptr Vertex, vertexCount: cint, offset: cint): BoolInt {.
+  cdecl, importc: "sfVertexBuffer_update".}
+  ## Update a part of the buffer from an array of vertices
+  ## 
+  ## \p offset is specified as the number of vertices to skip
+  ## from the beginning of the buffer.
+  ## 
+  ## If \p offset is 0 and \p vertexCount is equal to the size of
+  ## the currently created buffer, its whole contents are replaced.
+  ## 
+  ## If \p offset is 0 and \p vertexCount is greater than the
+  ## size of the currently created buffer, a new buffer is created
+  ## containing the vertex data.
+  ## 
+  ## If \p offset is 0 and \p vertexCount is less than the size of
+  ## the currently created buffer, only the corresponding region
+  ## is updated.
+  ## 
+  ## If \p offset is not 0 and \p offset + \p vertexCount is greater
+  ## than the size of the currently created buffer, the update fails.
+  ## 
+  ## No additional check is performed on the size of the vertex
+  ## array, passing invalid arguments will lead to undefined
+  ## behavior.
+  ## 
+  ## *Arguments*:
+  ## - ``vertices``:     Array of vertices to copy to the buffer
+  ## - ``vertexCount``:  Number of vertices to copy
+  ## - ``offset``:       Offset in the buffer to copy to
+  ## 
+  ## *Returns:* True if the update was successful
+
+proc updateFromVertexBuffer*(vertexBuffer: VertexBuffer, other: VertexBuffer): BoolInt {.
+  cdecl, importc: "sfVertexBuffer_updateFromVertexBuffer".}
+  ## Copy the contents of another buffer into this buffer
+  ## 
+  ## *Arguments*:
+  ## - ``vertexBuffer``:  Vertex buffer object
+  ## - ``other``:  Vertex buffer whose contents to copy into first vertex buffer
+  ## 
+  ## *Returns:* True if the copy was successful
+
+proc swap*(left: VertexBuffer, right: VertexBuffer) {.
+  cdecl, importc: "sfVertexBuffer_swap".}
+  ## Swap the contents of this vertex buffer with those of another
+  ## 
+  ## *Arguments*:
+  ## - ``left``:  Instance to swap
+  ## - ``right``:  Instance to swap with
+
+proc nativeHandle*(vertexBuffer: VertexBuffer): cint {.
+  cdecl, importc: "sfVertexBuffer_getNativeHandle".}
+  ## Get the underlying OpenGL handle of the vertex buffer.
+  ## 
+  ## You shouldn't need to use this function, unless you have
+  ## very specific stuff to implement that SFML doesn't support,
+  ## or implement a temporary workaround until a bug is fixed.
+  ## 
+  ## *Returns:* OpenGL handle of the vertex buffer or 0 if not yet created
+
+proc `primitiveType=`*(vertexBuffer: VertexBuffer, kind: PrimitiveType) {.
+  cdecl, importc: "sfVertexBuffer_setPrimitiveType".}
+  ## Set the type of primitives to draw
+  ## 
+  ## This function defines how the vertices must be interpreted
+  ## when it's time to draw them.
+  ## 
+  ## The default primitive type is sf::Points.
+  ## 
+  ## *Arguments*:
+  ## - ``vertexBuffer``:  Vertex buffer object
+  ## - ``type``:  Type of primitive
+
+proc primitiveType*(vertexBuffer: VertexBuffer): PrimitiveType {.
+  cdecl, importc: "sfVertexBuffer_getPrimitiveType".}
+  ## Get the type of primitives drawn by the vertex buffer
+  ## 
+  ## *Arguments*:
+  ## - ``vertexBuffer``:  Vertex buffer object
+  ## 
+  ## *Returns:* Primitive type
+
+proc `usage=`*(vertexBuffer: VertexBuffer, usage: VertexBufferUsage) {.
+  cdecl, importc: "sfVertexBuffer_setUsage".}
+  ## Set the usage specifier of this vertex buffer
+  ## 
+  ## This function provides a hint about how this vertex buffer is
+  ## going to be used in terms of data update frequency.
+  ## 
+  ## After changing the usage specifier, the vertex buffer has
+  ## to be updated with new data for the usage specifier to
+  ## take effect.
+  ## 
+  ## The default primitive type is VertexBufferStream.
+  ## 
+  ## *Arguments*:
+  ## - ``vertexBuffer``:  Vertex buffer object
+  ## - ``usage``:  Usage specifier
+
+proc usage*(vertexBuffer: VertexBuffer): VertexBufferUsage {.
+  cdecl, importc: "sfVertexBuffer_getUsage".}
+  ## Get the usage specifier of this vertex buffer
+  ## 
+  ## *Arguments*:
+  ## - ``vertexBuffer``:  Vertex buffer object
+  ## 
+  ## *Returns:* Usage specifier
+
+proc bindGL*(vertexBuffer: VertexBuffer) {.
+  cdecl, importc: "sfVertexBuffer_bind".}
+  ## Bind a vertex buffer for rendering
+  ## 
+  ## This function is not part of the graphics API, it mustn't be
+  ## used when drawing SFML entities. It must be used only if you
+  ## mix VertexBuffer with OpenGL code.
+  ## 
+  ## 
+  ## *Arguments*:
+  ## - ``vertexBuffer``:  Pointer to the vertex buffer to bind, can be null to use no vertex buffer
+
+proc vertexBuffer_isAvailable*(): BoolInt {.
+  cdecl, importc: "sfVertexBuffer_isAvailable".}
+  ## Tell whether or not the system supports vertex buffers
+  ## 
+  ## This function should always be called before using
+  ## the vertex buffer features. If it returns false, then
+  ## any attempt to use sf::VertexBuffer will fail.
+  ## 
+  ## *Returns:* True if vertex buffers are supported, false otherwise
 
 
 #--- SFML/Graphics/View ---#

@@ -100,6 +100,11 @@ type SoundRecorder* = ptr object
 
 type SoundStream* = ptr object
 
+type TimeSpan* {.bycopy.} = object
+  ## Structure defining a time range
+  offset*: Time
+  length*: Time
+
 proc newMusic*(filename: cstring): Music {.
   cdecl, importc: "sfMusic_createFromFile".}
   ## Create a new music and load it from a file
@@ -183,6 +188,42 @@ proc duration*(music: Music): Time {.
   ## - ``music``:  Music object
   ## 
   ## *Returns:* Music duration
+
+proc loopPoints*(music: Music): TimeSpan {.
+  cdecl, importc: "sfMusic_getLoopPoints".}
+  ## Get the positions of the of the sound's looping sequence
+  ## 
+  ## *Returns:* Loop Time position class.
+  ## 
+  ## \warning Since Music_setLoopPoints() performs some adjustments on the
+  ## provided values and rounds them to internal samples, a call to
+  ## Music_getLoopPoints() is not guaranteed to return the same times passed
+  ## into a previous call to Music_setLoopPoints(). However, it is guaranteed
+  ## to return times that will map to the valid internal samples of
+  ## this Music if they are later passed to Music_setLoopPoints().
+  ## 
+  ## \see setLoopPoints
+
+proc `loopPoints=`*(music: Music, timePoints: TimeSpan) {.
+  cdecl, importc: "sfMusic_setLoopPoints".}
+  ## Sets the beginning and end of the sound's looping sequence using sf::Time
+  ## 
+  ## Loop points allow one to specify a pair of positions such that, when the music
+  ## is enabled for looping, it will seamlessly seek to the beginning whenever it
+  ## encounters the end. Valid ranges for timePoints.offset and timePoints.length are
+  ## [0, Dur) and (0, Dur-offset] respectively, where Dur is the value returned by Music_getDuration().
+  ## Note that the EOF "loop point" from the end to the beginning of the stream is still honored,
+  ## in case the caller seeks to a point after the end of the loop range. This function can be
+  ## safely called at any point after a stream is opened, and will be applied to a playing sound
+  ## without affecting the current playing offset.
+  ## 
+  ## \warning Setting the loop points while the stream's status is Paused
+  ## will set its status to Stopped. The playing offset will be unaffected.
+  ## 
+  ## *Arguments*:
+  ## - ``timePoints``:  The definition of the loop. Can be any time points within the sound's length
+  ## 
+  ## \see getLoopPoints
 
 proc play*(music: Music) {.
   cdecl, importc: "sfMusic_play".}

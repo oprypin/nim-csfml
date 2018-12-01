@@ -2,14 +2,61 @@
 #--- SFML/Window ---#
 
 
-#--- SFML/Window/Context ---#
+#--- SFML/Window/Clipboard ---#
 
 
 #--- SFML/Window/Types ---#
 
 type Context* = ptr object
 
+type Cursor* = ptr object
+
 type Window* = ptr object
+
+proc clipboard_getStr*(): cstring {.
+  cdecl, importc: "sfClipboard_getString".}
+  ## Get the content of the clipboard as string data (returns an ANSI string)
+  ## 
+  ## This function returns the content of the clipboard
+  ## as a string. If the clipboard does not contain string
+  ## it returns an empty string.
+  ## 
+  ## *Returns:* Clipboard contents as a locale-dependent ANSI string
+
+proc clipboard_getUnicodeStr_U32(): StringU32 {.
+  cdecl, importc: "sfClipboard_getUnicodeString".}
+  ## Get the content of the clipboard as string data (returns a Unicode string)
+  ## 
+  ## This function returns the content of the clipboard
+  ## as a string. If the clipboard does not contain string
+  ## it returns an empty string.
+  ## 
+  ## *Returns:* Clipboard contents as UTF-32
+
+proc clipboard_setStr*(text: cstring) {.
+  cdecl, importc: "sfClipboard_setString".}
+  ## Set the content of the clipboard as ANSI string data
+  ## 
+  ## This function sets the content of the clipboard as an
+  ## ANSI string.
+  ## 
+  ## *Arguments*:
+  ## - ``text``:  ANSI string containing the data to be sent
+  ## to the clipboard
+
+proc clipboard_setUnicodeStr_U32(text: StringU32) {.
+  cdecl, importc: "sfClipboard_setUnicodeString".}
+  ## Set the content of the clipboard as Unicode string data
+  ## 
+  ## This function sets the content of the clipboard as a
+  ## Unicode string.
+  ## 
+  ## *Arguments*:
+  ## - ``text``:  Unicode string containing the data to be sent
+  ## to the clipboard
+
+
+#--- SFML/Window/Context ---#
 
 
 #--- SFML/Window/Window ---#
@@ -120,9 +167,9 @@ type KeyCode* {.pure, size: sizeof(cint).} = enum  ## Key codes
   Unknown = -1, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U,
   V, W, X, Y, Z, Num0, Num1, Num2, Num3, Num4, Num5, Num6, Num7, Num8, Num9,
   Escape, LControl, LShift, LAlt, LSystem, RControl, RShift, RAlt, RSystem,
-  Menu, LBracket, RBracket, SemiColon, Comma, Period, Quote, Slash, BackSlash,
-  Tilde, Equal, Dash, Space, Return, Back, Tab, PageUp, PageDown, End, Home,
-  Insert, Delete, Add, Subtract, Multiply, Divide, Left, Right, Up, Down,
+  Menu, LBracket, RBracket, Semicolon, Comma, Period, Quote, Slash, Backslash,
+  Tilde, Equal, Hyphen, Space, Enter, Backspace, Tab, PageUp, PageDown, End,
+  Home, Insert, Delete, Add, Subtract, Multiply, Divide, Left, Right, Up, Down,
   Numpad0, Numpad1, Numpad2, Numpad3, Numpad4, Numpad5, Numpad6, Numpad7,
   Numpad8, Numpad9, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, F13, F14,
   F15, Pause, Count
@@ -640,6 +687,25 @@ proc `mouseCursorGrabbed=`*(window: Window, grabbed: BoolInt) {.
   ## *Arguments*:
   ## - ``grabbed``:  True to enable, False to disable
 
+proc `mouseCursor=`*(window: Window, cursor: Cursor) {.
+  cdecl, importc: "sfWindow_setMouseCursor".}
+  ## Set the displayed cursor to a native system cursor
+  ## 
+  ## Upon window creation, the arrow cursor is used by default.
+  ## 
+  ## \warning The cursor must not be destroyed while in use by
+  ## the window.
+  ## 
+  ## \warning Features related to Cursor are not supported on
+  ## iOS and Android.
+  ## 
+  ## *Arguments*:
+  ## - ``window``:  Window object
+  ## - ``cursor``:  Native system cursor type to display
+  ## 
+  ## \see Cursor_createFromSystem
+  ## \see Cursor_createFromPixels
+
 proc `keyRepeatEnabled=`*(window: Window, enabled: BoolInt) {.
   cdecl, importc: "sfWindow_setKeyRepeatEnabled".}
   ## Enable or disable automatic key-repeat
@@ -778,6 +844,91 @@ proc settings*(context: Context): ContextSettings {.
   ## directly supported by the system.
   ## 
   ## *Returns:* Structure containing the settings
+
+proc context_getActiveContextId*(): uint64 {.
+  cdecl, importc: "sfContext_getActiveContextId".}
+  ## Get the currently active context's ID
+  ## 
+  ## The context ID is used to identify contexts when
+  ## managing unshareable OpenGL resources.
+  ## 
+  ## *Returns:* The active context's ID or 0 if no context is currently active
+
+
+#--- SFML/Window/Cursor ---#
+
+type CursorType* {.pure, size: sizeof(cint).} = enum  ## Enumeration of the native system cursor types
+  ## 
+  ## Refer to the following table to determine which cursor
+  ## is available on which platform.
+  ## 
+  ## Type                               | Linux | Mac OS X | Windows
+  ## ------------------------------------|:-----:|:--------:|:--------:
+  ## CursorArrow                  |  yes  |    yes   |   yes
+  ## CursorArrowWait              |  no   |    no    |   yes
+  ## CursorWait                   |  yes  |    no    |   yes
+  ## CursorText                   |  yes  |    yes   |   yes
+  ## CursorHand                   |  yes  |    yes   |   yes
+  ## CursorSizeHorizontal         |  yes  |    yes   |   yes
+  ## CursorSizeVertical           |  yes  |    yes   |   yes
+  ## CursorSizeTopLeftBottomRight |  no   |    no    |   yes
+  ## CursorSizeBottomLeftTopRight |  no   |    no    |   yes
+  ## CursorSizeAll                |  yes  |    no    |   yes
+  ## CursorCross                  |  yes  |    yes   |   yes
+  ## CursorHelp                   |  yes  |    no    |   yes
+  ## CursorNotAllowed             |  yes  |    yes   |   yes
+  Arrow, ArrowWait, Wait, Text, Hand, SizeHorizontal, SizeVertical,
+  SizeTopLeftBottomRight, SizeBottomLeftTopRight, SizeAll, Cross, Help,
+  NotAllowed
+
+proc newCursor*(pixels: ptr uint8, size: Vector2i, hotspot: Vector2i): Cursor {.
+  cdecl, importc: "sfCursor_createFromPixels".}
+  ## Create a cursor with the provided image
+  ## 
+  ## ``pixels`` must be an array of ``width`` by ``height`` pixels
+  ## in 32-bit RGBA format. If not, this will cause undefined behavior.
+  ## 
+  ## If ``pixels`` is null or either ``width`` or ``height`` are 0,
+  ## the current cursor is left unchanged and the function will
+  ## return false.
+  ## 
+  ## In addition to specifying the pixel data, you can also
+  ## specify the location of the hotspot of the cursor. The
+  ## hotspot is the pixel coordinate within the cursor image
+  ## which will be located exactly where the mouse pointer
+  ## position is. Any mouse actions that are performed will
+  ## return the window/screen location of the hotspot.
+  ## 
+  ## \warning On Unix, the pixels are mapped into a monochrome
+  ## bitmap: pixels with an alpha channel to 0 are
+  ## transparent, black if the RGB channel are close
+  ## to zero, and white otherwise.
+  ## 
+  ## *Arguments*:
+  ## - ``pixels``:    Array of pixels of the image
+  ## - ``size``:      Width and height of the image
+  ## - ``hotspot``:   (x,y) location of the hotspot
+  ## *Returns:* A new Cursor object
+
+proc newCursor*(kind: CursorType): Cursor {.
+  cdecl, importc: "sfCursor_createFromSystem".}
+  ## Create a native system cursor
+  ## 
+  ## Refer to the list of cursor available on each system
+  ## (see CursorType) to know whether a given cursor is
+  ## expected to load successfully or is not supported by
+  ## the operating system.
+  ## 
+  ## *Arguments*:
+  ## - ``type``:  Native system cursor type
+  ## *Returns:* A new Cursor object
+
+proc destroy*(cursor: Cursor) {.
+  cdecl, importc: "sfCursor_destroy".}
+  ## Destroy a cursor
+  ## 
+  ## *Arguments*:
+  ## - ``cursor``:  Cursor to destroy
 
 
 #--- SFML/Window/Touch ---#
