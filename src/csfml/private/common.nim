@@ -18,30 +18,23 @@
 #    misrepresented as being the original software.
 # 3. This notice may not be removed or altered from any source distribution.
 
-const module = "audio"
-include private/csfml_common
 
-import csfml_system
+{.deadCodeElim: on.}
+
+when defined(csfmlNoDestructors):
+  {.pragma: destroy.}
+else:
+  {.experimental.}
+  {.pragma: destroy, override.}
 
 
-{.push dynlib: lib.}
-include private/csfml_audio_gen
-{.pop.}
+when defined(windows):
+  const lib = "csfml-" & module & "-2.dll"
+elif defined(macosx):
+  const lib = "libcsfml-" & module & ".dylib"
+else:
+  const lib = "libcsfml-" & module & ".so"
 
+import csfml/util
+export util
 
-proc newSound*(buffer: SoundBuffer): Sound =
-  ## *Returns*: A new Sound with this buffer
-  result = newSound()
-  if result == nil: return nil
-  result.buffer = buffer
-
-proc soundRecorder_getAvailableDevices*(): seq[string] =
-  ## Wrapper proc that returns a seq instead of exposing pointers
-  ##
-  ## *Returns:* seq of the names of all availabe audio capture devices
-  var count: int
-  var p = cast[int](soundRecorder_getAvailableDevices(addr count))
-  result = newSeq[string](count)
-  for i in result.low..result.high:
-    result[i] = $cast[ptr cstring](p)[]
-    p += sizeof(cstring)

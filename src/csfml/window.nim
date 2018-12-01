@@ -19,9 +19,9 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 const module = "window"
-include private/csfml_common
+include csfml/private/common
 
-import csfml_system
+import csfml/system
 
 
 when defined(windows) or defined(macosx):
@@ -30,7 +30,7 @@ else:
   type WindowHandle* = culong
 
 {.push dynlib: lib.}
-include private/csfml_window_gen
+include csfml/private/window_gen
 {.pop.}
 
 

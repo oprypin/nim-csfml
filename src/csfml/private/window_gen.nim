@@ -312,7 +312,7 @@ type SensorEvent* {.bycopy.} = object
   y*: cfloat
   z*: cfloat
 
-include csfml_union_event
+include union_event
 
 
 #--- SFML/Window/Touch ---#

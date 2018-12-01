@@ -19,7 +19,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 
-import csfml_system, csfml_window, csfml_graphics
-export csfml_system, csfml_window, csfml_graphics
-import csfml_util
-export csfml_util
+import csfml/[system, window, graphics]
+export system, window, graphics
+import csfml/util
+export util
