@@ -9,7 +9,7 @@ type BlendFactor* {.pure, size: sizeof(cint).} = enum  ## Enumeration of the ble
   OneMinusSrcAlpha, DstAlpha, OneMinusDstAlpha
 
 type BlendEquation* {.pure, size: sizeof(cint).} = enum  ## Enumeration of the blending equations
-  Add, Subtract
+  Add, Subtract, ReverseSubtract
 
 type BlendMode* {.bycopy.} = object
   ## Blending mode for drawing
@@ -298,7 +298,7 @@ proc combine*(transform: var Transform, other: Transform) =
   ## 
   ## *Arguments*:
   ## - ``transform``:  Transform object
-  ## - ``right``:      Transform to combine to ``transform``
+  ## - ``other``:      Transform to combine to ``transform``
   (var Cother = other)
   combine(transform, Cother)
 
@@ -379,7 +379,7 @@ proc destroy*(shape: CircleShape) {.
   ## Destroy an existing circle Shape
   ## 
   ## *Arguments*:
-  ## - ``Shape``:  Shape to delete
+  ## - ``shape``:  Shape to delete
 
 proc `position=`*(shape: CircleShape, position: Vector2f) {.
   cdecl, importc: "sfCircleShape_setPosition".}
@@ -739,7 +739,7 @@ proc destroy*(shape: ConvexShape) {.
   ## Destroy an existing convex Shape
   ## 
   ## *Arguments*:
-  ## - ``Shape``:  Shape to delete
+  ## - ``shape``:  Shape to delete
 
 proc `position=`*(shape: ConvexShape, position: Vector2f) {.
   cdecl, importc: "sfConvexShape_setPosition".}
@@ -1138,15 +1138,16 @@ proc destroy*(font: Font) {.
   ## *Arguments*:
   ## - ``font``:  Font to delete
 
-proc getGlyph*(font: Font, codePoint: RuneU32, characterSize: cint, bold: BoolInt): Glyph {.
+proc getGlyph*(font: Font, codePoint: RuneU32, characterSize: cint, bold: BoolInt, outlineThickness: cfloat): Glyph {.
   cdecl, importc: "sfFont_getGlyph".}
   ## Get a glyph in a font
   ## 
   ## *Arguments*:
-  ## - ``font``:           Source font
-  ## - ``codePoint``:      Unicode code point of the character to get
-  ## - ``characterSize``:  Character size, in pixels
-  ## - ``bold``:           Retrieve the bold version or the regular one?
+  ## - ``font``:              Source font
+  ## - ``codePoint``:         Unicode code point of the character to get
+  ## - ``characterSize``:     Character size, in pixels
+  ## - ``bold``:              Retrieve the bold version or the regular one?
+  ## - ``outlineThickness``:  Thickness of outline (when != 0 the glyph will not be filled)
   ## 
   ## *Returns:* The corresponding glyph
 
@@ -1447,7 +1448,7 @@ type PrimitiveType* {.pure, size: sizeof(cint).} = enum  ## Types of primitives 
   ## Points and lines have no area, therefore their thickness
   ## will always be 1 pixel, regardless the current transform
   ## and view.
-  Points, Lines, LinesStrip, Triangles, TrianglesStrip, TrianglesFan, Quads
+  Points, Lines, LineStrip, Triangles, TriangleStrip, TriangleFan, Quads
 
 
 #--- SFML/Graphics/RectangleShape ---#
@@ -1472,7 +1473,7 @@ proc destroy*(shape: RectangleShape) {.
   ## Destroy an existing rectangle shape
   ## 
   ## *Arguments*:
-  ## - ``Shape``:  Shape to delete
+  ## - ``shape``:  Shape to delete
 
 proc `position=`*(shape: RectangleShape, position: Vector2f) {.
   cdecl, importc: "sfRectangleShape_setPosition".}
@@ -2111,6 +2112,20 @@ proc repeated*(renderTexture: RenderTexture): BoolInt {.
   ## 
   ## *Returns:* True if repeat mode is enabled, False if it is disabled
 
+proc generateMipmap*(renderTexture: RenderTexture): BoolInt {.
+  cdecl, importc: "sfRenderTexture_generateMipmap".}
+  ## Generate a mipmap using the current texture data
+  ## 
+  ## This function is similar to Texture_generateMipmap and operates
+  ## on the texture used as the target for drawing.
+  ## Be aware that any draw operation may modify the base level image data.
+  ## For this reason, calling this function only makes sense after all
+  ## drawing is completed and display has been called. Not calling display
+  ## after subsequent drawing will lead to undefined behavior if a mipmap
+  ## had been previously generated.
+  ## 
+  ## *Returns:* True if mipmap generation was successful, False if unsuccessful
+
 
 #--- SFML/Graphics/RenderWindow ---#
 
@@ -2271,6 +2286,14 @@ proc `visible=`*(renderWindow: RenderWindow, visible: BoolInt) {.
   ## - ``renderWindow``:  Render window object
   ## - ``visible``:       True to show the window, False to hide it
 
+proc `verticalSyncEnabled=`*(renderWindow: RenderWindow, enabled: BoolInt) {.
+  cdecl, importc: "sfRenderWindow_setVerticalSyncEnabled".}
+  ## Enable / disable vertical synchronization on a render window
+  ## 
+  ## *Arguments*:
+  ## - ``renderWindow``:  Render window object
+  ## - ``enabled``:       True to enable v-sync, False to deactivate
+
 proc `mouseCursorVisible=`*(renderWindow: RenderWindow, show: BoolInt) {.
   cdecl, importc: "sfRenderWindow_setMouseCursorVisible".}
   ## Show or hide the mouse cursor on a render window
@@ -2279,13 +2302,19 @@ proc `mouseCursorVisible=`*(renderWindow: RenderWindow, show: BoolInt) {.
   ## - ``renderWindow``:  Render window object
   ## - ``show``:          True to show, False to hide
 
-proc `verticalSyncEnabled=`*(renderWindow: RenderWindow, enabled: BoolInt) {.
-  cdecl, importc: "sfRenderWindow_setVerticalSyncEnabled".}
-  ## Enable / disable vertical synchronization on a render window
+proc `mouseCursorGrabbed=`*(renderWindow: RenderWindow, grabbed: BoolInt) {.
+  cdecl, importc: "sfRenderWindow_setMouseCursorGrabbed".}
+  ## Grab or release the mouse cursor
+  ## 
+  ## If set, grabs the mouse cursor inside this window's client
+  ## area so it may no longer be moved outside its bounds.
+  ## Note that grabbing is only active while the window has
+  ## focus and calling this function for fullscreen windows
+  ## won't have any effect (fullscreen windows always grab the
+  ## cursor).
   ## 
   ## *Arguments*:
-  ## - ``renderWindow``:  Render window object
-  ## - ``enabled``:       True to enable v-sync, False to deactivate
+  ## - ``grabbed``:  True to enable, False to disable
 
 proc `keyRepeatEnabled=`*(renderWindow: RenderWindow, enabled: BoolInt) {.
   cdecl, importc: "sfRenderWindow_setKeyRepeatEnabled".}
@@ -2296,6 +2325,22 @@ proc `keyRepeatEnabled=`*(renderWindow: RenderWindow, enabled: BoolInt) {.
   ## *Arguments*:
   ## - ``renderWindow``:  Render window object
   ## - ``enabled``:       True to enable, False to disable
+
+proc `framerateLimit=`*(renderWindow: RenderWindow, limit: cint) {.
+  cdecl, importc: "sfRenderWindow_setFramerateLimit".}
+  ## Limit the framerate to a maximum fixed frequency for a render window
+  ## 
+  ## *Arguments*:
+  ## - ``renderWindow``:  Render window object
+  ## - ``limit``:         Framerate limit, in frames per seconds (use 0 to disable limit)
+
+proc `joystickThreshold=`*(renderWindow: RenderWindow, threshold: cfloat) {.
+  cdecl, importc: "sfRenderWindow_setJoystickThreshold".}
+  ## Change the joystick threshold, ie. the value below which no move event will be generated
+  ## 
+  ## *Arguments*:
+  ## - ``renderWindow``:  Render window object
+  ## - ``threshold``:     New threshold, in range [0, 100]
 
 proc `active=`*(renderWindow: RenderWindow, active: BoolInt): BoolInt {.
   cdecl, importc: "sfRenderWindow_setActive".}
@@ -2335,22 +2380,6 @@ proc display*(renderWindow: RenderWindow) {.
   ## 
   ## *Arguments*:
   ## - ``renderWindow``:  Render window object
-
-proc `framerateLimit=`*(renderWindow: RenderWindow, limit: cint) {.
-  cdecl, importc: "sfRenderWindow_setFramerateLimit".}
-  ## Limit the framerate to a maximum fixed frequency for a render window
-  ## 
-  ## *Arguments*:
-  ## - ``renderWindow``:  Render window object
-  ## - ``limit``:         Framerate limit, in frames per seconds (use 0 to disable limit)
-
-proc `joystickThreshold=`*(renderWindow: RenderWindow, threshold: cfloat) {.
-  cdecl, importc: "sfRenderWindow_setJoystickThreshold".}
-  ## Change the joystick threshold, ie. the value below which no move event will be generated
-  ## 
-  ## *Arguments*:
-  ## - ``renderWindow``:  Render window object
-  ## - ``threshold``:     New threshold, in range [0, 100]
 
 proc systemHandle*(renderWindow: RenderWindow): WindowHandle {.
   cdecl, importc: "sfRenderWindow_getSystemHandle".}
@@ -2568,20 +2597,22 @@ proc resetGLStates*(renderWindow: RenderWindow) {.
 
 proc capture*(renderWindow: RenderWindow): Image {.
   cdecl, importc: "sfRenderWindow_capture".}
-  ## Copy the current contents of a render window to an image
+  ## Copy the current contents of the window to an image
+  ## 
+  ## \deprecated
+  ## Use a Texture and its
+  ## Texture_updateFromRenderWindow(Texture*, const RenderWindow*, unsigned int, unsigned int)
+  ## function and copy its contents into an Image instead.
   ## 
   ## This is a slow operation, whose main purpose is to make
   ## screenshots of the application. If you want to update an
   ## image with the contents of the window and then use it for
-  ## drawing, you should rather use a Texture and its
-  ## update(Window*) function.
+  ## drawing, you should rather use a Texture and the
+  ## Texture_updateFromWindow(Texture*, const Window*, unsigned int, unsigned int) function.
   ## You can also draw things directly to a texture with the
-  ## RenderWindow class.
+  ## RenderTexture class.
   ## 
-  ## *Arguments*:
-  ## - ``renderWindow``:  Render window object
-  ## 
-  ## *Returns:* New image containing the captured contents
+  ## *Returns:* Image containing the captured contents.
 
 proc mouse_getPosition*(relativeTo: RenderWindow): Vector2i {.
   cdecl, importc: "sfMouse_getPositionRenderWindow".}
@@ -2622,13 +2653,60 @@ proc touch_getPosition*(finger: cint, relativeTo: RenderWindow): Vector2i {.
 
 #--- SFML/Graphics/Shader ---#
 
-proc newShader*(vertexShaderFilename: cstring, fragmentShaderFilename: cstring): Shader {.
+
+#--- SFML/Graphics/Glsl ---#
+
+type GlslVec2* = Vector2f
+
+type GlslIvec2* = Vector2i
+
+type GlslBvec2* {.bycopy.} = object
+  x*: BoolInt
+  y*: BoolInt
+
+type GlslVec3* = Vector3f
+
+type GlslIvec3* {.bycopy.} = object
+  x*: cint
+  y*: cint
+  z*: cint
+
+type GlslBvec3* {.bycopy.} = object
+  x*: BoolInt
+  y*: BoolInt
+  z*: BoolInt
+
+type GlslVec4* {.bycopy.} = object
+  x*: cfloat
+  y*: cfloat
+  z*: cfloat
+  w*: cfloat
+
+type GlslIvec4* {.bycopy.} = object
+  x*: cint
+  y*: cint
+  z*: cint
+  w*: cint
+
+type GlslBvec4* {.bycopy.} = object
+  x*: BoolInt
+  y*: BoolInt
+  z*: BoolInt
+  w*: BoolInt
+
+type GlslMat3* {.bycopy.} = object
+  array*: array[3 * 3, cfloat]
+
+type GlslMat4* {.bycopy.} = object
+  array*: array[4 * 4, cfloat]
+
+proc newShader*(vertexShaderFilename: cstring, geometryShaderFilename: cstring, fragmentShaderFilename: cstring): Shader {.
   cdecl, importc: "sfShader_createFromFile".}
-  ## Load both the vertex and fragment shaders from files
+  ## Load the vertex, geometry and fragment shaders from files
   ## 
-  ## This function can load both the vertex and the fragment
-  ## shaders, or only one of them: pass NULL if you don't want to load
-  ## either the vertex shader or the fragment shader.
+  ## This function loads the vertex, geometry and fragment
+  ## shaders. Pass NULL if you don't want to load
+  ## a specific shader.
   ## The sources must be text files containing valid shaders
   ## in GLSL language. GLSL is a C-like language dedicated to
   ## OpenGL shaders; you'll probably need to read a good documentation
@@ -2636,17 +2714,18 @@ proc newShader*(vertexShaderFilename: cstring, fragmentShaderFilename: cstring):
   ## 
   ## *Arguments*:
   ## - ``vertexShaderFilename``:    Path of the vertex shader file to load, or NULL to skip this shader
+  ## - ``geometryShaderFilename``:  Path of the geometry shader file to load, or NULL to skip this shader
   ## - ``fragmentShaderFilename``:  Path of the fragment shader file to load, or NULL to skip this shader
   ## 
   ## *Returns:* A new Shader object, or NULL if it failed
 
-proc newShader*(vertexShader: cstring, fragmentShader: cstring): Shader {.
+proc newShader*(vertexShader: cstring, geometryShader: cstring, fragmentShader: cstring): Shader {.
   cdecl, importc: "sfShader_createFromMemory".}
-  ## Load both the vertex and fragment shaders from source codes in memory
+  ## Load the vertex, geometry and fragment shaders from source code in memory
   ## 
-  ## This function can load both the vertex and the fragment
-  ## shaders, or only one of them: pass NULL if you don't want to load
-  ## either the vertex shader or the fragment shader.
+  ## This function loads the vertex, geometry and fragment
+  ## shaders. Pass NULL if you don't want to load
+  ## a specific shader.
   ## The sources must be valid shaders in GLSL language. GLSL is
   ## a C-like language dedicated to OpenGL shaders; you'll
   ## probably need to read a good documentation for it before
@@ -2654,17 +2733,18 @@ proc newShader*(vertexShader: cstring, fragmentShader: cstring): Shader {.
   ## 
   ## *Arguments*:
   ## - ``vertexShader``:    String containing the source code of the vertex shader, or NULL to skip this shader
+  ## - ``geometryShader``:  String containing the source code of the geometry shader, or NULL to skip this shader
   ## - ``fragmentShader``:  String containing the source code of the fragment shader, or NULL to skip this shader
   ## 
   ## *Returns:* A new Shader object, or NULL if it failed
 
-proc newShader*(vertexShaderStream: var InputStream, fragmentShaderStream: var InputStream): Shader {.
+proc newShader*(vertexShaderStream: var InputStream, geometryShaderStream: var InputStream, fragmentShaderStream: var InputStream): Shader {.
   cdecl, importc: "sfShader_createFromStream".}
-  ## Load both the vertex and fragment shaders from custom streams
+  ## Load the vertex, geometry and fragment shaders from custom streams
   ## 
-  ## This function can load both the vertex and the fragment
-  ## shaders, or only one of them: pass NULL if you don't want to load
-  ## either the vertex shader or the fragment shader.
+  ## This function loads the vertex, geometry and fragment
+  ## shaders. Pass NULL if you don't want to load
+  ## a specific shader.
   ## The source codes must be valid shaders in GLSL language.
   ## GLSL is a C-like language dedicated to OpenGL shaders;
   ## you'll probably need to read a good documentation for
@@ -2672,6 +2752,7 @@ proc newShader*(vertexShaderStream: var InputStream, fragmentShaderStream: var I
   ## 
   ## *Arguments*:
   ## - ``vertexShaderStream``:    Source stream to read the vertex shader from, or NULL to skip this shader
+  ## - ``geometryShaderStream``:  Source stream to read the geometry shader from, or NULL to skip this shader
   ## - ``fragmentShaderStream``:  Source stream to read the fragment shader from, or NULL to skip this shader
   ## 
   ## *Returns:* A new Shader object, or NULL if it failed
@@ -2682,6 +2763,275 @@ proc destroy*(shader: Shader) {.
   ## 
   ## *Arguments*:
   ## - ``shader``:  Shader to delete
+
+proc setFloatUniform*(shader: Shader, name: cstring, x: cfloat) {.
+  cdecl, importc: "sfShader_setFloatUniform".}
+  ## Specify value for \p float uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the uniform variable in GLSL
+  ## - ``x``:       Value of the float scalar
+
+proc setVec2Uniform*(shader: Shader, name: cstring, vector: GlslVec2) {.
+  cdecl, importc: "sfShader_setVec2Uniform".}
+  ## Specify value for \p vec2 uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the uniform variable in GLSL
+  ## - ``vector``:  Value of the vec2 vector
+
+proc setVec3Uniform*(shader: Shader, name: cstring, vector: GlslVec3) {.
+  cdecl, importc: "sfShader_setVec3Uniform".}
+  ## Specify value for \p vec3 uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the uniform variable in GLSL
+  ## - ``vector``:  Value of the vec3 vector
+
+proc setVec4Uniform*(shader: Shader, name: cstring, vector: GlslVec4) {.
+  cdecl, importc: "sfShader_setVec4Uniform".}
+  ## Specify value for \p vec4 uniform
+  ## 
+  ## Color objects can be passed to this function via
+  ## the use of GlslVec4_fromsfColor(Color);
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the uniform variable in GLSL
+  ## - ``vector``:  Value of the vec4 vector
+
+proc setColorUniform*(shader: Shader, name: cstring, color: Color) {.
+  cdecl, importc: "sfShader_setColorUniform".}
+  ## Specify value for \p vec4 uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the uniform variable in GLSL
+  ## - ``color``:   Value of the vec4 vector
+
+proc setIntUniform*(shader: Shader, name: cstring, x: cint) {.
+  cdecl, importc: "sfShader_setIntUniform".}
+  ## Specify value for \p int uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the uniform variable in GLSL
+  ## - ``x``:       Value of the integer scalar
+
+proc setIvec2Uniform*(shader: Shader, name: cstring, vector: GlslIvec2) {.
+  cdecl, importc: "sfShader_setIvec2Uniform".}
+  ## Specify value for \p ivec2 uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the uniform variable in GLSL
+  ## - ``vector``:  Value of the ivec2 vector
+
+proc setIvec3Uniform*(shader: Shader, name: cstring, vector: GlslIvec3) {.
+  cdecl, importc: "sfShader_setIvec3Uniform".}
+  ## Specify value for \p ivec3 uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the uniform variable in GLSL
+  ## - ``vector``:  Value of the ivec3 vector
+
+proc setIvec4Uniform*(shader: Shader, name: cstring, vector: GlslIvec4) {.
+  cdecl, importc: "sfShader_setIvec4Uniform".}
+  ## Specify value for \p ivec4 uniform
+  ## 
+  ## Color objects can be passed to this function via
+  ## the use of GlslIvec4_fromsfColor(Color);
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the uniform variable in GLSL
+  ## - ``vector``:  Value of the ivec4 vector
+
+proc setIntColorUniform*(shader: Shader, name: cstring, color: Color) {.
+  cdecl, importc: "sfShader_setIntColorUniform".}
+  ## Specify value for \p ivec4 uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the uniform variable in GLSL
+  ## - ``color``:   Value of the ivec4 vector
+
+proc setBoolUniform*(shader: Shader, name: cstring, x: BoolInt) {.
+  cdecl, importc: "sfShader_setBoolUniform".}
+  ## Specify value for \p bool uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the uniform variable in GLSL
+  ## - ``x``:       Value of the bool scalar
+
+proc setBvec2Uniform*(shader: Shader, name: cstring, vector: GlslBvec2) {.
+  cdecl, importc: "sfShader_setBvec2Uniform".}
+  ## Specify value for \p bvec2 uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the uniform variable in GLSL
+  ## - ``vector``:  Value of the bvec2 vector
+
+proc setBvec3Uniform*(shader: Shader, name: cstring, vector: GlslBvec3) {.
+  cdecl, importc: "sfShader_setBvec3Uniform".}
+  ## Specify value for \p Bvec3 uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the uniform variable in GLSL
+  ## - ``vector``:  Value of the Bvec3 vector
+
+proc setBvec4Uniform*(shader: Shader, name: cstring, vector: GlslBvec4) {.
+  cdecl, importc: "sfShader_setBvec4Uniform".}
+  ## Specify value for \p bvec4 uniform
+  ## 
+  ## Color objects can be passed to this function via
+  ## the use of GlslIvec4_fromsfColor(Color);
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the uniform variable in GLSL
+  ## - ``vector``:  Value of the bvec4 vector
+
+proc setMat3Uniform*(shader: Shader, name: cstring, matrix: (var GlslMat3){lvalue}) {.
+  cdecl, importc: "sfShader_setMat3Uniform".}
+proc setMat3Uniform*(shader: Shader, name: cstring, matrix: GlslMat3) =
+  ## Specify value for \p mat3 matrix
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the uniform variable in GLSL
+  ## - ``matrix``:  Value of the mat3 matrix
+  (var Cmatrix = matrix)
+  setMat3Uniform(shader, name, Cmatrix)
+
+proc setMat4Uniform*(shader: Shader, name: cstring, matrix: (var GlslMat4){lvalue}) {.
+  cdecl, importc: "sfShader_setMat4Uniform".}
+proc setMat4Uniform*(shader: Shader, name: cstring, matrix: GlslMat4) =
+  ## Specify value for \p mat4 matrix
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the uniform variable in GLSL
+  ## - ``matrix``:  Value of the mat4 matrix
+  (var Cmatrix = matrix)
+  setMat4Uniform(shader, name, Cmatrix)
+
+proc setTextureUniform*(shader: Shader, name: cstring, texture: Texture) {.
+  cdecl, importc: "sfShader_setTextureUniform".}
+  ## Specify a texture as \p sampler2D uniform
+  ## 
+  ## ``name`` is the name of the variable to change in the shader.
+  ## The corresponding parameter in the shader must be a 2D texture
+  ## (\p sampler2D GLSL type).
+  ## 
+  ## It is important to note that ``texture`` must remain alive as long
+  ## as the shader uses it, no copy is made internally.
+  ## 
+  ## To use the texture of the object being drawn, which cannot be
+  ## known in advance, you can pass the special value
+  ## sf::Shader::CurrentTexture:
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:   Shader object
+  ## - ``name``:     Name of the texture in the shader
+  ## - ``texture``:  Texture to assign
+
+proc `currentTextureUniform=`*(shader: Shader, name: cstring) {.
+  cdecl, importc: "sfShader_setCurrentTextureUniform".}
+  ## Specify current texture as \p sampler2D uniform
+  ## 
+  ## This overload maps a shader texture variable to the
+  ## texture of the object being drawn, which cannot be
+  ## known in advance.
+  ## The corresponding parameter in the shader must be a 2D texture
+  ## (\p sampler2D GLSL type).
+  ## 
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:  Shader object
+  ## - ``name``:    Name of the texture in the shader
+
+proc setFloatUniformArray*(shader: Shader, name: cstring, scalarArray: ptr cfloat, length: int) {.
+  cdecl, importc: "sfShader_setFloatUniformArray".}
+  ## Specify values for \p float[] array uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:       Shader object
+  ## - ``name``:         Name of the uniform variable in GLSL
+  ## - ``scalarArray``:  pointer to array of \p float values
+  ## - ``length``:       Number of elements in the array
+
+proc setVec2UniformArray*(shader: Shader, name: cstring, vectorArray: (var GlslVec2){lvalue}, length: int) {.
+  cdecl, importc: "sfShader_setVec2UniformArray".}
+proc setVec2UniformArray*(shader: Shader, name: cstring, vectorArray: GlslVec2, length: int) =
+  ## Specify values for \p vec2[] array uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:       Shader object
+  ## - ``name``:         Name of the uniform variable in GLSL
+  ## - ``vectorArray``:  pointer to array of \p vec2 values
+  ## - ``length``:       Number of elements in the array
+  (var CvectorArray = vectorArray)
+  setVec2UniformArray(shader, name, CvectorArray, length)
+
+proc setVec3UniformArray*(shader: Shader, name: cstring, vectorArray: (var GlslVec3){lvalue}, length: int) {.
+  cdecl, importc: "sfShader_setVec3UniformArray".}
+proc setVec3UniformArray*(shader: Shader, name: cstring, vectorArray: GlslVec3, length: int) =
+  ## Specify values for \p vec3[] array uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:       Shader object
+  ## - ``name``:         Name of the uniform variable in GLSL
+  ## - ``vectorArray``:  pointer to array of \p vec3 values
+  ## - ``length``:       Number of elements in the array
+  (var CvectorArray = vectorArray)
+  setVec3UniformArray(shader, name, CvectorArray, length)
+
+proc setVec4UniformArray*(shader: Shader, name: cstring, vectorArray: (var GlslVec4){lvalue}, length: int) {.
+  cdecl, importc: "sfShader_setVec4UniformArray".}
+proc setVec4UniformArray*(shader: Shader, name: cstring, vectorArray: GlslVec4, length: int) =
+  ## Specify values for \p vec4[] array uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:       Shader object
+  ## - ``name``:         Name of the uniform variable in GLSL
+  ## - ``vectorArray``:  pointer to array of \p vec4 values
+  ## - ``length``:       Number of elements in the array
+  (var CvectorArray = vectorArray)
+  setVec4UniformArray(shader, name, CvectorArray, length)
+
+proc setMat3UniformArray*(shader: Shader, name: cstring, matrixArray: (var GlslMat3){lvalue}, length: int) {.
+  cdecl, importc: "sfShader_setMat3UniformArray".}
+proc setMat3UniformArray*(shader: Shader, name: cstring, matrixArray: GlslMat3, length: int) =
+  ## Specify values for \p mat3[] array uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:       Shader object
+  ## - ``name``:         Name of the uniform variable in GLSL
+  ## - ``matrixArray``:  pointer to array of \p mat3 values
+  ## - ``length``:       Number of elements in the array
+  (var CmatrixArray = matrixArray)
+  setMat3UniformArray(shader, name, CmatrixArray, length)
+
+proc setMat4UniformArray*(shader: Shader, name: cstring, matrixArray: (var GlslMat4){lvalue}, length: int) {.
+  cdecl, importc: "sfShader_setMat4UniformArray".}
+proc setMat4UniformArray*(shader: Shader, name: cstring, matrixArray: GlslMat4, length: int) =
+  ## Specify values for \p mat4[] array uniform
+  ## 
+  ## *Arguments*:
+  ## - ``shader``:       Shader object
+  ## - ``name``:         Name of the uniform variable in GLSL
+  ## - ``matrixArray``:  pointer to array of \p mat4 values
+  ## - ``length``:       Number of elements in the array
+  (var CmatrixArray = matrixArray)
+  setMat4UniformArray(shader, name, CmatrixArray, length)
 
 proc setParameter*(shader: Shader, name: cstring, x: cfloat) {.
   cdecl, importc: "sfShader_setFloatParameter".}
@@ -2877,6 +3227,23 @@ proc shader_isAvailable*(): BoolInt {.
   ## 
   ## *Returns:* True if the system can use shaders, False otherwise
 
+proc shader_isGeometryAvailable*(): BoolInt {.
+  cdecl, importc: "sfShader_isGeometryAvailable".}
+  ## Tell whether or not the system supports geometry shaders
+  ## 
+  ## This function should always be called before using
+  ## the geometry shader features. If it returns false, then
+  ## any attempt to use Shader geometry shader features will fail.
+  ## 
+  ## This function can only return true if isAvailable() would also
+  ## return true, since shaders in general have to be supported in
+  ## order for geometry shaders to be supported as well.
+  ## 
+  ## Note: The first call to this function, whether by your
+  ## code or SFML will result in a context switch.
+  ## 
+  ## *Returns:* True if geometry shaders are supported, false otherwise
+
 
 #--- SFML/Graphics/Shape ---#
 
@@ -2900,7 +3267,7 @@ proc destroy*(shape: Shape) {.
   ## Destroy an existing shape
   ## 
   ## *Arguments*:
-  ## - ``Shape``:  Shape to delete
+  ## - ``shape``:  Shape to delete
 
 proc `position=`*(shape: Shape, position: Vector2f) {.
   cdecl, importc: "sfShape_setPosition".}
@@ -3715,13 +4082,54 @@ proc `style=`*(text: Text, style: BitMaskU32) {.
 
 proc `color=`*(text: Text, color: Color) {.
   cdecl, importc: "sfText_setColor".}
-  ## Set the global color of a text
+  ## Set the fill color of a text
   ## 
-  ## By default, the text's color is opaque white.
+  ## By default, the text's fill color is opaque white.
+  ## Setting the fill color to a transparent color with an outline
+  ## will cause the outline to be displayed in the fill area of the text.
   ## 
   ## *Arguments*:
   ## - ``text``:   Text object
-  ## - ``color``:  New color of the text
+  ## - ``color``:  New fill color of the text
+  ## 
+  ## \deprecated This function is deprecated and may be removed in future releases.
+  ## Use Text_setFillColor instead.
+
+proc `fillColor=`*(text: Text, color: Color) {.
+  cdecl, importc: "sfText_setFillColor".}
+  ## Set the fill color of a text
+  ## 
+  ## By default, the text's fill color is opaque white.
+  ## Setting the fill color to a transparent color with an outline
+  ## will cause the outline to be displayed in the fill area of the text.
+  ## 
+  ## *Arguments*:
+  ## - ``text``:   Text object
+  ## - ``color``:  New fill color of the text
+
+proc `outlineColor=`*(text: Text, color: Color) {.
+  cdecl, importc: "sfText_setOutlineColor".}
+  ## Set the outline color of the text
+  ## 
+  ## By default, the text's outline color is opaque black.
+  ## 
+  ## *Arguments*:
+  ## - ``text``:   Text object
+  ## - ``color``:  New outline color of the text
+
+proc `outlineThickness=`*(text: Text, thickness: cfloat) {.
+  cdecl, importc: "sfText_setOutlineThickness".}
+  ## Set the thickness of the text's outline
+  ## 
+  ## By default, the outline thickness is 0.
+  ## 
+  ## Be aware that using a negative value for the outline
+  ## thickness will cause distorted rendering.
+  ## 
+  ## *Arguments*:
+  ## - ``thickness``:  New outline thickness, in pixels
+  ## 
+  ## \see getOutlineThickness
 
 proc strC*(text: Text): cstring {.
   cdecl, importc: "sfText_getString".}
@@ -3774,12 +4182,42 @@ proc style*(text: Text): BitMaskU32 {.
 
 proc color*(text: Text): Color {.
   cdecl, importc: "sfText_getColor".}
-  ## Get the global color of a text
+  ## Get the fill color of a text
   ## 
   ## *Arguments*:
   ## - ``text``:  Text object
   ## 
-  ## *Returns:* Global color of the text
+  ## *Returns:* Fill color of the text
+  ## 
+  ## \deprecated This function is deprecated and may be removed in future releases.
+  ## Use Text_getFillColor instead.
+
+proc fillColor*(text: Text): Color {.
+  cdecl, importc: "sfText_getFillColor".}
+  ## Get the fill color of a text
+  ## 
+  ## *Arguments*:
+  ## - ``text``:  Text object
+  ## 
+  ## *Returns:* Fill color of the text
+
+proc outlineColor*(text: Text): Color {.
+  cdecl, importc: "sfText_getOutlineColor".}
+  ## Get the outline color of a text
+  ## 
+  ## *Arguments*:
+  ## - ``text``:  Text object
+  ## 
+  ## *Returns:* Outline color of the text
+
+proc outlineThickness*(text: Text): cfloat {.
+  cdecl, importc: "sfText_getOutlineThickness".}
+  ## Get the outline thickness of a text
+  ## 
+  ## *Arguments*:
+  ## - ``text``:  Text object
+  ## 
+  ## *Returns:* Outline thickness of a text, in pixels
 
 proc findCharacterPos*(text: Text, index: int): Vector2f {.
   cdecl, importc: "sfText_findCharacterPos".}
@@ -3987,6 +4425,38 @@ proc smooth*(texture: Texture): BoolInt {.
   ## 
   ## *Returns:* True if smoothing is enabled, False if it is disabled
 
+proc `srgb=`*(texture: Texture, sRgb: BoolInt) {.
+  cdecl, importc: "sfTexture_setSrgb".}
+  ## Enable or disable conversion from sRGB
+  ## 
+  ## When providing texture data from an image file or memory, it can
+  ## either be stored in a linear color space or an sRGB color space.
+  ## Most digital images account for gamma correction already, so they
+  ## would need to be "uncorrected" back to linear color space before
+  ## being processed by the hardware. The hardware can automatically
+  ## convert it from the sRGB color space to a linear color space when
+  ## it gets sampled. When the rendered image gets output to the final
+  ## framebuffer, it gets converted back to sRGB.
+  ## 
+  ## After enabling or disabling sRGB conversion, make sure to reload
+  ## the texture data in order for the setting to take effect.
+  ## 
+  ## This option is only useful in conjunction with an sRGB capable
+  ## framebuffer. This can be requested during window creation.
+  ## 
+  ## *Arguments*:
+  ## - ``sRgb``:  True to enable sRGB conversion, false to disable it
+  ## 
+  ## \see Texture_isSrgb
+
+proc srgb*(texture: Texture): BoolInt {.
+  cdecl, importc: "sfTexture_isSrgb".}
+  ## Tell whether the texture source is converted from sRGB or not
+  ## 
+  ## *Returns:* True if the texture source is converted from sRGB, false if not
+  ## 
+  ## \see Texture_setSrgb
+
 proc `repeated=`*(texture: Texture, repeated: BoolInt) {.
   cdecl, importc: "sfTexture_setRepeated".}
   ## Enable or disable repeating for a texture
@@ -4017,6 +4487,29 @@ proc repeated*(texture: Texture): BoolInt {.
   ## - ``texture``:  The texture object
   ## 
   ## *Returns:* True if repeat mode is enabled, False if it is disabled
+
+proc generateMipmap*(texture: Texture): BoolInt {.
+  cdecl, importc: "sfTexture_generateMipmap".}
+  ## Generate a mipmap using the current texture data
+  ## 
+  ## Mipmaps are pre-computed chains of optimized textures. Each
+  ## level of texture in a mipmap is generated by halving each of
+  ## the previous level's dimensions. This is done until the final
+  ## level has the size of 1x1. The textures generated in this process may
+  ## make use of more advanced filters which might improve the visual quality
+  ## of textures when they are applied to objects much smaller than they are.
+  ## This is known as minification. Because fewer texels (texture elements)
+  ## have to be sampled from when heavily minified, usage of mipmaps
+  ## can also improve rendering performance in certain scenarios.
+  ## 
+  ## Mipmap generation relies on the necessary OpenGL extension being
+  ## available. If it is unavailable or generation fails due to another
+  ## reason, this function will return false. Mipmap data is only valid from
+  ## the time it is generated until the next time the base level image is
+  ## modified, at which point this function will have to be called again to
+  ## regenerate it.
+  ## 
+  ## *Returns:* True if mipmap generation was successful, False if unsuccessful
 
 proc nativeHandle*(texture: Texture): cint {.
   cdecl, importc: "sfTexture_getNativeHandle".}

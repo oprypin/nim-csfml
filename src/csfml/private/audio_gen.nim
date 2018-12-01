@@ -840,7 +840,7 @@ proc destroy*(soundBufferRecorder: SoundBufferRecorder) {.
   ## *Arguments*:
   ## - ``soundBufferRecorder``:  Sound buffer recorder to destroy
 
-proc start*(soundBufferRecorder: SoundBufferRecorder, sampleRate: cint) {.
+proc start*(soundBufferRecorder: SoundBufferRecorder, sampleRate: cint): BoolInt {.
   cdecl, importc: "sfSoundBufferRecorder_start".}
   ## Start the capture of a sound recorder recorder
   ## 
@@ -854,6 +854,8 @@ proc start*(soundBufferRecorder: SoundBufferRecorder, sampleRate: cint) {.
   ## *Arguments*:
   ## - ``soundBufferRecorder``:  Sound buffer recorder object
   ## - ``sampleRate``:           Desired capture rate, in number of samples per second
+  ## 
+  ## *Returns:* True, if it was able to start recording
 
 proc stop*(soundBufferRecorder: SoundBufferRecorder) {.
   cdecl, importc: "sfSoundBufferRecorder_stop".}
@@ -888,6 +890,30 @@ proc buffer*(soundBufferRecorder: SoundBufferRecorder): SoundBuffer {.
   ## - ``soundBufferRecorder``:  Sound buffer recorder object
   ## 
   ## *Returns:* Read-only access to the sound buffer
+
+proc `device=`*(soundBufferRecorder: SoundBufferRecorder, name: cstring): BoolInt {.
+  cdecl, importc: "sfSoundBufferRecorder_setDevice".}
+  ## Set the audio capture device
+  ## 
+  ## This function sets the audio capture device to the device
+  ## with the given name. It can be called on the fly (i.e:
+  ## while recording). If you do so while recording and
+  ## opening the device fails, it stops the recording.
+  ## 
+  ## *Arguments*:
+  ## - ``soundBufferRecorder``:  Sound buffer recorder object
+  ## - ``name``:                 The name of the audio capture device
+  ## 
+  ## *Returns:* True, if it was able to set the requested device
+
+proc device*(soundBufferRecorder: SoundBufferRecorder): cstring {.
+  cdecl, importc: "sfSoundBufferRecorder_getDevice".}
+  ## Get the name of the current audio capture device
+  ## 
+  ## *Arguments*:
+  ## - ``soundBufferRecorder``:  Sound buffer recorder object
+  ## 
+  ## *Returns:* The name of the current audio capture device
 
 
 #--- SFML/Audio/SoundRecorder ---#
@@ -980,7 +1006,7 @@ proc `processingInterval=`*(soundRecorder: SoundRecorder, interval: Time) {.
   ## 
   ## *Arguments*:
   ## - ``soundRecorder``:  Sound recorder object
-  ## - ``interval``:  Processing interval
+  ## - ``interval``:       Processing interval
 
 proc soundRecorder_getAvailableDevices*(count: ptr int): ptr ptr char {.
   cdecl, importc: "sfSoundRecorder_getAvailableDevices".}
@@ -1015,7 +1041,7 @@ proc `device=`*(soundRecorder: SoundRecorder, name: cstring): BoolInt {.
   ## 
   ## *Arguments*:
   ## - ``soundRecorder``:  Sound recorder object
-  ## - ``The``:  name of the audio capture device
+  ## - ``name``:           The name of the audio capture device
   ## 
   ## *Returns:* True, if it was able to set the requested device
 
@@ -1027,6 +1053,31 @@ proc device*(soundRecorder: SoundRecorder): cstring {.
   ## - ``soundRecorder``:  Sound recorder object
   ## 
   ## *Returns:* The name of the current audio capture device
+
+proc `channelCount=`*(soundRecorder: SoundRecorder, channelCount: cint) {.
+  cdecl, importc: "sfSoundRecorder_setChannelCount".}
+  ## Set the channel count of the audio capture device
+  ## 
+  ## This method allows you to specify the number of channels
+  ## used for recording. Currently only 16-bit mono and
+  ## 16-bit stereo are supported.
+  ## 
+  ## *Arguments*:
+  ## - ``channelCount``:  Number of channels. Currently only
+  ## mono (1) and stereo (2) are supported.
+  ## 
+  ## \see SoundRecorder_getChannelCount
+
+proc channelCount*(soundRecorder: SoundRecorder): cint {.
+  cdecl, importc: "sfSoundRecorder_getChannelCount".}
+  ## Get the number of channels used by this recorder
+  ## 
+  ## Currently only mono and stereo are supported, so the
+  ## value is either 1 (for mono) or 2 (for stereo).
+  ## 
+  ## *Returns:* Number of channels
+  ## 
+  ## \see SoundRecorder_setChannelCount
 
 
 #--- SFML/Audio/SoundStream ---#

@@ -11,28 +11,8 @@ type Context* = ptr object
 
 type Window* = ptr object
 
-proc newContext*(): Context {.
-  cdecl, importc: "sfContext_create".}
-  ## Create a new context
-  ## 
-  ## This function activates the new context.
-  ## 
-  ## *Returns:* New Context object
 
-proc destroy*(context: Context) {.
-  cdecl, importc: "sfContext_destroy".}
-  ## Destroy a context
-  ## 
-  ## *Arguments*:
-  ## - ``context``:  Context to destroy
-
-proc `active=`*(context: Context, active: BoolInt) {.
-  cdecl, importc: "sfContext_setActive".}
-  ## Activate or deactivate explicitely a context
-  ## 
-  ## *Arguments*:
-  ## - ``context``:  Context object
-  ## - ``active``:   True to activate, False to deactivate
+#--- SFML/Window/Window ---#
 
 
 #--- SFML/Window/Event ---#
@@ -156,6 +136,19 @@ proc keyboard_isKeyPressed*(key: KeyCode): BoolInt {.
   ## 
   ## *Returns:* True if the key is pressed, False otherwise
 
+proc keyboard_setVirtualKeyboardVisible*(visible: BoolInt) {.
+  cdecl, importc: "sfKeyboard_setVirtualKeyboardVisible".}
+  ## Show or hide the virtual keyboard.
+  ## 
+  ## Warning: the virtual keyboard is not supported on all systems.
+  ## It will typically be implemented on mobile OSes (Android, iOS)
+  ## but not on desktop OSes (Windows, Linux, ...).
+  ## 
+  ## If the virtual keyboard is not available, this function does nothing.
+  ## 
+  ## *Arguments*:
+  ## - ``visible``:  True to show, false to hide
+
 
 #--- SFML/Window/Mouse ---#
 
@@ -267,7 +260,10 @@ type MouseButtonEvent* {.bycopy.} = object
   y*: cint
 
 type MouseWheelEvent* {.bycopy.} = object
-  ## Mouse wheel events parameters (deprecated)
+  ## Mouse wheel events parameters
+  ## 
+  ## \deprecated
+  ## Use MouseWheelScrollEvent instead.
   delta*: cint
   x*: cint
   y*: cint
@@ -313,31 +309,6 @@ type SensorEvent* {.bycopy.} = object
   z*: cfloat
 
 include union_event
-
-
-#--- SFML/Window/Touch ---#
-
-proc touch_isDown*(finger: cint): BoolInt {.
-  cdecl, importc: "sfTouch_isDown".}
-  ## Check if a touch event is currently down
-  ## 
-  ## *Arguments*:
-  ## - ``finger``:  Finger index
-  ## 
-  ## *Returns:* True if ``finger`` is currently touching the screen, False otherwise
-
-proc touch_getPosition*(finger: cint, relativeTo: Window): Vector2i {.
-  cdecl, importc: "sfTouch_getPosition".}
-  ## Get the current position of a touch in window coordinates
-  ## 
-  ## This function returns the current touch position
-  ## relative to the given window, or desktop if NULL is passed.
-  ## 
-  ## *Arguments*:
-  ## - ``finger``:  Finger index
-  ## - ``relativeTo``:  Reference window
-  ## 
-  ## *Returns:* Current position of ``finger``, or undefined if it's not down
 
 
 #--- SFML/Window/VideoMode ---#
@@ -387,9 +358,6 @@ proc valid*(mode: VideoMode): BoolInt {.
   ## *Returns:* True if the video mode is valid for fullscreen mode
 
 
-#--- SFML/Window/Window ---#
-
-
 #--- SFML/Window/WindowHandle ---#
 
 type WindowStyle* {.pure, size: sizeof(cint).} = enum  ## Enumeration of window creation styles
@@ -406,6 +374,7 @@ type ContextSettings* {.bycopy.} = object
   majorVersion*: cint
   minorVersion*: cint
   attributeFlags*: BitMaskU32
+  sRgbCapable*: BoolInt
 
 proc newWindowC*(mode: VideoMode, title: cstring, style: BitMaskU32, settings: (var ContextSettings){lvalue}): Window {.
   cdecl, importc: "sfWindow_create".}
@@ -636,14 +605,6 @@ proc `visible=`*(window: Window, visible: BoolInt) {.
   ## - ``window``:   Window object
   ## - ``visible``:  True to show the window, False to hide it
 
-proc `mouseCursorVisible=`*(window: Window, visible: BoolInt) {.
-  cdecl, importc: "sfWindow_setMouseCursorVisible".}
-  ## Show or hide the mouse cursor
-  ## 
-  ## *Arguments*:
-  ## - ``window``:   Window object
-  ## - ``visible``:  True to show, False to hide
-
 proc `verticalSyncEnabled=`*(window: Window, enabled: BoolInt) {.
   cdecl, importc: "sfWindow_setVerticalSyncEnabled".}
   ## Enable or disable vertical synchronization
@@ -656,6 +617,28 @@ proc `verticalSyncEnabled=`*(window: Window, enabled: BoolInt) {.
   ## *Arguments*:
   ## - ``window``:   Window object
   ## - ``enabled``:  True to enable v-sync, False to deactivate
+
+proc `mouseCursorVisible=`*(window: Window, visible: BoolInt) {.
+  cdecl, importc: "sfWindow_setMouseCursorVisible".}
+  ## Show or hide the mouse cursor
+  ## 
+  ## *Arguments*:
+  ## - ``window``:   Window object
+  ## - ``visible``:  True to show, False to hide
+
+proc `mouseCursorGrabbed=`*(window: Window, grabbed: BoolInt) {.
+  cdecl, importc: "sfWindow_setMouseCursorGrabbed".}
+  ## Grab or release the mouse cursor
+  ## 
+  ## If set, grabs the mouse cursor inside this window's client
+  ## area so it may no longer be moved outside its bounds.
+  ## Note that grabbing is only active while the window has
+  ## focus and calling this function for fullscreen windows
+  ## won't have any effect (fullscreen windows always grab the
+  ## cursor).
+  ## 
+  ## *Arguments*:
+  ## - ``grabbed``:  True to enable, False to disable
 
 proc `keyRepeatEnabled=`*(window: Window, enabled: BoolInt) {.
   cdecl, importc: "sfWindow_setKeyRepeatEnabled".}
@@ -670,6 +653,29 @@ proc `keyRepeatEnabled=`*(window: Window, enabled: BoolInt) {.
   ## *Arguments*:
   ## - ``window``:   Window object
   ## - ``enabled``:  True to enable, False to disable
+
+proc `framerateLimit=`*(window: Window, limit: cint) {.
+  cdecl, importc: "sfWindow_setFramerateLimit".}
+  ## Limit the framerate to a maximum fixed frequency
+  ## 
+  ## If a limit is set, the window will use a small delay after
+  ## each call to Window_display to ensure that the current frame
+  ## lasted long enough to match the framerate limit.
+  ## 
+  ## *Arguments*:
+  ## - ``window``:  Window object
+  ## - ``limit``:   Framerate limit, in frames per seconds (use 0 to disable limit)
+
+proc `joystickThreshold=`*(window: Window, threshold: cfloat) {.
+  cdecl, importc: "sfWindow_setJoystickThreshold".}
+  ## Change the joystick threshold
+  ## 
+  ## The joystick threshold is the value below which
+  ## no JoyMoved event will be generated.
+  ## 
+  ## *Arguments*:
+  ## - ``window``:     Window object
+  ## - ``threshold``:  New threshold, in the range [0, 100]
 
 proc `active=`*(window: Window, active: BoolInt): BoolInt {.
   cdecl, importc: "sfWindow_setActive".}
@@ -723,29 +729,6 @@ proc display*(window: Window) {.
   ## *Arguments*:
   ## - ``window``:  Window object
 
-proc `framerateLimit=`*(window: Window, limit: cint) {.
-  cdecl, importc: "sfWindow_setFramerateLimit".}
-  ## Limit the framerate to a maximum fixed frequency
-  ## 
-  ## If a limit is set, the window will use a small delay after
-  ## each call to Window_display to ensure that the current frame
-  ## lasted long enough to match the framerate limit.
-  ## 
-  ## *Arguments*:
-  ## - ``window``:  Window object
-  ## - ``limit``:   Framerate limit, in frames per seconds (use 0 to disable limit)
-
-proc `joystickThreshold=`*(window: Window, threshold: cfloat) {.
-  cdecl, importc: "sfWindow_setJoystickThreshold".}
-  ## Change the joystick threshold
-  ## 
-  ## The joystick threshold is the value below which
-  ## no JoyMoved event will be generated.
-  ## 
-  ## *Arguments*:
-  ## - ``window``:     Window object
-  ## - ``threshold``:  New threshold, in the range [0, 100]
-
 proc systemHandle*(window: Window): WindowHandle {.
   cdecl, importc: "sfWindow_getSystemHandle".}
   ## Get the OS-specific handle of the window
@@ -760,3 +743,63 @@ proc systemHandle*(window: Window): WindowHandle {.
   ## - ``window``:  Window object
   ## 
   ## *Returns:* System handle of the window
+
+proc newContext*(): Context {.
+  cdecl, importc: "sfContext_create".}
+  ## Create a new context
+  ## 
+  ## This function activates the new context.
+  ## 
+  ## *Returns:* New Context object
+
+proc destroy*(context: Context) {.
+  cdecl, importc: "sfContext_destroy".}
+  ## Destroy a context
+  ## 
+  ## *Arguments*:
+  ## - ``context``:  Context to destroy
+
+proc `active=`*(context: Context, active: BoolInt): BoolInt {.
+  cdecl, importc: "sfContext_setActive".}
+  ## Activate or deactivate explicitely a context
+  ## 
+  ## *Arguments*:
+  ## - ``context``:  Context object
+  ## - ``active``:   True to activate, False to deactivate
+  ## 
+  ## *Returns:* True on success, False on failure
+
+proc settings*(context: Context): ContextSettings {.
+  cdecl, importc: "sfContext_getSettings".}
+  ## Get the settings of the context.
+  ## 
+  ## Note that these settings may be different than the ones passed to the
+  ## constructor; they are indeed adjusted if the original settings are not
+  ## directly supported by the system.
+  ## 
+  ## *Returns:* Structure containing the settings
+
+
+#--- SFML/Window/Touch ---#
+
+proc touch_isDown*(finger: cint): BoolInt {.
+  cdecl, importc: "sfTouch_isDown".}
+  ## Check if a touch event is currently down
+  ## 
+  ## *Arguments*:
+  ## - ``finger``:  Finger index
+  ## 
+  ## *Returns:* True if ``finger`` is currently touching the screen, False otherwise
+
+proc touch_getPosition*(finger: cint, relativeTo: Window): Vector2i {.
+  cdecl, importc: "sfTouch_getPosition".}
+  ## Get the current position of a touch in window coordinates
+  ## 
+  ## This function returns the current touch position
+  ## relative to the given window, or desktop if NULL is passed.
+  ## 
+  ## *Arguments*:
+  ## - ``finger``:  Finger index
+  ## - ``relativeTo``:  Reference window
+  ## 
+  ## *Returns:* Current position of ``finger``, or undefined if it's not down
