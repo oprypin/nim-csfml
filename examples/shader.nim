@@ -1,5 +1,5 @@
 import httpclient, math, random
-import csfml, csfml_ext
+import csfml, csfml/ext
 
 
 type Scene = enum

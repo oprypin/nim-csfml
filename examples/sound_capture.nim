@@ -2,7 +2,7 @@
 # https://github.com/LaurentGomila/SFML/blob/master/examples/sound_capture/SoundCapture.cpp
 
 import strutils
-import csfml_system, csfml_audio, csfml_util
+import csfml/system, csfml/audio, csfml/util
 
 
 if not soundRecorderIsAvailable():

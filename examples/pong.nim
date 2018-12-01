@@ -2,7 +2,7 @@
 # https://github.com/LaurentGomila/SFML/blob/master/examples/pong/Pong.cpp
 
 import math, random
-import csfml, csfml_audio
+import csfml, csfml/audio
 
 
 randomize()

@@ -345,7 +345,7 @@ class Visitor(c_ast.NodeVisitor):
         if isinstance(node.type.type, (c_ast.Enum, c_ast.Struct)):
             self.names[node.type.type] = node.type.declname
         if type(node.type.type).__name__=='Union':
-            out('include csfml_union_{}'.format(rename_sf(node.type.declname).lower()))
+            out('include union_{}'.format(rename_sf(node.type.declname).lower()))
         try:
             r = (
                 (gen_type_to_str(node.type.type.type.type)[0], node.name),
@@ -405,7 +405,7 @@ def out(*args):
     try:
         f = files[cmodule]
     except KeyError:
-        files[cmodule] = f = open('csfml_{}_gen.nim'.format(cmodule), 'w')
+        files[cmodule] = f = open('{}_gen.nim'.format(cmodule), 'w')
     else:
         if not args[0].startswith(' '):
             print(file=f)

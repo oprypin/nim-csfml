@@ -7,8 +7,11 @@
 !*.nimble
 !*nim.cfg
 !/src
-!/src/private
-!/src/*/*.nim
+!/src/csfml*.nim
+!/src/csfml
+!/src/csfml/*.nim
+!/src/csfml/private
+!/src/csfml/private/*.nim
 !/generate
 !/generate/*.py
 !/generate/*.sh

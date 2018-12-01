@@ -1,5 +1,5 @@
 import math, random, sequtils
-import csfml, csfml_ext
+import csfml, csfml/ext
 
 
 var window = new_RenderWindow(

@@ -59,7 +59,7 @@ See [examples](examples) to learn more.
 
 ### Implementation
 
-The files <em>[src](src)/csfml\_\*\_gen.nim</em> are [automatically generated](generate) from CSFML's header files. They provide the base CSFML API. The files <em>csfml_\*.nim</em> build upon them, adding compatibility with SFML API.  
+The files <em>[private](src/csfml/private)/\*\_gen.nim</em> are [automatically generated](generate) from CSFML's header files. They provide the base CSFML API. The files <em>csfml_\*.nim</em> build upon them, adding compatibility with SFML API.  
 *csfml.nim* automatically imports *system*, *window* and *graphics*; *audio* should be imported separately; *network* is not implemented.
 
 *nim-csfml*'s version number (`x.y.z`): `x.y` corresponds to the supported CSFML version; `z` is for the project's own point releases.
