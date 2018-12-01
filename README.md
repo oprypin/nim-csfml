@@ -62,11 +62,11 @@ The files <em>[private](src/csfml/private)/\*\_gen.nim</em> are [automatically g
 Installation
 ------------
 
-*nim-csfml* supports CSFML 2.3; there are older releases, down to CSFML 2.1. It has been tested on Linux 64-bit and Windows 7 with MinGW 32-bit.
+*nim-csfml* supports CSFML 2.4; there are older releases, down to CSFML 2.1. It has been tested on Linux 64-bit.
 
 This library can be installed using <code>[nimble][] install csfml</code>.
 
-[CSFML][] 2.3, which requires [SFML][] 2.3, must be installed to use it.
+[CSFML][] 2.4, which requires [SFML][] 2.4, must be installed to use it.
 On Windows you can just [download CSFML][csfml] and put the DLLs (which seem to be statically linked with SFML) in your project folder instead.
 
 ### [Troubleshooting][]

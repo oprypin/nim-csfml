@@ -1,6 +1,6 @@
 [Package]
 name: "csfml"
-version: "2.3.1"
+version: "2.4.0"
 author: "Oleh Prypin"
 description: "Bindings for Simple and Fast Multimedia Library (through CSFML)"
 license: "zlib"
