@@ -19,13 +19,13 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 const module = "graphics"
-include private/csfml_common
+include csfml/private/common
 
-import csfml_system, csfml_window
+import csfml/[system, window]
 
 
 {.push dynlib: lib.}
-include private/csfml_graphics_gen
+include csfml/private/graphics_gen
 {.pop.}
 
 
@@ -268,7 +268,7 @@ converter toBitMaskU32*(a: TextStyle): BitMaskU32 = BitMaskU32 a
   ## Allows TextStyle values to be combined using the | operator and be used in functions
 
 
-template defDraw(name: expr) {.immediate, dirty.} =
+template defDraw(name: untyped) {.immediate, dirty.} =
   proc draw*[T: RenderTexture|RenderWindow](renderTarget: T, obj: `name`, states = renderStates()) =
     ## Allows the syntax ``renderTarget.draw(drawable[, states])``
     ## by turning it into ``renderTarget.drawDrawableType(drawable, states)``

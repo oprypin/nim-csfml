@@ -19,11 +19,11 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 const module = "system"
-include private/csfml_common
+include csfml/private/common
 
 
 {.push dynlib: lib.}
-include private/csfml_system_gen
+include csfml/private/system_gen
 {.pop.}
 
 
