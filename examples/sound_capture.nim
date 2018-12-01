@@ -14,7 +14,7 @@ var sampleRate = parseInt(stdin.readLine())
 
 var recorder = newSoundBufferRecorder()
 
-recorder.start(cint(sampleRate))
+discard recorder.start(cint(sampleRate))
 echo "Recording... press Enter to stop"
 discard stdin.readLine()
 recorder.stop()

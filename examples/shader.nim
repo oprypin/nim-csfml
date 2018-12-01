@@ -14,7 +14,7 @@ proc cycle[T](x: var T) =
 
 let texture = newTexture("resources/background.jpg")
 var sprite = newSprite(texture)
-var pxShader = newShader(nil, fragmentShaderFilename="resources/pixelate.frag")
+var pxShader = newShader(nil, nil, fragmentShaderFilename="resources/pixelate.frag")
 pxShader["texture"] = CurrentTexture
 
 
@@ -24,7 +24,8 @@ var text = newText(ipsum, font, 22)
 text.position = vec2(30, 20)
 text.color = Black
 var wbShader = newShader(vertexShaderFilename="resources/wave.vert",
-                         fragmentShaderFilename="resources/blur.frag")
+                         geometryShaderFilename=nil,
+                         fragmentShaderFilename="resources/blur.frag",)
 
 
 var window = newRenderWindow(videoMode(800, 600), "SFML Shader",
