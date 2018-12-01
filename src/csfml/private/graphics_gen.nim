@@ -206,7 +206,7 @@ type View* = ptr object
 
 type Transform* {.bycopy.} = object
   ## Encapsulate a 3x3 transform matrix
-  matrix*: array[0..8, cfloat]
+  matrix*: array[9, cfloat]
 
 proc transform*(a00: cfloat, a01: cfloat, a02: cfloat, a10: cfloat, a11: cfloat, a12: cfloat, a20: cfloat, a21: cfloat, a22: cfloat): Transform {.
   cdecl, importc: "sfTransform_fromMatrix".}

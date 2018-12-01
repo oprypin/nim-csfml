@@ -35,23 +35,27 @@ with open('docs_gen.txt') as f:
 def rename_sf(name):
     if name is None:
         return name
+    # Workaround for not having https://github.com/SFML/CSFML/pull/130 in CSFML tag 2.5
+    if name == "getLineSpacing":
+        return 'Text_getLineSpacing'
     if not name.startswith('sf'):
         raise ValueError(name)
     return name[2:]
 
 def rename_type(name, var=''):
     orname = name
-    m = re.match('^(.+) *\[([0-9]+)\]$', name)
+    m = re.match('^(.+) *\[([0-9\* ]+)\]$', name)
     if m:
         name, arrsize = m.groups()
-        arrsize = int(arrsize)
     else:
         arrsize = None
     name = re.sub(r'\bconst\b', '', name).strip()
     if name.startswith('sf') and ('Int' in name or 'Uint' in name) and 'Rect' not in name:
         name = name[2:].lower()
-    ptr = name.count('*')
-    name = name.replace('*', '').strip()
+    ptr = len(name)
+    name = name.rstrip('*')
+    ptr -= len(name)
+    name = name.strip()
     name = {
         'int': 'cint',
         'size_t': 'int',
@@ -77,7 +81,7 @@ def rename_type(name, var=''):
     if name=='ptr char':
         name = 'cstring'
     if arrsize:
-        name = 'array[{}..{}, {}]'.format(0, arrsize-1, name)
+        name = 'array[{}, {}]'.format(arrsize, name)
     return name
 
 def rename_identifier(name):
@@ -129,8 +133,8 @@ def handle_enum(name, items):
     if d: r += d
     yield r
     yield '\n'.join(textwrap.wrap(', '.join(
-        ('{} = {}'.format(name, value) if value is not None else name)
-        for name, value in nitems
+        '{} = {}'.format(name, value) if value is not None else name
+        for name, value in nitems if not str(value).startswith('sf')
     ), 80, initial_indent='  ', subsequent_indent='  '))
 
 def handle_struct(name, items):
@@ -342,6 +346,12 @@ class Visitor(c_ast.NodeVisitor):
             print(func_name, repr(e), file=sys.stderr)
 
     def visit_Typedef(self, node):
+        if isinstance(node.type.type, c_ast.IdentifierType):
+            try:
+                out('type {}* = {}'.format(rename_sf(node.name), rename_sf(' '.join(node.type.type.names))))
+            except (NameError, ValueError):
+                pass
+            return
         if isinstance(node.type.type, (c_ast.Enum, c_ast.Struct)):
             self.names[node.type.type] = node.type.declname
         if type(node.type.type).__name__=='Union':

@@ -80,6 +80,7 @@ def visit_header(file_path):
             if '_API' in line:
                 line = re.sub(r'CSFML_[A-Z]+_API ?', '', line)
             line = line.replace('(void)', '()')
+            line = line.replace('CSFML_DEPRECATED', '')
             if '<<' in line:
                 line = re.sub(r'1 *<< *([0-9]+)', lambda m: str(1<<int(m.group(1))), line)
             line = line.replace('sfTitlebar | sfResize | sfClose', '7')
