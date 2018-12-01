@@ -327,6 +327,10 @@ def debug(node):
     return r
 
 class Visitor(c_ast.NodeVisitor):
+    def __init__(self):
+        super().__init__()
+        self.names = {}
+
     def visit_FuncDecl(self, node):
         try:
             func_type, func_name = type_to_str(node.type)
@@ -339,7 +343,7 @@ class Visitor(c_ast.NodeVisitor):
 
     def visit_Typedef(self, node):
         if isinstance(node.type.type, (c_ast.Enum, c_ast.Struct)):
-            node.type.type.my_name = node.type.declname
+            self.names[node.type.type] = node.type.declname
         if type(node.type.type).__name__=='Union':
             out('include csfml_union_{}'.format(rename_sf(node.type.declname).lower()))
         try:
@@ -356,10 +360,7 @@ class Visitor(c_ast.NodeVisitor):
         self.generic_visit(node)
 
     def visit_Enum(self, node):
-        try:
-            name = node.my_name
-        except AttributeError:
-            name = node.name
+        name = self.names.get(node, node.name)
         if node.values:
             items = [
                 (en.name, (gen_expr_to_str(en.value) if en.value else None))
@@ -386,10 +387,7 @@ class Visitor(c_ast.NodeVisitor):
         self.generic_visit(node)
 
     def visit_Struct(self, node):
-        try:
-            name = node.my_name
-        except AttributeError:
-            name = node.name
+        name = self.names.get(node, node.name)
         if node.decls:
             items = [gen_type_to_str(decl) for decl in node.decls]
             out(*handle_struct(name, items))
