@@ -33,7 +33,7 @@ when defined(windows):
 elif defined(macosx):
   const lib = "libcsfml-" & module & ".dylib"
 else:
-  const lib = "libcsfml-" & module & ".so"
+  const lib = "libcsfml-" & module & ".so(|.2.5|.2.4|.2.3)"
 
 import csfml/util
 export util
