@@ -15,3 +15,4 @@ block:
   var txt = newText()
   txt.str = s
   assert txt.str == s
+  txt.destroy()

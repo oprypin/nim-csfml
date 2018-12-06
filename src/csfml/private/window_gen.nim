@@ -20,7 +20,7 @@ proc newContext*(): Context {.
   ## *Returns:* New Context object
 
 proc destroy*(context: Context) {.
-  destroy, cdecl, importc: "sfContext_destroy".}
+  cdecl, importc: "sfContext_destroy".}
   ## Destroy a context
   ## 
   ## *Arguments*:
@@ -478,7 +478,7 @@ proc newWindow*(handle: WindowHandle, settings: ContextSettings): Window =
   newWindow(handle, Csettings)
 
 proc destroy*(window: Window) {.
-  destroy, cdecl, importc: "sfWindow_destroy".}
+  cdecl, importc: "sfWindow_destroy".}
   ## Destroy a window
   ## 
   ## *Arguments*:

@@ -36,3 +36,7 @@ while window.open:
     window.clear White
     window.draw text
     window.display()
+
+text.destroy()
+font.destroy()
+window.destroy()

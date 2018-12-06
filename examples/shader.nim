@@ -59,3 +59,12 @@ while window.open:
         window.draw text, renderStates(shader=wbShader)
     
     window.display()
+
+clock.destroy()
+window.destroy()
+wbShader.destroy()
+text.destroy()
+font.destroy()
+pxShader.destroy()
+sprite.destroy()
+texture.destroy()

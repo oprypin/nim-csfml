@@ -7,17 +7,11 @@ nim-csfml
 Warning
 -------
 
-This library consists of class wrappers implemented as `ptr object`. Because Nim does not allow attaching pointers to the garbage collector, I decided to use [destructors][nim-destructors] hoping that would be a reasonable way to implement automatic disposal of objects. However, this feature is based on lexical scoping, which (as I later realized) makes things problematic: the disposal behavior is more like normal `object`s rather than `ref objects`, and sometimes unpredictable.
-
-It is recommended to disable destructors (pass `-d:csfmlNoDestructors` to the compiler) and dispose of the `ptr object`s manually by calling `destroy`. Standard memory management caveats apply: destroying objects that are still used will break things, forgetting to destroy is a memory leak.
-
-There is no good way to fix this under the current state of the language, short of reimplementing everything with additional wrapper classes which also add a lot of overhead.
+This library consists of class wrappers implemented as `ptr object`. Because Nim does not allow attaching pointers to the garbage collector, disposal of objects is not implemented and needs to be manual, by calling the `destroy` methods. Standard memory management caveats apply: destroying objects that are still used will break things, forgetting to destroy is a memory leak.
 
 [More details](https://github.com/BlaXpirit/nim-csfml/issues/6)
 
 This library is not under active development, but detailed bug reports will be given proper attention.
-
-
 
 
 Introduction
@@ -29,7 +23,7 @@ The API attempts to be very similar to SFML's, but some general changes are pres
 
 - To construct an object (`sf::SomeType x(param)`), use a corresponding procedure (there are 2 variations):
     - `var x = newSomeType(param)`, which means it is a `ptr object`.
-        - Such objects have [destructors][nim-destructors] associated with them (no need to call `destroy` manually).
+        - Such objects need to have `destroy` called to properly dispose of them.
         - Never create them using `new`.
     - `var x = someType(param)`, which means it is an `object` (in CSFML it corresponds to a simple `struct`).
         - `Vector2(i|f)`, `Vector3f` and `(Int|Float)Rect` should be created using special `vec2`, `vec3` and `rect` procs.
@@ -102,7 +96,6 @@ This library uses and is based on [SFML][] and [CSFML][].
 [csfml]: http://www.sfml-dev.org/download/csfml/
 [sfml-tutorials]: http://www.sfml-dev.org/tutorials/
 [nim]: http://nim-lang.org/
-[nim-destructors]: http://nim-lang.org/docs/manual.html#type-bound-operations-destructors
 [python]: http://python.org/
 [nimble]: https://github.com/nim-lang/nimble
 [nimrod-sfml]: https://github.com/fowlmouth/nimrod-sfml

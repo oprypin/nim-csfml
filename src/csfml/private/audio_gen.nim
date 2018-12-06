@@ -147,7 +147,7 @@ proc newMusic*(stream: var InputStream): Music {.
   ## *Returns:* A new Music object (NULL if failed)
 
 proc destroy*(music: Music) {.
-  destroy, cdecl, importc: "sfMusic_destroy".}
+  cdecl, importc: "sfMusic_destroy".}
   ## Destroy a music
   ## 
   ## *Arguments*:
@@ -427,7 +427,7 @@ proc copy*(sound: Sound): Sound {.
   ## *Returns:* A new Sound object which is a copy of ``sound``
 
 proc destroy*(sound: Sound) {.
-  destroy, cdecl, importc: "sfSound_destroy".}
+  cdecl, importc: "sfSound_destroy".}
   ## Destroy a sound
   ## 
   ## *Arguments*:
@@ -745,7 +745,7 @@ proc copy*(soundBuffer: SoundBuffer): SoundBuffer {.
   ## *Returns:* A new SoundBuffer object which is a copy of ``soundBuffer``
 
 proc destroy*(soundBuffer: SoundBuffer) {.
-  destroy, cdecl, importc: "sfSoundBuffer_destroy".}
+  cdecl, importc: "sfSoundBuffer_destroy".}
   ## Destroy a sound buffer
   ## 
   ## *Arguments*:
@@ -834,7 +834,7 @@ proc newSoundBufferRecorder*(): SoundBufferRecorder {.
   ## *Returns:* A new SoundBufferRecorder object (NULL if failed)
 
 proc destroy*(soundBufferRecorder: SoundBufferRecorder) {.
-  destroy, cdecl, importc: "sfSoundBufferRecorder_destroy".}
+  cdecl, importc: "sfSoundBufferRecorder_destroy".}
   ## Destroy a sound buffer recorder
   ## 
   ## *Arguments*:
@@ -911,7 +911,7 @@ proc newSoundRecorder*(onStart: SoundRecorderStartCallback, onProcess: SoundReco
   ## *Returns:* A new SoundRecorder object (NULL if failed)
 
 proc destroy*(soundRecorder: SoundRecorder) {.
-  destroy, cdecl, importc: "sfSoundRecorder_destroy".}
+  cdecl, importc: "sfSoundRecorder_destroy".}
   ## Destroy a sound recorder
   ## 
   ## *Arguments*:
@@ -1054,7 +1054,7 @@ proc newSoundStream*(onGetData: SoundStreamGetDataCallback, onSeek: SoundStreamS
   ## *Returns:* A new SoundStream object
 
 proc destroy*(soundStream: SoundStream) {.
-  destroy, cdecl, importc: "sfSoundStream_destroy".}
+  cdecl, importc: "sfSoundStream_destroy".}
   ## Destroy a sound stream
   ## 
   ## *Arguments*:

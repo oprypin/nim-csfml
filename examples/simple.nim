@@ -8,3 +8,5 @@ while window.open:
     if event.kind == EventType.Closed:
       window.close()
   window.display()
+
+window.destroy()

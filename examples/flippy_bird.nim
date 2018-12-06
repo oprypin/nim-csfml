@@ -37,3 +37,7 @@ while window.open:
     window.draw bird
 
     window.display()
+
+bird.destroy()
+bird_texture.destroy()
+window.destroy()

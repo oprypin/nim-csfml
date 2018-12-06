@@ -54,6 +54,7 @@ proc draw[T](self: Food, target: T, states: RenderStates) =
     circle.position = vec2(self.position)+vec2(0.05, 0.05)
     circle.fill_color = self.color
     target.draw circle, states
+    circle.destroy()
 
 
 
@@ -107,6 +108,7 @@ proc draw[T](self: Snake, target: T, states: RenderStates) =
         segment.position = vec2(current)+vec2(0.05, 0.05)
         segment.fill_color = self.color
         target.draw segment, states
+        segment.destroy()
 
         # The following is eye candy and may be removed
         # but change the above to RectangleShape of size (0.9, 0.9)
@@ -124,6 +126,7 @@ proc draw[T](self: Snake, target: T, states: RenderStates) =
                 connection.position = vec2(current)+vec2(float(d.x)/2.0+0.05, float(d.y)/2.0+0.05)
                 connection.fill_color = self.color
                 target.draw connection, states
+                connection.destroy()
         
         # Draw eyes with a darkened color
         var eye = new_CircleShape(radius=0.2/2)
@@ -136,6 +139,7 @@ proc draw[T](self: Snake, target: T, states: RenderStates) =
         eye.position = self.body[0]+vec2(0.4, 0.4)-delta
         target.draw eye, states
 
+        eye.destroy()
 
 
 proc new_Field(size: Vector2i): Field =
@@ -222,3 +226,5 @@ while window.open:
     window.draw field, states
     
     window.display()
+
+window.destroy()

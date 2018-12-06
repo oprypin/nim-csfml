@@ -21,6 +21,7 @@ while window.open:
     vertexArray.append vertex(vec2(100, 0), Red)
     vertexArray.append vertex(vec2(0, 100), Blue)
     window.draw vertexArray
+    vertexArray.destroy()
 
     # Top right
     var vertexSeq = @[
@@ -38,6 +39,7 @@ while window.open:
     convexShape[2] = vec2(0, 100)
     convexShape.fillColor = Green
     window.draw convexShape
+    convexShape.destroy()
     
     # Bottom right
     proc getPointCount(p: pointer): int {.cdecl.} = 3
@@ -50,5 +52,8 @@ while window.open:
     customShape.update()
     customShape.fillColor = Green
     window.draw customShape
+    customShape.destroy()
     
     window.display()
+
+window.destroy()

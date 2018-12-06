@@ -178,3 +178,14 @@ while window.open:
 
     # Display things on screen
     window.display()
+
+clock.destroy()
+AITimer.destroy()
+pauseMessage.destroy()
+font.destroy()
+ball.destroy()
+rightPaddle.destroy()
+leftPaddle.destroy()
+ballSound.destroy()
+ballSoundBuffer.destroy()
+window.destroy()

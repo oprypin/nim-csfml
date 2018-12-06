@@ -41,5 +41,7 @@ else:
   while sound.status == SoundStatus.Playing:
     echo "Playing... ", sound.playingOffset.asSeconds, " sec"
     sleep 100.milliseconds
+  sound.destroy()
 
+recorder.destroy()
 echo "Done!"

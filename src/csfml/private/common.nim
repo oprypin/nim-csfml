@@ -21,12 +21,6 @@
 
 {.deadCodeElim: on.}
 
-when defined(csfmlNoDestructors):
-  {.pragma: destroy.}
-else:
-  {.experimental.}
-  {.pragma: destroy, override.}
-
 
 when defined(windows):
   const lib = "csfml-" & module & "-2.dll"

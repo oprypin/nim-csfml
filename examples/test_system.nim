@@ -28,3 +28,4 @@ block:
   assert t2 > 50000
   assert t2 < 150000
 
+  clock.destroy()

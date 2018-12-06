@@ -26,3 +26,5 @@ while window.open:
   glEnd()
 
   window.display()
+
+window.destroy()
