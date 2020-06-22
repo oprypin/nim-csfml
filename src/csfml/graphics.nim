@@ -280,6 +280,7 @@ defDraw Shape
 defDraw Sprite
 defDraw Text
 defDraw VertexArray
+defDraw VertexBuffer
 
 proc draw*[T: RenderTexture|RenderWindow, O] (
   renderTarget: T, obj: O, states = renderStates()) =
