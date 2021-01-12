@@ -5,7 +5,7 @@ import csfml, csfml/ext
 type Scene = enum
     scPixelate, scWaveBlur
 randomize()
-var scene = Scene(rand(1))
+var scene = Scene(rand(0..<2))
 
 proc cycle[T](x: var T) =
     x = if x == T.high: T.low
