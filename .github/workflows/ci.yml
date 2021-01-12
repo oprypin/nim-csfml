@@ -25,6 +25,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Install Nim
         uses: jiro4989/setup-nim-action@de456899a933296efa9d86e050300c1d9cc7e446
+      - name: Install dep
+        run: nimble install -y opengl
       - name: Build examples
         run: echo examples/*.nim | xargs -n1 -t nim c
 

@@ -155,20 +155,21 @@ proc step(self: Field) =
           random_color())
         
         block check: # Don't allow new food on top of a snake
-            for snake in self.snakes:
+            for snake in self.snakes.mitems:
                 if collide(snake, food):
                     break check
             self.foods.add food
 
     
-    for snake in self.snakes:
+    for snake in self.snakes.mitems:
         snake.step()
 
-        self.foods = self.foods.filter do (food: Food) -> bool:
-            if collide(snake, food):
+        self.foods.keep_it_if:
+            if collide(snake, it):
                 snake.grow()
-                return false
-            return true
+                false
+            else:
+                true
     
     let snakes = self.snakes
     self.snakes = snakes.filter do (snake: Snake) -> bool:
