@@ -5,7 +5,7 @@ import csfml, csfml/ext
 type Scene = enum
     scPixelate, scWaveBlur
 randomize()
-var scene = Scene(random(2))
+var scene = Scene(rand(0..<2))
 
 proc cycle[T](x: var T) =
     x = if x == T.high: T.low
@@ -17,8 +17,8 @@ var sprite = newSprite(texture)
 var pxShader = newShader(nil, nil, fragmentShaderFilename="resources/pixelate.frag")
 pxShader["texture"] = CurrentTexture
 
-
-let ipsum = getContent("http://loripsum.net/api/12/short/plaintext")
+let httpc = newHttpClient()
+let ipsum = httpc.getContent("http://loripsum.net/api/12/short/plaintext")
 let font = newFont("resources/sansation.ttf")
 var text = newText(ipsum, font, 22)
 text.position = vec2(30, 20)

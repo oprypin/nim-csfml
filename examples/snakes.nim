@@ -19,7 +19,7 @@ let directions = [Left, Up, Right, Down]
 randomize()
 
 proc random_color(): Color =
-    color(random(128)+128, random(128)+128, random(128)+128)
+    color(rand(0..<128)+128, rand(0..<128)+128, rand(0..<128)+128)
 
 proc modulo[T](a, b: T): T =
     ## mod with wraparound: modulo(-7, 5)==3
@@ -151,7 +151,7 @@ proc new_Field(size: Vector2i): Field =
 proc step(self: Field) =
     while self.foods.len < self.snakes.len+1:
         let food = init_Food(
-          vec2(random(self.size.x), random(self.size.y)),
+          vec2(rand(cint(0)..<self.size.x), rand(cint(0)..<self.size.y)),
           random_color())
         
         block check: # Don't allow new food on top of a snake

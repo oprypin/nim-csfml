@@ -87,7 +87,7 @@ while window.open:
                 # Reset the ball angle
                 while true:
                     # Make sure the ball initial angle is not too much vertical
-                    ballAngle = random(360.0) * 2 * PI / 360
+                    ballAngle = rand(360.0) * 2 * PI / 360
                     if abs(cos ballAngle) > 0.7:
                         break
 
@@ -144,9 +144,9 @@ while window.open:
           ball.position.y + ballRadius >= leftPaddle.position.y - paddleSize.y / 2 and
           ball.position.y - ballRadius <= leftPaddle.position.y + paddleSize.y / 2:
             if ball.position.y > leftPaddle.position.y:
-                ballAngle = PI - ballAngle + random(20.0) * PI / 180.0
+                ballAngle = PI - ballAngle + rand(20.0) * PI / 180.0
             else:
-                ballAngle = PI - ballAngle - random(20.0) * PI / 180.0
+                ballAngle = PI - ballAngle - rand(20.0) * PI / 180.0
 
             ballSound.play()
             ball.position = vec2(leftPaddle.position.x + ballRadius + paddleSize.x / 2 + 0.1, ball.position.y)
@@ -157,9 +157,9 @@ while window.open:
           ball.position.y + ballRadius >= rightPaddle.position.y - paddleSize.y / 2 and
           ball.position.y - ballRadius <= rightPaddle.position.y + paddleSize.y / 2:
             if ball.position.y > rightPaddle.position.y:
-                ballAngle = PI - ballAngle + random(20.0) * PI / 180.0
+                ballAngle = PI - ballAngle + rand(20.0) * PI / 180.0
             else:
-                ballAngle = PI - ballAngle - random(20.0) * PI / 180.0
+                ballAngle = PI - ballAngle - rand(20.0) * PI / 180.0
 
             ballSound.play()
             ball.position = vec2(rightPaddle.position.x - ballRadius - paddleSize.x / 2 - 0.1, ball.position.y)
