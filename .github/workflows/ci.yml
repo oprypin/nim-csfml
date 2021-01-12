@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+    branches: [master]
+  schedule:
+    - cron: '0 6 * * 6'
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+          - os: macos-latest
+          - os: windows-latest
+    runs-on: ${{matrix.os}}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Download source
+        uses: actions/checkout@v2
+      - name: Install Nim
+        uses: jiro4989/setup-nim-action@de456899a933296efa9d86e050300c1d9cc7e446
+      - name: Build examples
+        run: echo examples/*.nim | xargs -n1 -t nim c
+
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download source
+        uses: actions/checkout@v2
+      - name: Install Python
+        uses: actions/setup-python@v2
+      - name: Install dep
+        run: pip install pycparser
+      - name: Download CSFML
+        uses: actions/checkout@v2
+        with:
+          repository: SFML/CSFML
+          ref: '2.5'
+          path: generate/CSFML
+      - name: Re-generate sources
+        run: generate/generate.sh
+      - name: Validate freshness of generated files
+        run: git diff --exit-code
