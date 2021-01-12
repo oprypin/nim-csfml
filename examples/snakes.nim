@@ -151,7 +151,7 @@ proc new_Field(size: Vector2i): Field =
 proc step(self: Field) =
     while self.foods.len < self.snakes.len+1:
         let food = init_Food(
-          vec2(rand(0..<self.size.x), rand(0..<self.size.y)),
+          vec2(rand(cint(0)..<self.size.x), rand(cint(0)..<self.size.y)),
           random_color())
         
         block check: # Don't allow new food on top of a snake
