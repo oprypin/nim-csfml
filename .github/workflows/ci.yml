@@ -22,9 +22,9 @@ jobs:
         shell: bash
     steps:
       - name: Download source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install Nim
-        uses: jiro4989/setup-nim-action@de456899a933296efa9d86e050300c1d9cc7e446
+        uses: jiro4989/setup-nim-action@23b5809a314afab9cacb55285d88ece6a35e38dc
       - name: Install dep
         run: nimble install -y opengl
       - name: Build examples
@@ -34,13 +34,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
       - name: Install dep
         run: pip install pycparser
       - name: Download CSFML
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: SFML/CSFML
           ref: '2.5'
